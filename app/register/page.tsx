@@ -1,17 +1,26 @@
+import Link from "next/link";
+
 export default function RegisterPage() {
   return (
     <main className="min-h-screen bg-[#f7f5ef] px-5 py-10 text-[#12352c]">
       <div className="mx-auto max-w-md">
-        <a href="/" className="text-sm font-semibold text-[#b99a58]">
+        <Link
+          href="/"
+          className="text-sm font-semibold text-[#b99a58]"
+        >
           ← Corevia Network
-        </a>
+        </Link>
 
         <div className="mt-8 rounded-3xl bg-white p-7 shadow-sm ring-1 ring-[#12352c]/10">
           <div className="mb-7">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#b99a58]">
               Join Corevia Network
             </p>
-            <h1 className="mt-2 text-3xl font-bold">Create your account</h1>
+
+            <h1 className="mt-2 text-3xl font-bold">
+              Create your account
+            </h1>
+
             <p className="mt-3 text-sm leading-6 text-[#12352c]/65">
               Build your profile, connect with people and participate in
               legitimate business opportunities.
@@ -69,8 +78,12 @@ export default function RegisterPage() {
 
             <div>
               <label className="mb-1.5 block text-sm font-semibold">
-                Referral code <span className="font-normal text-[#12352c]/50">(optional)</span>
+                Referral code{" "}
+                <span className="font-normal text-[#12352c]/50">
+                  (optional)
+                </span>
               </label>
+
               <input
                 type="text"
                 name="referralCode"
@@ -97,9 +110,12 @@ export default function RegisterPage() {
 
           <p className="mt-6 text-center text-sm text-[#12352c]/65">
             Already have an account?{" "}
-            <a href="/login" className="font-semibold text-[#12352c] underline">
+            <Link
+              href="/login"
+              className="font-semibold text-[#12352c] underline"
+            >
               Sign in
-            </a>
+            </Link>
           </p>
         </div>
       </div>

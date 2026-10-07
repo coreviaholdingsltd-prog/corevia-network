@@ -1,0 +1,3 @@
+mkdir app\api\payments\initialize
+mkdir app\api\payments\verify
+mkdir app\api\webhooks\paystack

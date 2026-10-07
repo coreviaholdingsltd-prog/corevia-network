@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../app/generated/prisma"
@@ -10,4 +5,225 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+enum MembershipStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
+enum TransactionType {
+  MEMBERSHIP_PAYMENT
+  REFERRAL_REWARD
+  SPIN_REWARD
+  WITHDRAWAL
+  WITHDRAWAL_FEE
+  ADJUSTMENT
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REVERSED
+}
+
+enum WithdrawalStatus {
+  PENDING
+  PROCESSING
+  PAID
+  FAILED
+  REJECTED
+}
+
+enum SpinStatus {
+  SCHEDULED
+  OPEN
+  CLOSED
+  COMPLETED
+  CANCELLED
+}
+
+enum LedgerOwnerType {
+  COREVIA
+  MEMBER
+}
+
+enum PaymentDestination {
+  COREVIA_TILL
+  OTHER
+}
+
+model User {
+  id               String           @id @default(cuid())
+  name             String
+  email            String           @unique
+  phone            String?          @unique
+  passwordHash     String
+  referralCode     String           @unique
+  referredById     String?
+  membershipStatus MembershipStatus @default(PENDING)
+  membershipPaidAt DateTime?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  referredBy         User?               @relation("UserReferrals", fields: [referredById], references: [id])
+  referrals          User[]              @relation("UserReferrals")
+  wallet             Wallet?
+  transactions       WalletTransaction[]
+  withdrawals        Withdrawal[]
+  spinEntries        SpinEntry[]
+  referralRewards    ReferralReward[]    @relation("RewardRecipient")
+  generatedRewards   ReferralReward[]    @relation("RewardSource")
+  membershipPayments MembershipPayment[]
+  ledgerEntries      LedgerEntry[]
+  paymentRecords     PaymentRecord[]
+}
+
+model Wallet {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  balance   Decimal  @default(0) @db.Decimal(14, 2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model WalletTransaction {
+  id          String            @id @default(cuid())
+  userId      String
+  type        TransactionType
+  status      TransactionStatus @default(PENDING)
+  amount      Decimal           @db.Decimal(14, 2)
+  reference   String            @unique
+  description String?
+  createdAt   DateTime          @default(now())
+  completedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model MembershipPayment {
+  id                String            @id @default(cuid())
+  userId            String
+  amount            Decimal           @db.Decimal(14, 2)
+  provider          String
+  providerReference String            @unique
+  status            TransactionStatus @default(PENDING)
+  createdAt         DateTime          @default(now())
+  verifiedAt        DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model ReferralReward {
+  id             String   @id @default(cuid())
+  recipientId    String
+  sourceUserId   String
+  level          Int
+  amount         Decimal  @db.Decimal(14, 2)
+  transactionRef String   @unique
+  createdAt      DateTime @default(now())
+
+  recipient  User @relation("RewardRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  sourceUser User @relation("RewardSource", fields: [sourceUserId], references: [id], onDelete: Cascade)
+
+  @@index([recipientId])
+  @@index([sourceUserId])
+}
+
+model LedgerEntry {
+  id          String          @id @default(cuid())
+  ownerType   LedgerOwnerType
+  userId      String?
+  amount      Decimal         @db.Decimal(14, 2)
+  type        TransactionType
+  reference   String          @unique
+  description String?
+  createdAt   DateTime        @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([ownerType, createdAt])
+  @@index([userId, createdAt])
+}
+
+model PaymentRecord {
+  id                  String             @id @default(cuid())
+  userId              String
+  amount              Decimal            @db.Decimal(14, 2)
+  provider            String
+  providerReference   String             @unique
+  destination         PaymentDestination
+  status              TransactionStatus  @default(PENDING)
+  verifiedAt          DateTime?
+  allocationReference String?            @unique
+  createdAt           DateTime           @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model Withdrawal {
+  id               String           @id @default(cuid())
+  userId           String
+  amount           Decimal          @db.Decimal(14, 2)
+  fee              Decimal          @db.Decimal(14, 2)
+  netAmount        Decimal          @db.Decimal(14, 2)
+  status           WithdrawalStatus @default(PENDING)
+  reference        String           @unique
+  paymentReference String?
+  createdAt        DateTime         @default(now())
+  processedAt      DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model SpinEvent {
+  id              String     @id @default(cuid())
+  scheduledFor    DateTime
+  status          SpinStatus @default(SCHEDULED)
+  totalAllocation Decimal    @db.Decimal(14, 2)
+  maxWin          Decimal    @db.Decimal(14, 2)
+  createdAt       DateTime   @default(now())
+  completedAt     DateTime?
+
+  entries SpinEntry[]
+
+  @@index([scheduledFor])
+}
+
+model SpinEntry {
+  id          String   @id @default(cuid())
+  spinEventId String
+  userId      String
+  amountWon   Decimal  @default(0) @db.Decimal(14, 2)
+  isWinner    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  spinEvent SpinEvent @relation(fields: [spinEventId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([spinEventId, userId])
+  @@index([userId])
+}
+
+model Opportunity {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  category    String
+  location    String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
