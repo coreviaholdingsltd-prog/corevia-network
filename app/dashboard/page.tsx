@@ -10,6 +10,10 @@ type User = {
   membershipStatus: string;
 };
 
+const CORE­VIA_NETWORK_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://network.coreviaholdingltd.com";
+
 export default function Dashboard() {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState("");
@@ -18,7 +22,9 @@ export default function Dashboard() {
   useEffect(() => {
     async function loadMember() {
       try {
-        const response = await fetch("/api/auth/me");
+        const response = await fetch("/api/auth/me", {
+          cache: "no-store",
+        });
 
         if (!response.ok) {
           setError("Please sign in to access your dashboard.");
@@ -41,6 +47,7 @@ export default function Dashboard() {
         <div className="mx-auto max-w-2xl">
           <h1 className="text-3xl font-bold">Member Dashboard</h1>
           <p className="mt-3 text-red-700">{error}</p>
+
           <a
             href="/login"
             className="mt-6 inline-block rounded-xl bg-[#12352c] px-5 py-3 font-semibold text-white"
@@ -62,20 +69,22 @@ export default function Dashboard() {
     );
   }
 
+  const baseUrl = CORE­VIA_NETWORK_URL.replace(/\/+$/, "");
+
   const referralLink =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/register?ref=${encodeURIComponent(
-          user.referralCode
-        )}`
-      : "";
+    `${baseUrl}/register?ref=${encodeURIComponent(user.referralCode)}`;
 
   async function copyReferralLink() {
-    if (!referralLink) return;
+    try {
+      await navigator.clipboard.writeText(referralLink);
+      setCopied(true);
 
-    await navigator.clipboard.writeText(referralLink);
-    setCopied(true);
-
-    setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch {
+      setError("Unable to copy referral link.");
+    }
   }
 
   return (
@@ -97,8 +106,8 @@ export default function Dashboard() {
           <h2 className="text-xl font-bold">Your Referral Link</h2>
 
           <p className="mt-2 text-sm leading-6 text-[#12352c]/65">
-            Share this link with someone you want to invite to Corevia
-            Network.
+            Share this official Corevia Network link with someone you want
+            to invite.
           </p>
 
           <div className="mt-5 rounded-xl bg-[#f7f5ef] p-4">
@@ -120,6 +129,7 @@ export default function Dashboard() {
               <p className="text-xs font-semibold uppercase tracking-wider text-[#b99a58]">
                 Referral Code
               </p>
+
               <p className="mt-1 text-lg font-bold">
                 {user.referralCode}
               </p>
@@ -129,6 +139,7 @@ export default function Dashboard() {
               <p className="text-xs font-semibold uppercase tracking-wider text-[#b99a58]">
                 Membership
               </p>
+
               <p className="mt-1 text-lg font-bold">
                 {user.membershipStatus}
               </p>
