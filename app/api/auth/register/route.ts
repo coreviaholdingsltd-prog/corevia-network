@@ -7,15 +7,42 @@ function createReferralCode() {
   return `CV${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
 }
 
+function normalizeKenyanPhone(value: string) {
+  const phone = value.replace(/\s+/g, "").trim();
+
+  if (/^07\d{8}$/.test(phone)) {
+    return `+254${phone.slice(1)}`;
+  }
+
+  if (/^01\d{8}$/.test(phone)) {
+    return `+254${phone.slice(1)}`;
+  }
+
+  if (/^254\d{9}$/.test(phone)) {
+    return `+${phone}`;
+  }
+
+  if (/^\+254\d{9}$/.test(phone)) {
+    return phone;
+  }
+
+  return phone;
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
     const name = String(body.name ?? "").trim();
-    const email = String(body.email ?? "").trim().toLowerCase();
-    const phoneValue = String(body.phone ?? "").trim();
-    const phone = phoneValue || null;
+    const email = String(body.email ?? "")
+      .trim()
+      .toLowerCase();
+
+    const rawPhone = String(body.phone ?? "").trim();
+    const phone = normalizeKenyanPhone(rawPhone);
+
     const password = String(body.password ?? "");
+
     const referralCode = String(body.referralCode ?? "")
       .trim()
       .toUpperCase();
@@ -34,6 +61,26 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!rawPhone) {
+      return NextResponse.json(
+        {
+          error:
+            "Please enter the phone number that will be used for withdrawals.",
+        },
+        { status: 400 },
+      );
+    }
+
+    if (!/^\+254\d{9}$/.test(phone)) {
+      return NextResponse.json(
+        {
+          error:
+            "Please enter a valid Kenyan phone number, for example 0712345678.",
+        },
+        { status: 400 },
+      );
+    }
+
     if (password.length < 8) {
       return NextResponse.json(
         { error: "Password must be at least 8 characters." },
@@ -43,10 +90,7 @@ export async function POST(request: Request) {
 
     const existing = await prisma.user.findFirst({
       where: {
-        OR: [
-          { email },
-          ...(phone ? [{ phone }] : []),
-        ],
+        OR: [{ email }, { phone }],
       },
       select: {
         id: true,
@@ -57,7 +101,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "An account with that email or phone number already exists.",
+            "An account with that email or registered phone number already exists.",
         },
         { status: 409 },
       );
