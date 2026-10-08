@@ -10,7 +10,7 @@ type User = {
   membershipStatus: string;
 };
 
-const CORE­VIA_NETWORK_URL =
+const COREVIA_NETWORK_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
   "https://network.coreviaholdingltd.com";
 
@@ -69,7 +69,7 @@ export default function Dashboard() {
     );
   }
 
-  const baseUrl = CORE­VIA_NETWORK_URL.replace(/\/+$/, "");
+  const baseUrl = COREVIA_NETWORK_URL.replace(/\/+$/, "");
 
   const referralLink =
     `${baseUrl}/register?ref=${encodeURIComponent(user.referralCode)}`;
@@ -159,3 +159,4 @@ export default function Dashboard() {
     </main>
   );
 }
+
