@@ -4,6 +4,7 @@ const MEMBERSHIP_AMOUNT = 1000;
 const COREVIA_SHARE = 300;
 const REFERRER_SHARE = 500;
 const UPLINE_SHARE = 200;
+const COREVIA_TILL_NUMBER = "6959300";
 
 export async function processMembershipPayment(
   payment: {
@@ -156,7 +157,7 @@ export async function processMembershipPayment(
         amount: coreviaAmount,
         type: "MEMBERSHIP_PAYMENT",
         reference: `${allocationReference}-COREVIA`,
-        description: `Corevia share from ${reference}`,
+        description: `Corevia share from ${reference}. Destination: Till ${COREVIA_TILL_NUMBER}`,
       },
     });
 
@@ -296,3 +297,4 @@ export async function processMembershipPayment(
     };
   });
 }
+

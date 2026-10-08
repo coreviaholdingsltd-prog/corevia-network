@@ -4,7 +4,8 @@ import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
 
-const WITHDRAWAL_FEE = 0;
+const WITHDRAWAL_FEE_RATE = 0.005;
+const COREVIA_TILL_NUMBER = "6959300";
 
 async function getSessionUser() {
   const cookieStore = await cookies();
@@ -111,6 +112,8 @@ export async function POST(request: Request) {
     }
 
     const normalizedAmount = Math.round(amount * 100) / 100;
+    const fee = Math.round(normalizedAmount * WITHDRAWAL_FEE_RATE * 100) / 100;
+    const netAmount = Math.round((normalizedAmount - fee) * 100) / 100;
     const reference =
       `CV-WD-${Date.now()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
 
@@ -156,8 +159,8 @@ export async function POST(request: Request) {
         data: {
           userId: user.id,
           amount: normalizedAmount,
-          fee: WITHDRAWAL_FEE,
-          netAmount: normalizedAmount - WITHDRAWAL_FEE,
+          fee,
+          netAmount,
           status: "PENDING",
           reference,
         },
@@ -169,6 +172,27 @@ export async function POST(request: Request) {
           status: true,
           reference: true,
           createdAt: true,
+        },
+      });
+
+      await tx.ledgerEntry.create({
+        data: {
+          ownerType: "MEMBER",
+          userId: user.id,
+          amount: -fee,
+          type: "WITHDRAWAL_FEE",
+          reference: `${reference}-FEE-MEMBER`,
+          description: `0.50% Corevia withdrawal fee on ${reference}`,
+        },
+      });
+
+      await tx.ledgerEntry.create({
+        data: {
+          ownerType: "COREVIA",
+          amount: fee,
+          type: "WITHDRAWAL_FEE",
+          reference: `${reference}-FEE-COREVIA`,
+          description: `0.50% withdrawal fee earned by Corevia. Till ${COREVIA_TILL_NUMBER}`,
         },
       });
 
@@ -209,3 +233,4 @@ export async function POST(request: Request) {
     );
   }
 }
+
