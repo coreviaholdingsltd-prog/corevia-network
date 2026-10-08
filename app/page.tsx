@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#f7f5ef] text-[#12352c]">
@@ -10,12 +12,21 @@ export default function Home() {
             </div>
           </div>
 
-          <a
-            href="#join"
-            className="rounded-full bg-[#12352c] px-5 py-2.5 text-sm font-semibold text-white"
-          >
-            Join Network
-          </a>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/login"
+              className="rounded-full border border-[#12352c]/15 px-5 py-2.5 text-sm font-semibold"
+            >
+              Login
+            </Link>
+
+            <Link
+              href="/register"
+              className="rounded-full bg-[#12352c] px-5 py-2.5 text-sm font-semibold text-white"
+            >
+              Join Network
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -34,13 +45,20 @@ export default function Home() {
             participate in legitimate commercial activities through Corevia.
           </p>
 
-          <div className="mt-8">
-            <a
-              href="#join"
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/register"
               className="rounded-full bg-[#12352c] px-7 py-3.5 font-semibold text-white"
             >
               Create Your Network Profile
-            </a>
+            </Link>
+
+            <Link
+              href="/login"
+              className="rounded-full border border-[#12352c]/15 px-7 py-3.5 font-semibold"
+            >
+              Sign In
+            </Link>
           </div>
         </div>
       </section>
@@ -73,20 +91,27 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="join" className="mx-auto max-w-6xl px-5 py-20">
+      <section className="mx-auto max-w-6xl px-5 py-20">
         <div className="rounded-3xl bg-[#12352c] px-6 py-12 text-white sm:px-12">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#b99a58]">
-            Next
+            Join Corevia Network
           </p>
 
           <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-            Your network starts with your profile.
+            Create your network profile today.
           </h2>
 
           <p className="mt-4 max-w-2xl leading-7 text-white/70">
-            Member registration, unique referral links, network dashboards and
-            transparent activity tracking will be built into this platform.
+            Register as a Corevia Network member and receive your unique
+            referral code for building your network.
           </p>
+
+          <Link
+            href="/register"
+            className="mt-7 inline-block rounded-full bg-[#b99a58] px-7 py-3.5 font-semibold text-[#12352c]"
+          >
+            Register Now
+          </Link>
         </div>
       </section>
 
