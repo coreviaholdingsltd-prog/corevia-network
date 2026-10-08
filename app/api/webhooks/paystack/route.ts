@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import crypto from "crypto";
+import { processMembershipPayment } from "@/lib/membership-payment";
 
 export async function POST(request: Request) {
   try {
@@ -28,14 +29,13 @@ export async function POST(request: Request) {
       .update(rawBody)
       .digest("hex");
 
-    const signaturesMatch =
-      signature.length === expectedSignature.length &&
-      crypto.timingSafeEqual(
+    if (
+      signature.length !== expectedSignature.length ||
+      !crypto.timingSafeEqual(
         Buffer.from(signature),
         Buffer.from(expectedSignature),
-      );
-
-    if (!signaturesMatch) {
+      )
+    ) {
       return NextResponse.json(
         { error: "Invalid Paystack signature." },
         { status: 401 },
@@ -45,14 +45,30 @@ export async function POST(request: Request) {
     const event = JSON.parse(rawBody);
 
     if (event.event === "charge.success") {
-      console.log("Paystack successful payment:", {
-        reference: event.data?.reference,
-        amount: event.data?.amount,
-        currency: event.data?.currency,
-        email: event.data?.customer?.email,
-      });
+      const payment = event.data;
 
-      // Membership allocation will be connected here next.
+      const purpose =
+        typeof payment?.metadata?.purpose === "string"
+          ? payment.metadata.purpose
+          : "";
+
+      if (purpose === "COREVIA_NETWORK_MEMBERSHIP") {
+        const result = await processMembershipPayment({
+          reference: String(payment.reference ?? ""),
+          amount: Number(payment.amount ?? 0),
+          currency: String(payment.currency ?? ""),
+          status: String(payment.status ?? ""),
+          paid_at: payment.paid_at ?? null,
+          metadata: payment.metadata ?? null,
+        });
+
+        console.log("Corevia membership webhook processed:", result);
+      } else {
+        console.log("Paystack payment ignored:", {
+          reference: payment?.reference,
+          purpose,
+        });
+      }
     }
 
     return NextResponse.json({ received: true });

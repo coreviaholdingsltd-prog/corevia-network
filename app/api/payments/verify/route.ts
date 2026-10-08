@@ -1,4 +1,8 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { prisma } from "@/lib/prisma";
+import { sessionCookieName, verifySession } from "@/lib/session";
+import { processMembershipPayment } from "@/lib/membership-payment";
 
 const PAYSTACK_VERIFY_URL = "https://api.paystack.co/transaction/verify";
 
@@ -10,6 +14,17 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: "Paystack is not configured." },
         { status: 500 },
+      );
+    }
+
+    const cookieStore = await cookies();
+    const token = cookieStore.get(sessionCookieName)?.value;
+    const session = verifySession(token);
+
+    if (!session) {
+      return NextResponse.json(
+        { error: "Please sign in first." },
+        { status: 401 },
       );
     }
 
@@ -39,21 +54,71 @@ export async function POST(request: Request) {
     if (!response.ok || !data.status) {
       return NextResponse.json(
         {
-          error: data.message || "Unable to verify Paystack payment.",
+          error:
+            data.message || "Unable to verify Paystack payment.",
         },
         { status: response.status || 502 },
       );
     }
 
+    const payment = data.data;
+
+    if (payment.status !== "success") {
+      return NextResponse.json(
+        {
+          error: "Payment has not been completed.",
+          paymentStatus: payment.status,
+        },
+        { status: 400 },
+      );
+    }
+
+    if (Number(payment.amount) !== 100000 || payment.currency !== "KES") {
+      return NextResponse.json(
+        { error: "Invalid membership payment amount or currency." },
+        { status: 400 },
+      );
+    }
+
+    const metadataUserId =
+      typeof payment.metadata?.userId === "string"
+        ? payment.metadata.userId
+        : "";
+
+    if (metadataUserId && metadataUserId !== session.userId) {
+      return NextResponse.json(
+        { error: "This payment belongs to another member." },
+        { status: 403 },
+      );
+    }
+
+    const paymentRecord = await prisma.paymentRecord.findUnique({
+      where: { providerReference: reference },
+      select: { userId: true },
+    });
+
+    if (paymentRecord && paymentRecord.userId !== session.userId) {
+      return NextResponse.json(
+        { error: "This payment belongs to another member." },
+        { status: 403 },
+      );
+    }
+
+    const result = await processMembershipPayment(
+      {
+        reference: payment.reference,
+        amount: payment.amount,
+        currency: payment.currency,
+        status: payment.status,
+        paid_at: payment.paid_at,
+        metadata: payment.metadata,
+      },
+      session.userId,
+    );
+
     return NextResponse.json({
       status: true,
-      reference: data.data.reference,
-      paymentStatus: data.data.status,
-      amount: Number(data.data.amount) / 100,
-      currency: data.data.currency,
-      paidAt: data.data.paid_at,
-      customer: data.data.customer,
-      metadata: data.data.metadata,
+      ...result,
     });
   } catch (error) {
     console.error("Paystack verification error:", error);

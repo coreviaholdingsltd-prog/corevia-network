@@ -1,8 +1,13 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
+import crypto from "crypto";
+import { cookies } from "next/headers";
+import { prisma } from "@/lib/prisma";
+import { sessionCookieName, verifySession } from "@/lib/session";
 
 const PAYSTACK_URL = "https://api.paystack.co/transaction/initialize";
+const MEMBERSHIP_AMOUNT = 1000;
 
-export async function POST(request: Request) {
+export async function POST() {
   try {
     const secretKey = process.env.PAYSTACK_SECRET_KEY;
 
@@ -13,18 +18,63 @@ export async function POST(request: Request) {
       );
     }
 
-    const body = await request.json();
+    const cookieStore = await cookies();
+    const token = cookieStore.get(sessionCookieName)?.value;
+    const session = verifySession(token);
 
-    const email = String(body.email ?? "").trim().toLowerCase();
-    const amount = Number(body.amount ?? 0);
-    const reference = String(body.reference ?? "").trim();
-
-    if (!email || !reference || !Number.isFinite(amount) || amount <= 0) {
+    if (!session) {
       return NextResponse.json(
-        { error: "Email, amount and reference are required." },
+        { error: "Please sign in first." },
+        { status: 401 },
+      );
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: {
+        id: true,
+        email: true,
+        membershipStatus: true,
+      },
+    });
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "Member account not found." },
+        { status: 404 },
+      );
+    }
+
+    if (user.membershipStatus === "ACTIVE") {
+      return NextResponse.json(
+        { error: "Your membership is already active." },
         { status: 400 },
       );
     }
+
+    const reference =
+      `CV-MEM-${Date.now()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
+
+    await prisma.paymentRecord.create({
+      data: {
+        userId: user.id,
+        amount: MEMBERSHIP_AMOUNT,
+        provider: "PAYSTACK",
+        providerReference: reference,
+        destination: "COREVIA_TILL",
+        status: "PENDING",
+      },
+    });
+
+    await prisma.membershipPayment.create({
+      data: {
+        userId: user.id,
+        amount: MEMBERSHIP_AMOUNT,
+        provider: "PAYSTACK",
+        providerReference: reference,
+        status: "PENDING",
+      },
+    });
 
     const siteUrl =
       process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -36,12 +86,14 @@ export async function POST(request: Request) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email,
-        amount: Math.round(amount * 100),
+        email: user.email,
+        amount: MEMBERSHIP_AMOUNT * 100,
         reference,
-        callback_url: `${siteUrl}/wallet`,
+        currency: "KES",
+        callback_url: `${siteUrl}/wallet?payment=${encodeURIComponent(reference)}`,
         metadata: {
           purpose: "COREVIA_NETWORK_MEMBERSHIP",
+          userId: user.id,
         },
       }),
     });
@@ -51,7 +103,8 @@ export async function POST(request: Request) {
     if (!response.ok || !data.status) {
       return NextResponse.json(
         {
-          error: data.message || "Unable to initialize Paystack payment.",
+          error:
+            data.message || "Unable to initialize Paystack payment.",
         },
         { status: response.status || 502 },
       );

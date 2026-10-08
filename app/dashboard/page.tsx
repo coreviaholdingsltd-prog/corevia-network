@@ -1,8 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 
 type User = {
+  id: string;
   name: string;
   email: string;
   referralCode: string;
@@ -133,6 +134,15 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
+
+          <a
+            href="/wallet"
+            className="mt-6 block w-full rounded-xl bg-[#b99a58] px-5 py-3 text-center font-semibold text-[#12352c]"
+          >
+            {user.membershipStatus === "ACTIVE"
+              ? "Open Wallet"
+              : "Activate Membership"}
+          </a>
         </div>
       </div>
     </main>
