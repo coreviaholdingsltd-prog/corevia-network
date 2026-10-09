@@ -1,20 +1,16 @@
-import "dotenv/config";
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "@/app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
-  pool: Pool | undefined;
+  pgPool: Pool | undefined;
 };
 
 const pool =
-  globalForPrisma.pool ??
+  globalForPrisma.pgPool ??
   new Pool({
     connectionString: process.env.DATABASE_URL,
-    max: 5,
-    connectionTimeoutMillis: 20000,
-    idleTimeoutMillis: 30000,
   });
 
 const adapter = new PrismaPg(pool);
@@ -24,6 +20,6 @@ export const prisma =
   new PrismaClient({ adapter });
 
 if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.pool = pool;
   globalForPrisma.prisma = prisma;
+  globalForPrisma.pgPool = pool;
 }
