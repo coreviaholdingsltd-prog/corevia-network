@@ -1,5 +1,4 @@
-﻿
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 
@@ -19,36 +18,48 @@ export default function Wallet() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  async function loadUser() {
-    try {
-      const response = await fetch("/api/auth/me", {
-        cache: "no-store",
-      });
-      const result = await response.json();
-
-      if (!response.ok) {
-        setError(result.error || "Please sign in.");
-        return;
-      }
-
-      setUser(result.user);
-    } catch {
-      setError("Unable to load your account.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
-    void loadUser();
+    let cancelled = false;
+
+    async function loadUser() {
+      try {
+        const response = await fetch("/api/auth/me", {
+          cache: "no-store",
+        });
+        const result = await response.json();
+
+        if (cancelled) return;
+
+        if (!response.ok) {
+          setError(result.error || "Please sign in.");
+          return;
+        }
+
+        setUser(result.user);
+        setError("");
+      } catch {
+        if (!cancelled) setError("Unable to load your account.");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    const timer = window.setTimeout(() => {
+      void loadUser();
+    }, 0);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {
-    const payment = new URLSearchParams(
-      window.location.search,
-    ).get("payment");
+    const payment = new URLSearchParams(window.location.search).get("payment");
 
     if (!payment) return;
+
+    let cancelled = false;
 
     async function verifyReturnedPayment() {
       setMessage("Confirming your payment...");
@@ -57,13 +68,13 @@ export default function Wallet() {
       try {
         const response = await fetch("/api/payments/verify", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ reference: payment }),
         });
 
         const result = await response.json();
+
+        if (cancelled) return;
 
         if (!response.ok) {
           setError(result.error || "Payment verification failed.");
@@ -78,14 +89,31 @@ export default function Wallet() {
         );
 
         window.history.replaceState({}, "", "/wallet");
-        await loadUser();
+
+        const userResponse = await fetch("/api/auth/me", {
+          cache: "no-store",
+        });
+        const userResult = await userResponse.json();
+
+        if (!cancelled && userResponse.ok) {
+          setUser(userResult.user);
+        }
       } catch {
-        setError("Unable to verify your payment.");
-        setMessage("");
+        if (!cancelled) {
+          setError("Unable to verify your payment.");
+          setMessage("");
+        }
       }
     }
 
-    void verifyReturnedPayment();
+    const timer = window.setTimeout(() => {
+      void verifyReturnedPayment();
+    }, 0);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
   }, []);
 
   async function activateMembership() {
@@ -101,6 +129,11 @@ export default function Wallet() {
 
       if (!response.ok) {
         setError(result.error || "Unable to start membership payment.");
+        return;
+      }
+
+      if (!result.authorization_url) {
+        setError("Paystack did not return a payment link. Please try again.");
         return;
       }
 
@@ -136,7 +169,12 @@ export default function Wallet() {
           : "Payment confirmed. Your membership is now active.",
       );
 
-      await loadUser();
+      const userResponse = await fetch("/api/auth/me", {
+        cache: "no-store",
+      });
+      const userResult = await userResponse.json();
+
+      if (userResponse.ok) setUser(userResult.user);
     } catch {
       setError("Unable to check your payment. Please try again.");
       setMessage("");
@@ -192,9 +230,7 @@ export default function Wallet() {
 
           {active ? (
             <div className="mt-6 rounded-2xl border border-green-200 bg-green-50 p-5">
-              <h2 className="font-bold text-green-800">
-                Membership Active
-              </h2>
+              <h2 className="font-bold text-green-800">Membership Active</h2>
               <p className="mt-2 text-sm leading-6 text-green-700">
                 Your membership is active following payment verification.
                 You can now access the member dashboard.

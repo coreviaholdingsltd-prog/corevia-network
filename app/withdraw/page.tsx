@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { FormEvent, useEffect, useState } from "react";
 
@@ -45,7 +45,11 @@ export default function Withdraw() {
   }
 
   useEffect(() => {
-    loadWithdrawals();
+    const timer = window.setTimeout(() => {
+      void loadWithdrawals();
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   async function submitWithdrawal(event: FormEvent<HTMLFormElement>) {
@@ -88,7 +92,7 @@ export default function Withdraw() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#f7f5ef] text-[#12352c] p-6">
+      <main className="min-h-screen bg-[#f7f5ef] p-6 text-[#12352c]">
         <div className="mx-auto max-w-2xl">
           <p>Loading withdrawal details...</p>
         </div>
@@ -97,15 +101,13 @@ export default function Withdraw() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f5ef] text-[#12352c] p-6">
+    <main className="min-h-screen bg-[#f7f5ef] p-6 text-[#12352c]">
       <div className="mx-auto max-w-2xl">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#b99a58]">
           Corevia Network
         </p>
 
-        <h1 className="mt-2 text-3xl font-bold">
-          Withdraw
-        </h1>
+        <h1 className="mt-2 text-3xl font-bold">Withdraw</h1>
 
         <div className="mt-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-[#12352c]/10">
           <p className="text-sm text-[#12352c]/60">
@@ -117,13 +119,14 @@ export default function Withdraw() {
           </p>
 
           <form onSubmit={submitWithdrawal} className="mt-7">
-            <label className="block text-sm font-semibold">
+            <label htmlFor="withdrawal-amount" className="block text-sm font-semibold">
               Withdrawal amount
             </label>
 
             <input
+              id="withdrawal-amount"
               type="number"
-              min="0.01"
+              min="500"
               step="0.01"
               value={amount}
               onChange={(event) => setAmount(event.target.value)}
@@ -139,6 +142,10 @@ export default function Withdraw() {
               amount. The remaining 99.50% is the member withdrawal amount.
             </p>
 
+            <div role="note" className="mt-5 rounded-xl border border-[#b99a58]/30 bg-[#f7f5ef] px-4 py-3">
+              <p className="text-sm font-semibold text-[#12352c]">Withdrawal Notice</p>
+              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Kindly note that withdrawals may take up to 24 hours for verification and processing. Most requests are processed sooner, but additional checks or payment-provider delays may occur. Thank you for your patience and understanding.</p>
+            </div>
             <button
               type="submit"
               disabled={submitting || balance <= 0}
@@ -149,22 +156,26 @@ export default function Withdraw() {
           </form>
 
           {message && (
-            <div className="mt-5 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+            <div
+              role="status"
+              className="mt-5 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700"
+            >
               {message}
             </div>
           )}
 
           {error && (
-            <div className="mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div
+              role="alert"
+              className="mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+            >
               {error}
             </div>
           )}
         </div>
 
         <div className="mt-6 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-[#12352c]/10">
-          <h2 className="text-xl font-bold">
-            Withdrawal History
-          </h2>
+          <h2 className="text-xl font-bold">Withdrawal History</h2>
 
           {withdrawals.length === 0 ? (
             <p className="mt-4 text-sm text-[#12352c]/60">
@@ -182,6 +193,7 @@ export default function Withdraw() {
                       <p className="font-semibold">
                         KES {Number(withdrawal.netAmount).toFixed(2)}
                       </p>
+
                       <p className="mt-1 text-xs text-[#12352c]/55">
                         {withdrawal.reference}
                       </p>
@@ -211,5 +223,3 @@ export default function Withdraw() {
     </main>
   );
 }
-
-

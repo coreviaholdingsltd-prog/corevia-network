@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
@@ -112,6 +112,13 @@ export async function POST(request: Request) {
     }
 
     const normalizedAmount = Math.round(amount * 100) / 100;
+    if (normalizedAmount < 500) {
+      return NextResponse.json(
+        { error: "The minimum withdrawal amount is KES 500." },
+        { status: 400 },
+      );
+    }
+
     const fee = Math.round(normalizedAmount * WITHDRAWAL_FEE_RATE * 100) / 100;
     const netAmount = Math.round((normalizedAmount - fee) * 100) / 100;
     const reference =
