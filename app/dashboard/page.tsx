@@ -106,7 +106,9 @@ export default function Dashboard() {
       const account = result.user as User | undefined;
 
       if (!account?.id || !account?.referralCode) {
-        setError("Your account information could not be loaded. Please sign in again.");
+        setError(
+          "Your account information could not be loaded. Please sign in again.",
+        );
         return;
       }
 
@@ -125,7 +127,8 @@ export default function Dashboard() {
           !Array.isArray(referralResult.clients)
         ) {
           setReferralError(
-            referralResult.error || "Unable to load your referrals. Please try again.",
+            referralResult.error ||
+              "Unable to load your referrals. Please try again.",
           );
           return;
         }
@@ -141,7 +144,9 @@ export default function Dashboard() {
           })),
         });
       } catch {
-        setReferralError("Unable to load referral information. Please try again.");
+        setReferralError(
+          "Unable to load referral information. Please try again.",
+        );
       }
     } catch {
       setError("Unable to connect to Corevia Network. Please try again.");
@@ -198,6 +203,7 @@ export default function Dashboard() {
       window.alert("Unable to sign out. Please try again.");
     }
   }
+
   if (loading && !user) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#f7f5ef] p-6 text-[#12352c]">
@@ -270,11 +276,41 @@ export default function Dashboard() {
           </button>
         </header>
 
-        <nav aria-label="Member navigation" className="mt-6 flex flex-wrap gap-3">
-          <a href="/dashboard" className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold">Dashboard</a>
-          <a href="/wallet" className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold">Wallet</a>
-          <a href="/withdraw" className="rounded-xl bg-[#b99a58] px-4 py-3 text-sm font-semibold text-[#12352c]">Withdraw Funds</a>
-          <button type="button" onClick={handleSignOut} className="rounded-xl border border-red-200 bg-white px-4 py-3 text-sm font-semibold text-red-700">Sign Out</button>
+        <nav
+          aria-label="Member navigation"
+          className="mt-6 flex flex-wrap gap-3"
+        >
+          <a
+            href="/dashboard"
+            className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold"
+          >
+            Dashboard
+          </a>
+          <a
+            href="/wallet"
+            className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold"
+          >
+            Wallet
+          </a>
+          <a
+            href="/withdraw"
+            className="rounded-xl bg-[#b99a58] px-4 py-3 text-sm font-semibold text-[#12352c]"
+          >
+            Withdraw Funds
+          </a>
+          <a
+            href="/academy"
+            className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
+          >
+            Academy
+          </a>
+          <button
+            type="button"
+            onClick={handleSignOut}
+            className="rounded-xl border border-red-200 bg-white px-4 py-3 text-sm font-semibold text-red-700"
+          >
+            Sign Out
+          </button>
         </nav>
 
         <section className="mt-8 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-[#12352c]/10 sm:p-6">
@@ -285,7 +321,10 @@ export default function Dashboard() {
           </p>
 
           <div className="mt-4 rounded-xl bg-[#f7f5ef] p-4">
-            <p className="break-all text-sm font-medium" aria-label="Your referral link">
+            <p
+              className="break-all text-sm font-medium"
+              aria-label="Your referral link"
+            >
               {referralLink}
             </p>
           </div>
@@ -339,7 +378,15 @@ export default function Dashboard() {
           </a>
         </section>
 
-        <section className="mt-8">
+        <section data-corevia-academy-card className="mt-6 rounded-3xl bg-[#12352c] p-5 text-white shadow-sm sm:flex sm:items-center sm:justify-between sm:gap-6">
+  <div>
+    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d6bd83]">Corevia learning</p>
+    <h2 className="mt-2 text-xl font-bold">Corevia Academy</h2>
+    <p className="mt-2 max-w-2xl text-sm leading-6 text-white/80">Explore digital skills, AI, programming, business, and professional learning pathways from your existing Corevia Network account.</p>
+  </div>
+  <a href="/academy" className="mt-4 inline-flex shrink-0 rounded-xl bg-[#b99a58] px-5 py-3 font-semibold text-[#12352c] hover:bg-[#c7ad75] sm:mt-0">Explore Academy</a>
+</section>
+<section className="mt-8">
           <h2 className="text-2xl font-bold">My Referred Clients</h2>
           <p className="mt-2 text-sm leading-6 text-[#12352c]/65">
             Track registrations made through your referral link and view
@@ -371,9 +418,7 @@ export default function Dashboard() {
             <>
               <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 <div className="rounded-2xl bg-white p-4 ring-1 ring-[#12352c]/10">
-                  <p className="text-sm text-[#12352c]/65">
-                    All Referrals
-                  </p>
+                  <p className="text-sm text-[#12352c]/65">All Referrals</p>
                   <p className="mt-1 text-2xl font-bold">
                     {referrals.total}
                   </p>
