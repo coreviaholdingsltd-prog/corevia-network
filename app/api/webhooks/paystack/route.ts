@@ -1,6 +1,7 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { processMembershipPayment } from "@/lib/membership-payment";
+import { processAcademyCoursePayment } from "@/lib/academy-payments";
 
 export async function POST(request: Request) {
   try {
@@ -61,8 +62,17 @@ export async function POST(request: Request) {
           paid_at: payment.paid_at ?? null,
           metadata: payment.metadata ?? null,
         });
-
         console.log("Corevia membership webhook processed:", result);
+      } else if (purpose === "COREVIA_ACADEMY_COURSE") {
+        const result = await processAcademyCoursePayment({
+          reference: String(payment.reference ?? ""),
+          amount: Number(payment.amount ?? 0),
+          currency: String(payment.currency ?? ""),
+          status: String(payment.status ?? ""),
+          paid_at: payment.paid_at ?? null,
+          metadata: payment.metadata ?? null,
+        });
+        console.log("Corevia Academy payment processed:", result);
       } else {
         console.log("Paystack payment ignored:", {
           reference: payment?.reference,

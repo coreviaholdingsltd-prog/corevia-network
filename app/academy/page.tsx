@@ -1,224 +1,205 @@
+"use client";
 
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
-const categories = [
-  {
-    number: "01",
-    title: "Digital & ICT Skills",
-    description:
-      "Computer fundamentals, internet skills, cybersecurity awareness, and digital productivity.",
-  },
-  {
-    number: "02",
-    title: "AI & Programming",
-    description:
-      "Artificial intelligence fundamentals, web development, programming, and practical technology projects.",
-  },
-  {
-    number: "03",
-    title: "Business & Entrepreneurship",
-    description:
-      "Business planning, customer service, financial literacy, leadership, and business development.",
-  },
-  {
-    number: "04",
-    title: "Digital Marketing & Office Tools",
-    description:
-      "Social media marketing, content creation, spreadsheets, documents, and presentation skills.",
-  },
-  {
-    number: "05",
-    title: "Professional & Technical Skills",
-    description:
-      "Career readiness, workplace communication, practical skills, and selected technical learning.",
-  },
-  {
-    number: "06",
-    title: "Learning Pathways",
-    description:
-      "Guidance toward suitable courses and eligible education or training providers.",
-  },
-];
+type Lesson = { id: string; title: string; minutes: number; content: string[]; completed: boolean };
+type Question = { id: string; prompt: string; options: string[] };
+type Review = { id: string; prompt: string; chosenIndex: number; correctIndex: number; correct: boolean; explanation: string };
+type Completion = { certificateCode: string; issuedAt: string } | null;
+type Course = {
+  id: string; title: string; category: string; description: string; level: string; priceKsh: number;
+  enrolled: boolean; enrollmentStatus: string | null; lessonsCount: number; completedLessons: number;
+  progressPercent: number; lessons: Lesson[]; questions: Question[];
+  latestAttempt: { score: number; totalQuestions: number; passed: boolean; createdAt: string } | null;
+  completion: Completion;
+};
+type AssessmentResult = { courseId: string; score: number; passed: boolean; totalQuestions: number; message: string; review: Review[]; completion: Completion };
 
-const learningSteps = [
-  {
-    number: "01",
-    title: "Learn",
-    description: "Study structured lessons, learning notes, and course materials.",
-  },
-  {
-    number: "02",
-    title: "Practise",
-    description: "Complete assignments and practical activities where required.",
-  },
-  {
-    number: "03",
-    title: "Get assessed",
-    description: "Complete the relevant quizzes, exams, or other course assessments.",
-  },
-  {
-    number: "04",
-    title: "Complete",
-    description:
-      "Track your progress and receive an eligible completion record after requirements are verified.",
-  },
-];
+const money = (amount: number) => new Intl.NumberFormat("en-KE", { style: "currency", currency: "KES", maximumFractionDigits: 0 }).format(amount);
+const readableDate = (value: string) => new Date(value).toLocaleDateString("en-KE", { year: "numeric", month: "long", day: "numeric" });
 
 export default function AcademyPage() {
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [memberName, setMemberName] = useState("Corevia member");
+  const [loading, setLoading] = useState(true);
+  const [authRequired, setAuthRequired] = useState(false);
+  const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
+  const [working, setWorking] = useState("");
+  const [expandedCourse, setExpandedCourse] = useState("");
+  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [assessmentResult, setAssessmentResult] = useState<AssessmentResult | null>(null);
+
+  const loadCourses = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/academy/courses", { cache: "no-store" });
+      const result = await response.json();
+      if (response.status === 401) {
+        setAuthRequired(true);
+        setCourses([]);
+        return;
+      }
+      if (!response.ok) throw new Error(result.error || "Unable to load Academy courses.");
+      setAuthRequired(false);
+      setMemberName(result.user?.name || "Corevia member");
+      setCourses(result.courses || []);
+    } catch (issue) {
+      setError(issue instanceof Error ? issue.message : "Unable to load Academy courses.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function start() {
+      const reference = new URLSearchParams(window.location.search).get("payment");
+      if (reference) {
+        setNotice("Confirming your Academy course payment...");
+        try {
+          const response = await fetch("/api/academy/payments/verify", {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ reference }), cache: "no-store",
+          });
+          const result = await response.json();
+          if (!response.ok) setError(result.error || "Course payment verification failed.");
+          else setNotice("Payment confirmed. Your course is now available.");
+          window.history.replaceState({}, "", "/academy");
+        } catch {
+          if (!cancelled) setError("Unable to confirm course payment. Use Refresh courses to check again.");
+        }
+      }
+      if (!cancelled) await loadCourses();
+    }
+    void start();
+    return () => { cancelled = true; };
+  }, [loadCourses]);
+
+  async function enroll(course: Course) {
+    setWorking(course.id); setError(""); setNotice("");
+    try {
+      const response = await fetch("/api/academy/enroll", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ courseId: course.id }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Enrollment failed.");
+      if (result.authorization_url) { window.location.href = result.authorization_url; return; }
+      setExpandedCourse(course.id);
+      setNotice(result.message || "Enrollment saved. Your lessons are ready.");
+      await loadCourses();
+    } catch (issue) {
+      setError(issue instanceof Error ? issue.message : "Enrollment failed.");
+    } finally { setWorking(""); }
+  }
+
+  async function completeLesson(courseId: string, lessonId: string) {
+    setWorking(lessonId); setError(""); setNotice("");
+    try {
+      const response = await fetch("/api/academy/lesson/complete", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ courseId, lessonId }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Unable to save lesson progress.");
+      setNotice(`Lesson saved. Progress: ${result.progressPercent ?? 100}%.`);
+      await loadCourses();
+    } catch (issue) { setError(issue instanceof Error ? issue.message : "Unable to save lesson progress."); }
+    finally { setWorking(""); }
+  }
+
+  async function submitAssessment(course: Course) {
+    if (course.questions.some((question) => answers[question.id] === undefined)) {
+      setError("Please answer every assessment question first."); return;
+    }
+    setWorking(`assessment-${course.id}`); setError(""); setNotice(""); setAssessmentResult(null);
+    try {
+      const response = await fetch("/api/academy/assessment", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ courseId: course.id, answers }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Assessment submission failed.");
+      setAssessmentResult({ ...result, courseId: course.id });
+      setNotice(result.message || "Assessment submitted.");
+      await loadCourses();
+    } catch (issue) { setError(issue instanceof Error ? issue.message : "Assessment submission failed."); }
+    finally { setWorking(""); }
+  }
+
+  const selected = courses.find((course) => course.id === expandedCourse);
+  const resultForSelected = assessmentResult && assessmentResult.courseId === expandedCourse ? assessmentResult : null;
+
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <header className="border-b border-white/10 bg-slate-950">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-5 sm:px-8">
-          <Link href="/dashboard" className="text-lg font-bold tracking-wide">
-            COREVIA <span className="text-cyan-400">ACADEMY</span>
-          </Link>
-          <Link
-            href="/dashboard"
-            className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold transition hover:bg-white/10"
-          >
-            Back to Dashboard
-          </Link>
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-8">
+          <Link href="/dashboard" className="text-lg font-bold tracking-wide">COREVIA <span className="text-cyan-400">ACADEMY</span></Link>
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-sm text-slate-300">Signed in as {memberName}</span>
+            <Link href="/dashboard" className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold hover:bg-white/10">Back to Dashboard</Link>
+          </div>
         </div>
       </header>
 
-      <section className="relative overflow-hidden border-b border-white/10">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-500/15 via-transparent to-blue-500/10" />
-        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
-          <p className="mb-5 text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">
-            A Corevia Network learning initiative
-          </p>
-          <h1 className="max-w-4xl text-4xl font-black leading-tight sm:text-6xl">
-            Connect. Learn. Grow.
-            <span className="mt-3 block text-cyan-300">
-              Build skills for your future.
-            </span>
-          </h1>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-            Explore a future learning platform designed to help people develop
-            digital skills, understand business, build practical knowledge, and
-            discover education and training opportunities.
-          </p>
-          <div className="mt-9 flex flex-wrap gap-4">
-            <a
-              href="#learning-areas"
-              className="rounded-xl bg-cyan-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-cyan-300"
-            >
-              Explore Learning Areas
-            </a>
-            <Link
-              href="/dashboard"
-              className="rounded-xl border border-white/20 px-6 py-3 font-bold transition hover:bg-white/10"
-            >
-              Return to Network
-            </Link>
+      <section className="border-b border-white/10 bg-gradient-to-br from-cyan-950 via-slate-950 to-blue-950">
+        <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16">
+          <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">Your learning space</p>
+          <h1 className="mt-3 max-w-4xl text-4xl font-black leading-tight sm:text-5xl">Learn new skills. Track your progress. Demonstrate what you know.</h1>
+          <p className="mt-5 max-w-3xl leading-7 text-slate-300">Use your existing Corevia Network account to enroll, work through lessons, complete assessments, and access your course completion record.</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button type="button" onClick={() => void loadCourses()} disabled={loading} className="rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 disabled:opacity-60">{loading ? "Refreshing..." : "Refresh courses"}</button>
+            <Link href="/dashboard" className="rounded-xl border border-white/20 px-5 py-3 font-bold hover:bg-white/10">Return to Network</Link>
           </div>
-          <p className="mt-6 text-sm text-amber-200">
-            Academy development in progress — course enrollment is not yet open.
-          </p>
         </div>
       </section>
 
-      <section
-        id="learning-areas"
-        className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20"
-      >
-        <div className="mb-10 max-w-3xl">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">
-            Learning areas
-          </p>
-          <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-            Knowledge for a changing world
-          </h2>
-          <p className="mt-4 leading-7 text-slate-300">
-            The planned catalogue covers foundational, professional, and
-            practical learning. Individual courses will be published when their
-            materials, requirements, and delivery arrangements are ready.
-          </p>
+      <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8">
+        {notice && <div role="status" className="mb-5 rounded-xl border border-emerald-400/30 bg-emerald-400/10 p-4 text-emerald-200">{notice}</div>}
+        {error && <div role="alert" className="mb-5 rounded-xl border border-red-400/30 bg-red-400/10 p-4 text-red-200">{error}</div>}
+        {authRequired && <div className="mb-6 rounded-2xl border border-amber-300/30 bg-amber-300/10 p-6"><h2 className="text-xl font-bold">Sign in to access Academy</h2><p className="mt-2 text-slate-300">Use the same email and password as your Corevia Network account. You do not need a separate Academy account.</p><Link href="/login?next=%2Facademy" className="mt-4 inline-flex rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950">Sign in to Network</Link></div>}
+
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div><p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">Course catalogue</p><h2 className="mt-2 text-3xl font-bold">Available learning paths</h2><p className="mt-2 text-slate-300">Starter courses are free at launch. The separate course-payment flow supports KES fees when Corevia publishes approved prices.</p></div>
+          <p className="text-sm text-slate-400">{courses.filter((course) => course.completion).length} completed Â· {courses.filter((course) => course.enrolled && !course.completion).length} in progress</p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((category) => (
-            <article
-              key={category.number}
-              className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition hover:border-cyan-400/50 hover:bg-white/[0.07]"
-            >
-              <p className="text-sm font-bold tracking-widest text-cyan-300">
-                {category.number}
-              </p>
-              <h3 className="mt-4 text-xl font-bold">{category.title}</h3>
-              <p className="mt-3 min-h-20 leading-7 text-slate-300">
-                {category.description}
-              </p>
-              <div className="mt-5 border-t border-white/10 pt-4">
-                <span className="text-sm font-semibold text-amber-200">
-                  Preparation in progress
-                </span>
-              </div>
+        {loading && courses.length === 0 ? <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-slate-300">Loading your courses...</div> : null}
+        {!loading && courses.length === 0 && !authRequired ? <div className="rounded-2xl border border-white/10 bg-white/5 p-8">No courses are available right now. Please refresh or contact Corevia support.</div> : null}
+
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {courses.map((course) => (
+            <article key={course.id} className={`rounded-2xl border p-6 ${course.completion ? "border-emerald-400/40 bg-emerald-400/5" : "border-white/10 bg-white/[0.04]"}`}>
+              <div className="flex items-start justify-between gap-3"><span className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-bold text-cyan-200">{course.category}</span><span className="text-sm font-bold text-amber-200">{course.priceKsh > 0 ? money(course.priceKsh) : "FREE"}</span></div>
+              <h3 className="mt-5 text-2xl font-bold">{course.title}</h3><p className="mt-3 min-h-20 leading-7 text-slate-300">{course.description}</p>
+              <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300"><span className="rounded-full border border-white/10 px-3 py-1">{course.level}</span><span className="rounded-full border border-white/10 px-3 py-1">{course.lessonsCount} lessons</span><span className="rounded-full border border-white/10 px-3 py-1">{course.questions.length || 4} assessment questions</span></div>
+              {course.enrolled && <div className="mt-5"><div className="flex justify-between text-sm"><span>{course.completion ? "Completed" : "Lesson progress"}</span><span>{course.progressPercent}%</span></div><div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-cyan-400" style={{ width: `${course.progressPercent}%` }} /></div>{course.latestAttempt && !course.completion && <p className="mt-2 text-xs text-slate-400">Last assessment: {course.latestAttempt.score}% Â· {course.latestAttempt.passed ? "Passed" : "Try again"}</p>}</div>}
+              <button type="button" disabled={working === course.id || authRequired} onClick={() => course.enrolled ? setExpandedCourse(expandedCourse === course.id ? "" : course.id) : void enroll(course)} className="mt-6 w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 disabled:cursor-not-allowed disabled:opacity-60">{working === course.id ? "Please wait..." : course.enrolled ? (expandedCourse === course.id ? "Close course" : course.completion ? "View completion record" : "Open course") : course.priceKsh > 0 ? `Enroll & Pay ${money(course.priceKsh)}` : "Enroll for free"}</button>
             </article>
           ))}
         </div>
-      </section>
 
-      <section className="border-y border-white/10 bg-slate-900/70">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="max-w-3xl">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">
-              Planned learning experience
-            </p>
-            <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-              Learn, practise, demonstrate your skills
-            </h2>
-            <p className="mt-4 leading-7 text-slate-300">
-              The intended platform will support structured learning and
-              progress tracking, with assessments and completion records
-              according to each course&apos;s requirements.
-            </p>
-          </div>
+        {selected && selected.enrolled && <section className="mt-10 rounded-3xl border border-cyan-400/30 bg-slate-900/70 p-5 sm:p-8">
+          <div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">Course workspace</p><h2 className="mt-2 text-3xl font-bold">{selected.title}</h2><p className="mt-2 text-slate-300">Read each lesson and mark it complete. The final assessment unlocks after every lesson is completed.</p></div><button type="button" onClick={() => setExpandedCourse("")} className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold hover:bg-white/10">Close</button></div>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {learningSteps.map((step) => (
-              <article
-                key={step.number}
-                className="rounded-xl border border-white/10 bg-slate-950 p-5"
-              >
-                <p className="text-sm font-bold text-cyan-300">
-                  STEP {step.number}
-                </p>
-                <h3 className="mt-3 text-xl font-bold">{step.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-300">
-                  {step.description}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+          {selected.lessons.map((lesson, index) => <article key={lesson.id} className="mt-5 rounded-2xl border border-white/10 bg-slate-950 p-5"><div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-xs font-bold uppercase tracking-wider text-cyan-300">Lesson {index + 1} Â· {lesson.minutes} minutes</p><h3 className="mt-2 text-xl font-bold">{lesson.title}</h3></div><span className={`rounded-full px-3 py-1 text-xs font-bold ${lesson.completed ? "bg-emerald-400/15 text-emerald-200" : "bg-white/10 text-slate-300"}`}>{lesson.completed ? "Completed" : "Not completed"}</span></div><div className="mt-4 space-y-3 leading-7 text-slate-300">{lesson.content.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}</div>{!lesson.completed && !selected.completion && <button type="button" disabled={working === lesson.id} onClick={() => void completeLesson(selected.id, lesson.id)} className="mt-5 rounded-xl bg-emerald-400 px-5 py-3 font-bold text-slate-950 disabled:opacity-60">{working === lesson.id ? "Saving..." : "Mark lesson complete"}</button>}</article>)}
 
-      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
-        <div className="rounded-2xl border border-cyan-300/20 bg-cyan-300/5 p-6 sm:p-9">
-          <h2 className="text-2xl font-bold">Learning with integrity</h2>
-          <p className="mt-4 max-w-4xl leading-7 text-slate-300">
-            Any completion certificate will depend on verified completion and
-            the applicable assessment requirements. A Corevia Academy
-            completion record will not, by itself, represent an accredited
-            academic qualification or professional licence. Qualifications
-            requiring an authorized institution or regulator must be provided
-            through the appropriate recognized body.
-          </p>
-        </div>
-      </section>
+          {!selected.completion && <div className="mt-6 rounded-2xl border border-white/10 bg-slate-950 p-5 sm:p-7"><p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">Final assessment</p><h3 className="mt-2 text-2xl font-bold">Check your understanding</h3><p className="mt-2 text-sm leading-6 text-slate-300">You need at least 75% to pass. Complete all lessons first. You can retry after reviewing the feedback.</p>
+            {selected.completedLessons < selected.lessonsCount ? <p className="mt-4 rounded-xl bg-amber-300/10 p-4 text-amber-100">Complete all {selected.lessonsCount} lessons to unlock the assessment ({selected.completedLessons}/{selected.lessonsCount} complete).</p> : <form className="mt-5 space-y-6" onSubmit={(event) => { event.preventDefault(); void submitAssessment(selected); }}>
+              {selected.questions.map((question, questionIndex) => <fieldset key={question.id} className="rounded-xl border border-white/10 p-4"><legend className="px-2 font-semibold">{questionIndex + 1}. {question.prompt}</legend><div className="mt-3 space-y-2">{question.options.map((option, optionIndex) => <label key={optionIndex} className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 ${answers[question.id] === optionIndex ? "border-cyan-400 bg-cyan-400/10" : "border-white/10 hover:bg-white/5"}`}><input type="radio" name={question.id} checked={answers[question.id] === optionIndex} onChange={() => setAnswers((current) => ({ ...current, [question.id]: optionIndex }))} className="mt-1"/><span className="text-sm leading-6">{option}</span></label>)}</div></fieldset>)}
+              <button type="submit" disabled={working === `assessment-${selected.id}`} className="w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 disabled:opacity-60">{working === `assessment-${selected.id}` ? "Marking assessment..." : "Submit assessment"}</button>
+            </form>}
+            {resultForSelected && <div className="mt-5 rounded-xl border border-white/10 p-4"><h4 className="text-lg font-bold">Result: {resultForSelected.score}% â€” {resultForSelected.passed ? "PASSED" : "NOT PASSED"}</h4><div className="mt-4 space-y-3">{resultForSelected.review.map((item) => <div key={item.id} className="text-sm"><p className={item.correct ? "text-emerald-200" : "text-amber-200"}>{item.correct ? "Correct" : "Review"}: {item.prompt}</p><p className="mt-1 text-slate-300">{item.explanation}</p></div>)}</div></div>}
+          </div>}
 
-      <footer className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p>Corevia Academy · Building Trust Through Excellence.</p>
-          <Link
-            href="/dashboard"
-            className="font-semibold text-cyan-300 hover:text-cyan-200"
-          >
-            Back to Corevia Network
-          </Link>
-        </div>
-      </footer>
+          {selected.completion && <div className="mt-6 rounded-2xl border border-emerald-300/30 bg-emerald-300/5 p-6 sm:p-9 print:border-black print:bg-white print:text-black"><p className="text-xs font-bold uppercase tracking-[0.25em] text-emerald-200 print:text-black">Corevia Academy Â· Completion record</p><h3 className="mt-3 text-3xl font-black">Course completed</h3><p className="mt-4 leading-7">This confirms that <strong>{memberName}</strong> completed the Corevia Academy course <strong>{selected.title}</strong> and passed its recorded assessment.</p><div className="mt-6 grid gap-3 sm:grid-cols-2"><div className="rounded-xl border border-white/10 p-4 print:border-black"><p className="text-xs text-slate-400 print:text-black">Completion reference</p><p className="mt-1 font-bold">{selected.completion.certificateCode}</p></div><div className="rounded-xl border border-white/10 p-4 print:border-black"><p className="text-xs text-slate-400 print:text-black">Date issued</p><p className="mt-1 font-bold">{readableDate(selected.completion.issuedAt)}</p></div></div><p className="mt-5 text-xs leading-5 text-slate-400 print:text-black">This is a Corevia Academy course completion record, not an accredited academic qualification or professional licence.</p><button type="button" onClick={() => window.print()} className="mt-5 rounded-xl bg-emerald-400 px-5 py-3 font-bold text-slate-950 print:hidden">Print completion record</button></div>}
+        </section>}
+
+        <section className="mt-10 rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7"><h2 className="text-xl font-bold">Learning with integrity</h2><p className="mt-3 max-w-4xl text-sm leading-7 text-slate-300">Completion records are issued only after all lessons are marked complete and the assessment meets the passing threshold. They confirm participation and assessment within Corevia Academy; they do not represent accreditation, an academic qualification, or a professional licence.</p></section>
+        <footer className="mt-10 border-t border-white/10 py-6 text-center text-xs text-slate-500">Corevia Academy Â· Building Trust Through Excellence.</footer>
+      </div>
     </main>
   );
 }

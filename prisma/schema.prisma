@@ -30,6 +30,8 @@ model User {
   wallet             Wallet?
   transactions       WalletTransaction[]
   withdrawals        Withdrawal[]
+  academyEnrollments AcademyEnrollment[]
+  academyPayments    AcademyPayment[]
 }
 
 model Wallet {
@@ -216,4 +218,79 @@ enum LedgerOwnerType {
 enum PaymentDestination {
   COREVIA_TILL
   OTHER
+}
+
+
+enum AcademyEnrollmentStatus {
+  PENDING_PAYMENT
+  ACTIVE
+  COMPLETED
+}
+
+model AcademyEnrollment {
+  id             String                  @id @default(cuid())
+  userId         String
+  courseId       String
+  status         AcademyEnrollmentStatus @default(PENDING_PAYMENT)
+  amountPaid     Decimal                 @default(0) @db.Decimal(14, 2)
+  enrolledAt     DateTime                @default(now())
+  completedAt    DateTime?
+  user           User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonProgress AcademyLessonProgress[]
+  attempts       AcademyAssessmentAttempt[]
+  completion     AcademyCompletion?
+  payments       AcademyPayment[]
+
+  @@unique([userId, courseId])
+  @@index([userId, status])
+  @@index([courseId, status])
+}
+
+model AcademyLessonProgress {
+  id           String            @id @default(cuid())
+  enrollmentId String
+  lessonId     String
+  completedAt  DateTime          @default(now())
+  enrollment   AcademyEnrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+
+  @@unique([enrollmentId, lessonId])
+  @@index([enrollmentId])
+}
+
+model AcademyAssessmentAttempt {
+  id             String            @id @default(cuid())
+  enrollmentId   String
+  score          Int
+  totalQuestions Int
+  passed         Boolean
+  createdAt      DateTime          @default(now())
+  enrollment     AcademyEnrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+
+  @@index([enrollmentId, createdAt])
+}
+
+model AcademyCompletion {
+  id              String            @id @default(cuid())
+  enrollmentId    String            @unique
+  certificateCode String            @unique
+  issuedAt        DateTime          @default(now())
+  enrollment      AcademyEnrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+}
+
+model AcademyPayment {
+  id                String            @id @default(cuid())
+  userId            String
+  enrollmentId      String
+  courseId          String
+  amount            Decimal           @db.Decimal(14, 2)
+  provider          String
+  providerReference String            @unique
+  status            TransactionStatus @default(PENDING)
+  verifiedAt        DateTime?
+  createdAt         DateTime          @default(now())
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  enrollment        AcademyEnrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([enrollmentId, status])
 }
