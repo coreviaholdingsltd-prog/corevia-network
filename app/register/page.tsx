@@ -145,6 +145,7 @@ export default function Register() {
                   type="tel"
                   name="phone"
                   placeholder="07XXXXXXXX"
+                  required
                   autoComplete="tel"
                   className="w-full rounded-xl border border-[#12352c]/15 bg-[#f7f5ef]/50 px-4 py-3 outline-none focus:border-[#b99a58]"
                 />

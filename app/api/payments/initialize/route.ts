@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
@@ -7,7 +7,7 @@ import { sessionCookieName, verifySession } from "@/lib/session";
 const PAYSTACK_URL = "https://api.paystack.co/transaction/initialize";
 const MEMBERSHIP_AMOUNT = 1000;
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
     const secretKey = process.env.PAYSTACK_SECRET_KEY;
 
@@ -77,7 +77,7 @@ export async function POST() {
     });
 
     const siteUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+      process.env.NEXT_PUBLIC_SITE_URL || new URL(request.url).origin;
 
     const response = await fetch(PAYSTACK_URL, {
       method: "POST",
