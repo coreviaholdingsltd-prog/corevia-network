@@ -35,6 +35,19 @@ export async function processMembershipPayment(
     throw new Error("Payment reference is missing.");
   }
 
+  const metadataUserId =
+    typeof payment.metadata?.userId === "string"
+      ? payment.metadata.userId
+      : "";
+
+  if (
+    expectedUserId &&
+    metadataUserId &&
+    expectedUserId !== metadataUserId
+  ) {
+    throw new Error("Payment belongs to another member.");
+  }
+
   const existing = await prisma.paymentRecord.findUnique({
     where: { providerReference: reference },
     select: {
@@ -44,6 +57,14 @@ export async function processMembershipPayment(
       allocationReference: true,
     },
   });
+
+  if (existing && expectedUserId && existing.userId !== expectedUserId) {
+    throw new Error("Payment belongs to another member.");
+  }
+
+  if (existing && metadataUserId && existing.userId !== metadataUserId) {
+    throw new Error("Payment belongs to another member.");
+  }
 
   if (existing?.allocationReference) {
     return {
@@ -57,11 +78,6 @@ export async function processMembershipPayment(
   if (existing && Number(existing.amount) !== MEMBERSHIP_AMOUNT) {
     throw new Error("Payment amount does not match the membership fee.");
   }
-
-  const metadataUserId =
-    typeof payment.metadata?.userId === "string"
-      ? payment.metadata.userId
-      : "";
 
   const userId = expectedUserId || existing?.userId || metadataUserId;
 
@@ -92,6 +108,10 @@ export async function processMembershipPayment(
     ? new Date(payment.paid_at)
     : new Date();
 
+  if (Number.isNaN(paidAt.getTime())) {
+    throw new Error("Payment date is invalid.");
+  }
+
   const allocationReference = `MEMBERSHIP-${reference}`;
 
   return prisma.$transaction(async (tx) => {
@@ -105,6 +125,10 @@ export async function processMembershipPayment(
       },
     });
 
+    if (check && check.userId !== user.id) {
+      throw new Error("Payment belongs to another member.");
+    }
+
     if (check?.allocationReference) {
       return {
         alreadyProcessed: true,
@@ -112,10 +136,6 @@ export async function processMembershipPayment(
         reference,
         membershipStatus: "ACTIVE",
       };
-    }
-
-    if (check && check.userId !== user.id) {
-      throw new Error("Payment belongs to another member.");
     }
 
     if (check && Number(check.amount) !== MEMBERSHIP_AMOUNT) {
@@ -297,4 +317,3 @@ export async function processMembershipPayment(
     };
   });
 }
-

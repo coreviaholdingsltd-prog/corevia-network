@@ -3,3 +3,8 @@
 .claude/
 .windsurf/
 .agents/
+neon-connection.txt
+*.bak
+check-membership.cjs
+check-sponsor.sql
+corevia-db-update.ps1

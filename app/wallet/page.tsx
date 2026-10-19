@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 
@@ -17,6 +17,42 @@ export default function Wallet() {
   const [checkingPayment, setCheckingPayment] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
+  async function refreshUser() {
+    const response = await fetch("/api/auth/me", { cache: "no-store" });
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || "Unable to refresh your account.");
+    }
+
+    setUser(result.user);
+  }
+
+  async function verifyPayment(reference: string) {
+    const response = await fetch("/api/payments/verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reference }),
+      cache: "no-store",
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || "Your payment could not be confirmed yet.");
+    }
+
+    await refreshUser();
+
+    setMessage(
+      result.alreadyProcessed
+        ? "Your membership payment was already processed. Your account status has been refreshed."
+        : "Payment confirmed. Your membership status has been refreshed.",
+    );
+
+    return result;
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -70,6 +106,7 @@ export default function Wallet() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ reference: payment }),
+          cache: "no-store",
         });
 
         const result = await response.json();
@@ -84,8 +121,8 @@ export default function Wallet() {
 
         setMessage(
           result.alreadyProcessed
-            ? "Your membership is already active."
-            : "Payment confirmed. Your membership is now active.",
+            ? "Your membership payment was already processed."
+            : "Payment confirmed. Your membership status has been updated.",
         );
 
         window.history.replaceState({}, "", "/wallet");
@@ -100,7 +137,7 @@ export default function Wallet() {
         }
       } catch {
         if (!cancelled) {
-          setError("Unable to verify your payment.");
+          setError("Unable to verify your payment. Please try again.");
           setMessage("");
         }
       }
@@ -128,19 +165,18 @@ export default function Wallet() {
       const result = await response.json();
 
       if (!response.ok) {
-        setError(result.error || "Unable to start membership payment.");
-        return;
+        throw new Error(result.error || "Unable to start membership payment.");
       }
 
       if (!result.authorization_url) {
-        setError("Paystack did not return a payment link. Please try again.");
-        return;
+        throw new Error("Paystack did not return a payment link. Please try again.");
       }
 
       window.location.href = result.authorization_url;
-    } catch {
-      setError("Unable to connect to Paystack.");
-    } finally {
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Unable to connect to Paystack.",
+      );
       setPaying(false);
     }
   }
@@ -148,35 +184,26 @@ export default function Wallet() {
   async function checkPaidMembership() {
     setCheckingPayment(true);
     setError("");
-    setMessage("Checking your existing payment with Paystack...");
+    setMessage("");
+
+    const reference = window.prompt(
+      "Enter the Paystack reference from your payment receipt:",
+    );
+
+    if (!reference?.trim()) {
+      setError("Payment reference is required.");
+      setCheckingPayment(false);
+      return;
+    }
 
     try {
-      const response = await fetch("/api/payments/check", {
-        method: "POST",
-        cache: "no-store",
-      });
-      const result = await response.json();
-
-      if (!response.ok) {
-        setError(result.error || "Your payment could not be confirmed yet.");
-        setMessage("");
-        return;
-      }
-
-      setMessage(
-        result.alreadyActive
-          ? "Your membership is already active."
-          : "Payment confirmed. Your membership is now active.",
+      await verifyPayment(reference.trim());
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to check your payment. Please try again.",
       );
-
-      const userResponse = await fetch("/api/auth/me", {
-        cache: "no-store",
-      });
-      const userResult = await userResponse.json();
-
-      if (userResponse.ok) setUser(userResult.user);
-    } catch {
-      setError("Unable to check your payment. Please try again.");
       setMessage("");
     } finally {
       setCheckingPayment(false);
@@ -224,32 +251,24 @@ export default function Wallet() {
 
         <div className="mt-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-[#12352c]/10">
           <p className="text-sm text-[#12352c]/60">Membership status</p>
-          <p className="mt-2 text-2xl font-bold">
-            {active ? "ACTIVE" : user.membershipStatus}
-          </p>
+          <p className="mt-2 text-2xl font-bold">{user.membershipStatus}</p>
 
           {active ? (
             <div className="mt-6 rounded-2xl border border-green-200 bg-green-50 p-5">
               <h2 className="font-bold text-green-800">Membership Active</h2>
               <p className="mt-2 text-sm leading-6 text-green-700">
-                Your membership is active following payment verification.
-                You can now access the member dashboard.
+                Your membership is active. You can now access the member dashboard.
               </p>
-              <button
-                type="button"
-                disabled
-                className="mt-5 w-full rounded-xl bg-green-700 px-5 py-3.5 font-semibold text-white"
-              >
+              <div className="mt-5 w-full rounded-xl bg-green-700 px-5 py-3.5 text-center font-semibold text-white">
                 ✓ ACTIVATED
-              </button>
+              </div>
             </div>
           ) : (
             <div className="mt-6 rounded-2xl border border-[#b99a58]/30 bg-[#f7f5ef] p-5">
               <h2 className="text-xl font-bold">Activate Membership</h2>
               <p className="mt-2 text-sm leading-6 text-[#12352c]/70">
                 The one-time Corevia Network activation fee is KES 1,000.
-                If you have already paid, check that payment before trying
-                to pay again.
+                If you have already paid, verify that payment before paying again.
               </p>
 
               <button
@@ -267,9 +286,7 @@ export default function Wallet() {
                 disabled={busy}
                 className="mt-3 w-full rounded-xl border-2 border-[#b99a58] bg-white px-5 py-3.5 font-semibold text-[#12352c] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {checkingPayment
-                  ? "Checking Payment..."
-                  : "I've Paid — Activate My Account"}
+                {checkingPayment ? "Checking Payment..." : "I've Paid — Activate My Account"}
               </button>
             </div>
           )}
