@@ -55,26 +55,28 @@ export async function POST(request: Request) {
     const reference =
       `CV-MEM-${Date.now()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
 
-    await prisma.paymentRecord.create({
-      data: {
-        userId: user.id,
-        amount: MEMBERSHIP_AMOUNT,
-        provider: "PAYSTACK",
-        providerReference: reference,
-        destination: "COREVIA_TILL",
-        status: "PENDING",
-      },
-    });
-
-    await prisma.membershipPayment.create({
-      data: {
-        userId: user.id,
-        amount: MEMBERSHIP_AMOUNT,
-        provider: "PAYSTACK",
-        providerReference: reference,
-        status: "PENDING",
-      },
-    });
+    // Create both records atomically so neither is left orphaned.
+    await prisma.$transaction([
+      prisma.paymentRecord.create({
+        data: {
+          userId: user.id,
+          amount: MEMBERSHIP_AMOUNT,
+          provider: "PAYSTACK",
+          providerReference: reference,
+          destination: "COREVIA_TILL",
+          status: "PENDING",
+        },
+      }),
+      prisma.membershipPayment.create({
+        data: {
+          userId: user.id,
+          amount: MEMBERSHIP_AMOUNT,
+          provider: "PAYSTACK",
+          providerReference: reference,
+          status: "PENDING",
+        },
+      }),
+    ]);
 
     const siteUrl =
       process.env.NEXT_PUBLIC_SITE_URL || new URL(request.url).origin;
@@ -96,17 +98,54 @@ export async function POST(request: Request) {
           userId: user.id,
         },
       }),
+      cache: "no-store",
+      signal: AbortSignal.timeout(15000),
     });
 
-    const data = await response.json();
+    let data: {
+      status?: boolean;
+      message?: string;
+      data?: {
+        authorization_url?: string;
+        access_code?: string;
+        reference?: string;
+      };
+    };
 
-    if (!response.ok || !data.status) {
+    try {
+      data = await response.json();
+    } catch {
+      console.error("Paystack initialization returned invalid JSON.");
       return NextResponse.json(
         {
           error:
-            data.message || "Unable to initialize Paystack payment.",
+            "Paystack returned an invalid response. Check the payment status before attempting another payment.",
+          reference,
         },
-        { status: response.status || 502 },
+        { status: 502 },
+      );
+    }
+
+    if (
+      !response.ok ||
+      !data.status ||
+      !data.data?.authorization_url ||
+      data.data.reference !== reference
+    ) {
+      console.error("Paystack initialization failed:", {
+        httpStatus: response.status,
+        reference,
+        message: data.message,
+      });
+
+      return NextResponse.json(
+        {
+          error:
+            data.message ||
+            "Unable to confirm payment initialization. Check the payment status before trying again.",
+          reference,
+        },
+        { status: 502 },
       );
     }
 
@@ -120,7 +159,10 @@ export async function POST(request: Request) {
     console.error("Paystack initialization error:", error);
 
     return NextResponse.json(
-      { error: "Unable to initialize payment." },
+      {
+        error:
+          "Unable to confirm payment initialization. Check your pending payments before trying again.",
+      },
       { status: 500 },
     );
   }

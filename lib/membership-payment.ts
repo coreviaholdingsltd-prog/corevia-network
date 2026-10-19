@@ -6,15 +6,17 @@ const REFERRER_SHARE = 500;
 const UPLINE_SHARE = 200;
 const COREVIA_TILL_NUMBER = "6959300";
 
+type MembershipPaymentInput = {
+  reference: string;
+  amount: number;
+  currency: string;
+  status: string;
+  paid_at?: string | null;
+  metadata?: Record<string, unknown> | null;
+};
+
 export async function processMembershipPayment(
-  payment: {
-    reference: string;
-    amount: number;
-    currency: string;
-    status: string;
-    paid_at?: string | null;
-    metadata?: Record<string, unknown> | null;
-  },
+  payment: MembershipPaymentInput,
   expectedUserId?: string,
 ) {
   if (payment.status !== "success") {
@@ -25,7 +27,7 @@ export async function processMembershipPayment(
     throw new Error("Payment must be in KES.");
   }
 
-  if (Number(payment.amount) !== 100000) {
+  if (Number(payment.amount) !== MEMBERSHIP_AMOUNT * 100) {
     throw new Error("Membership payment must be KES 1,000.");
   }
 
@@ -51,22 +53,31 @@ export async function processMembershipPayment(
   const existing = await prisma.paymentRecord.findUnique({
     where: { providerReference: reference },
     select: {
-      id: true,
       userId: true,
       amount: true,
       allocationReference: true,
     },
   });
 
-  if (existing && expectedUserId && existing.userId !== expectedUserId) {
+  if (!existing) {
+    throw new Error(
+      "No initialized membership payment record was found for this reference.",
+    );
+  }
+
+  if (expectedUserId && existing.userId !== expectedUserId) {
     throw new Error("Payment belongs to another member.");
   }
 
-  if (existing && metadataUserId && existing.userId !== metadataUserId) {
+  if (metadataUserId && existing.userId !== metadataUserId) {
     throw new Error("Payment belongs to another member.");
   }
 
-  if (existing?.allocationReference) {
+  if (Number(existing.amount) !== MEMBERSHIP_AMOUNT) {
+    throw new Error("Payment amount does not match the membership fee.");
+  }
+
+  if (existing.allocationReference) {
     return {
       alreadyProcessed: true,
       userId: existing.userId,
@@ -75,25 +86,14 @@ export async function processMembershipPayment(
     };
   }
 
-  if (existing && Number(existing.amount) !== MEMBERSHIP_AMOUNT) {
-    throw new Error("Payment amount does not match the membership fee.");
-  }
-
-  const userId = expectedUserId || existing?.userId || metadataUserId;
-
-  if (!userId) {
-    throw new Error("Unable to identify the member.");
-  }
-
   const user = await prisma.user.findUnique({
-    where: { id: userId },
+    where: { id: existing.userId },
     select: {
       id: true,
       email: true,
       referredById: true,
       referredBy: {
         select: {
-          id: true,
           referredById: true,
         },
       },
@@ -115,6 +115,19 @@ export async function processMembershipPayment(
   const allocationReference = `MEMBERSHIP-${reference}`;
 
   return prisma.$transaction(async (tx) => {
+    // Serialize allocation attempts for this existing payment record.
+    // PostgreSQL releases the row lock when this transaction finishes.
+    const lockedRows = await tx.$queryRaw<Array<{ id: string }>>`
+      SELECT "id"
+      FROM "PaymentRecord"
+      WHERE "providerReference" = ${reference}
+      FOR UPDATE
+    `;
+
+    if (lockedRows.length !== 1) {
+      throw new Error("Membership payment record could not be locked.");
+    }
+
     const check = await tx.paymentRecord.findUnique({
       where: { providerReference: reference },
       select: {
@@ -125,11 +138,15 @@ export async function processMembershipPayment(
       },
     });
 
-    if (check && check.userId !== user.id) {
-      throw new Error("Payment belongs to another member.");
+    if (!check || check.userId !== user.id) {
+      throw new Error("Membership payment record changed unexpectedly.");
     }
 
-    if (check?.allocationReference) {
+    if (Number(check.amount) !== MEMBERSHIP_AMOUNT) {
+      throw new Error("Stored payment amount does not match membership fee.");
+    }
+
+    if (check.allocationReference) {
       return {
         alreadyProcessed: true,
         userId: check.userId,
@@ -137,30 +154,6 @@ export async function processMembershipPayment(
         membershipStatus: "ACTIVE",
       };
     }
-
-    if (check && Number(check.amount) !== MEMBERSHIP_AMOUNT) {
-      throw new Error("Stored payment amount does not match membership fee.");
-    }
-
-    const paymentRecord = check
-      ? check
-      : await tx.paymentRecord.create({
-          data: {
-            userId: user.id,
-            amount: MEMBERSHIP_AMOUNT,
-            provider: "PAYSTACK",
-            providerReference: reference,
-            destination: "COREVIA_TILL",
-            status: "COMPLETED",
-            verifiedAt: paidAt,
-          },
-          select: {
-            id: true,
-            userId: true,
-            amount: true,
-            allocationReference: true,
-          },
-        });
 
     const referrerId = user.referredById;
     const uplineId = user.referredBy?.referredById ?? null;
@@ -170,6 +163,17 @@ export async function processMembershipPayment(
         ? COREVIA_SHARE
         : MEMBERSHIP_AMOUNT - REFERRER_SHARE
       : MEMBERSHIP_AMOUNT;
+
+    // Claim the unique allocation reference before issuing any credits.
+    // Any subsequent error rolls back this claim and all other writes.
+    await tx.paymentRecord.update({
+      where: { id: check.id },
+      data: {
+        status: "COMPLETED",
+        verifiedAt: paidAt,
+        allocationReference,
+      },
+    });
 
     await tx.ledgerEntry.create({
       data: {
@@ -278,15 +282,6 @@ export async function processMembershipPayment(
       data: {
         membershipStatus: "ACTIVE",
         membershipPaidAt: paidAt,
-      },
-    });
-
-    await tx.paymentRecord.update({
-      where: { id: paymentRecord.id },
-      data: {
-        status: "COMPLETED",
-        verifiedAt: paidAt,
-        allocationReference,
       },
     });
 
