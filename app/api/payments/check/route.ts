@@ -8,6 +8,18 @@ import { processMembershipPayment } from "@/lib/membership-payment";
 const PAYSTACK_VERIFY_URL =
   "https://api.paystack.co/transaction/verify";
 
+const MEMBERSHIP_AMOUNT = 1000;
+const MAX_PENDING_REFERENCES = 20;
+
+type PaystackPayment = {
+  reference: string;
+  amount: number;
+  currency: string;
+  status: string;
+  paid_at?: string | null;
+  metadata?: Record<string, unknown> | null;
+};
+
 export async function POST() {
   try {
     const secretKey = process.env.PAYSTACK_SECRET_KEY;
@@ -53,21 +65,22 @@ export async function POST() {
       });
     }
 
-    const pendingPayment =
-      await prisma.membershipPayment.findFirst({
+    const pendingPayments =
+      await prisma.membershipPayment.findMany({
         where: {
           userId: user.id,
           status: "PENDING",
           provider: "PAYSTACK",
         },
         orderBy: { createdAt: "desc" },
+        take: MAX_PENDING_REFERENCES,
         select: {
           providerReference: true,
           amount: true,
         },
       });
 
-    if (!pendingPayment) {
+    if (pendingPayments.length === 0) {
       return NextResponse.json(
         {
           error:
@@ -77,94 +90,114 @@ export async function POST() {
       );
     }
 
-    if (Number(pendingPayment.amount) !== 1000) {
-      return NextResponse.json(
-        { error: "The pending amount does not match KES 1,000." },
-        { status: 400 },
+    for (const pendingPayment of pendingPayments) {
+      if (Number(pendingPayment.amount) !== MEMBERSHIP_AMOUNT) {
+        continue;
+      }
+
+      let response: Response;
+
+      try {
+        response = await fetch(
+          `${PAYSTACK_VERIFY_URL}/${encodeURIComponent(
+            pendingPayment.providerReference,
+          )}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${secretKey}`,
+            },
+            cache: "no-store",
+            signal: AbortSignal.timeout(15000),
+          },
+        );
+      } catch (error) {
+        console.error(
+          "Paystack verification request failed:",
+          error,
+        );
+
+        return NextResponse.json(
+          {
+            error:
+              "Paystack verification is temporarily unavailable. No payment status or referral balance was changed.",
+          },
+          { status: 502 },
+        );
+      }
+
+      let data: {
+        status?: boolean;
+        data?: PaystackPayment;
+      };
+
+      try {
+        data = await response.json();
+      } catch {
+        return NextResponse.json(
+          { error: "Paystack returned an invalid response." },
+          { status: 502 },
+        );
+      }
+
+      if (!response.ok || !data.status || !data.data) {
+        continue;
+      }
+
+      const payment = data.data;
+
+      if (payment.reference !== pendingPayment.providerReference) {
+        console.error("Paystack reference mismatch.");
+        continue;
+      }
+
+      if (
+        payment.status !== "success" ||
+        Number(payment.amount) !== MEMBERSHIP_AMOUNT * 100 ||
+        payment.currency !== "KES"
+      ) {
+        continue;
+      }
+
+      if (
+        payment.metadata?.purpose !==
+          "COREVIA_NETWORK_MEMBERSHIP" ||
+        payment.metadata?.userId !== user.id
+      ) {
+        console.error(
+          "Verified payment metadata did not match the signed-in member.",
+        );
+        continue;
+      }
+
+      const result = await processMembershipPayment(
+        {
+          reference: payment.reference,
+          amount: payment.amount,
+          currency: payment.currency,
+          status: payment.status,
+          paid_at: payment.paid_at,
+          metadata: payment.metadata,
+        },
+        user.id,
       );
+
+      return NextResponse.json({
+        status: true,
+        message: result.alreadyProcessed
+          ? "This membership payment was already processed."
+          : "Paystack confirmed your payment and membership activation was processed.",
+        ...result,
+      });
     }
 
-    const response = await fetch(
-      `${PAYSTACK_VERIFY_URL}/${encodeURIComponent(
-        pendingPayment.providerReference,
-      )}`,
+    return NextResponse.json(
       {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${secretKey}`,
-        },
-        cache: "no-store",
+        error:
+          "None of the pending references was verified as a successful KES 1,000 membership payment for this account. No activation or referral allocation was performed.",
       },
+      { status: 400 },
     );
-
-    const data = await response.json();
-
-    if (!response.ok || !data.status || !data.data) {
-      return NextResponse.json(
-        {
-          error:
-            "Paystack could not verify this payment. Please try again later.",
-        },
-        { status: 502 },
-      );
-    }
-
-    const payment = data.data;
-
-    if (payment.reference !== pendingPayment.providerReference) {
-      return NextResponse.json(
-        { error: "The payment reference does not match." },
-        { status: 400 },
-      );
-    }
-
-    if (
-      payment.status !== "success" ||
-      Number(payment.amount) !== 100000 ||
-      payment.currency !== "KES"
-    ) {
-      return NextResponse.json(
-        {
-          error:
-            "Paystack has not confirmed a successful KES 1,000 payment for this reference.",
-          paymentStatus: payment.status,
-        },
-        { status: 400 },
-      );
-    }
-
-    if (
-      payment.metadata?.purpose !==
-        "COREVIA_NETWORK_MEMBERSHIP" ||
-      payment.metadata?.userId !== user.id
-    ) {
-      return NextResponse.json(
-        {
-          error:
-            "The verified payment metadata does not match this membership account.",
-        },
-        { status: 403 },
-      );
-    }
-
-    const result = await processMembershipPayment(
-      {
-        reference: payment.reference,
-        amount: payment.amount,
-        currency: payment.currency,
-        status: payment.status,
-        paid_at: payment.paid_at,
-        metadata: payment.metadata,
-      },
-      user.id,
-    );
-
-    return NextResponse.json({
-      status: true,
-      message:
-        "Paystack confirmed your payment. Your membership is now active.",
-      ...result,
-    });
   } catch (error) {
     console.error("Membership payment check error:", error);
 
