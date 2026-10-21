@@ -134,7 +134,7 @@ export async function GET(request: Request) {
     );
 
     centered(
-      'Course completion record; not an accredited academic qualification or professional licence.',
+      'Awarded in recognition of successful course completion and achievement of the required assessment standards. Celebrating learning, personal growth, and a commitment to excellence.',
       76, 8,
     );
 
