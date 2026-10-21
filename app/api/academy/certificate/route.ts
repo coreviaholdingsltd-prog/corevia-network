@@ -1,4 +1,4 @@
-﻿
+
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
@@ -101,7 +101,7 @@ export async function GET(request: Request) {
     centered('CERTIFICATE OF COMPLETION', 455, 27, bold, navy);
     centered('This certificate is proudly presented to', 405, 13);
 
-    const learnerName = (enrollment.user.name || 'Learner')
+    const learnerName = (enrollment.user.name || 'Learner').trim().toLowerCase().replace(/\b\p{L}/gu, (letter) => letter.toUpperCase())
       .replace(/[^\x20-\x7E]/g, '')
       .slice(0, 75);
 
