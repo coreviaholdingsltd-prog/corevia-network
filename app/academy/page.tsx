@@ -162,7 +162,7 @@ export default function AcademyPage() {
         {authRequired && <div className="mb-6 rounded-2xl border border-amber-300/30 bg-amber-300/10 p-6"><h2 className="text-xl font-bold">Sign in to access Academy</h2><p className="mt-2 text-slate-300">Use the same email and password as your Corevia Network account. You do not need a separate Academy account.</p><Link href="/login?next=%2Facademy" className="mt-4 inline-flex rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950">Sign in to Network</Link></div>}
 
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <div><p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">Course catalogue</p><h2 className="mt-2 text-3xl font-bold">Available learning paths</h2><p className="mt-2 text-slate-300">Starter courses are free at launch. The separate course-payment flow supports KES fees when Corevia publishes approved prices.</p></div>
+          <div><p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">Course catalogue</p><h2 className="mt-2 text-3xl font-bold">Available learning paths</h2><p className="mt-2 text-slate-300">Course fees are shown in Kenyan shillings and are paid separately from the one-time Corevia Network membership activation.</p></div>
           <p className="text-sm text-slate-400">{courses.filter((course) => course.completion).length} completed Ã‚Â· {courses.filter((course) => course.enrolled && !course.completion).length} in progress</p>
         </div>
 
@@ -172,11 +172,11 @@ export default function AcademyPage() {
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {courses.map((course) => (
             <article key={course.id} className={`rounded-2xl border p-6 ${course.completion ? "border-emerald-400/40 bg-emerald-400/5" : "border-white/10 bg-white/[0.04]"}`}>
-              <div className="flex items-start justify-between gap-3"><span className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-bold text-cyan-200">{course.category}</span><span className="text-sm font-bold text-amber-200">{course.priceKsh > 0 ? money(course.priceKsh) : "FREE"}</span></div>
+              <div className="flex items-start justify-between gap-3"><span className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-bold text-cyan-200">{course.category}</span><span className="text-sm font-bold text-amber-200">{money(course.priceKsh)}</span></div>
               <h3 className="mt-5 text-2xl font-bold">{course.title}</h3><p className="mt-3 min-h-20 leading-7 text-slate-300">{course.description}</p>
               <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300"><span className="rounded-full border border-white/10 px-3 py-1">{course.level}</span><span className="rounded-full border border-white/10 px-3 py-1">{course.lessonsCount} lessons</span><span className="rounded-full border border-white/10 px-3 py-1">{course.questions.length || 4} assessment questions</span></div>
               {course.enrolled && <div className="mt-5"><div className="flex justify-between text-sm"><span>{course.completion ? "Completed" : "Lesson progress"}</span><span>{course.progressPercent}%</span></div><div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-cyan-400" style={{ width: `${course.progressPercent}%` }} /></div>{course.latestAttempt && !course.completion && <p className="mt-2 text-xs text-slate-400">Last assessment: {course.latestAttempt.score}% Ã‚Â· {course.latestAttempt.passed ? "Passed" : "Try again"}</p>}</div>}
-              <button type="button" disabled={working === course.id || authRequired} onClick={() => course.enrolled ? setExpandedCourse(expandedCourse === course.id ? "" : course.id) : void enroll(course)} className="mt-6 w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 disabled:cursor-not-allowed disabled:opacity-60">{working === course.id ? "Please wait..." : course.enrolled ? (expandedCourse === course.id ? "Close course" : course.completion ? "View completion record" : "Open course") : course.priceKsh > 0 ? `Enroll & Pay ${money(course.priceKsh)}` : "Enroll for free"}</button>
+              <button type="button" disabled={working === course.id || authRequired} onClick={() => course.enrolled ? setExpandedCourse(expandedCourse === course.id ? "" : course.id) : void enroll(course)} className="mt-6 w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 disabled:cursor-not-allowed disabled:opacity-60">{working === course.id ? "Please wait..." : course.enrolled ? (expandedCourse === course.id ? "Close course" : course.completion ? "View completion record" : "Open course") : course.priceKsh > 0 ? `Enroll & Pay ${money(course.priceKsh)}` : "Enroll"}</button>
             </article>
           ))}
         </div>
@@ -202,4 +202,4 @@ export default function AcademyPage() {
       </div>
     </main>
   );
-}
+}`n

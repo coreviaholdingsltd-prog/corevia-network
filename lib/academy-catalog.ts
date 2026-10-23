@@ -28,13 +28,13 @@ export type AcademyCourse = {
 // Academy course prices are separate from the one-time KES 1,000 Network activation fee.
 // Prices are configurable per course; paid enrollment must be verified before lessons unlock.
 export const ACADEMY_COURSES: AcademyCourse[] = [
-  {
+    {
     id: "digital-foundations",
     title: "Digital Foundations",
     category: "Digital & ICT Skills",
     description: "Build safe, practical confidence using computers, the internet, and everyday digital tools.",
     level: "Foundation",
-    priceKsh: 0,
+    priceKsh: 300,
     published: true,
     lessons: [
       { id: "digital-devices", title: "Understanding digital devices", minutes: 8, content: [
@@ -53,21 +53,128 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "Never share a one-time password, PIN, or recovery code with a caller or message sender. Report suspicious messages through the service's official reporting tools.",
         "Practice: list three warning signs of a suspicious message and what you would do before responding."
       ]}
-    ],
+    ,
+        {
+          "id": "digital-foundations-lesson-4",
+          "title": "Planning and setting goals in Digital Foundations",
+          "minutes": 8,
+          "content": [
+            "Start by identifying what you need to learn and what you should be able to do after studying Digital Foundations.",
+            "Break the learning goal into small tasks. Put the most important task first and set a realistic time for completing it.",
+            "Write down your starting point, the resources you need, and a simple way to measure progress.",
+            "Practice: write one clear learning goal and three steps you can take to achieve it."
+          ]
+        },
+{
+          "id": "digital-foundations-lesson-5",
+          "title": "Practical application of Digital Foundations",
+          "minutes": 10,
+          "content": [
+            "Use the concepts from Digital Foundations to solve a small, realistic problem rather than only memorising definitions.",
+            "Gather the information you need, check that it is reliable, and choose a method that fits the task.",
+            "Work through the task carefully. Check the result, correct mistakes, and record what you learned.",
+            "Practice: describe a real situation where you could apply this subject and explain the steps you would follow."
+          ]
+        },
+{
+          "id": "digital-foundations-lesson-6",
+          "title": "Review, improvement and responsible practice",
+          "minutes": 8,
+          "content": [
+            "Review the key ideas you have learned about Digital Foundations and identify anything that remains unclear.",
+            "Use feedback and evidence to improve your work. Do not treat an assumption as a verified fact.",
+            "Respect privacy, follow relevant rules, and consider how your decisions affect other people.",
+            "Practice: summarise three things you learned, one skill you need to practise, and one action you will take next."
+          ]
+        }
+      ],
     questions: [
       { id: "df-q1", prompt: "What is a good way to protect important accounts?", options: ["Use one short password everywhere", "Use unique long passwords and multi-factor authentication", "Send your password to a friend", "Turn off every security update"], answerIndex: 1, explanation: "Unique strong passwords and multi-factor authentication make account takeover harder." },
       { id: "df-q2", prompt: "A message says your account will close in five minutes unless you share a code. What should you do?", options: ["Reply with the code", "Forward it to everyone", "Do not share the code; verify through the official service", "Click every link in the message"], answerIndex: 2, explanation: "Urgency and requests for one-time codes are common scam warning signs." },
       { id: "df-q3", prompt: "How should you assess information found online?", options: ["Trust the first result automatically", "Compare credible sources and check dates", "Trust any page with colourful graphics", "Ignore who published it"], answerIndex: 1, explanation: "Comparing reliable sources and checking dates helps assess accuracy and relevance." },
       { id: "df-q4", prompt: "What is a sensible way to protect files?", options: ["Back up important files and keep devices updated", "Disable all updates forever", "Use unknown USB drives", "Share every file publicly"], answerIndex: 0, explanation: "Updates and backups reduce security risks and help recover information." }
-    ]
+    ,
+        {
+          "id": "digital-foundations-q5",
+          "prompt": "What is the best first step when beginning a task related to Digital Foundations?",
+          "options": [
+            "Start immediately without understanding the task",
+            "Identify the goal and the information or resources needed",
+            "Copy someone else's work without checking it",
+            "Ignore the expected result"
+          ],
+          "answerIndex": 1,
+          "explanation": "Clarifying the goal and required resources helps you plan and complete the task effectively."
+        },
+{
+          "id": "digital-foundations-q6",
+          "prompt": "How should you check information used in Digital Foundations?",
+          "options": [
+            "Accept the first claim you see",
+            "Rely only on popularity",
+            "Compare credible sources and check the evidence",
+            "Ignore the date and context"
+          ],
+          "answerIndex": 2,
+          "explanation": "Checking credible sources and evidence helps reduce errors and unsupported conclusions."
+        },
+{
+          "id": "digital-foundations-q7",
+          "prompt": "What is a useful way to improve a practical skill in Digital Foundations?",
+          "options": [
+            "Practise, review the result and learn from mistakes",
+            "Avoid feedback",
+            "Repeat errors without reviewing them",
+            "Stop after the first attempt"
+          ],
+          "answerIndex": 0,
+          "explanation": "Practice and review help learners identify weaknesses and improve their performance."
+        },
+{
+          "id": "digital-foundations-q8",
+          "prompt": "If a task in Digital Foundations does not produce the expected result, what should you do?",
+          "options": [
+            "Hide the result",
+            "Blame others without checking the process",
+            "Continue using the same method without review",
+            "Check the steps, identify the cause and make a correction"
+          ],
+          "answerIndex": 3,
+          "explanation": "Reviewing the process helps identify the cause of a problem and supports a better solution."
+        },
+{
+          "id": "digital-foundations-q9",
+          "prompt": "Which approach supports responsible work in Digital Foundations?",
+          "options": [
+            "Share private information freely",
+            "Respect privacy, follow applicable rules and consider the impact",
+            "Ignore safety concerns",
+            "Present guesses as proven facts"
+          ],
+          "answerIndex": 1,
+          "explanation": "Responsible practice includes protecting privacy, following relevant rules and communicating honestly."
+        },
+{
+          "id": "digital-foundations-q10",
+          "prompt": "How can you measure progress in Digital Foundations?",
+          "options": [
+            "Avoid checking your work",
+            "Depend entirely on memory",
+            "Compare your results with a clear goal or checklist",
+            "Change the goal whenever work becomes difficult"
+          ],
+          "answerIndex": 2,
+          "explanation": "A clear goal or checklist makes progress easier to review and areas for improvement easier to identify."
+        }
+      ]
   },
-  {
+    {
     id: "business-essentials",
     title: "Business Essentials",
     category: "Business & Entrepreneurship",
     description: "Learn to identify a customer problem, estimate costs, set a basic price, and track cash flow.",
     level: "Beginner",
-    priceKsh: 0,
+    priceKsh: 500,
     published: true,
     lessons: [
       { id: "customer-problem", title: "Start with a real customer need", minutes: 9, content: [
@@ -85,21 +192,128 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "Record each transaction with a date, description, amount, payment method, and supporting receipt. Reconcile records with cash and account statements regularly, and keep business funds separate from personal spending where possible.",
         "Practice: prepare a simple daily log of opening cash, receipts, payments, and closing cash. Do not treat uncollected money as cash already available."
       ]}
-    ],
+    ,
+        {
+          "id": "business-essentials-lesson-4",
+          "title": "Planning and setting goals in Business Essentials",
+          "minutes": 8,
+          "content": [
+            "Start by identifying what you need to learn and what you should be able to do after studying Business Essentials.",
+            "Break the learning goal into small tasks. Put the most important task first and set a realistic time for completing it.",
+            "Write down your starting point, the resources you need, and a simple way to measure progress.",
+            "Practice: write one clear learning goal and three steps you can take to achieve it."
+          ]
+        },
+{
+          "id": "business-essentials-lesson-5",
+          "title": "Practical application of Business Essentials",
+          "minutes": 10,
+          "content": [
+            "Use the concepts from Business Essentials to solve a small, realistic problem rather than only memorising definitions.",
+            "Gather the information you need, check that it is reliable, and choose a method that fits the task.",
+            "Work through the task carefully. Check the result, correct mistakes, and record what you learned.",
+            "Practice: describe a real situation where you could apply this subject and explain the steps you would follow."
+          ]
+        },
+{
+          "id": "business-essentials-lesson-6",
+          "title": "Review, improvement and responsible practice",
+          "minutes": 8,
+          "content": [
+            "Review the key ideas you have learned about Business Essentials and identify anything that remains unclear.",
+            "Use feedback and evidence to improve your work. Do not treat an assumption as a verified fact.",
+            "Respect privacy, follow relevant rules, and consider how your decisions affect other people.",
+            "Practice: summarise three things you learned, one skill you need to practise, and one action you will take next."
+          ]
+        }
+      ],
     questions: [
       { id: "be-q1", prompt: "What is a sensible first step for a new business idea?", options: ["Buy large quantities immediately", "Understand a specific customer's need", "Set a price without estimating costs", "Ignore existing alternatives"], answerIndex: 1, explanation: "A business should understand the customer need before committing significant resources." },
       { id: "be-q2", prompt: "A product sells for KES 800 and direct cost is KES 500. What remains before other expenses?", options: ["KES 1,300", "KES 800", "KES 300", "KES 500"], answerIndex: 2, explanation: "KES 800 minus KES 500 equals KES 300 before other expenses." },
       { id: "be-q3", prompt: "Why keep transaction records?", options: ["To hide spending", "To understand income, costs, and cash", "To avoid issuing receipts", "To guarantee every sale is profitable"], answerIndex: 1, explanation: "Good records support decisions, accountability, and cash management." },
       { id: "be-q4", prompt: "Why can a business with sales still have cash problems?", options: ["All sales arrive instantly", "Customers may pay later while bills are due now", "Records are never useful", "Costs do not need payment"], answerIndex: 1, explanation: "Cash can be delayed while expenses remain due, creating a timing gap." }
-    ]
+    ,
+        {
+          "id": "business-essentials-q5",
+          "prompt": "What is the best first step when beginning a task related to Business Essentials?",
+          "options": [
+            "Start immediately without understanding the task",
+            "Identify the goal and the information or resources needed",
+            "Copy someone else's work without checking it",
+            "Ignore the expected result"
+          ],
+          "answerIndex": 1,
+          "explanation": "Clarifying the goal and required resources helps you plan and complete the task effectively."
+        },
+{
+          "id": "business-essentials-q6",
+          "prompt": "How should you check information used in Business Essentials?",
+          "options": [
+            "Accept the first claim you see",
+            "Rely only on popularity",
+            "Compare credible sources and check the evidence",
+            "Ignore the date and context"
+          ],
+          "answerIndex": 2,
+          "explanation": "Checking credible sources and evidence helps reduce errors and unsupported conclusions."
+        },
+{
+          "id": "business-essentials-q7",
+          "prompt": "What is a useful way to improve a practical skill in Business Essentials?",
+          "options": [
+            "Practise, review the result and learn from mistakes",
+            "Avoid feedback",
+            "Repeat errors without reviewing them",
+            "Stop after the first attempt"
+          ],
+          "answerIndex": 0,
+          "explanation": "Practice and review help learners identify weaknesses and improve their performance."
+        },
+{
+          "id": "business-essentials-q8",
+          "prompt": "If a task in Business Essentials does not produce the expected result, what should you do?",
+          "options": [
+            "Hide the result",
+            "Blame others without checking the process",
+            "Continue using the same method without review",
+            "Check the steps, identify the cause and make a correction"
+          ],
+          "answerIndex": 3,
+          "explanation": "Reviewing the process helps identify the cause of a problem and supports a better solution."
+        },
+{
+          "id": "business-essentials-q9",
+          "prompt": "Which approach supports responsible work in Business Essentials?",
+          "options": [
+            "Share private information freely",
+            "Respect privacy, follow applicable rules and consider the impact",
+            "Ignore safety concerns",
+            "Present guesses as proven facts"
+          ],
+          "answerIndex": 1,
+          "explanation": "Responsible practice includes protecting privacy, following relevant rules and communicating honestly."
+        },
+{
+          "id": "business-essentials-q10",
+          "prompt": "How can you measure progress in Business Essentials?",
+          "options": [
+            "Avoid checking your work",
+            "Depend entirely on memory",
+            "Compare your results with a clear goal or checklist",
+            "Change the goal whenever work becomes difficult"
+          ],
+          "answerIndex": 2,
+          "explanation": "A clear goal or checklist makes progress easier to review and areas for improvement easier to identify."
+        }
+      ]
   },
-  {
+    {
     id: "ai-literacy-basics",
     title: "AI Literacy Basics",
     category: "AI & Programming",
     description: "Understand generative AI, write clearer prompts, and check outputs responsibly.",
     level: "Beginner",
-    priceKsh: 0,
+    priceKsh: 500,
     published: true,
     lessons: [
       { id: "what-is-ai", title: "What AI can and cannot do", minutes: 9, content: [
@@ -118,21 +332,128 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "Respect privacy, intellectual property, and the rights of people represented in content. Disclose AI assistance when required by your school, employer, client, or publisher.",
         "Practice: take one AI-generated claim and list a trustworthy source or test that could confirm or challenge it."
       ]}
-    ],
+    ,
+        {
+          "id": "ai-literacy-basics-lesson-4",
+          "title": "Planning and setting goals in AI Literacy Basics",
+          "minutes": 8,
+          "content": [
+            "Start by identifying what you need to learn and what you should be able to do after studying AI Literacy Basics.",
+            "Break the learning goal into small tasks. Put the most important task first and set a realistic time for completing it.",
+            "Write down your starting point, the resources you need, and a simple way to measure progress.",
+            "Practice: write one clear learning goal and three steps you can take to achieve it."
+          ]
+        },
+{
+          "id": "ai-literacy-basics-lesson-5",
+          "title": "Practical application of AI Literacy Basics",
+          "minutes": 10,
+          "content": [
+            "Use the concepts from AI Literacy Basics to solve a small, realistic problem rather than only memorising definitions.",
+            "Gather the information you need, check that it is reliable, and choose a method that fits the task.",
+            "Work through the task carefully. Check the result, correct mistakes, and record what you learned.",
+            "Practice: describe a real situation where you could apply this subject and explain the steps you would follow."
+          ]
+        },
+{
+          "id": "ai-literacy-basics-lesson-6",
+          "title": "Review, improvement and responsible practice",
+          "minutes": 8,
+          "content": [
+            "Review the key ideas you have learned about AI Literacy Basics and identify anything that remains unclear.",
+            "Use feedback and evidence to improve your work. Do not treat an assumption as a verified fact.",
+            "Respect privacy, follow relevant rules, and consider how your decisions affect other people.",
+            "Practice: summarise three things you learned, one skill you need to practise, and one action you will take next."
+          ]
+        }
+      ],
     questions: [
       { id: "ai-q1", prompt: "What is a responsible way to use generative AI?", options: ["Assume every answer is correct", "Use it as assistance and verify important claims", "Share private passwords with it", "Ignore the final result"], answerIndex: 1, explanation: "AI can help but can also produce incorrect or incomplete outputs." },
       { id: "ai-q2", prompt: "Which prompt is more useful?", options: ["Do something", "Business", "Create a daily sales-record checklist for a small shop", "Write anything you want"], answerIndex: 2, explanation: "A clear goal and context guide the response toward a useful output." },
       { id: "ai-q3", prompt: "What should you do before using important AI-generated factual information?", options: ["Verify it against credible sources", "Delete every source", "Assume it is current", "Publish it without review"], answerIndex: 0, explanation: "Important claims should be checked, especially in high-impact contexts." },
       { id: "ai-q4", prompt: "Which information should generally not be pasted into an AI prompt?", options: ["A fictional example", "A public topic", "A generic formatting request", "Passwords and confidential personal data"], answerIndex: 3, explanation: "Avoid exposing sensitive or confidential information to services unless authorised." }
-    ]
+    ,
+        {
+          "id": "ai-literacy-basics-q5",
+          "prompt": "What is the best first step when beginning a task related to AI Literacy Basics?",
+          "options": [
+            "Start immediately without understanding the task",
+            "Identify the goal and the information or resources needed",
+            "Copy someone else's work without checking it",
+            "Ignore the expected result"
+          ],
+          "answerIndex": 1,
+          "explanation": "Clarifying the goal and required resources helps you plan and complete the task effectively."
+        },
+{
+          "id": "ai-literacy-basics-q6",
+          "prompt": "How should you check information used in AI Literacy Basics?",
+          "options": [
+            "Accept the first claim you see",
+            "Rely only on popularity",
+            "Compare credible sources and check the evidence",
+            "Ignore the date and context"
+          ],
+          "answerIndex": 2,
+          "explanation": "Checking credible sources and evidence helps reduce errors and unsupported conclusions."
+        },
+{
+          "id": "ai-literacy-basics-q7",
+          "prompt": "What is a useful way to improve a practical skill in AI Literacy Basics?",
+          "options": [
+            "Practise, review the result and learn from mistakes",
+            "Avoid feedback",
+            "Repeat errors without reviewing them",
+            "Stop after the first attempt"
+          ],
+          "answerIndex": 0,
+          "explanation": "Practice and review help learners identify weaknesses and improve their performance."
+        },
+{
+          "id": "ai-literacy-basics-q8",
+          "prompt": "If a task in AI Literacy Basics does not produce the expected result, what should you do?",
+          "options": [
+            "Hide the result",
+            "Blame others without checking the process",
+            "Continue using the same method without review",
+            "Check the steps, identify the cause and make a correction"
+          ],
+          "answerIndex": 3,
+          "explanation": "Reviewing the process helps identify the cause of a problem and supports a better solution."
+        },
+{
+          "id": "ai-literacy-basics-q9",
+          "prompt": "Which approach supports responsible work in AI Literacy Basics?",
+          "options": [
+            "Share private information freely",
+            "Respect privacy, follow applicable rules and consider the impact",
+            "Ignore safety concerns",
+            "Present guesses as proven facts"
+          ],
+          "answerIndex": 1,
+          "explanation": "Responsible practice includes protecting privacy, following relevant rules and communicating honestly."
+        },
+{
+          "id": "ai-literacy-basics-q10",
+          "prompt": "How can you measure progress in AI Literacy Basics?",
+          "options": [
+            "Avoid checking your work",
+            "Depend entirely on memory",
+            "Compare your results with a clear goal or checklist",
+            "Change the goal whenever work becomes difficult"
+          ],
+          "answerIndex": 2,
+          "explanation": "A clear goal or checklist makes progress easier to review and areas for improvement easier to identify."
+        }
+      ]
   },
-  {
+    {
     id: "digital-marketing-social-media",
     title: "Digital Marketing & Social Media",
     category: "Digital Marketing & Office Tools",
     description: "Plan useful content, understand audiences, and measure the performance of digital campaigns.",
     level: "Intermediate",
-    priceKsh: 0,
+    priceKsh: 750,
     published: true,
     lessons: [
       { id: "marketing-goals", title: "Set goals and understand your audience", minutes: 9, content: [
@@ -150,21 +471,128 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "Compare results over similar periods and test one change at a time when possible. Do not buy fake followers or misrepresent results to customers.",
         "Practice: decide which metric best measures a campaign designed to generate product enquiries."
       ]}
-    ],
+    ,
+        {
+          "id": "digital-marketing-social-media-lesson-4",
+          "title": "Planning and setting goals in Digital Marketing & Social Media",
+          "minutes": 8,
+          "content": [
+            "Start by identifying what you need to learn and what you should be able to do after studying Digital Marketing & Social Media.",
+            "Break the learning goal into small tasks. Put the most important task first and set a realistic time for completing it.",
+            "Write down your starting point, the resources you need, and a simple way to measure progress.",
+            "Practice: write one clear learning goal and three steps you can take to achieve it."
+          ]
+        },
+{
+          "id": "digital-marketing-social-media-lesson-5",
+          "title": "Practical application of Digital Marketing & Social Media",
+          "minutes": 10,
+          "content": [
+            "Use the concepts from Digital Marketing & Social Media to solve a small, realistic problem rather than only memorising definitions.",
+            "Gather the information you need, check that it is reliable, and choose a method that fits the task.",
+            "Work through the task carefully. Check the result, correct mistakes, and record what you learned.",
+            "Practice: describe a real situation where you could apply this subject and explain the steps you would follow."
+          ]
+        },
+{
+          "id": "digital-marketing-social-media-lesson-6",
+          "title": "Review, improvement and responsible practice",
+          "minutes": 8,
+          "content": [
+            "Review the key ideas you have learned about Digital Marketing & Social Media and identify anything that remains unclear.",
+            "Use feedback and evidence to improve your work. Do not treat an assumption as a verified fact.",
+            "Respect privacy, follow relevant rules, and consider how your decisions affect other people.",
+            "Practice: summarise three things you learned, one skill you need to practise, and one action you will take next."
+          ]
+        }
+      ],
     questions: [
       { id: "digital-marketing-social-media-q1", prompt: "What should guide a digital marketing campaign?", options: ["A clear goal and audience", "Posting at random", "Follower count alone", "Copying every competitor"], answerIndex: 0, explanation: "A clear goal and audience help shape relevant content and useful measurement." },
       { id: "digital-marketing-social-media-q2", prompt: "What is a content calendar for?", options: ["Planning topics and publishing dates", "Storing customer passwords", "Guaranteeing sales", "Replacing customer service"], answerIndex: 0, explanation: "A calendar helps coordinate topics, dates, formats, and responsibilities." },
       { id: "digital-marketing-social-media-q3", prompt: "Which metric best fits a campaign seeking enquiries?", options: ["Number of relevant enquiries", "Colour of the logo", "Number of unrelated posts", "Personal opinions only"], answerIndex: 0, explanation: "Measure the action that matches the campaign objective." },
       { id: "digital-marketing-social-media-q4", prompt: "What is a responsible way to use a testimonial?", options: ["Use it with permission and represent it honestly", "Invent a customer quote", "Change its meaning", "Claim every customer had the same result"], answerIndex: 0, explanation: "Testimonials should be authorised and presented accurately." }
-    ]
+    ,
+        {
+          "id": "digital-marketing-social-media-q5",
+          "prompt": "What is the best first step when beginning a task related to Digital Marketing & Social Media?",
+          "options": [
+            "Start immediately without understanding the task",
+            "Identify the goal and the information or resources needed",
+            "Copy someone else's work without checking it",
+            "Ignore the expected result"
+          ],
+          "answerIndex": 1,
+          "explanation": "Clarifying the goal and required resources helps you plan and complete the task effectively."
+        },
+{
+          "id": "digital-marketing-social-media-q6",
+          "prompt": "How should you check information used in Digital Marketing & Social Media?",
+          "options": [
+            "Accept the first claim you see",
+            "Rely only on popularity",
+            "Compare credible sources and check the evidence",
+            "Ignore the date and context"
+          ],
+          "answerIndex": 2,
+          "explanation": "Checking credible sources and evidence helps reduce errors and unsupported conclusions."
+        },
+{
+          "id": "digital-marketing-social-media-q7",
+          "prompt": "What is a useful way to improve a practical skill in Digital Marketing & Social Media?",
+          "options": [
+            "Practise, review the result and learn from mistakes",
+            "Avoid feedback",
+            "Repeat errors without reviewing them",
+            "Stop after the first attempt"
+          ],
+          "answerIndex": 0,
+          "explanation": "Practice and review help learners identify weaknesses and improve their performance."
+        },
+{
+          "id": "digital-marketing-social-media-q8",
+          "prompt": "If a task in Digital Marketing & Social Media does not produce the expected result, what should you do?",
+          "options": [
+            "Hide the result",
+            "Blame others without checking the process",
+            "Continue using the same method without review",
+            "Check the steps, identify the cause and make a correction"
+          ],
+          "answerIndex": 3,
+          "explanation": "Reviewing the process helps identify the cause of a problem and supports a better solution."
+        },
+{
+          "id": "digital-marketing-social-media-q9",
+          "prompt": "Which approach supports responsible work in Digital Marketing & Social Media?",
+          "options": [
+            "Share private information freely",
+            "Respect privacy, follow applicable rules and consider the impact",
+            "Ignore safety concerns",
+            "Present guesses as proven facts"
+          ],
+          "answerIndex": 1,
+          "explanation": "Responsible practice includes protecting privacy, following relevant rules and communicating honestly."
+        },
+{
+          "id": "digital-marketing-social-media-q10",
+          "prompt": "How can you measure progress in Digital Marketing & Social Media?",
+          "options": [
+            "Avoid checking your work",
+            "Depend entirely on memory",
+            "Compare your results with a clear goal or checklist",
+            "Change the goal whenever work becomes difficult"
+          ],
+          "answerIndex": 2,
+          "explanation": "A clear goal or checklist makes progress easier to review and areas for improvement easier to identify."
+        }
+      ]
   },
-  {
+    {
     id: "computer-office-skills",
     title: "Computer Applications & Office Skills",
     category: "Digital Marketing & Office Tools",
     description: "Build practical skills for documents, spreadsheets, presentations, and organised digital files.",
     level: "Foundation",
-    priceKsh: 0,
+    priceKsh: 300,
     published: true,
     lessons: [
       { id: "organise-files", title: "Manage files and folders", minutes: 8, content: [
@@ -182,21 +610,128 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "Formulas can calculate totals and averages. Check cell references and test results against a small manual calculation before relying on a spreadsheet for decisions.",
         "Practice: create a sample sales table with date, item, quantity, unit price, and total."
       ]}
-    ],
+    ,
+        {
+          "id": "computer-office-skills-lesson-4",
+          "title": "Planning and setting goals in Computer Applications & Office Skills",
+          "minutes": 8,
+          "content": [
+            "Start by identifying what you need to learn and what you should be able to do after studying Computer Applications & Office Skills.",
+            "Break the learning goal into small tasks. Put the most important task first and set a realistic time for completing it.",
+            "Write down your starting point, the resources you need, and a simple way to measure progress.",
+            "Practice: write one clear learning goal and three steps you can take to achieve it."
+          ]
+        },
+{
+          "id": "computer-office-skills-lesson-5",
+          "title": "Practical application of Computer Applications & Office Skills",
+          "minutes": 10,
+          "content": [
+            "Use the concepts from Computer Applications & Office Skills to solve a small, realistic problem rather than only memorising definitions.",
+            "Gather the information you need, check that it is reliable, and choose a method that fits the task.",
+            "Work through the task carefully. Check the result, correct mistakes, and record what you learned.",
+            "Practice: describe a real situation where you could apply this subject and explain the steps you would follow."
+          ]
+        },
+{
+          "id": "computer-office-skills-lesson-6",
+          "title": "Review, improvement and responsible practice",
+          "minutes": 8,
+          "content": [
+            "Review the key ideas you have learned about Computer Applications & Office Skills and identify anything that remains unclear.",
+            "Use feedback and evidence to improve your work. Do not treat an assumption as a verified fact.",
+            "Respect privacy, follow relevant rules, and consider how your decisions affect other people.",
+            "Practice: summarise three things you learned, one skill you need to practise, and one action you will take next."
+          ]
+        }
+      ],
     questions: [
       { id: "computer-office-skills-q1", prompt: "What makes a file name useful?", options: ["It clearly describes the file", "It is always blank", "It uses random symbols only", "It hides the document's purpose"], answerIndex: 0, explanation: "Descriptive names make files easier to find and distinguish." },
       { id: "computer-office-skills-q2", prompt: "What should a presentation slide usually do?", options: ["Communicate one main idea clearly", "Contain every sentence in a report", "Use the smallest possible text", "Avoid titles"], answerIndex: 0, explanation: "Focused slides are easier to read and explain." },
       { id: "computer-office-skills-q3", prompt: "In a spreadsheet, what is a row commonly used for?", options: ["One record or entry", "A password for all users", "A folder on the computer", "A slide transition"], answerIndex: 0, explanation: "Rows commonly represent individual records, with columns describing their fields." },
       { id: "computer-office-skills-q4", prompt: "What should you do before relying on a spreadsheet total?", options: ["Check formulas and test sample results", "Assume formulas cannot fail", "Delete the source data", "Share it publicly"], answerIndex: 0, explanation: "Checking formulas and sample results helps catch errors." }
-    ]
+    ,
+        {
+          "id": "computer-office-skills-q5",
+          "prompt": "What is the best first step when beginning a task related to Computer Applications & Office Skills?",
+          "options": [
+            "Start immediately without understanding the task",
+            "Identify the goal and the information or resources needed",
+            "Copy someone else's work without checking it",
+            "Ignore the expected result"
+          ],
+          "answerIndex": 1,
+          "explanation": "Clarifying the goal and required resources helps you plan and complete the task effectively."
+        },
+{
+          "id": "computer-office-skills-q6",
+          "prompt": "How should you check information used in Computer Applications & Office Skills?",
+          "options": [
+            "Accept the first claim you see",
+            "Rely only on popularity",
+            "Compare credible sources and check the evidence",
+            "Ignore the date and context"
+          ],
+          "answerIndex": 2,
+          "explanation": "Checking credible sources and evidence helps reduce errors and unsupported conclusions."
+        },
+{
+          "id": "computer-office-skills-q7",
+          "prompt": "What is a useful way to improve a practical skill in Computer Applications & Office Skills?",
+          "options": [
+            "Practise, review the result and learn from mistakes",
+            "Avoid feedback",
+            "Repeat errors without reviewing them",
+            "Stop after the first attempt"
+          ],
+          "answerIndex": 0,
+          "explanation": "Practice and review help learners identify weaknesses and improve their performance."
+        },
+{
+          "id": "computer-office-skills-q8",
+          "prompt": "If a task in Computer Applications & Office Skills does not produce the expected result, what should you do?",
+          "options": [
+            "Hide the result",
+            "Blame others without checking the process",
+            "Continue using the same method without review",
+            "Check the steps, identify the cause and make a correction"
+          ],
+          "answerIndex": 3,
+          "explanation": "Reviewing the process helps identify the cause of a problem and supports a better solution."
+        },
+{
+          "id": "computer-office-skills-q9",
+          "prompt": "Which approach supports responsible work in Computer Applications & Office Skills?",
+          "options": [
+            "Share private information freely",
+            "Respect privacy, follow applicable rules and consider the impact",
+            "Ignore safety concerns",
+            "Present guesses as proven facts"
+          ],
+          "answerIndex": 1,
+          "explanation": "Responsible practice includes protecting privacy, following relevant rules and communicating honestly."
+        },
+{
+          "id": "computer-office-skills-q10",
+          "prompt": "How can you measure progress in Computer Applications & Office Skills?",
+          "options": [
+            "Avoid checking your work",
+            "Depend entirely on memory",
+            "Compare your results with a clear goal or checklist",
+            "Change the goal whenever work becomes difficult"
+          ],
+          "answerIndex": 2,
+          "explanation": "A clear goal or checklist makes progress easier to review and areas for improvement easier to identify."
+        }
+      ]
   },
-  {
+    {
     id: "cybersecurity-online-safety",
     title: "Cybersecurity & Online Safety",
     category: "Digital & ICT Skills",
     description: "Recognise common online threats and protect accounts, devices, and personal information.",
     level: "Foundation",
-    priceKsh: 0,
+    priceKsh: 300,
     published: true,
     lessons: [
       { id: "recognise-threats", title: "Recognise common online threats", minutes: 9, content: [
@@ -214,21 +749,128 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "If an account may be compromised, use a trusted device to change the password, end unfamiliar sessions, enable additional security, and contact the provider or financial institution when relevant.",
         "Practice: list the first three steps you would take after noticing an unfamiliar sign-in alert."
       ]}
-    ],
+    ,
+        {
+          "id": "cybersecurity-online-safety-lesson-4",
+          "title": "Recognising online threats",
+          "minutes": 8,
+          "content": [
+            "Phishing messages try to trick people into revealing passwords, payment details or other private information. They may imitate trusted organisations or create a false sense of urgency.",
+            "Check the sender, inspect links carefully and be suspicious of unexpected attachments, prize claims and requests for confidential information.",
+            "Use a separate trusted route to contact an organisation if a message asks you to act urgently. Do not rely on contact details supplied in a suspicious message.",
+            "Practice: identify three warning signs in a suspicious email or text message."
+          ]
+        },
+        {
+          "id": "cybersecurity-online-safety-lesson-5",
+          "title": "Passwords and account protection",
+          "minutes": 9,
+          "content": [
+            "Use long, unique passwords for important accounts. Reusing one password means a breach on one service may put other accounts at risk.",
+            "A reputable password manager can help you create and store unique passwords. Protect the manager itself with a strong master password and available security features.",
+            "Enable multifactor authentication wherever possible. Never share verification codes with someone who contacts you unexpectedly.",
+            "Practice: review the security settings on one account you own and identify one improvement."
+          ]
+        },
+        {
+          "id": "cybersecurity-online-safety-lesson-6",
+          "title": "Privacy, devices and safe browsing",
+          "minutes": 9,
+          "content": [
+            "Share only the personal information needed for a legitimate purpose. Review privacy settings and consider who may see posts, photographs, location information and documents.",
+            "Keep your operating system, browser and applications updated. Download software from trusted sources and use a screen lock on devices.",
+            "Back up important files and avoid entering sensitive information on untrusted networks or unfamiliar websites. Report online abuse and preserve relevant evidence safely.",
+            "Practice: create a short checklist for protecting a device and its personal data."
+          ]
+        }
+      ],
     questions: [
       { id: "cybersecurity-online-safety-q1", prompt: "What is a phishing warning sign?", options: ["An unexpected urgent request for a code", "A routine update from a verified app you opened yourself", "A document you created", "A saved offline note"], answerIndex: 0, explanation: "Unexpected urgency and requests for authentication codes are common warning signs." },
       { id: "cybersecurity-online-safety-q2", prompt: "Why use unique passwords?", options: ["A leaked password is less likely to unlock other accounts", "It makes every account public", "It removes the need for updates", "It guarantees no attacks"], answerIndex: 0, explanation: "Unique passwords limit the damage if one service is breached." },
       { id: "cybersecurity-online-safety-q3", prompt: "What should you do with a suspicious payment message?", options: ["Verify through an official known channel", "Reply with your PIN", "Click its shortened link immediately", "Forward your one-time code"], answerIndex: 0, explanation: "Independent verification helps avoid impersonation scams." },
       { id: "cybersecurity-online-safety-q4", prompt: "What is a useful first response to a compromised account?", options: ["Secure it from a trusted device and contact the provider", "Ignore all alerts", "Post the password publicly", "Disable every security feature"], answerIndex: 0, explanation: "Secure access promptly and follow the provider's incident guidance." }
-    ]
+    ,
+        {
+          "id": "cybersecurity-online-safety-q5",
+          "prompt": "A message asks you to verify your password immediately using an unfamiliar link. What should you do?",
+          "options": [
+            "Open the link quickly",
+            "Forward it to all contacts",
+            "Avoid the link and verify the request through an official channel",
+            "Reply with your password"
+          ],
+          "answerIndex": 2,
+          "explanation": "Independent verification helps prevent phishing and credential theft."
+        },
+        {
+          "id": "cybersecurity-online-safety-q6",
+          "prompt": "Why should important accounts have unique passwords?",
+          "options": [
+            "It makes every password public",
+            "It limits the damage if one service suffers a breach",
+            "It removes the need for updates",
+            "It guarantees that no attack is possible"
+          ],
+          "answerIndex": 1,
+          "explanation": "Unique passwords reduce the risk of one compromised account exposing others."
+        },
+        {
+          "id": "cybersecurity-online-safety-q7",
+          "prompt": "What is a key benefit of multifactor authentication?",
+          "options": [
+            "It makes passwords unnecessary in every situation",
+            "It shares codes with other users",
+            "It disables account monitoring",
+            "It adds another verification step to sign-in"
+          ],
+          "answerIndex": 3,
+          "explanation": "A second verification factor can help protect an account if a password is stolen."
+        },
+        {
+          "id": "cybersecurity-online-safety-q8",
+          "prompt": "What is the safest response to an unexpected request for a verification code?",
+          "options": [
+            "Keep the code private and verify the request independently",
+            "Send it to the caller",
+            "Post it in a group chat",
+            "Store it in a public document"
+          ],
+          "answerIndex": 0,
+          "explanation": "Verification codes can grant account access and should not be disclosed to unexpected contacts."
+        },
+        {
+          "id": "cybersecurity-online-safety-q9",
+          "prompt": "Why should you install software updates?",
+          "options": [
+            "Updates always remove personal files",
+            "Updates make passwords public",
+            "Updates can fix security weaknesses and software problems",
+            "Updates eliminate every possible threat"
+          ],
+          "answerIndex": 2,
+          "explanation": "Security updates often repair weaknesses that attackers could otherwise exploit."
+        },
+        {
+          "id": "cybersecurity-online-safety-q10",
+          "prompt": "What is a responsible way to protect personal information online?",
+          "options": [
+            "Publish identification documents publicly",
+            "Limit sharing and review privacy settings",
+            "Use the same password everywhere",
+            "Ignore unexpected account alerts"
+          ],
+          "answerIndex": 1,
+          "explanation": "Limiting unnecessary sharing reduces exposure of sensitive information."
+        }
+      ]
   },
-  {
+    {
     id: "web-development-programming",
     title: "Web Development & Programming",
     category: "AI & Programming",
     description: "Learn how websites are structured, styled, and made interactive, with a beginner-friendly project workflow.",
     level: "Advanced",
-    priceKsh: 0,
+    priceKsh: 1000,
     published: true,
     lessons: [
       { id: "web-structure", title: "Understand how websites work", minutes: 10, content: [
@@ -246,21 +888,128 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "Use version control to track changes and keep a recoverable history. Review dependencies and never commit secrets or personal data to a repository.",
         "Practice: write five test cases for a registration form, including missing and invalid input."
       ]}
-    ],
+    ,
+        {
+          "id": "web-development-programming-lesson-4",
+          "title": "Understanding HTML page structure",
+          "minutes": 9,
+          "content": [
+            "HTML describes the structure and meaning of web content. Common elements include headings, paragraphs, links, images, lists and forms.",
+            "Use semantic elements appropriately so that the structure is understandable to people, browsers and assistive technologies.",
+            "Provide meaningful link text and alternative text for informative images. Keep the document structure logical and validate your markup when possible.",
+            "Practice: outline a simple webpage containing a heading, an introduction, a list and a useful link."
+          ]
+        },
+        {
+          "id": "web-development-programming-lesson-5",
+          "title": "CSS styling and responsive layouts",
+          "minutes": 10,
+          "content": [
+            "CSS controls presentation, including colours, typography, spacing, borders and layout. Separating content from styling makes websites easier to maintain.",
+            "Flexbox and Grid can help arrange content. Relative units and responsive techniques help layouts adapt to different screen sizes.",
+            "Check contrast, text readability, keyboard access and layout behaviour on both narrow and wide screens. Avoid relying on colour alone to communicate meaning.",
+            "Practice: plan a responsive page with a header, content area and footer."
+          ]
+        },
+        {
+          "id": "web-development-programming-lesson-6",
+          "title": "JavaScript, testing and debugging",
+          "minutes": 10,
+          "content": [
+            "JavaScript adds behaviour to webpages. Variables store values, conditions make decisions, and functions organise reusable operations.",
+            "Read error messages carefully and isolate the smallest part of a program that reproduces a problem. Test normal inputs as well as empty, unexpected or invalid inputs.",
+            "Do not trust browser input automatically. Validate data on the server when an operation affects accounts, permissions, payments or stored information.",
+            "Practice: write pseudocode for a form that checks whether a required field has been completed."
+          ]
+        }
+      ],
     questions: [
       { id: "web-development-programming-q1", prompt: "Which technology describes the structure of a web page?", options: ["HTML", "CSS", "A spreadsheet", "A password manager"], answerIndex: 0, explanation: "HTML provides the structure and meaning of page content." },
       { id: "web-development-programming-q2", prompt: "What is CSS mainly used for?", options: ["Styling and layout", "Storing secret API keys", "Replacing all testing", "Sending private keys to users"], answerIndex: 0, explanation: "CSS controls presentation and layout." },
       { id: "web-development-programming-q3", prompt: "Where should a private server secret be kept?", options: ["In protected server-side configuration", "In public browser code", "In a public image", "In a page heading"], answerIndex: 0, explanation: "Secrets must not be exposed in client-side code or public repositories." },
       { id: "web-development-programming-q4", prompt: "Why test invalid form input?", options: ["To check error handling and protect data quality", "To guarantee unlimited traffic", "To remove the need for security", "To make forms harder to use"], answerIndex: 0, explanation: "Testing invalid input checks whether the form responds safely and clearly." }
-    ]
+    ,
+        {
+          "id": "web-development-programming-q5",
+          "prompt": "What is the primary role of HTML?",
+          "options": [
+            "To structure and describe webpage content",
+            "To store every website password",
+            "To replace all server databases",
+            "To guarantee website security"
+          ],
+          "answerIndex": 0,
+          "explanation": "HTML provides the structure and meaning of webpage content."
+        },
+        {
+          "id": "web-development-programming-q6",
+          "prompt": "Which technology is mainly used to style a webpage?",
+          "options": [
+            "SQL",
+            "CSS",
+            "DNS",
+            "SMTP"
+          ],
+          "answerIndex": 1,
+          "explanation": "CSS controls visual presentation and layout."
+        },
+        {
+          "id": "web-development-programming-q7",
+          "prompt": "What is a JavaScript function useful for?",
+          "options": [
+            "Replacing every HTML element automatically",
+            "Guaranteeing that code has no bugs",
+            "Grouping reusable instructions",
+            "Registering a domain name"
+          ],
+          "answerIndex": 2,
+          "explanation": "Functions organise reusable behaviour and make code easier to maintain."
+        },
+        {
+          "id": "web-development-programming-q8",
+          "prompt": "What should you do first when debugging an error?",
+          "options": [
+            "Delete the whole project",
+            "Ignore the error",
+            "Change unrelated files",
+            "Read the error and isolate the problem"
+          ],
+          "answerIndex": 3,
+          "explanation": "Understanding and reproducing the error helps identify its cause."
+        },
+        {
+          "id": "web-development-programming-q9",
+          "prompt": "Why should a website be tested on different screen sizes?",
+          "options": [
+            "To make all content invisible",
+            "To check that its layout adapts and remains usable",
+            "To remove all navigation",
+            "To disable accessibility features"
+          ],
+          "answerIndex": 1,
+          "explanation": "Responsive testing helps ensure the site remains usable on different devices."
+        },
+        {
+          "id": "web-development-programming-q10",
+          "prompt": "Where should sensitive operations such as payment verification be validated?",
+          "options": [
+            "Only in a button's colour",
+            "Only in a user-editable browser field",
+            "On the trusted server side as well as through appropriate checks",
+            "Nowhere if the page looks correct"
+          ],
+          "answerIndex": 2,
+          "explanation": "Server-side checks are essential because browser-side inputs can be manipulated."
+        }
+      ]
   },
-  {
+    {
     id: "financial-literacy-record-keeping",
     title: "Financial Literacy & Record Keeping",
     category: "Business & Entrepreneurship",
     description: "Understand budgeting, basic financial records, saving, and responsible money decisions.",
     level: "Beginner",
-    priceKsh: 0,
+    priceKsh: 500,
     published: true,
     lessons: [
       { id: "budgeting", title: "Prepare a practical budget", minutes: 9, content: [
@@ -278,21 +1027,128 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "Before accepting a financial offer, check fees, conditions, provider identity, and whether promised returns sound implausibly high. Do not borrow or invest based only on pressure or referral promises.",
         "Practice: list three questions to ask before committing money to a financial product."
       ]}
-    ],
+    ,
+        {
+          "id": "financial-literacy-record-keeping-lesson-4",
+          "title": "Building a realistic budget",
+          "minutes": 9,
+          "content": [
+            "A budget compares expected income with planned spending over a defined period. Include essential expenses, irregular costs, savings goals and existing obligations.",
+            "Separate needs from wants without ignoring important long-term goals. Use realistic estimates and update the budget when income or circumstances change.",
+            "If planned expenses exceed income, review flexible spending, consider realistic ways to improve income and prioritise essential commitments.",
+            "Practice: draft a weekly budget with income, three expense categories and a savings target."
+          ]
+        },
+        {
+          "id": "financial-literacy-record-keeping-lesson-5",
+          "title": "Cash flow and basic records",
+          "minutes": 10,
+          "content": [
+            "Cash flow records when money enters and leaves a business or household. A business can appear profitable but still struggle if customers pay after bills fall due.",
+            "Record each transaction with its date, description, amount, category and supporting evidence. Keep business and personal transactions distinguishable.",
+            "Reconcile records against bank or mobile-money statements and investigate differences. Protect financial records and restrict access to authorised people.",
+            "Practice: prepare a simple cashbook showing opening balance, receipts, payments and closing balance."
+          ]
+        },
+        {
+          "id": "financial-literacy-record-keeping-lesson-6",
+          "title": "Saving, borrowing and financial decisions",
+          "minutes": 9,
+          "content": [
+            "An emergency fund can help cover unexpected costs. Choose a savings target that suits your income, responsibilities and access to safe financial services.",
+            "Before borrowing, compare the total repayment amount, interest, fees, repayment dates and consequences of missed payments. A low advertised rate does not always mean the lowest total cost.",
+            "Be cautious of guaranteed high returns, pressure to send money quickly and unclear investment terms. Verify providers and understand the risks before committing funds.",
+            "Practice: compare two hypothetical borrowing offers by calculating the total amount repayable under each offer's stated terms."
+          ]
+        }
+      ],
     questions: [
       { id: "financial-literacy-record-keeping-q1", prompt: "What is a budget used for?", options: ["Planning income and spending", "Guaranteeing income", "Hiding transactions", "Replacing all receipts"], answerIndex: 0, explanation: "A budget helps plan and monitor money over a defined period." },
       { id: "financial-literacy-record-keeping-q2", prompt: "Why reconcile records with statements?", options: ["To identify missing or incorrect transactions", "To make records less accurate", "To remove evidence", "To guarantee profit"], answerIndex: 0, explanation: "Reconciliation helps spot differences and correct errors." },
       { id: "financial-literacy-record-keeping-q3", prompt: "What is a sensible response to a guaranteed unusually high return?", options: ["Check the provider, risks, and terms carefully", "Send money immediately", "Ignore all fees", "Borrow as much as possible"], answerIndex: 0, explanation: "Unusually high guaranteed returns can be a warning sign; verify before committing." },
       { id: "financial-literacy-record-keeping-q4", prompt: "Why separate business and personal spending?", options: ["It improves clarity and record keeping", "It guarantees no losses", "It removes tax obligations", "It makes receipts unnecessary"], answerIndex: 0, explanation: "Separate records make it easier to understand business performance." }
-    ]
+    ,
+        {
+          "id": "financial-literacy-record-keeping-q5",
+          "prompt": "What is the main purpose of a budget?",
+          "options": [
+            "To guarantee unlimited income",
+            "To plan income and spending against financial goals",
+            "To avoid recording expenses",
+            "To remove every unexpected cost"
+          ],
+          "answerIndex": 1,
+          "explanation": "A budget helps organise spending and guide financial decisions."
+        },
+        {
+          "id": "financial-literacy-record-keeping-q6",
+          "prompt": "What information is useful in a transaction record?",
+          "options": [
+            "Only the name of the person involved",
+            "Only an estimated monthly total",
+            "Date, description, amount and supporting evidence",
+            "A password written beside each payment"
+          ],
+          "answerIndex": 2,
+          "explanation": "Complete records make transactions easier to trace and verify."
+        },
+        {
+          "id": "financial-literacy-record-keeping-q7",
+          "prompt": "What does cash flow describe?",
+          "options": [
+            "Money moving into and out of an account or business",
+            "The colour of accounting documents",
+            "The value of a logo",
+            "Only the profit shown on paper"
+          ],
+          "answerIndex": 0,
+          "explanation": "Cash flow tracks receipts and payments over time."
+        },
+        {
+          "id": "financial-literacy-record-keeping-q8",
+          "prompt": "Why reconcile records against a bank or mobile-money statement?",
+          "options": [
+            "To delete all transactions",
+            "To avoid noticing mistakes",
+            "To increase income automatically",
+            "To identify differences, missing entries or errors"
+          ],
+          "answerIndex": 3,
+          "explanation": "Reconciliation helps confirm that records agree with actual transactions."
+        },
+        {
+          "id": "financial-literacy-record-keeping-q9",
+          "prompt": "What should you compare before accepting a loan?",
+          "options": [
+            "Only the advertisement",
+            "The total repayment, interest, fees and repayment terms",
+            "Only the lender's logo",
+            "Only the first instalment"
+          ],
+          "answerIndex": 1,
+          "explanation": "The full cost and repayment terms determine the actual borrowing commitment."
+        },
+        {
+          "id": "financial-literacy-record-keeping-q10",
+          "prompt": "Which is a warning sign of a potentially fraudulent investment?",
+          "options": [
+            "Clear written terms and disclosed risks",
+            "Time to verify the provider",
+            "Pressure to pay immediately for supposedly guaranteed high returns",
+            "An explanation of possible losses"
+          ],
+          "answerIndex": 2,
+          "explanation": "Pressure and unrealistic guarantees are important warning signs to investigate."
+        }
+      ]
   },
-  {
+    {
     id: "entrepreneurship-business-planning",
     title: "Entrepreneurship & Business Planning",
     category: "Business & Entrepreneurship",
     description: "Turn a business idea into a simple plan with customer research, operations, costs, and milestones.",
     level: "Intermediate",
-    priceKsh: 0,
+    priceKsh: 750,
     published: true,
     lessons: [
       { id: "validate-idea", title: "Test a business idea", minutes: 9, content: [
@@ -310,21 +1166,128 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "Track complaints, repeat purchases, and common questions. Use feedback to improve the product or process rather than making promises you cannot keep.",
         "Practice: draft a respectful response to a customer who received an order later than expected."
       ]}
-    ],
+    ,
+        {
+          "id": "entrepreneurship-business-planning-lesson-4",
+          "title": "Identifying customers and validating an idea",
+          "minutes": 9,
+          "content": [
+            "A business idea should address a real customer need. Define the problem, the people affected and the outcome they would value.",
+            "Speak with potential customers, observe existing alternatives and compare competitor offers. Treat positive comments as early evidence, not proof that customers will pay.",
+            "Test a small version of the offer before committing significant money. Record feedback and use it to improve the product or service.",
+            "Practice: describe a customer problem, identify the intended customer and propose one low-cost way to test demand."
+          ]
+        },
+        {
+          "id": "entrepreneurship-business-planning-lesson-5",
+          "title": "Pricing, costs and basic profitability",
+          "minutes": 10,
+          "content": [
+            "Separate fixed costs, which do not change directly with each unit sold, from variable costs, which generally change with sales or production.",
+            "Revenue is the money earned from sales. Profit is what remains after the relevant costs are deducted. Cash received and accounting profit are not always the same.",
+            "A sustainable price should consider costs, customer value, competitor alternatives and the amount customers are willing to pay. Revisit estimates as real data becomes available.",
+            "Practice: calculate the gross difference between a selling price of KES 500 and a direct unit cost of KES 320."
+          ]
+        },
+        {
+          "id": "entrepreneurship-business-planning-lesson-6",
+          "title": "Operations, customer service and business planning",
+          "minutes": 10,
+          "content": [
+            "A business plan describes the customer, offer, market, operations, marketing approach, resources, risks and financial assumptions.",
+            "Set measurable objectives with a deadline. Track practical indicators such as enquiries, conversion rate, repeat purchases, customer complaints and cash available.",
+            "Keep accurate records, communicate honestly, fulfil promises and follow applicable registration, tax, licensing and consumer-protection requirements.",
+            "Practice: write one measurable business goal and list the resources, actions and records needed to achieve it."
+          ]
+        }
+      ],
     questions: [
       { id: "entrepreneurship-business-planning-q1", prompt: "What is a good way to validate a business idea?", options: ["Talk to likely customers and test a small offer", "Assume everyone will buy", "Spend the full budget immediately", "Avoid feedback"], answerIndex: 0, explanation: "Customer research and small tests help check demand before larger commitments." },
       { id: "entrepreneurship-business-planning-q2", prompt: "What belongs in a simple business plan?", options: ["Customers, offer, costs, channels, and risks", "Only a business name", "Only a logo colour", "Unverified promises of income"], answerIndex: 0, explanation: "A plan describes how the business will serve customers and operate." },
       { id: "entrepreneurship-business-planning-q3", prompt: "Why set milestones?", options: ["To track progress toward specific goals", "To guarantee success", "To avoid measuring results", "To hide delays"], answerIndex: 0, explanation: "Milestones make progress and next steps easier to assess." },
       { id: "entrepreneurship-business-planning-q4", prompt: "How should a business handle a customer complaint?", options: ["Listen, respond respectfully, and seek a practical resolution", "Blame the customer immediately", "Delete all feedback", "Promise anything regardless of ability"], answerIndex: 0, explanation: "A fair, honest response helps resolve issues and build trust." }
-    ]
+    ,
+        {
+          "id": "entrepreneurship-business-planning-q5",
+          "prompt": "What is a useful first step when evaluating a business idea?",
+          "options": [
+            "Rent the largest available premises",
+            "Buy stock before researching",
+            "Identify a customer problem and investigate demand",
+            "Assume every person will buy"
+          ],
+          "answerIndex": 2,
+          "explanation": "Customer research helps establish whether the idea addresses a genuine need."
+        },
+        {
+          "id": "entrepreneurship-business-planning-q6",
+          "prompt": "What is revenue?",
+          "options": [
+            "Money earned from sales before subtracting costs",
+            "The same thing as net profit in every case",
+            "Only the value of equipment owned",
+            "Money borrowed from a lender"
+          ],
+          "answerIndex": 0,
+          "explanation": "Revenue is sales income; profit is calculated after relevant costs."
+        },
+        {
+          "id": "entrepreneurship-business-planning-q7",
+          "prompt": "Which is an example of a fixed cost in a typical short-term business budget?",
+          "options": [
+            "Packaging for each unit sold",
+            "A per-unit delivery charge",
+            "Raw materials used for every product",
+            "A monthly rent payment under a fixed lease"
+          ],
+          "answerIndex": 3,
+          "explanation": "Fixed costs generally do not vary directly with each additional unit sold during the period."
+        },
+        {
+          "id": "entrepreneurship-business-planning-q8",
+          "prompt": "Why test an offer with potential customers before investing heavily?",
+          "options": [
+            "To avoid receiving feedback",
+            "To gather evidence about demand and improve the offer",
+            "To guarantee immediate success",
+            "To eliminate the need for records"
+          ],
+          "answerIndex": 1,
+          "explanation": "Small tests can reveal customer needs and reduce the risk of costly assumptions."
+        },
+        {
+          "id": "entrepreneurship-business-planning-q9",
+          "prompt": "What makes a business objective measurable?",
+          "options": [
+            "It has no deadline",
+            "It uses only vague words",
+            "It defines an observable result or indicator",
+            "It changes whenever progress is slow"
+          ],
+          "answerIndex": 2,
+          "explanation": "Measurable objectives allow progress to be assessed against a clear result."
+        },
+        {
+          "id": "entrepreneurship-business-planning-q10",
+          "prompt": "Why should a business keep accurate financial records?",
+          "options": [
+            "To track transactions and support decisions and obligations",
+            "To conceal all spending",
+            "To guarantee profit without customers",
+            "To avoid checking cash flow"
+          ],
+          "answerIndex": 0,
+          "explanation": "Reliable records support planning, accountability and applicable compliance requirements."
+        }
+      ]
   },
-  {
+    {
     id: "ecommerce-online-selling",
     title: "E-commerce & Online Selling",
     category: "Business & Entrepreneurship",
     description: "Learn the basics of presenting products online, managing orders, and building buyer trust.",
     level: "Intermediate",
-    priceKsh: 0,
+    priceKsh: 750,
     published: true,
     lessons: [
       { id: "product-listings", title: "Create clear product listings", minutes: 9, content: [
@@ -342,21 +1305,128 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "Keep records of orders and customer communication. If a dispute occurs, review the evidence, explain the next step, and follow the agreed policy and provider procedures.",
         "Practice: write a short, calm message explaining a verified delivery delay and the available options."
       ]}
-    ],
+    ,
+        {
+          "id": "ecommerce-online-selling-lesson-4",
+          "title": "Setting up a trustworthy online product listing",
+          "minutes": 9,
+          "content": [
+            "A useful product listing gives a clear name, accurate description, price, available options and relevant specifications. Explain what the customer will actually receive.",
+            "Use clear photographs that represent the real product. State important limitations, condition, delivery coverage and any extra charges before the customer pays.",
+            "Keep stock and prices updated. Avoid misleading claims, copied images used without permission and promises that cannot be fulfilled.",
+            "Practice: draft a product listing that includes a description, price, delivery information and return terms."
+          ]
+        },
+        {
+          "id": "ecommerce-online-selling-lesson-5",
+          "title": "Orders, payments and delivery",
+          "minutes": 10,
+          "content": [
+            "Create a consistent process for receiving orders, confirming availability, checking payment status, packing goods and communicating delivery arrangements.",
+            "Do not treat a screenshot or a customer's claim as definitive proof of payment. Confirm transactions through the authorised payment provider or trusted merchant records.",
+            "Protect customer contact and address information. Share it only with authorised people who need it to fulfil the order and follow applicable data-protection requirements.",
+            "Practice: map the steps from customer order to payment confirmation, dispatch and delivery confirmation."
+          ]
+        },
+        {
+          "id": "ecommerce-online-selling-lesson-6",
+          "title": "Customer service, returns and online growth",
+          "minutes": 9,
+          "content": [
+            "Respond politely and accurately to customer questions. Provide realistic delivery estimates and explain what happens if an item is unavailable or delayed.",
+            "Publish clear return, refund and complaint-handling procedures that comply with applicable law and the terms of the sales platform and payment provider.",
+            "Measure enquiries, completed orders, cancellations, returns and repeat purchases. Use the results to improve product information and service rather than relying on follower counts alone.",
+            "Practice: design a simple procedure for resolving an order that arrives damaged or differs from its description."
+          ]
+        }
+      ],
     questions: [
       { id: "ecommerce-online-selling-q1", prompt: "What makes an online product listing trustworthy?", options: ["Accurate details and clear terms", "Hidden extra charges", "Copied photos used without permission", "Unrealistic claims"], answerIndex: 0, explanation: "Accurate listings help customers make informed decisions." },
       { id: "ecommerce-online-selling-q2", prompt: "Why keep order records?", options: ["To track payment and fulfilment accurately", "To publish customer details publicly", "To replace all customer communication", "To guarantee every delivery is instant"], answerIndex: 0, explanation: "Order records help coordinate payment, stock, and delivery." },
       { id: "ecommerce-online-selling-q3", prompt: "What is a sound way to confirm a payment?", options: ["Check the official provider or account records", "Rely only on a screenshot", "Trust any forwarded message", "Ship before checking any required payment"], answerIndex: 0, explanation: "Independent confirmation reduces the risk of forged payment evidence." },
       { id: "ecommerce-online-selling-q4", prompt: "How should a seller respond to a dispute?", options: ["Review records and follow clear policies", "Invent a new charge", "Ignore the buyer forever", "Publish private customer information"], answerIndex: 0, explanation: "Fair handling relies on evidence, clear communication, and appropriate policies." }
-    ]
+    ,
+        {
+          "id": "ecommerce-online-selling-q5",
+          "prompt": "What should an accurate online product listing include?",
+          "options": [
+            "A misleading photo only",
+            "A description with no price",
+            "An unsupported guarantee",
+            "Clear details, accurate price and relevant delivery terms"
+          ],
+          "answerIndex": 3,
+          "explanation": "Accurate product information helps customers make informed purchase decisions."
+        },
+        {
+          "id": "ecommerce-online-selling-q6",
+          "prompt": "How should a seller confirm an electronic payment?",
+          "options": [
+            "Rely only on a screenshot",
+            "Check the transaction through the authorised provider or trusted records",
+            "Assume every message is genuine",
+            "Dispatch every order before checking"
+          ],
+          "answerIndex": 1,
+          "explanation": "Independent transaction verification helps prevent payment fraud."
+        },
+        {
+          "id": "ecommerce-online-selling-q7",
+          "prompt": "How should customer delivery details be handled?",
+          "options": [
+            "Post them publicly",
+            "Send them to unrelated businesses",
+            "Limit access to authorised people who need the information",
+            "Keep them forever without a purpose"
+          ],
+          "answerIndex": 2,
+          "explanation": "Limiting access helps protect customer privacy and personal information."
+        },
+        {
+          "id": "ecommerce-online-selling-q8",
+          "prompt": "What is a sensible response when an ordered item is unavailable?",
+          "options": [
+            "Inform the customer promptly and explain available options",
+            "Silently substitute a different item",
+            "Ignore all messages",
+            "Mark it delivered without dispatch"
+          ],
+          "answerIndex": 0,
+          "explanation": "Prompt, honest communication helps customers choose an appropriate next step."
+        },
+        {
+          "id": "ecommerce-online-selling-q9",
+          "prompt": "Which measure helps assess online sales performance?",
+          "options": [
+            "The colour of the website",
+            "The number of unrelated messages",
+            "The length of the product title alone",
+            "Completed orders compared with enquiries"
+          ],
+          "answerIndex": 3,
+          "explanation": "Conversion from enquiries to completed orders is one useful performance indicator."
+        },
+        {
+          "id": "ecommerce-online-selling-q10",
+          "prompt": "Why publish clear return and refund procedures?",
+          "options": [
+            "To hide customer rights",
+            "To explain how problems are handled and set clear expectations",
+            "To promise refunds in every possible situation regardless of law",
+            "To avoid documenting complaints"
+          ],
+          "answerIndex": 1,
+          "explanation": "Clear policies help customers understand the process and should comply with applicable requirements."
+        }
+      ]
   },
-  {
+    {
     id: "leadership-communication",
     title: "Leadership & Communication",
     category: "Professional & Technical Skills",
     description: "Practice clear workplace communication, teamwork, goal setting, and constructive feedback.",
     level: "Intermediate",
-    priceKsh: 0,
+    priceKsh: 750,
     published: true,
     lessons: [
       { id: "clear-communication", title: "Communicate clearly", minutes: 8, content: [
@@ -374,21 +1444,128 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "Give feedback about specific behaviour and its impact, then discuss a constructive next step. Receive feedback by asking questions and deciding what can be applied.",
         "Practice: set one measurable learning goal for the next four weeks."
       ]}
-    ],
+    ,
+        {
+          "id": "leadership-communication-lesson-4",
+          "title": "Leadership styles and responsibility",
+          "minutes": 9,
+          "content": [
+            "Leadership involves helping people work toward a shared goal. Effective leaders clarify responsibilities, communicate expectations and support their teams.",
+            "Different situations require different approaches. A team learning a new task may need clear guidance, while an experienced team may benefit from greater independence.",
+            "Responsible leaders consider evidence, fairness, safety and the effects of decisions on others. They accept accountability and correct mistakes.",
+            "Practice: describe a team situation and explain which leadership approach could help the team succeed."
+          ]
+        },
+        {
+          "id": "leadership-communication-lesson-5",
+          "title": "Clear communication and active listening",
+          "minutes": 9,
+          "content": [
+            "Clear communication uses language suited to the audience, a well-defined purpose and an appropriate channel. Important instructions should be specific and easy to verify.",
+            "Active listening means paying attention, asking relevant questions and summarising what you heard before responding. It helps reduce misunderstandings.",
+            "Non-verbal signals and cultural expectations can affect communication. When meaning is unclear, ask respectfully rather than making assumptions.",
+            "Practice: summarise a colleague's request in your own words and ask whether you understood it correctly."
+          ]
+        },
+        {
+          "id": "leadership-communication-lesson-6",
+          "title": "Teamwork, conflict and feedback",
+          "minutes": 10,
+          "content": [
+            "Healthy teams agree on goals, roles, deadlines and ways to share progress. Reliability means following through or communicating early when a commitment may not be met.",
+            "When conflict occurs, focus on observable facts, the impact of the issue and possible solutions rather than personal attacks.",
+            "Useful feedback is specific, respectful and actionable. Invite the other person's perspective and agree on a practical next step.",
+            "Practice: write a respectful response to a missed deadline that identifies the impact and proposes a solution."
+          ]
+        }
+      ],
     questions: [
       { id: "leadership-communication-q1", prompt: "What makes a work message clear?", options: ["Purpose, action, and relevant deadline", "Unexplained abbreviations only", "No context at all", "Several unrelated requests mixed together"], answerIndex: 0, explanation: "A clear message helps the reader understand what is needed and when." },
       { id: "leadership-communication-q2", prompt: "What is a constructive way to handle disagreement?", options: ["Discuss facts and shared outcomes respectfully", "Attack the other person", "Spread rumours", "Avoid every decision"], answerIndex: 0, explanation: "Respectful discussion helps identify options and agree on actions." },
       { id: "leadership-communication-q3", prompt: "What is a measurable goal?", options: ["A goal with a clear indicator and timeframe", "A wish with no next step", "A task no one owns", "A promise of guaranteed success"], answerIndex: 0, explanation: "Measures and timeframes make progress easier to evaluate." },
       { id: "leadership-communication-q4", prompt: "How should feedback be given?", options: ["Describe specific behaviour and a constructive next step", "Use personal insults", "Make claims without examples", "Avoid explaining the impact"], answerIndex: 0, explanation: "Specific, respectful feedback is easier to understand and act on." }
-    ]
+    ,
+        {
+          "id": "leadership-communication-q5",
+          "prompt": "What is an important responsibility of a leader?",
+          "options": [
+            "Avoid all decisions",
+            "Clarify goals and help the team work responsibly",
+            "Take credit for every team member's work",
+            "Hide important instructions"
+          ],
+          "answerIndex": 1,
+          "explanation": "Leaders help teams understand their goals, responsibilities and standards."
+        },
+        {
+          "id": "leadership-communication-q6",
+          "prompt": "What does active listening involve?",
+          "options": [
+            "Planning a reply while ignoring the speaker",
+            "Interrupting frequently",
+            "Paying attention and checking your understanding",
+            "Assuming you already know the answer"
+          ],
+          "answerIndex": 2,
+          "explanation": "Active listening includes attention, relevant questions and checking meaning."
+        },
+        {
+          "id": "leadership-communication-q7",
+          "prompt": "How should a team handle a disagreement?",
+          "options": [
+            "Discuss facts and possible solutions respectfully",
+            "Use personal insults",
+            "Hide the issue indefinitely",
+            "Blame a person before checking the facts"
+          ],
+          "answerIndex": 0,
+          "explanation": "A constructive discussion focuses on the issue and practical solutions."
+        },
+        {
+          "id": "leadership-communication-q8",
+          "prompt": "Which is an example of useful feedback?",
+          "options": [
+            "You are always bad at this",
+            "Nothing needs to change, even when errors continue",
+            "A vague complaint with no example",
+            "A specific observation with a practical improvement suggestion"
+          ],
+          "answerIndex": 3,
+          "explanation": "Specific, actionable feedback gives a person something concrete to improve."
+        },
+        {
+          "id": "leadership-communication-q9",
+          "prompt": "Why should team members communicate delays early?",
+          "options": [
+            "To avoid all responsibility",
+            "So the team can adjust plans and manage risks",
+            "To guarantee that every deadline changes",
+            "To stop sharing progress"
+          ],
+          "answerIndex": 1,
+          "explanation": "Early communication gives the team time to adjust responsibilities and deadlines."
+        },
+        {
+          "id": "leadership-communication-q10",
+          "prompt": "What supports fair leadership?",
+          "options": [
+            "Making decisions based only on personal favour",
+            "Ignoring safety concerns",
+            "Considering evidence, consistency and the impact on people",
+            "Refusing to correct mistakes"
+          ],
+          "answerIndex": 2,
+          "explanation": "Fair leadership considers relevant evidence and applies appropriate standards consistently."
+        }
+      ]
   },
-  {
+    {
     id: "freelancing-digital-careers",
     title: "Freelancing & Digital Careers",
     category: "Learning Pathways",
     description: "Explore digital career options, prepare a portfolio, and approach clients professionally.",
     level: "Intermediate",
-    priceKsh: 0,
+    priceKsh: 750,
     published: true,
     lessons: [
       { id: "choose-a-service", title: "Choose a realistic service", minutes: 9, content: [
@@ -406,1654 +1583,3337 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
         "Keep agreed scope and payment terms in writing. Protect client information, meet realistic deadlines, and communicate early if a task is at risk.",
         "Practice: list questions to verify a client and agree on a task before beginning."
       ]}
-    ],
+    ,
+        {
+          "id": "freelancing-digital-careers-lesson-4",
+          "title": "Choosing a service and building a portfolio",
+          "minutes": 9,
+          "content": [
+            "Freelancers offer services to clients on an independent basis. Examples include writing, design, programming, virtual assistance, research and digital marketing.",
+            "Choose a service that matches your current skills and the needs of potential clients. Identify specific tasks you can deliver reliably and areas where you need more practice.",
+            "A portfolio demonstrates ability through relevant examples. Use original work or obtain permission before sharing client work, and never invent qualifications or results.",
+            "Practice: choose one service and outline three portfolio examples that could demonstrate your ability."
+          ]
+        },
+        {
+          "id": "freelancing-digital-careers-lesson-5",
+          "title": "Proposals, pricing and client agreements",
+          "minutes": 10,
+          "content": [
+            "A good proposal summarises the client's need, the proposed solution, deliverables, schedule, price and any assumptions. Ask questions when the scope is unclear.",
+            "Estimate the time, tools, revisions and other costs needed to complete a project. Set a price that accounts for these costs and the value of the service.",
+            "Confirm payment terms, ownership of deliverables, confidentiality, revision limits and cancellation arrangements in writing. Be cautious of clients who request unnecessary upfront payments or sensitive account credentials.",
+            "Practice: draft a short proposal for a clearly defined service with a deadline and deliverables."
+          ]
+        },
+        {
+          "id": "freelancing-digital-careers-lesson-6",
+          "title": "Managing work, reputation and income",
+          "minutes": 9,
+          "content": [
+            "Break projects into milestones and track deadlines, hours and outstanding tasks. Provide progress updates before the client has to ask.",
+            "Keep records of proposals, agreements, invoices, payments and business expenses. Plan for periods with fewer projects and remember that gross receipts are not the same as profit.",
+            "Protect client information, deliver work honestly and request permission before publishing testimonials or confidential examples. Follow relevant tax and legal obligations.",
+            "Practice: create a simple weekly work plan with deadlines, client updates and time reserved for finding future work."
+          ]
+        }
+      ],
     questions: [
       { id: "freelancing-digital-careers-q1", prompt: "What is a good first step toward freelancing?", options: ["Choose a service you can demonstrate and research client needs", "Claim skills you do not have", "Pay anyone who promises guaranteed work", "Send passwords to clients"], answerIndex: 0, explanation: "A realistic service and demonstrable skills help set honest expectations." },
       { id: "freelancing-digital-careers-q2", prompt: "What should a proposal include?", options: ["Scope, deliverables, timeline, and price", "Only a vague promise", "A client's private password", "Unrelated personal details"], answerIndex: 0, explanation: "Clear proposals reduce misunderstandings about work and payment." },
       { id: "freelancing-digital-careers-q3", prompt: "What can indicate a job scam?", options: ["Upfront fee pressure and unrealistic promises", "A clear task description", "A written scope of work", "A verifiable client history"], answerIndex: 0, explanation: "Upfront fee demands and unrealistic promises warrant careful verification." },
       { id: "freelancing-digital-careers-q4", prompt: "How should practice work be presented in a portfolio?", options: ["Label it honestly and use work you have rights to share", "Claim it was paid client work", "Copy another freelancer's work", "Publish confidential client files"], answerIndex: 0, explanation: "Honest attribution and permission protect trust and intellectual property." }
-    ]
+    ,
+        {
+          "id": "freelancing-digital-careers-q5",
+          "prompt": "What is the main purpose of a freelancer's portfolio?",
+          "options": [
+            "To prove every client will be satisfied",
+            "To display account passwords",
+            "To demonstrate skills through relevant work examples",
+            "To replace all written agreements"
+          ],
+          "answerIndex": 2,
+          "explanation": "A portfolio gives prospective clients evidence of the freelancer's skills."
+        },
+        {
+          "id": "freelancing-digital-careers-q6",
+          "prompt": "What should a clear freelance proposal include?",
+          "options": [
+            "Scope, deliverables, schedule and price",
+            "Only a greeting",
+            "A guarantee of results outside the freelancer's control",
+            "The client's private passwords"
+          ],
+          "answerIndex": 0,
+          "explanation": "A clear proposal sets expectations about the work, timing and cost."
+        },
+        {
+          "id": "freelancing-digital-careers-q7",
+          "prompt": "Why confirm project terms in writing?",
+          "options": [
+            "To make the project impossible to change",
+            "To avoid telling the client what is included",
+            "To remove the need for communication",
+            "To document responsibilities, payment and deliverables"
+          ],
+          "answerIndex": 3,
+          "explanation": "Written terms reduce ambiguity about the agreed work and obligations."
+        },
+        {
+          "id": "freelancing-digital-careers-q8",
+          "prompt": "How should a freelancer estimate a project's price?",
+          "options": [
+            "Ignore all costs",
+            "Consider time, costs, scope and service value",
+            "Copy any price without checking the project",
+            "Promise unlimited revisions automatically"
+          ],
+          "answerIndex": 1,
+          "explanation": "Pricing should reflect the work involved, relevant costs and the value provided."
+        },
+        {
+          "id": "freelancing-digital-careers-q9",
+          "prompt": "What is a good way to manage a deadline?",
+          "options": [
+            "Wait until the last minute to start",
+            "Avoid progress updates",
+            "Break work into milestones and track progress",
+            "Hide delays from the client"
+          ],
+          "answerIndex": 2,
+          "explanation": "Milestones make progress visible and help identify delays early."
+        },
+        {
+          "id": "freelancing-digital-careers-q10",
+          "prompt": "Which practice helps protect a freelancer's reputation?",
+          "options": [
+            "Deliver honestly and protect confidential information",
+            "Invent testimonials",
+            "Publish client files without permission",
+            "Claim skills that the freelancer does not have"
+          ],
+          "answerIndex": 0,
+          "explanation": "Honesty, reliability and confidentiality support long-term professional trust."
+        }
+      ]
   },
-{
-    "id": "basic-literacy-reading",
-    "title": "Basic Literacy & Reading",
-    "category": "Foundational Learning",
-    "description": "Develop foundational reading, vocabulary, comprehension and everyday written communication.",
-    "level": "Foundation",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "basic-literacy-reading-lesson-1",
-        "title": "Letters, Words and Sentence Building",
-        "minutes": 10,
-        "content": [
-          "Introduction: Basic Literacy & Reading.",
-          "Learning focus: Letters, Words and Sentence Building. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "basic-literacy-reading-lesson-2",
-        "title": "Reading Comprehension and Vocabulary",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Reading Comprehension and Vocabulary.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "basic-literacy-reading-lesson-3",
-        "title": "Everyday Writing and Communication",
-        "minutes": 14,
-        "content": [
-          "Application: Everyday Writing and Communication.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "basic-literacy-reading-question-1",
-        "prompt": "What is the purpose of reading comprehension?",
-        "options": [
-          "To understand and interpret what a text means",
-          "To count the words without understanding them",
-          "To copy every sentence",
-          "To avoid unfamiliar words"
-        ],
-        "answerIndex": 0,
-        "explanation": "Comprehension means understanding the meaning of a text."
-      },
-      {
-        "id": "basic-literacy-reading-question-2",
-        "prompt": "What makes a complete basic sentence?",
-        "options": [
-          "A random list of letters",
-          "A paragraph with no meaning",
-          "A collection of unrelated symbols",
-          "Words arranged to express a complete thought"
-        ],
-        "answerIndex": 3,
-        "explanation": "A complete sentence communicates a thought."
-      },
-      {
-        "id": "basic-literacy-reading-question-3",
-        "prompt": "What should a learner do when meeting an unfamiliar word?",
-        "options": [
-          "Assume every word has the same meaning",
-          "Replace it with a random word",
-          "Use context and a dictionary to work out its meaning",
-          "Always skip the entire paragraph"
-        ],
-        "answerIndex": 2,
-        "explanation": "Context and reference tools help learners understand unfamiliar words."
-      },
-      {
-        "id": "basic-literacy-reading-question-4",
-        "prompt": "Which activity best improves reading?",
-        "options": [
-          "Reading without trying to understand",
-          "Regular reading followed by a short summary",
-          "Avoiding all written material",
-          "Memorising page numbers only"
-        ],
-        "answerIndex": 1,
-        "explanation": "Consistent reading and summarising strengthen comprehension."
-      }
+    {
+    id: "basic-literacy-reading",
+    title: "Basic Literacy & Reading",
+    category: "Foundational Learning",
+    level: "Foundation",
+    description: "Develop foundational reading, vocabulary, comprehension, and writing skills.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+  {
+    "id": "literacy-1",
+    "title": "Letters, sounds and decoding words",
+    "minutes": 20,
+    "content": [
+      "Reading begins by connecting written symbols with the sounds used in spoken language. Practise recognising letters, distinguishing their sounds, and blending sounds into words. English spelling is not always predictable, so learners should notice common patterns as well as exceptions.",
+      "A phoneme is a distinct sound in a word; a grapheme is the letter or group of letters used to represent a sound. For example, the word ship contains three main sounds, even though it has four letters. Understanding this difference helps learners decode unfamiliar words.",
+      "Break longer words into syllables or meaningful parts. A word such as unhappy can be examined as un-, happy; a word such as helpful can be examined as help, -ful. Prefixes and suffixes often change a word's meaning or grammatical role.",
+      "Practice: read a short paragraph aloud, identify five unfamiliar words, divide each into manageable parts, and check its pronunciation and meaning using a reliable dictionary or teacher."
     ]
   },
   {
-    "id": "basic-numeracy-mathematics",
-    "title": "Basic Numeracy & Mathematics",
-    "category": "Foundational Learning",
-    "description": "Learn number recognition, arithmetic, fractions, measurement and practical everyday mathematics.",
-    "level": "Foundation",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "basic-numeracy-mathematics-lesson-1",
-        "title": "Numbers, Place Value and Counting",
-        "minutes": 10,
-        "content": [
-          "Introduction: Basic Numeracy & Mathematics.",
-          "Learning focus: Numbers, Place Value and Counting. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "basic-numeracy-mathematics-lesson-2",
-        "title": "Addition, Subtraction, Multiplication and Division",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Addition, Subtraction, Multiplication and Division.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "basic-numeracy-mathematics-lesson-3",
-        "title": "Fractions, Money and Everyday Measurement",
-        "minutes": 14,
-        "content": [
-          "Application: Fractions, Money and Everyday Measurement.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "basic-numeracy-mathematics-question-1",
-        "prompt": "What does place value tell us?",
-        "options": [
-          "The value a digit has because of its position",
-          "The colour of a written number",
-          "The number of letters in a number name",
-          "The order of pages in a book"
-        ],
-        "answerIndex": 0,
-        "explanation": "A digit's position determines its place value."
-      },
-      {
-        "id": "basic-numeracy-mathematics-question-2",
-        "prompt": "What is multiplication commonly used for?",
-        "options": [
-          "Removing every number from a calculation",
-          "Changing units without a rule",
-          "Replacing measurement with guessing",
-          "Finding the total in equal groups"
-        ],
-        "answerIndex": 3,
-        "explanation": "Multiplication efficiently totals equal groups."
-      },
-      {
-        "id": "basic-numeracy-mathematics-question-3",
-        "prompt": "What does one-half represent?",
-        "options": [
-          "Two complete wholes",
-          "Any random quantity",
-          "One of two equal parts",
-          "One of three unequal parts"
-        ],
-        "answerIndex": 2,
-        "explanation": "A half is one of two equal parts."
-      },
-      {
-        "id": "basic-numeracy-mathematics-question-4",
-        "prompt": "How should you check a money calculation?",
-        "options": [
-          "Use a guess instead of arithmetic",
-          "Recalculate the amounts and verify the total",
-          "Ignore the prices",
-          "Round every value without checking"
-        ],
-        "answerIndex": 1,
-        "explanation": "Checking arithmetic helps prevent money errors."
-      }
+    "id": "literacy-2",
+    "title": "Fluency, punctuation and sentence meaning",
+    "minutes": 20,
+    "content": [
+      "Fluent reading combines accuracy, a suitable pace and expression. Reading too quickly can hide mistakes, while stopping at every word can make the meaning difficult to follow. Read a passage more than once and aim to improve accuracy before increasing speed.",
+      "Punctuation guides the reader. A full stop usually ends a statement, a question mark ends a direct question, and an exclamation mark can express strong feeling. Commas separate items in a list and can mark pauses within some sentences.",
+      "Sentence structure affects meaning. Compare “The child chased the dog” with “The dog chased the child”: the words are similar, but their roles differ. Identify who or what performs the action and what receives it to understand a sentence correctly.",
+      "Practice: copy a short paragraph, add missing capital letters and punctuation, read it aloud, and explain how punctuation changes the way the paragraph should sound."
     ]
   },
   {
-    "id": "foundational-english-communication",
-    "title": "Foundational English Communication",
-    "category": "Foundational Learning",
-    "description": "Build basic speaking, listening, vocabulary, grammar and practical English communication skills.",
-    "level": "Foundation",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "foundational-english-communication-lesson-1",
-        "title": "Listening and Everyday Conversations",
-        "minutes": 10,
-        "content": [
-          "Introduction: Foundational English Communication.",
-          "Learning focus: Listening and Everyday Conversations. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "foundational-english-communication-lesson-2",
-        "title": "Basic Grammar and Sentence Construction",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Basic Grammar and Sentence Construction.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "foundational-english-communication-lesson-3",
-        "title": "Clear Speaking and Short Written Messages",
-        "minutes": 14,
-        "content": [
-          "Application: Clear Speaking and Short Written Messages.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "foundational-english-communication-question-1",
-        "prompt": "What is active listening?",
-        "options": [
-          "Paying attention and checking your understanding",
-          "Interrupting continuously",
-          "Ignoring the speaker",
-          "Preparing a reply without listening"
-        ],
-        "answerIndex": 0,
-        "explanation": "Active listening requires attention and understanding."
-      },
-      {
-        "id": "foundational-english-communication-question-2",
-        "prompt": "Why is grammar useful?",
-        "options": [
-          "It makes every message longer",
-          "It replaces the need for meaning",
-          "It prevents people from asking questions",
-          "It helps communicate meaning clearly"
-        ],
-        "answerIndex": 3,
-        "explanation": "Grammar helps organise words so that meaning is clear."
-      },
-      {
-        "id": "foundational-english-communication-question-3",
-        "prompt": "What is a useful way to improve speaking?",
-        "options": [
-          "Memorise words without using them",
-          "Never correct repeated mistakes",
-          "Practise regularly and seek constructive feedback",
-          "Avoid speaking in every situation"
-        ],
-        "answerIndex": 2,
-        "explanation": "Practice and feedback help improve communication."
-      },
-      {
-        "id": "foundational-english-communication-question-4",
-        "prompt": "What should a clear message contain?",
-        "options": [
-          "Words arranged without meaning",
-          "A purpose and information the reader can understand",
-          "Unrelated details only",
-          "Contradictory instructions"
-        ],
-        "answerIndex": 1,
-        "explanation": "Clear messages communicate a recognisable purpose."
-      }
+    "id": "literacy-3",
+    "title": "Finding main ideas and supporting details",
+    "minutes": 20,
+    "content": [
+      "The main idea is the central point a passage communicates. Supporting details explain, illustrate or provide evidence for that point. A heading can offer a clue, but readers must still examine the actual paragraph rather than assuming the heading tells the whole story.",
+      "Ask who, what, when, where, why and how while reading. Some answers are stated directly; others require an inference, which is a conclusion drawn from clues in the text and reasonable background knowledge.",
+      "Distinguish a fact that can be checked from an opinion that expresses a judgement or belief. A passage may contain both. Reliable comprehension involves identifying what the author states and considering whether evidence supports the claims.",
+      "Practice: read a news report or community notice. Write its main idea in one sentence, list three supporting details, and identify one claim that would need independent verification."
     ]
   },
   {
-    "id": "study-skills-learning-confidence",
-    "title": "Study Skills & Learning Confidence",
-    "category": "Foundational Learning",
-    "description": "Develop study routines, goal setting, note-taking, revision and independent learning habits.",
-    "level": "Foundation",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "study-skills-learning-confidence-lesson-1",
-        "title": "Setting Learning Goals and Managing Time",
-        "minutes": 10,
-        "content": [
-          "Introduction: Study Skills & Learning Confidence.",
-          "Learning focus: Setting Learning Goals and Managing Time. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "study-skills-learning-confidence-lesson-2",
-        "title": "Notes, Revision and Memory Techniques",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Notes, Revision and Memory Techniques.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "study-skills-learning-confidence-lesson-3",
-        "title": "Building Confidence and Asking for Help",
-        "minutes": 14,
-        "content": [
-          "Application: Building Confidence and Asking for Help.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "study-skills-learning-confidence-question-1",
-        "prompt": "What makes a learning goal useful?",
-        "options": [
-          "It is clear, realistic and measurable",
-          "It has no deadline or purpose",
-          "It changes every hour without reason",
-          "It cannot be checked"
-        ],
-        "answerIndex": 0,
-        "explanation": "Clear measurable goals help learners monitor progress."
-      },
-      {
-        "id": "study-skills-learning-confidence-question-2",
-        "prompt": "What is an effective revision habit?",
-        "options": [
-          "Reading once and never reviewing",
-          "Avoiding practice questions",
-          "Studying only when an exam begins",
-          "Reviewing material regularly and testing recall"
-        ],
-        "answerIndex": 3,
-        "explanation": "Spaced revision and recall improve retention."
-      },
-      {
-        "id": "study-skills-learning-confidence-question-3",
-        "prompt": "What should a learner do when confused?",
-        "options": [
-          "Stop learning permanently",
-          "Ignore all feedback",
-          "Identify the difficulty and ask a focused question",
-          "Pretend to understand everything"
-        ],
-        "answerIndex": 2,
-        "explanation": "Asking focused questions helps resolve learning gaps."
-      },
-      {
-        "id": "study-skills-learning-confidence-question-4",
-        "prompt": "Why is a study timetable helpful?",
-        "options": [
-          "It prevents changes when plans need adjustment",
-          "It allocates time to priorities and revision",
-          "It guarantees success without effort",
-          "It removes the need for breaks"
-        ],
-        "answerIndex": 1,
-        "explanation": "A timetable supports organised and consistent study."
-      }
+    "id": "literacy-4",
+    "title": "Vocabulary and meaning from context",
+    "minutes": 20,
+    "content": [
+      "Context clues are hints around an unfamiliar word. A definition, example, contrast or explanation elsewhere in the sentence may help reveal the intended meaning. Test your guess by rereading the complete sentence and checking whether it makes sense.",
+      "A dictionary gives meanings, pronunciation and often information about word forms. A word may have several meanings, so choose the meaning that fits the passage. Notice whether it functions as a noun, verb, adjective or another part of speech.",
+      "Synonyms have similar meanings, while antonyms have contrasting meanings. They are not always interchangeable: the best choice depends on the sentence, tone and exact meaning. New vocabulary is easier to retain when used in meaningful sentences.",
+      "Practice: select five new words from a passage. Record each word, its meaning in context, a synonym where appropriate, and an original sentence using the word correctly."
     ]
   },
   {
-    "id": "primary-science-environment",
-    "title": "Primary Science & Environmental Studies",
-    "category": "Primary Education",
-    "description": "Explore living things, matter, weather, the environment and safe observation through simple scientific activities.",
-    "level": "Primary",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "primary-science-environment-lesson-1",
-        "title": "Living Things and Their Needs",
-        "minutes": 10,
-        "content": [
-          "Introduction: Primary Science & Environmental Studies.",
-          "Learning focus: Living Things and Their Needs. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "primary-science-environment-lesson-2",
-        "title": "Matter, Weather and Everyday Observation",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Matter, Weather and Everyday Observation.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "primary-science-environment-lesson-3",
-        "title": "Environmental Care and Simple Experiments",
-        "minutes": 14,
-        "content": [
-          "Application: Environmental Care and Simple Experiments.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "primary-science-environment-question-1",
-        "prompt": "What do most plants need to grow well?",
-        "options": [
-          "Suitable light, water, air and nutrients",
-          "Plastic, darkness and no water",
-          "Only painted soil",
-          "No space or nutrients"
-        ],
-        "answerIndex": 0,
-        "explanation": "Plants generally need light, water, air and nutrients."
-      },
-      {
-        "id": "primary-science-environment-question-2",
-        "prompt": "What is a fair simple experiment?",
-        "options": [
-          "Changing everything at once",
-          "Choosing results before observing",
-          "Ignoring measurements",
-          "Changing one factor while keeping others controlled"
-        ],
-        "answerIndex": 3,
-        "explanation": "Controlling variables makes comparisons more meaningful."
-      },
-      {
-        "id": "primary-science-environment-question-3",
-        "prompt": "Why should waste be disposed of properly?",
-        "options": [
-          "To attract harmful pests",
-          "To contaminate drinking water",
-          "To reduce pollution and protect health",
-          "To make rivers dirtier"
-        ],
-        "answerIndex": 2,
-        "explanation": "Proper waste management protects people and ecosystems."
-      },
-      {
-        "id": "primary-science-environment-question-4",
-        "prompt": "What is observation in science?",
-        "options": [
-          "Avoiding measurements",
-          "Carefully noticing and recording what happens",
-          "Inventing results without evidence",
-          "Copying a conclusion before an experiment"
-        ],
-        "answerIndex": 1,
-        "explanation": "Scientific observations are based on what can be noticed and recorded."
-      }
+    "id": "literacy-5",
+    "title": "Reading practical texts and instructions",
+    "minutes": 20,
+    "content": [
+      "Practical texts include forms, notices, timetables, labels, recipes and instructions. Each has a purpose and a layout. A timetable requires attention to dates and times; a form requires accurate entries; instructions require steps to be followed in the correct order.",
+      "Scan a text when searching for a particular detail, such as a venue or deadline. Read carefully when the exact wording affects what you must do. Never guess at a number, date, dosage or safety instruction that is unclear.",
+      "Official-looking design does not automatically make a notice trustworthy. Check who issued it, whether contact details can be verified, and whether the requested action is sensible. Be especially careful with requests for passwords, PINs or one-time verification codes.",
+      "Practice: examine a sample event notice. Record the organiser, purpose, date, time, venue and action required. List any missing information you would ask the organiser to clarify."
     ]
   },
   {
-    "id": "primary-social-studies-citizenship",
-    "title": "Primary Social Studies & Citizenship",
-    "category": "Primary Education",
-    "description": "Introduce communities, maps, culture, public responsibilities, rights and respectful citizenship.",
-    "level": "Primary",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "primary-social-studies-citizenship-lesson-1",
-        "title": "Families, Communities and Shared Responsibilities",
-        "minutes": 10,
-        "content": [
-          "Introduction: Primary Social Studies & Citizenship.",
-          "Learning focus: Families, Communities and Shared Responsibilities. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "primary-social-studies-citizenship-lesson-2",
-        "title": "Maps, Places and Local Environments",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Maps, Places and Local Environments.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "primary-social-studies-citizenship-lesson-3",
-        "title": "Citizenship, Rights and Respect",
-        "minutes": 14,
-        "content": [
-          "Application: Citizenship, Rights and Respect.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "primary-social-studies-citizenship-question-1",
-        "prompt": "What helps a community work well?",
-        "options": [
-          "Cooperation and shared responsibility",
-          "Refusing to communicate",
-          "Damaging shared facilities",
-          "Ignoring the needs of others"
-        ],
-        "answerIndex": 0,
-        "explanation": "Communities benefit when people cooperate and contribute."
-      },
-      {
-        "id": "primary-social-studies-citizenship-question-2",
-        "prompt": "What is a map used for?",
-        "options": [
-          "Recording only personal opinions",
-          "Measuring time directly",
-          "Replacing all forms of communication",
-          "Showing places and spatial relationships"
-        ],
-        "answerIndex": 3,
-        "explanation": "Maps represent locations and spatial relationships."
-      },
-      {
-        "id": "primary-social-studies-citizenship-question-3",
-        "prompt": "What does responsible citizenship include?",
-        "options": [
-          "Disregarding other people's rights",
-          "Spreading unverified rumours",
-          "Respecting others and following applicable laws",
-          "Damaging public property"
-        ],
-        "answerIndex": 2,
-        "explanation": "Responsible citizenship involves rights, duties and respect."
-      },
-      {
-        "id": "primary-social-studies-citizenship-question-4",
-        "prompt": "Why should community information be checked?",
-        "options": [
-          "To prevent informed decisions",
-          "To reduce mistakes and misinformation",
-          "To make rumours seem official",
-          "To avoid evidence"
-        ],
-        "answerIndex": 1,
-        "explanation": "Reliable information supports better community decisions."
-      }
-    ]
-  },
-  {
-    "id": "secondary-mathematics",
-    "title": "Secondary Mathematics",
-    "category": "Secondary Education",
-    "description": "Build secondary-level foundations in algebra, geometry, statistics, graphs and mathematical reasoning.",
-    "level": "Secondary",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "secondary-mathematics-lesson-1",
-        "title": "Algebraic Expressions and Equations",
-        "minutes": 10,
-        "content": [
-          "Introduction: Secondary Mathematics.",
-          "Learning focus: Algebraic Expressions and Equations. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "secondary-mathematics-lesson-2",
-        "title": "Geometry, Measurement and Graphs",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Geometry, Measurement and Graphs.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "secondary-mathematics-lesson-3",
-        "title": "Statistics, Probability and Problem Solving",
-        "minutes": 14,
-        "content": [
-          "Application: Statistics, Probability and Problem Solving.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "secondary-mathematics-question-1",
-        "prompt": "What is the purpose of solving an equation?",
-        "options": [
-          "To find values that make the equation true",
-          "To change values without a rule",
-          "To remove the equality sign arbitrarily",
-          "To avoid checking the result"
-        ],
-        "answerIndex": 0,
-        "explanation": "A solution makes the equation true."
-      },
-      {
-        "id": "secondary-mathematics-question-2",
-        "prompt": "What does the gradient of a straight-line graph describe?",
-        "options": [
-          "The colour of the graph",
-          "The number of labels only",
-          "The area of every shape",
-          "The change in the vertical variable relative to the horizontal variable"
-        ],
-        "answerIndex": 3,
-        "explanation": "Gradient describes the rate of change between variables."
-      },
-      {
-        "id": "secondary-mathematics-question-3",
-        "prompt": "What does the mean of a data set represent?",
-        "options": [
-          "Always the middle value",
-          "The difference between the maximum and minimum",
-          "The sum of values divided by the number of values",
-          "Always the largest value"
-        ],
-        "answerIndex": 2,
-        "explanation": "The arithmetic mean is the total divided by the count."
-      },
-      {
-        "id": "secondary-mathematics-question-4",
-        "prompt": "How can you check a mathematical answer?",
-        "options": [
-          "Ignore the units",
-          "Substitute it back or use an independent method",
-          "Assume every first answer is correct",
-          "Delete the working"
-        ],
-        "answerIndex": 1,
-        "explanation": "Checking through substitution or another method helps verify a result."
-      }
-    ]
-  },
-  {
-    "id": "biology-life-sciences",
-    "title": "Biology & Life Sciences",
-    "category": "Secondary Education",
-    "description": "Study cells, organisms, ecosystems, inheritance and human health at an introductory secondary level.",
-    "level": "Secondary",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "biology-life-sciences-lesson-1",
-        "title": "Cells and Organisation of Living Things",
-        "minutes": 10,
-        "content": [
-          "Introduction: Biology & Life Sciences.",
-          "Learning focus: Cells and Organisation of Living Things. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "biology-life-sciences-lesson-2",
-        "title": "Ecosystems, Food Chains and Biodiversity",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Ecosystems, Food Chains and Biodiversity.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "biology-life-sciences-lesson-3",
-        "title": "Inheritance, Health and Scientific Evidence",
-        "minutes": 14,
-        "content": [
-          "Application: Inheritance, Health and Scientific Evidence.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "biology-life-sciences-question-1",
-        "prompt": "What is a cell?",
-        "options": [
-          "A basic structural and functional unit of life",
-          "A type of weather forecast",
-          "A unit used only to measure distance",
-          "A non-living chemical element"
-        ],
-        "answerIndex": 0,
-        "explanation": "Cells are fundamental units of living organisms."
-      },
-      {
-        "id": "biology-life-sciences-question-2",
-        "prompt": "What does a food chain show?",
-        "options": [
-          "How rainfall is measured",
-          "How rocks form underground",
-          "How maps display distance",
-          "How energy passes between organisms through feeding"
-        ],
-        "answerIndex": 3,
-        "explanation": "Food chains represent feeding relationships and energy transfer."
-      },
-      {
-        "id": "biology-life-sciences-question-3",
-        "prompt": "What is biodiversity?",
-        "options": [
-          "The speed of a vehicle",
-          "The amount of paper used",
-          "The variety of living organisms in an area",
-          "The number of buildings in a town"
-        ],
-        "answerIndex": 2,
-        "explanation": "Biodiversity describes the variety of life."
-      },
-      {
-        "id": "biology-life-sciences-question-4",
-        "prompt": "Why is evidence important in biology?",
-        "options": [
-          "It replaces careful investigation",
-          "It helps evaluate explanations about living systems",
-          "It makes observation unnecessary",
-          "It guarantees every claim is true"
-        ],
-        "answerIndex": 1,
-        "explanation": "Biological explanations should be evaluated using evidence."
-      }
-    ]
-  },
-  {
-    "id": "chemistry-fundamentals",
-    "title": "Chemistry Fundamentals",
-    "category": "Secondary Education",
-    "description": "Introduce atoms, elements, compounds, mixtures, chemical changes and safe laboratory practice.",
-    "level": "Secondary",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "chemistry-fundamentals-lesson-1",
-        "title": "Atoms, Elements and Compounds",
-        "minutes": 10,
-        "content": [
-          "Introduction: Chemistry Fundamentals.",
-          "Learning focus: Atoms, Elements and Compounds. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "chemistry-fundamentals-lesson-2",
-        "title": "Mixtures, Separation and Chemical Changes",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Mixtures, Separation and Chemical Changes.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "chemistry-fundamentals-lesson-3",
-        "title": "Laboratory Safety and Evidence",
-        "minutes": 14,
-        "content": [
-          "Application: Laboratory Safety and Evidence.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "chemistry-fundamentals-question-1",
-        "prompt": "What is an element?",
-        "options": [
-          "A substance made of one type of atom",
-          "Any mixture of unrelated materials",
-          "A physical measurement only",
-          "A laboratory safety sign"
-        ],
-        "answerIndex": 0,
-        "explanation": "An element consists of one type of atom."
-      },
-      {
-        "id": "chemistry-fundamentals-question-2",
-        "prompt": "How can a mixture often be separated?",
-        "options": [
-          "By changing all substances into the same element",
-          "By ignoring the mixture's properties",
-          "By assuming all mixtures are identical",
-          "By using suitable physical separation methods"
-        ],
-        "answerIndex": 3,
-        "explanation": "Separation methods depend on the components' physical properties."
-      },
-      {
-        "id": "chemistry-fundamentals-question-3",
-        "prompt": "What should you do before a laboratory activity?",
-        "options": [
-          "Mix substances without permission",
-          "Ignore protective equipment requirements",
-          "Understand the procedure and safety instructions",
-          "Taste unknown chemicals"
-        ],
-        "answerIndex": 2,
-        "explanation": "Safe laboratory work starts with understanding hazards and instructions."
-      },
-      {
-        "id": "chemistry-fundamentals-question-4",
-        "prompt": "What may indicate a chemical change?",
-        "options": [
-          "A substance being moved without changing it",
-          "Evidence such as gas formation or a new substance",
-          "A change in the position of a container only",
-          "A label being rewritten"
-        ],
-        "answerIndex": 1,
-        "explanation": "Chemical changes may produce new substances and observable evidence."
-      }
-    ]
-  },
-  {
-    "id": "physics-fundamentals",
-    "title": "Physics Fundamentals",
-    "category": "Secondary Education",
-    "description": "Explore motion, forces, energy, electricity, waves and measurement through introductory physics.",
-    "level": "Secondary",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "physics-fundamentals-lesson-1",
-        "title": "Motion, Speed and Forces",
-        "minutes": 10,
-        "content": [
-          "Introduction: Physics Fundamentals.",
-          "Learning focus: Motion, Speed and Forces. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "physics-fundamentals-lesson-2",
-        "title": "Energy, Heat and Waves",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Energy, Heat and Waves.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "physics-fundamentals-lesson-3",
-        "title": "Electricity, Measurement and Safety",
-        "minutes": 14,
-        "content": [
-          "Application: Electricity, Measurement and Safety.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "physics-fundamentals-question-1",
-        "prompt": "How is average speed calculated?",
-        "options": [
-          "Distance travelled divided by time taken",
-          "Time divided by temperature",
-          "Mass multiplied by colour",
-          "Distance plus unrelated measurements"
-        ],
-        "answerIndex": 0,
-        "explanation": "Average speed equals distance divided by time."
-      },
-      {
-        "id": "physics-fundamentals-question-2",
-        "prompt": "What is energy?",
-        "options": [
-          "A synonym for distance only",
-          "A unit of colour",
-          "Something that cannot be transferred",
-          "The capacity to do work or cause change"
-        ],
-        "answerIndex": 3,
-        "explanation": "Energy is associated with work and changes in physical systems."
-      },
-      {
-        "id": "physics-fundamentals-question-3",
-        "prompt": "Why should electrical equipment be handled safely?",
-        "options": [
-          "Wet hands improve electrical safety",
-          "Damaged cables are always safe",
-          "Electricity can cause shocks, burns and fires",
-          "Electricity is harmless in every situation"
-        ],
-        "answerIndex": 2,
-        "explanation": "Electrical hazards require appropriate precautions."
-      },
-      {
-        "id": "physics-fundamentals-question-4",
-        "prompt": "Why are standard units useful?",
-        "options": [
-          "They guarantee that measurements are correct",
-          "They make measurements more consistent and comparable",
-          "They make results impossible to compare",
-          "They remove the need for instruments"
-        ],
-        "answerIndex": 1,
-        "explanation": "Standard units support consistent communication of measurements."
-      }
-    ]
-  },
-  {
-    "id": "business-studies-accounting-basics",
-    "title": "Business Studies & Accounting Basics",
-    "category": "Secondary Education",
-    "description": "Introduce business functions, enterprise, basic accounting records, costs, revenue and profit.",
-    "level": "Secondary",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "business-studies-accounting-basics-lesson-1",
-        "title": "Business Activities and Enterprise",
-        "minutes": 10,
-        "content": [
-          "Introduction: Business Studies & Accounting Basics.",
-          "Learning focus: Business Activities and Enterprise. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "business-studies-accounting-basics-lesson-2",
-        "title": "Income, Expenses, Assets and Liabilities",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Income, Expenses, Assets and Liabilities.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "business-studies-accounting-basics-lesson-3",
-        "title": "Basic Records, Costs and Profit",
-        "minutes": 14,
-        "content": [
-          "Application: Basic Records, Costs and Profit.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "business-studies-accounting-basics-question-1",
-        "prompt": "What is revenue?",
-        "options": [
-          "Income earned from business activities before expenses are deducted",
-          "The total value of every liability only",
-          "A record of staff attendance",
-          "A synonym for every business cost"
-        ],
-        "answerIndex": 0,
-        "explanation": "Revenue is income generated before expenses are deducted."
-      },
-      {
-        "id": "business-studies-accounting-basics-question-2",
-        "prompt": "How is profit generally calculated?",
-        "options": [
-          "Expenses plus unrelated personal estimates",
-          "Assets minus the number of customers",
-          "Sales multiplied by working days only",
-          "Revenue minus expenses"
-        ],
-        "answerIndex": 3,
-        "explanation": "Profit is what remains after relevant expenses are deducted from revenue."
-      },
-      {
-        "id": "business-studies-accounting-basics-question-3",
-        "prompt": "Why keep accurate business records?",
-        "options": [
-          "To replace all planning with guesses",
-          "To make stock impossible to check",
-          "To track transactions and support informed decisions",
-          "To hide every business transaction"
-        ],
-        "answerIndex": 2,
-        "explanation": "Reliable records support control, reporting and decisions."
-      },
-      {
-        "id": "business-studies-accounting-basics-question-4",
-        "prompt": "What is a business budget?",
-        "options": [
-          "A guarantee that losses cannot happen",
-          "A plan of expected income and expenditure",
-          "A list of unverified rumours",
-          "A record of customer names only"
-        ],
-        "answerIndex": 1,
-        "explanation": "Budgets help plan and monitor expected finances."
-      }
-    ]
-  },
-  {
-    "id": "agriculture-agribusiness",
-    "title": "Agriculture & Agribusiness",
-    "category": "Vocational and Technical Learning",
-    "description": "Explore crop and livestock production, farm planning, post-harvest handling and agricultural enterprise.",
-    "level": "Vocational",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "agriculture-agribusiness-lesson-1",
-        "title": "Soil, Crops and Sustainable Production",
-        "minutes": 10,
-        "content": [
-          "Introduction: Agriculture & Agribusiness.",
-          "Learning focus: Soil, Crops and Sustainable Production. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "agriculture-agribusiness-lesson-2",
-        "title": "Livestock Care and Farm Management",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Livestock Care and Farm Management.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "agriculture-agribusiness-lesson-3",
-        "title": "Markets, Costs and Post-Harvest Handling",
-        "minutes": 14,
-        "content": [
-          "Application: Markets, Costs and Post-Harvest Handling.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "agriculture-agribusiness-question-1",
-        "prompt": "Why is soil management important?",
-        "options": [
-          "It supports healthy plant growth and long-term productivity",
-          "It guarantees crops need no water",
-          "It makes erosion beneficial in every case",
-          "It removes all need for observation"
-        ],
-        "answerIndex": 0,
-        "explanation": "Good soil management supports crop health and sustainability."
-      },
-      {
-        "id": "agriculture-agribusiness-question-2",
-        "prompt": "What is a farm business plan used for?",
-        "options": [
-          "Avoiding all financial records",
-          "Guaranteeing a fixed market price forever",
-          "Replacing animal welfare",
-          "Planning resources, production, costs and markets"
-        ],
-        "answerIndex": 3,
-        "explanation": "A farm plan helps organise production and business decisions."
-      },
-      {
-        "id": "agriculture-agribusiness-question-3",
-        "prompt": "Why is proper post-harvest handling important?",
-        "options": [
-          "It makes storage conditions irrelevant",
-          "It guarantees every product can be stored indefinitely",
-          "It reduces spoilage and preserves product quality",
-          "It deliberately increases contamination"
-        ],
-        "answerIndex": 2,
-        "explanation": "Appropriate handling reduces losses and protects quality."
-      },
-      {
-        "id": "agriculture-agribusiness-question-4",
-        "prompt": "What should a farmer consider before choosing a crop?",
-        "options": [
-          "The number of advertisements alone",
-          "Climate, soil, water, costs and market demand",
-          "Only the colour of the packaging",
-          "Unverified promises of guaranteed profit"
-        ],
-        "answerIndex": 1,
-        "explanation": "Crop choices should reflect growing conditions and commercial realities."
-      }
-    ]
-  },
-  {
-    "id": "electrical-technical-skills-awareness",
-    "title": "Electrical & Technical Skills Awareness",
-    "category": "Vocational and Technical Learning",
-    "description": "Learn basic electrical concepts, tool awareness, hazard identification and when qualified technicians are required.",
-    "level": "Vocational",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "electrical-technical-skills-awareness-lesson-1",
-        "title": "Basic Electrical Concepts and Components",
-        "minutes": 10,
-        "content": [
-          "Introduction: Electrical & Technical Skills Awareness.",
-          "Learning focus: Basic Electrical Concepts and Components. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "electrical-technical-skills-awareness-lesson-2",
-        "title": "Tools, Inspection and Hazard Awareness",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Tools, Inspection and Hazard Awareness.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "electrical-technical-skills-awareness-lesson-3",
-        "title": "Safe Maintenance and Professional Boundaries",
-        "minutes": 14,
-        "content": [
-          "Application: Safe Maintenance and Professional Boundaries.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "electrical-technical-skills-awareness-question-1",
-        "prompt": "What should you do with a damaged electrical cable?",
-        "options": [
-          "Keep away from it and arrange qualified repair",
-          "Touch the exposed conductor to test it",
-          "Cover it with wet material",
-          "Continue using it without inspection"
-        ],
-        "answerIndex": 0,
-        "explanation": "Damaged cables can create serious shock and fire hazards."
-      },
-      {
-        "id": "electrical-technical-skills-awareness-question-2",
-        "prompt": "Why is protective equipment used?",
-        "options": [
-          "To make every hazardous task risk-free",
-          "To replace training and safe procedures",
-          "To permit work beyond your competence",
-          "To reduce exposure to identified hazards"
-        ],
-        "answerIndex": 3,
-        "explanation": "Protective equipment complements training and safe procedures."
-      },
-      {
-        "id": "electrical-technical-skills-awareness-question-3",
-        "prompt": "When should an unqualified person avoid electrical repair?",
-        "options": [
-          "When reporting a visible hazard",
-          "When asking a qualified technician for help",
-          "When the task involves hazardous wiring or work beyond their training",
-          "Whenever reading a safety notice"
-        ],
-        "answerIndex": 2,
-        "explanation": "Hazardous electrical work should be handled by appropriately qualified people."
-      },
-      {
-        "id": "electrical-technical-skills-awareness-question-4",
-        "prompt": "What should happen before maintenance begins?",
-        "options": [
-          "Work on exposed live components without authorisation",
-          "Follow the approved isolation and safety procedure",
-          "Assume equipment is safe because it looks off",
-          "Ignore site procedures"
-        ],
-        "answerIndex": 1,
-        "explanation": "Proper isolation and approved procedures are essential to safety."
-      }
-    ]
-  },
-  {
-    "id": "project-management-fundamentals",
-    "title": "Project Management Fundamentals",
-    "category": "Professional Learning",
-    "description": "Learn to define project scope, plan tasks, manage risks, track progress and evaluate outcomes.",
-    "level": "Professional",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "project-management-fundamentals-lesson-1",
-        "title": "Project Scope, Objectives and Deliverables",
-        "minutes": 10,
-        "content": [
-          "Introduction: Project Management Fundamentals.",
-          "Learning focus: Project Scope, Objectives and Deliverables. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "project-management-fundamentals-lesson-2",
-        "title": "Schedules, Resources and Risk Planning",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Schedules, Resources and Risk Planning.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "project-management-fundamentals-lesson-3",
-        "title": "Monitoring, Communication and Project Closure",
-        "minutes": 14,
-        "content": [
-          "Application: Monitoring, Communication and Project Closure.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "project-management-fundamentals-question-1",
-        "prompt": "What is project scope?",
-        "options": [
-          "The work and boundaries agreed for a project",
-          "An unlimited list of unrelated tasks",
-          "The project's social media followers only",
-          "A guarantee that no changes will occur"
-        ],
-        "answerIndex": 0,
-        "explanation": "Scope defines the work and boundaries of a project."
-      },
-      {
-        "id": "project-management-fundamentals-question-2",
-        "prompt": "Why identify risks early?",
-        "options": [
-          "To guarantee no uncertainty exists",
-          "To avoid assigning responsibilities",
-          "To hide possible delays",
-          "To plan responses before problems occur"
-        ],
-        "answerIndex": 3,
-        "explanation": "Early risk management improves preparedness."
-      },
-      {
-        "id": "project-management-fundamentals-question-3",
-        "prompt": "What is a project milestone?",
-        "options": [
-          "A random expense without context",
-          "A replacement for all deliverables",
-          "A significant checkpoint or achievement in the plan",
-          "An unrecorded personal opinion"
-        ],
-        "answerIndex": 2,
-        "explanation": "Milestones help monitor important stages of progress."
-      },
-      {
-        "id": "project-management-fundamentals-question-4",
-        "prompt": "What should project closure include?",
-        "options": [
-          "Declaring success without checking outcomes",
-          "Checking deliverables, documenting lessons and confirming handover",
-          "Deleting every record",
-          "Ignoring outstanding issues"
-        ],
-        "answerIndex": 1,
-        "explanation": "Structured closure verifies results and captures lessons."
-      }
-    ]
-  },
-  {
-    "id": "data-analysis-spreadsheet-skills",
-    "title": "Data Analysis & Spreadsheet Skills",
-    "category": "Professional Learning",
-    "description": "Develop practical skills in spreadsheet organisation, formulas, summaries, charts and data interpretation.",
-    "level": "Professional",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "data-analysis-spreadsheet-skills-lesson-1",
-        "title": "Structured Data, Tables and Spreadsheet Formulas",
-        "minutes": 10,
-        "content": [
-          "Introduction: Data Analysis & Spreadsheet Skills.",
-          "Learning focus: Structured Data, Tables and Spreadsheet Formulas. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "data-analysis-spreadsheet-skills-lesson-2",
-        "title": "Sorting, Filtering and Summarising Information",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Sorting, Filtering and Summarising Information.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "data-analysis-spreadsheet-skills-lesson-3",
-        "title": "Charts, Interpretation and Data Quality",
-        "minutes": 14,
-        "content": [
-          "Application: Charts, Interpretation and Data Quality.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "data-analysis-spreadsheet-skills-question-1",
-        "prompt": "What is a spreadsheet formula used for?",
-        "options": [
-          "Calculating or processing values from cells",
-          "Decorating a screen without using data",
-          "Guaranteeing data has no errors",
-          "Replacing every source record"
-        ],
-        "answerIndex": 0,
-        "explanation": "Formulas process cell values according to defined rules."
-      },
-      {
-        "id": "data-analysis-spreadsheet-skills-question-2",
-        "prompt": "What does filtering data do?",
-        "options": [
-          "Permanently changes every value to zero",
-          "Guarantees the data is accurate",
-          "Removes the need to understand the dataset",
-          "Shows records that match specified conditions"
-        ],
-        "answerIndex": 3,
-        "explanation": "Filtering helps focus on records meeting selected criteria."
-      },
-      {
-        "id": "data-analysis-spreadsheet-skills-question-3",
-        "prompt": "What makes a chart useful?",
-        "options": [
-          "It guarantees a conclusion regardless of the data",
-          "It replaces checking the source data",
-          "It presents relevant data clearly for comparison or trends",
-          "It hides all labels and context"
-        ],
-        "answerIndex": 2,
-        "explanation": "A suitable chart makes patterns easier to interpret."
-      },
-      {
-        "id": "data-analysis-spreadsheet-skills-question-4",
-        "prompt": "How should unexpected data values be handled?",
-        "options": [
-          "Publish them without checking",
-          "Check the source and validate the values before interpreting them",
-          "Delete them automatically without review",
-          "Assume they prove the desired conclusion"
-        ],
-        "answerIndex": 1,
-        "explanation": "Validation helps identify errors and legitimate unusual observations."
-      }
-    ]
-  },
-  {
-    "id": "procurement-supply-chain-fundamentals",
-    "title": "Procurement & Supply Chain Fundamentals",
-    "category": "Professional Learning",
-    "description": "Introduce sourcing, supplier evaluation, purchasing records, inventory flow, ethics and delivery monitoring.",
-    "level": "Professional",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "procurement-supply-chain-fundamentals-lesson-1",
-        "title": "Purchase Requirements and Supplier Sourcing",
-        "minutes": 10,
-        "content": [
-          "Introduction: Procurement & Supply Chain Fundamentals.",
-          "Learning focus: Purchase Requirements and Supplier Sourcing. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "procurement-supply-chain-fundamentals-lesson-2",
-        "title": "Quotations, Evaluation and Purchase Records",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Quotations, Evaluation and Purchase Records.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "procurement-supply-chain-fundamentals-lesson-3",
-        "title": "Delivery, Inventory and Ethical Procurement",
-        "minutes": 14,
-        "content": [
-          "Application: Delivery, Inventory and Ethical Procurement.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "procurement-supply-chain-fundamentals-question-1",
-        "prompt": "What should supplier evaluation consider?",
-        "options": [
-          "Quality, price, reliability, compliance and delivery",
-          "Price alone regardless of product quality",
-          "Unverified personal promises only",
-          "The supplier's advertising budget"
-        ],
-        "answerIndex": 0,
-        "explanation": "Supplier evaluation should consider multiple relevant criteria."
-      },
-      {
-        "id": "procurement-supply-chain-fundamentals-question-2",
-        "prompt": "Why keep purchase records?",
-        "options": [
-          "To prevent anyone from checking transactions",
-          "To eliminate the need for approvals",
-          "To conceal supplier performance",
-          "To support accountability, reconciliation and audit trails"
-        ],
-        "answerIndex": 3,
-        "explanation": "Accurate records support transparent purchasing."
-      },
-      {
-        "id": "procurement-supply-chain-fundamentals-question-3",
-        "prompt": "What is a conflict of interest?",
-        "options": [
-          "A delivery confirmation",
-          "A standard product specification",
-          "A situation where personal interests may improperly influence a decision",
-          "A normal inventory count"
-        ],
-        "answerIndex": 2,
-        "explanation": "Conflicts of interest should be disclosed and managed."
-      },
-      {
-        "id": "procurement-supply-chain-fundamentals-question-4",
-        "prompt": "What should happen when delivered goods do not match the order?",
-        "options": [
-          "Change the order secretly",
-          "Document the discrepancy and follow the agreed resolution process",
-          "Accept everything without inspection",
-          "Destroy the purchase records"
-        ],
-        "answerIndex": 1,
-        "explanation": "Discrepancies should be documented and resolved through proper controls."
-      }
-    ]
-  },
-  {
-    "id": "ai-literacy-responsible-use",
-    "title": "Artificial Intelligence Literacy & Responsible Use",
-    "category": "Advanced and Lifelong Learning",
-    "description": "Understand AI capabilities, limitations, prompting, verification, privacy and responsible use in work and study.",
-    "level": "Advanced",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "ai-literacy-responsible-use-lesson-1",
-        "title": "What AI Systems Can and Cannot Do",
-        "minutes": 10,
-        "content": [
-          "Introduction: Artificial Intelligence Literacy & Responsible Use.",
-          "Learning focus: What AI Systems Can and Cannot Do. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "ai-literacy-responsible-use-lesson-2",
-        "title": "Writing Useful Prompts and Verifying Outputs",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Writing Useful Prompts and Verifying Outputs.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "ai-literacy-responsible-use-lesson-3",
-        "title": "Privacy, Bias and Responsible AI Use",
-        "minutes": 14,
-        "content": [
-          "Application: Privacy, Bias and Responsible AI Use.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "ai-literacy-responsible-use-question-1",
-        "prompt": "Why should AI-generated information be checked?",
-        "options": [
-          "AI outputs can be incorrect, incomplete or misleading",
-          "AI is always correct by definition",
-          "Checking makes evidence unnecessary",
-          "Every generated citation must be genuine"
-        ],
-        "answerIndex": 0,
-        "explanation": "AI outputs require verification against reliable sources."
-      },
-      {
-        "id": "ai-literacy-responsible-use-question-2",
-        "prompt": "What makes a prompt more useful?",
-        "options": [
-          "Contradictory instructions with no goal",
-          "Unrelated text only",
-          "A request that hides the intended task",
-          "Clear goals, relevant context and specific constraints"
-        ],
-        "answerIndex": 3,
-        "explanation": "Clear context and constraints help guide the output."
-      },
-      {
-        "id": "ai-literacy-responsible-use-question-3",
-        "prompt": "How should confidential information be handled with AI tools?",
-        "options": [
-          "Assume all services have identical privacy protections",
-          "Share passwords to improve results",
-          "Follow organisational rules and use approved privacy-safe methods",
-          "Upload every secret to any tool"
-        ],
-        "answerIndex": 2,
-        "explanation": "Sensitive information requires careful handling and approved tools."
-      },
-      {
-        "id": "ai-literacy-responsible-use-question-4",
-        "prompt": "What is a responsible response to a potentially biased AI result?",
-        "options": [
-          "Hide any evidence of bias",
-          "Review the result, seek relevant evidence and assess possible impacts",
-          "Accept it without question",
-          "Assume automated output is always fair"
-        ],
-        "answerIndex": 1,
-        "explanation": "Responsible AI use includes evaluating fairness and impact."
-      }
-    ]
-  },
-  {
-    "id": "research-methods-critical-thinking",
-    "title": "Research Methods & Critical Thinking",
-    "category": "Advanced and Lifelong Learning",
-    "description": "Develop research questions, evaluate sources, distinguish evidence from opinion and communicate reasoned conclusions.",
-    "level": "Advanced",
-    "priceKsh": 0,
-    "published": true,
-    "lessons": [
-      {
-        "id": "research-methods-critical-thinking-lesson-1",
-        "title": "Research Questions, Evidence and Methods",
-        "minutes": 10,
-        "content": [
-          "Introduction: Research Methods & Critical Thinking.",
-          "Learning focus: Research Questions, Evidence and Methods. Identify the key terms, explain the basic principles and connect them to everyday examples.",
-          "Practice: write down three things you learned and one question you still have."
-        ]
-      },
-      {
-        "id": "research-methods-critical-thinking-lesson-2",
-        "title": "Source Evaluation and Critical Reasoning",
-        "minutes": 12,
-        "content": [
-          "Core concepts: Source Evaluation and Critical Reasoning.",
-          "Work through examples step by step. Identify the relevant information, choose an appropriate method and explain why it fits the task.",
-          "Practice: complete a short example and check your reasoning before moving on."
-        ]
-      },
-      {
-        "id": "research-methods-critical-thinking-lesson-3",
-        "title": "Conclusions, Limitations and Ethical Reporting",
-        "minutes": 14,
-        "content": [
-          "Application: Conclusions, Limitations and Ethical Reporting.",
-          "Apply the concepts to a realistic situation. Consider safety, accuracy, ethics and the needs of the people affected.",
-          "Practice: create a short practical plan showing how you would apply the learning."
-        ]
-      }
-    ],
-    "questions": [
-      {
-        "id": "research-methods-critical-thinking-question-1",
-        "prompt": "What makes a research question useful?",
-        "options": [
-          "It is focused enough to investigate with available methods",
-          "It cannot be understood or investigated",
-          "It assumes the conclusion before research",
-          "It excludes all evidence"
-        ],
-        "answerIndex": 0,
-        "explanation": "A focused question guides research design and evidence gathering."
-      },
-      {
-        "id": "research-methods-critical-thinking-question-2",
-        "prompt": "How can a source's credibility be assessed?",
-        "options": [
-          "Trust it solely because it is popular",
-          "Ignore the author and supporting evidence",
-          "Assume every claim online is verified",
-          "Check its expertise, evidence, date and corroboration"
-        ],
-        "answerIndex": 3,
-        "explanation": "Credibility requires assessing evidence and context."
-      },
-      {
-        "id": "research-methods-critical-thinking-question-3",
-        "prompt": "What is confirmation bias?",
-        "options": [
-          "Recording results accurately",
-          "Changing a conclusion when evidence requires it",
-          "Favouring information that supports existing beliefs",
-          "Checking evidence from multiple sources"
-        ],
-        "answerIndex": 2,
-        "explanation": "Confirmation bias can distort how evidence is interpreted."
-      },
-      {
-        "id": "research-methods-critical-thinking-question-4",
-        "prompt": "What should a responsible research report include?",
-        "options": [
-          "Claims that exceed the available evidence",
-          "Evidence, methods, limitations and appropriately supported conclusions",
-          "Only the conclusion the author prefers",
-          "Invented sources and results"
-        ],
-        "answerIndex": 1,
-        "explanation": "Transparent methods and limitations help readers evaluate findings."
-      }
+    "id": "literacy-6",
+    "title": "Summarising, note-taking and independent reading",
+    "minutes": 20,
+    "content": [
+      "A summary gives the most important ideas in fewer words. Identify the main point, select essential supporting details, and remove repetition or unrelated examples. A summary should preserve the original meaning without copying entire passages.",
+      "Notes are most useful when organised under headings and written in language you understand. Short phrases, numbered steps and diagrams can help, but abbreviations should remain clear enough to review later.",
+      "Choose reading material that matches your goal and gradually increase its difficulty. Stories build experience with narrative and language; informational texts develop subject knowledge; practical documents help with daily decisions. Discussing a text can reveal misunderstandings.",
+      "Practice: read a one-page article, write a five-sentence summary in your own words, list three things you learned, and create two questions that another learner could answer from the text."
     ]
   }
+],
+    questions: [
+  {
+    "id": "lit-q1",
+    "prompt": "What is a grapheme?",
+    "options": [
+      "A paragraph's main idea",
+      "A written letter or group of letters representing a sound",
+      "A punctuation mark only",
+      "A type of summary"
+    ],
+    "answerIndex": 1,
+    "explanation": "A grapheme is the written representation of a sound."
+  },
+  {
+    "id": "lit-q2",
+    "prompt": "Why can dividing a long word into parts help?",
+    "options": [
+      "It removes the need to understand the word",
+      "It changes every word's meaning",
+      "It makes the word easier to decode and recognise",
+      "It guarantees the first guess is correct"
+    ],
+    "answerIndex": 2,
+    "explanation": "Breaking words into syllables or meaningful parts makes decoding more manageable."
+  },
+  {
+    "id": "lit-q3",
+    "prompt": "What does a question mark normally indicate?",
+    "options": [
+      "The end of a direct question",
+      "The beginning of every paragraph",
+      "A word's syllable",
+      "A heading must follow"
+    ],
+    "answerIndex": 0,
+    "explanation": "A question mark marks the end of a direct question."
+  },
+  {
+    "id": "lit-q4",
+    "prompt": "What is the main idea of a passage?",
+    "options": [
+      "Its longest word",
+      "An unrelated personal opinion",
+      "The final punctuation mark",
+      "Its central message"
+    ],
+    "answerIndex": 3,
+    "explanation": "The main idea is the central point communicated by the passage."
+  },
+  {
+    "id": "lit-q5",
+    "prompt": "What is an inference?",
+    "options": [
+      "A copied title",
+      "A conclusion drawn from clues and knowledge",
+      "A list of every word",
+      "A spelling mistake"
+    ],
+    "answerIndex": 1,
+    "explanation": "An inference combines textual clues with reasonable background knowledge."
+  },
+  {
+    "id": "lit-q6",
+    "prompt": "Which is the best way to check an unfamiliar word's meaning?",
+    "options": [
+      "Always choose the first possible meaning",
+      "Ignore the sentence",
+      "Use context and verify with a reliable reference",
+      "Replace it with any short word"
+    ],
+    "answerIndex": 2,
+    "explanation": "Context and reference sources help identify the meaning that fits."
+  },
+  {
+    "id": "lit-q7",
+    "prompt": "When reading a timetable, which detail is especially important?",
+    "options": [
+      "The paper's colour",
+      "The author's favourite book",
+      "An unrelated story",
+      "The correct date and time"
+    ],
+    "answerIndex": 3,
+    "explanation": "Dates and times determine when an event or service is scheduled."
+  },
+  {
+    "id": "lit-q8",
+    "prompt": "What should you do if a safety instruction is unclear?",
+    "options": [
+      "Ask a qualified person or consult the authoritative source",
+      "Guess and continue",
+      "Ignore the warning",
+      "Follow an unrelated instruction"
+    ],
+    "answerIndex": 0,
+    "explanation": "Unclear safety information should be clarified, not guessed."
+  },
+  {
+    "id": "lit-q9",
+    "prompt": "What is a good summary?",
+    "options": [
+      "Every sentence copied exactly",
+      "A shorter account of the main ideas in your own words",
+      "Only a list of difficult words",
+      "A new story unrelated to the passage"
+    ],
+    "answerIndex": 1,
+    "explanation": "A summary condenses essential ideas while preserving their meaning."
+  },
+  {
+    "id": "lit-q10",
+    "prompt": "Which activity supports independent reading?",
+    "options": [
+      "Reading only headings forever",
+      "Avoiding unfamiliar material",
+      "Summarising a text and asking questions about it",
+      "Skipping all comprehension checks"
+    ],
+    "answerIndex": 2,
+    "explanation": "Summaries and questions help learners monitor understanding."
+  }
+],
+  },
+    {
+    id: "basic-numeracy-mathematics",
+    title: "Basic Numeracy & Mathematics",
+    category: "Foundational Learning",
+    level: "Foundation",
+    description: "Learn numbers, arithmetic, fractions, percentages, and everyday calculations.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+  {
+    "id": "num-1",
+    "title": "Place value, ordering and rounding",
+    "minutes": 20,
+    "content": [
+      "Our number system uses base ten. Each position represents ten times the value of the position immediately to its right. In 6,482, the digits represent six thousands, four hundreds, eight tens and two ones. A zero can mark an empty place, as in 6,042.",
+      "To compare whole numbers, begin at the leftmost digit and compare place values in order. If those digits match, move right until a difference appears. This method avoids relying on how long or familiar a number looks.",
+      "Rounding replaces a number with a nearby value at a chosen place. When rounding to the nearest ten, inspect the ones digit: digits 0–4 round down and digits 5–9 round up. Rounding is useful for estimates, but exact calculations may still be needed.",
+      "Practice: state the value of each digit in 7,305. Order 3,405, 3,450 and 3,045 from smallest to largest, then round 6,748 to the nearest hundred and explain each decision."
+    ]
+  },
+  {
+    "id": "num-2",
+    "title": "Addition, subtraction and checking answers",
+    "minutes": 20,
+    "content": [
+      "Addition combines quantities, while subtraction finds a difference or the amount remaining. Align place values when working vertically, especially when regrouping. Estimate the answer first so you have a reasonable range for checking your calculation.",
+      "Regrouping in subtraction exchanges one unit of a place value for ten units of the next smaller place. For example, one hundred can be exchanged for ten tens. Keep each digit aligned with its correct place to avoid calculation errors.",
+      "Addition and subtraction can check one another. If 725 − 268 = 457, then 457 + 268 should equal 725. If the check fails, revisit the calculation rather than simply changing a digit at random.",
+      "Practice: a shop starts with 850 notebooks and sells 276. Calculate the remaining number, estimate the answer first, and verify it by adding the sold and remaining quantities."
+    ]
+  },
+  {
+    "id": "num-3",
+    "title": "Multiplication, division and equal groups",
+    "minutes": 20,
+    "content": [
+      "Multiplication represents equal groups, arrays and repeated addition. If six boxes each contain 24 pencils, the total is 6 × 24. Break a calculation into easier parts, such as 6 × 20 plus 6 × 4, to understand why the answer is 144.",
+      "Division shares a quantity equally or determines how many groups fit into a quantity. Dividing 144 pencils among six equal boxes gives 24 per box. If the quantity cannot be shared evenly in whole units, a remainder or fraction may be needed.",
+      "Multiplication and division are inverse operations. To check 144 ÷ 6 = 24, multiply 24 by 6 and confirm the result is 144. Always consider what the answer's unit should be: items, boxes, people or shillings.",
+      "Practice: 168 seedlings are planted in rows of 12. Calculate the number of rows and check your answer with multiplication. Then explain how the method changes if there are only 160 seedlings."
+    ]
+  },
+  {
+    "id": "num-4",
+    "title": "Fractions, decimals and percentages",
+    "minutes": 20,
+    "content": [
+      "A fraction describes part of a whole or a ratio. The numerator counts the parts being considered and the denominator describes the number of equal parts in the whole. Equivalent fractions represent the same amount, such as 1/2 and 2/4.",
+      "A decimal uses place value to show parts of a whole. The first digit after the decimal point represents tenths, the second represents hundredths, and the third represents thousandths. Align decimal points when adding or subtracting decimals.",
+      "Percent means per hundred. To find 10% of KES 800, calculate 800 ÷ 10 = KES 80. To find 25%, one useful method is to calculate one-quarter of the amount. Check whether a percentage is being added, deducted or used for comparison.",
+      "Practice: calculate 3/4 of 200, write 0.25 as a percentage, and find a 10% discount on an item priced at KES 1,500. Show the calculation for each answer."
+    ]
+  },
+  {
+    "id": "num-5",
+    "title": "Money, budgets and unit prices",
+    "minutes": 20,
+    "content": [
+      "A budget compares expected income with planned spending. Separate essential expenses, optional spending and savings where possible. Total each category and compare the planned amount with the money available before committing to a purchase.",
+      "Unit price helps compare products sold in different package sizes. Divide the price by the quantity to find the cost per item, kilogram or litre. The cheapest package is not always the best choice if quality, expiry dates, transport or waste differ.",
+      "Change is the amount returned after a payment. Subtract the total cost from the amount paid and check that the result is sensible. Keep receipts and written records when tracking business or household spending.",
+      "Practice: compare a 2 kg bag of flour costing KES 300 with a 5 kg bag costing KES 700. Find each price per kilogram, decide which is cheaper per kilogram, and identify one other factor to consider."
+    ]
+  },
+  {
+    "id": "num-6",
+    "title": "Measurement, data and solving word problems",
+    "minutes": 20,
+    "content": [
+      "Measurements use agreed units. Length may be measured in millimetres, centimetres, metres or kilometres; mass in grams or kilograms; and liquid volume in millilitres or litres. Convert units carefully before combining measurements.",
+      "Tables and charts organise data so that comparisons are easier. Read the title, labels, units and scale before interpreting a chart. A bar twice as high as another represents twice the value only when the scale is consistent and starts from a suitable baseline.",
+      "For a word problem, identify the known information, the unknown quantity and the relationship between them. Choose an operation, write the calculation, include the correct unit and check whether the result answers the actual question.",
+      "Practice: a water tank contains 450 litres and receives another 175 litres, then supplies 220 litres. Calculate the final volume, state the unit and explain one way to check your answer."
+    ]
+  }
+],
+    questions: [
+  {
+    "id": "num-q1",
+    "prompt": "What is the value of 3 in 5,342?",
+    "options": [
+      "Three ones",
+      "Three hundreds",
+      "Three thousands",
+      "Three tens"
+    ],
+    "answerIndex": 1,
+    "explanation": "The digit 3 is in the hundreds place, so it represents 300."
+  },
+  {
+    "id": "num-q2",
+    "prompt": "What is 850 − 276?",
+    "options": [
+      "574",
+      "584",
+      "626",
+      "674"
+    ],
+    "answerIndex": 0,
+    "explanation": "850 − 276 = 574; adding 276 back gives 850."
+  },
+  {
+    "id": "num-q3",
+    "prompt": "Six boxes contain 24 pencils each. How many pencils are there?",
+    "options": [
+      "30",
+      "120",
+      "144",
+      "164"
+    ],
+    "answerIndex": 2,
+    "explanation": "6 × 24 = 6 × 20 + 6 × 4 = 120 + 24 = 144."
+  },
+  {
+    "id": "num-q4",
+    "prompt": "What is 168 ÷ 12?",
+    "options": [
+      "12",
+      "13",
+      "14",
+      "16"
+    ],
+    "answerIndex": 2,
+    "explanation": "Twelve groups of fourteen make 168."
+  },
+  {
+    "id": "num-q5",
+    "prompt": "Which fraction is equivalent to 1/2?",
+    "options": [
+      "1/3",
+      "2/4",
+      "3/5",
+      "1/4"
+    ],
+    "answerIndex": 1,
+    "explanation": "Multiplying the numerator and denominator of 1/2 by two gives 2/4."
+  },
+  {
+    "id": "num-q6",
+    "prompt": "What is 25% of 200?",
+    "options": [
+      "25",
+      "40",
+      "50",
+      "75"
+    ],
+    "answerIndex": 2,
+    "explanation": "Twenty-five percent is one-quarter, and 200 ÷ 4 = 50."
+  },
+  {
+    "id": "num-q7",
+    "prompt": "What is a 10% discount on KES 1,500?",
+    "options": [
+      "KES 15",
+      "KES 100",
+      "KES 125",
+      "KES 150"
+    ],
+    "answerIndex": 3,
+    "explanation": "Ten percent of 1,500 is 150."
+  },
+  {
+    "id": "num-q8",
+    "prompt": "A 5 kg bag costs KES 700. What is its price per kilogram?",
+    "options": [
+      "KES 140",
+      "KES 150",
+      "KES 350",
+      "KES 695"
+    ],
+    "answerIndex": 0,
+    "explanation": "Divide KES 700 by 5 kg to get KES 140 per kilogram."
+  },
+  {
+    "id": "num-q9",
+    "prompt": "What is the best first step in a word problem?",
+    "options": [
+      "Choose an operation randomly",
+      "Identify the known values and what must be found",
+      "Ignore the units",
+      "Write an answer before reading"
+    ],
+    "answerIndex": 1,
+    "explanation": "Understanding the known and unknown quantities helps select the correct method."
+  },
+  {
+    "id": "num-q10",
+    "prompt": "A tank has 450 L, receives 175 L and supplies 220 L. What remains?",
+    "options": [
+      "405 L",
+      "395 L",
+      "625 L",
+      "845 L"
+    ],
+    "answerIndex": 0,
+    "explanation": "450 + 175 − 220 = 405 litres."
+  }
+],
+  },
+    {
+    id: "foundational-english-communication",
+    title: "Foundational English Communication",
+    category: "Communication",
+    level: "Foundation",
+    description: "Build confidence in everyday English speaking, listening, reading, and writing.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+  {
+    "id": "eng-1",
+    "title": "Building complete and clear sentences",
+    "minutes": 20,
+    "content": [
+      "A sentence communicates a complete idea. Many simple sentences contain a subject and a verb: “The learner reads.” The subject identifies who or what the sentence concerns, and the verb expresses an action or state. Other words can add details about time, place or manner.",
+      "Word order influences meaning. “The driver helped the passenger” differs from “The passenger helped the driver.” When writing, place information in an order that makes the intended relationship clear to the reader.",
+      "Use capital letters at the beginning of sentences, for the pronoun I, and for proper names. End statements with full stops and direct questions with question marks. Punctuation should help the reader follow the meaning rather than be added randomly.",
+      "Practice: write five sentences about a normal working day. Underline each subject and verb, check capital letters and punctuation, and revise any sentence that does not express a complete thought."
+    ]
+  },
+  {
+    "id": "eng-2",
+    "title": "Nouns, pronouns, verbs and descriptive words",
+    "minutes": 20,
+    "content": [
+      "A noun names a person, place, thing or idea. A pronoun can replace a noun when the reference is clear. For example, “Amina submitted the form. She kept a copy.” The pronoun she clearly refers to Amina.",
+      "Verbs describe actions or states. Adjectives describe nouns, while adverbs can modify verbs, adjectives or other adverbs. Precise words often communicate more effectively than a sentence filled with vague descriptions.",
+      "Subject–verb agreement is important in standard English: “The learner works” but “The learners work.” When revising a sentence, identify the true subject and make sure the verb matches it, even when other words appear between them.",
+      "Practice: revise “The students writes a careful report and they submits it.” Correct the agreement and explain why each verb changes."
+    ]
+  },
+  {
+    "id": "eng-3",
+    "title": "Tense and time relationships",
+    "minutes": 20,
+    "content": [
+      "Verb tense helps locate an action in time. “I study” can describe a habit or present situation, “I studied” describes a past action, and “I will study” describes a future action. Choose a tense that matches the time you mean.",
+      "Past-tense forms are not all created by adding -ed. “Walked” is regular, while “went” is the past form of “go.” Learn common irregular verbs in meaningful sentences and consult a dictionary when unsure.",
+      "Keep the time sequence clear in a paragraph. A report of yesterday's activities will normally use past tense, while instructions may use the imperative form, such as “Open the document.” Changing tense can be correct when the time meaning changes.",
+      "Practice: correct this sentence: “Yesterday, she go to the market, buys vegetables and return home.” Rewrite it in standard past tense and explain each correction."
+    ]
+  },
+  {
+    "id": "eng-4",
+    "title": "Vocabulary, spelling and paragraph writing",
+    "minutes": 20,
+    "content": [
+      "A strong paragraph develops one main point. Begin with a topic sentence, add supporting details or examples, and finish with a sentence that closes or links the idea. Arrange information logically so the reader can follow your reasoning.",
+      "Connectors such as because, however, therefore, first and finally show relationships between ideas. Choose a connector that accurately represents the relationship; for example, however signals contrast, while therefore introduces a consequence or conclusion.",
+      "Build vocabulary by reading, recording unfamiliar words and using them in original sentences. Spelling patterns help, but English includes exceptions. Check important writing with a reliable dictionary or spelling tool, and review suggestions rather than accepting every automatic correction.",
+      "Practice: write a paragraph explaining why keeping accurate records is useful. Include a topic sentence, three supporting details and a concluding sentence. Check spelling, connectors and paragraph structure."
+    ]
+  },
+  {
+    "id": "eng-5",
+    "title": "Listening, speaking and asking questions",
+    "minutes": 20,
+    "content": [
+      "Good listening requires attention to both words and context. Avoid interrupting, notice the speaker's main point, and ask a clarifying question when instructions are incomplete. Briefly repeating key information can confirm that you understood correctly.",
+      "Effective speaking is organised around the listener's needs. State your main point, provide relevant details, use a suitable volume and pace, and avoid unnecessary jargon. For unfamiliar audiences, explain technical terms in everyday language.",
+      "Questions can request facts, clarification, reasons or suggestions. Open questions often encourage fuller answers, while closed questions can confirm a specific detail. Select the question type that suits the information you need.",
+      "Practice: explain a familiar task in one minute. Ask a partner to repeat the main steps, listen to any misunderstanding, and revise your explanation to make it clearer."
+    ]
+  },
+  {
+    "id": "eng-6",
+    "title": "Formal emails, messages and workplace communication",
+    "minutes": 20,
+    "content": [
+      "A formal email should have a useful subject line, a respectful greeting, a clear purpose, relevant details and a polite closing. Keep paragraphs focused and make any requested action or deadline explicit.",
+      "Adapt your tone to the audience and purpose. A message to a friend may be informal, while an application to a training centre or a request to a supplier should use respectful, precise language. Avoid writing in all capitals, which can appear aggressive.",
+      "Before sending a message, verify names, dates, attachments and contact details. Remove unnecessary personal information and never send passwords, PINs or one-time verification codes through an ordinary message. Keep a copy of important work communications.",
+      "Practice: write a formal email asking a training centre about its timetable and entry requirements. Include a meaningful subject, greeting, two clear questions and a courteous closing."
+    ]
+  }
+],
+    questions: [
+  {
+    "id": "eng-q1",
+    "prompt": "Which is a complete sentence?",
+    "options": [
+      "Because the office was closed",
+      "The learner completed the form.",
+      "Although it was raining",
+      "When the meeting ended"
+    ],
+    "answerIndex": 1,
+    "explanation": "The learner completed the form expresses a complete idea."
+  },
+  {
+    "id": "eng-q2",
+    "prompt": "Which sentence has correct subject–verb agreement?",
+    "options": [
+      "The learners works carefully.",
+      "The learner work carefully.",
+      "The learners work carefully.",
+      "The learners working carefully."
+    ],
+    "answerIndex": 2,
+    "explanation": "The plural subject learners takes the verb work."
+  },
+  {
+    "id": "eng-q3",
+    "prompt": "Which is the correct past-tense sentence?",
+    "options": [
+      "Yesterday she went to the market.",
+      "Yesterday she go to the market.",
+      "Yesterday she going to the market.",
+      "Yesterday she goes to the market."
+    ],
+    "answerIndex": 0,
+    "explanation": "Went is the simple past form of go."
+  },
+  {
+    "id": "eng-q4",
+    "prompt": "Which connector usually signals contrast?",
+    "options": [
+      "Therefore",
+      "Because",
+      "First",
+      "However"
+    ],
+    "answerIndex": 3,
+    "explanation": "However introduces a contrast between ideas."
+  },
+  {
+    "id": "eng-q5",
+    "prompt": "What is the main purpose of a topic sentence?",
+    "options": [
+      "To list every spelling rule",
+      "To introduce the paragraph's main point",
+      "To replace the whole paragraph",
+      "To provide an unrelated conclusion"
+    ],
+    "answerIndex": 1,
+    "explanation": "A topic sentence tells the reader what the paragraph mainly discusses."
+  },
+  {
+    "id": "eng-q6",
+    "prompt": "What should a listener do when instructions are unclear?",
+    "options": [
+      "Pretend to understand",
+      "Interrupt with an unrelated story",
+      "Ask a relevant clarifying question",
+      "Ignore the instructions"
+    ],
+    "answerIndex": 2,
+    "explanation": "Clarifying questions help prevent errors caused by misunderstanding."
+  },
+  {
+    "id": "eng-q7",
+    "prompt": "Which is most suitable for a formal email?",
+    "options": [
+      "A clear subject and respectful wording",
+      "Only slang and emojis",
+      "No explanation of the purpose",
+      "An insulting greeting"
+    ],
+    "answerIndex": 0,
+    "explanation": "A clear subject and respectful language help the recipient understand the request."
+  },
+  {
+    "id": "eng-q8",
+    "prompt": "What should you check before sending an important email?",
+    "options": [
+      "Only the font colour",
+      "Whether it is as long as possible",
+      "Whether every sentence uses slang",
+      "Names, dates, attachments and recipient"
+    ],
+    "answerIndex": 3,
+    "explanation": "Checking these details helps prevent avoidable communication mistakes."
+  },
+  {
+    "id": "eng-q9",
+    "prompt": "Which pronoun sentence has a clear reference?",
+    "options": [
+      "Amina spoke to Wanjiku because she was there, without further context.",
+      "Amina submitted the form. She kept a copy.",
+      "They gave it to them.",
+      "He told him about it."
+    ],
+    "answerIndex": 1,
+    "explanation": "She clearly refers to Amina in the two-sentence example."
+  },
+  {
+    "id": "eng-q10",
+    "prompt": "What is a useful way to improve a paragraph?",
+    "options": [
+      "Add unrelated sentences",
+      "Remove the main idea",
+      "Organise one main point with supporting details",
+      "Avoid checking spelling"
+    ],
+    "answerIndex": 2,
+    "explanation": "A focused paragraph develops one central point with relevant support."
+  }
+],
+  },
+    {
+    id: "study-skills-learning-confidence",
+    title: "Study Skills & Learning Confidence",
+    category: "Personal Development",
+    level: "Foundation",
+    description: "Develop effective study habits, goal setting, revision, and time management.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+  {
+    "id": "study-1",
+    "title": "Setting goals and planning study time",
+    "minutes": 20,
+    "content": [
+      "A useful learning goal describes an observable outcome. “Understand science” is difficult to measure, while “explain the water cycle and answer eight practice questions” gives you a clear target. Goals should be challenging enough to encourage progress but realistic for the time available.",
+      "Break a large goal into smaller tasks. Estimate the time needed, schedule study periods around work and family responsibilities, and prepare materials before beginning. A written plan helps reveal when a task is too large or a deadline is unrealistic.",
+      "Prioritise work by urgency and importance. Begin long assignments early, and divide them into research, drafting, review and submission stages. Leave time for unexpected interruptions instead of planning every minute without a buffer.",
+      "Practice: choose one course goal for the next seven days. Write three tasks, estimate the time for each, schedule them, and identify one likely obstacle with a practical response."
+    ]
+  },
+  {
+    "id": "study-2",
+    "title": "Active recall and spaced practice",
+    "minutes": 20,
+    "content": [
+      "Active recall means retrieving information from memory instead of only rereading it. After a lesson, close your notes and explain the main ideas aloud or write them down. Then compare your answer with the lesson and correct omissions.",
+      "Spaced practice means reviewing material over several sessions separated by time. A learner might review a concept today, tomorrow, several days later and again the following week. The exact schedule can vary, but repeated retrieval is more informative than a single last-minute review.",
+      "Mix question types and examples when practising. For a mathematics topic, solve several kinds of problems rather than repeating only one familiar example. For reading, answer comprehension questions and write a summary. Check the reasoning, not only whether the final answer is right.",
+      "Practice: study a short lesson, write five questions about it, answer without notes, mark your responses, and schedule a second attempt for the questions you missed."
+    ]
+  },
+  {
+    "id": "study-3",
+    "title": "Note-taking and organising information",
+    "minutes": 20,
+    "content": [
+      "Good notes capture key ideas, definitions, examples and questions rather than every spoken word. Use headings and subheadings to show relationships. Leave space to add clarifications after class or after reading a lesson.",
+      "A comparison table is useful when studying related concepts; a flow chart can show a process; and a labelled diagram can explain structure. Choose the format that matches the information instead of using one method for every subject.",
+      "Rewrite notes in your own words to check understanding. Copying can preserve details, but it may hide gaps in comprehension. If you cannot explain an idea simply, return to the source and identify exactly what remains unclear.",
+      "Practice: turn one page of notes into a one-page revision sheet containing a title, five key points, two examples and three questions you should be able to answer."
+    ]
+  },
+  {
+    "id": "study-4",
+    "title": "Reading assignments and solving difficult tasks",
+    "minutes": 20,
+    "content": [
+      "Start an assignment by identifying its instructions and expected output. Words such as compare, explain, calculate, justify and evaluate require different responses. Underline the action word and list the evidence or steps needed to complete the task.",
+      "When a task feels difficult, identify the smallest unresolved step. Review a worked example, define unfamiliar terms, and try a similar problem. If you remain stuck, ask a focused question that explains what you attempted and where your reasoning stopped.",
+      "Use credible sources and keep track of where information came from. Notes, quotations and paraphrases should be distinguishable so that you can acknowledge sources accurately and avoid presenting someone else's work as your own.",
+      "Practice: take a sample assignment question. Rewrite it as a checklist of actions, list two sources or materials you need, and identify the first small task you can complete."
+    ]
+  },
+  {
+    "id": "study-5",
+    "title": "Managing distractions, energy and stress",
+    "minutes": 20,
+    "content": [
+      "Choose a study location with enough light, suitable seating and the materials you need. Silence unnecessary notifications and keep unrelated tabs closed. If the environment is noisy, use a realistic alternative such as a quieter time or a library when available.",
+      "Work in focused periods with short breaks. The best session length depends on the task and learner, so experiment and observe when attention begins to fall. Breaks should help you return refreshed rather than become an unplanned interruption that consumes the study period.",
+      "Sleep, hydration, movement and regular meals can affect concentration. When stress rises, break work into manageable steps and focus on the next action. If distress is persistent or overwhelming, seek support from a trusted person or appropriate professional service.",
+      "Practice: record your study time and distractions for two days. Identify the biggest source of interruption and test one change, then compare whether your focus improves."
+    ]
+  },
+  {
+    "id": "study-6",
+    "title": "Feedback, self-assessment and learning confidence",
+    "minutes": 20,
+    "content": [
+      "Feedback is most useful when it identifies what worked, what needs improvement and what to do next. Separate comments about a particular task from judgements about your ability. One weak result identifies a skill to practise; it does not define your potential.",
+      "Use self-assessment before submitting work. Check instructions, accuracy, completeness and presentation. For a calculation, verify the method and units; for a written assignment, check structure, evidence, grammar and source acknowledgement.",
+      "Track progress using specific evidence such as completed exercises, fewer repeated errors or an improved explanation. Compare current work with earlier work to see changes. Celebrate progress while keeping the next learning goal realistic and specific.",
+      "Practice: choose one recent mistake or piece of feedback. Write what it shows, the correction needed, how you will practise it, and how you will check improvement next time."
+    ]
+  }
+],
+    questions: [
+  {
+    "id": "study-q1",
+    "prompt": "Which is the most measurable goal?",
+    "options": [
+      "Become brilliant immediately",
+      "Study whenever possible",
+      "Complete eight practice questions and review mistakes",
+      "Never make an error"
+    ],
+    "answerIndex": 2,
+    "explanation": "The goal identifies a specific task and a way to review performance."
+  },
+  {
+    "id": "study-q2",
+    "prompt": "What is active recall?",
+    "options": [
+      "Trying to retrieve information from memory before checking notes",
+      "Copying notes without reviewing meaning",
+      "Reading only headings",
+      "Avoiding practice questions"
+    ],
+    "answerIndex": 0,
+    "explanation": "Active recall tests whether information can be retrieved without looking at the source."
+  },
+  {
+    "id": "study-q3",
+    "prompt": "What is spaced practice?",
+    "options": [
+      "Studying only the night before",
+      "Never revisiting a topic",
+      "Repeating one easy question continuously",
+      "Reviewing material across separate sessions"
+    ],
+    "answerIndex": 3,
+    "explanation": "Spaced practice revisits material over time rather than concentrating all review in one session."
+  },
+  {
+    "id": "study-q4",
+    "prompt": "What should useful notes contain?",
+    "options": [
+      "Every word with no structure",
+      "Key ideas, examples and questions organised clearly",
+      "Only page numbers",
+      "Unrelated quotations"
+    ],
+    "answerIndex": 1,
+    "explanation": "Structured notes make key ideas easier to understand and revise."
+  },
+  {
+    "id": "study-q5",
+    "prompt": "What should you do first with a complex assignment?",
+    "options": [
+      "Ignore the instructions",
+      "Write the conclusion immediately",
+      "Identify the required actions and expected output",
+      "Copy a classmate's work"
+    ],
+    "answerIndex": 2,
+    "explanation": "Understanding the instructions helps plan the work required."
+  },
+  {
+    "id": "study-q6",
+    "prompt": "How should you seek help when stuck?",
+    "options": [
+      "Explain what you tried and ask a specific question",
+      "Say nothing and submit a guess",
+      "Ask an unrelated question",
+      "Copy an answer without understanding"
+    ],
+    "answerIndex": 0,
+    "explanation": "Specific questions let a teacher or peer address the actual difficulty."
+  },
+  {
+    "id": "study-q7",
+    "prompt": "Which strategy can reduce digital distractions?",
+    "options": [
+      "Keep every notification active",
+      "Open unrelated tabs",
+      "Study without a plan",
+      "Silence unnecessary notifications and close unrelated tabs"
+    ],
+    "answerIndex": 3,
+    "explanation": "Reducing interruptions can make focused study periods more productive."
+  },
+  {
+    "id": "study-q8",
+    "prompt": "What is a constructive response to a poor result?",
+    "options": [
+      "Decide that learning is impossible",
+      "Identify errors and practise the weak skills",
+      "Hide all feedback",
+      "Repeat the same method without checking"
+    ],
+    "answerIndex": 1,
+    "explanation": "Analysing errors identifies the next useful learning action."
+  },
+  {
+    "id": "study-q9",
+    "prompt": "Why should you track progress?",
+    "options": [
+      "To compare yourself unfairly with everyone",
+      "To avoid setting new goals",
+      "To identify improvement and choose the next goal",
+      "To guarantee every future answer is correct"
+    ],
+    "answerIndex": 2,
+    "explanation": "Evidence of progress helps guide realistic next steps."
+  },
+  {
+    "id": "study-q10",
+    "prompt": "What should you do before submitting an assignment?",
+    "options": [
+      "Check the instructions, accuracy and completeness",
+      "Assume it is correct without reviewing",
+      "Remove all supporting evidence",
+      "Ignore required sources"
+    ],
+    "answerIndex": 0,
+    "explanation": "A final review catches missing requirements and avoidable mistakes."
+  }
+],
+  },
+    {
+    id: "primary-science-environment",
+    title: "Primary Science & Environment",
+    category: "Science",
+    level: "Foundation",
+    description: "Explore basic scientific ideas, living things, health, and the environment.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+  {
+    "id": "science-1",
+    "title": "Observation, questions and fair tests",
+    "minutes": 20,
+    "content": [
+      "Science investigates the natural world through questions, observations, measurements and explanations. An observation records what is detected, while an inference is an explanation based on observations. Keeping them distinct helps prevent assumptions from being mistaken for facts.",
+      "A fair test changes a factor being investigated while keeping other relevant conditions as similar as possible. To compare plant growth in sunlight and shade, use similar seedlings, comparable containers and soil, and the same watering schedule.",
+      "Measurements are more useful when recorded consistently with units. Record dates, quantities and conditions in a table. Repeat observations when possible and report unexpected results honestly instead of changing data to fit a prediction.",
+      "Practice: plan a safe plant-growth investigation. State the question, prediction, factor you will change, outcome you will measure, conditions you will keep similar, and how you will record results."
+    ]
+  },
+  {
+    "id": "science-2",
+    "title": "Living things, needs and classification",
+    "minutes": 20,
+    "content": [
+      "Living organisms carry out life processes such as obtaining resources, growing and reproducing. Plants generally use light energy to make sugars from carbon dioxide and water, while animals obtain energy by eating plants or other organisms. Living things also respond to changes in their surroundings.",
+      "Organisms can be grouped by shared characteristics. For example, flowering plants produce flowers, while mammals are animals that feed their young with milk. Classification helps scientists organise observations and compare organisms systematically.",
+      "Habitats provide resources and conditions needed for survival. A pond, grassland, forest or farm may contain different organisms adapted to the available water, food, shelter and climate. Organisms can also affect their habitats through feeding, pollination and decomposition.",
+      "Practice: observe a familiar outdoor area without disturbing wildlife. Record three plants or animals, describe visible characteristics, and explain one resource each may need to survive."
+    ]
+  },
+  {
+    "id": "science-3",
+    "title": "Food chains, ecosystems and interdependence",
+    "minutes": 20,
+    "content": [
+      "An ecosystem includes living organisms and the non-living parts of their environment. Organisms interact through feeding, competition, cooperation and other relationships. Changes in water, temperature, habitat or food availability can affect several species at once.",
+      "A food chain shows one pathway of energy transfer. Grass may be eaten by a grasshopper, which may be eaten by a bird. Arrows point from the food source towards the organism receiving energy. Real ecosystems usually contain many connected food chains, forming a food web.",
+      "Producers, such as green plants, make organic food using an external energy source. Consumers obtain energy by eating other organisms, while decomposers break down dead material and return nutrients to the environment. These roles help explain why organisms depend on one another.",
+      "Practice: draw a food chain from a Kenyan farm or grassland. Label the producer and consumers, add arrows in the correct direction, and predict one possible effect if one population decreases."
+    ]
+  },
+  {
+    "id": "science-4",
+    "title": "Matter, materials and changes",
+    "minutes": 20,
+    "content": [
+      "Matter has mass and occupies space. Common states include solids, liquids and gases. A solid generally keeps its shape, a liquid flows and takes the shape of its container, and a gas spreads to fill available space.",
+      "Heating and cooling can change a material's state. Ice melts into liquid water, and water can evaporate into vapour. Cooling water vapour can produce liquid droplets. These changes do not necessarily create a new substance; they change its physical state.",
+      "Materials have properties such as hardness, flexibility, absorbency and conductivity. These properties influence their uses. A waterproof material may be useful for a raincoat, while a good electrical conductor requires special precautions when used in electrical equipment.",
+      "Practice: select three safe household materials. Describe observable properties, suggest a practical use for each, and explain which property makes it suitable. Do not heat, taste or mix unknown substances."
+    ]
+  },
+  {
+    "id": "science-5",
+    "title": "Water, weather and the environment",
+    "minutes": 20,
+    "content": [
+      "The water cycle moves water between the Earth's surface and atmosphere. Evaporation changes liquid water into vapour, condensation forms droplets, precipitation returns water to the surface, and runoff or infiltration moves water across or into the ground.",
+      "Weather describes atmospheric conditions over a short period, including temperature, rainfall, wind and cloud cover. Climate describes longer-term patterns. Recording daily weather over time can reveal local patterns, but a few days do not establish a climate trend.",
+      "Clean water, healthy soil and suitable habitats support people and other organisms. Poor waste disposal can contaminate waterways and block drains. Soil erosion can remove fertile topsoil, while planting suitable vegetation and protecting ground cover can help reduce erosion.",
+      "Practice: keep a simple weather record for one week. Note rainfall, cloud cover and temperature if a suitable instrument is available. Identify one local environmental concern and propose a realistic action to address it."
+    ]
+  },
+  {
+    "id": "science-6",
+    "title": "Energy, forces and safe scientific practice",
+    "minutes": 20,
+    "content": [
+      "Energy can be transferred or transformed. A lamp converts electrical energy into light and heat, while a moving bicycle has kinetic energy. Energy descriptions help explain how devices work and why energy is needed for everyday activities.",
+      "A force is a push or pull that can change an object's motion or shape. Friction acts between surfaces and can slow motion, but it can also provide grip for walking and braking. The effect of a force depends on its size, direction and the situation.",
+      "Scientific safety means using equipment appropriately, following instructions and avoiding unnecessary risks. Never taste unknown materials, look directly at the Sun, touch exposed electrical wiring or conduct experiments involving hazardous substances without qualified supervision.",
+      "Practice: identify three devices that transfer or transform energy. For each, describe the energy input, useful output and any unwanted output, such as heat or sound. Explain one safety precaution for using the device."
+    ]
+  }
+],
+    questions: [
+  {
+    "id": "sci-q1",
+    "prompt": "What is an observation?",
+    "options": [
+      "A record of something detected or measured",
+      "A conclusion with no evidence",
+      "A prediction that must be true",
+      "A personal preference only"
+    ],
+    "answerIndex": 0,
+    "explanation": "An observation records information gathered through the senses or instruments."
+  },
+  {
+    "id": "sci-q2",
+    "prompt": "In a fair test, why keep other relevant conditions similar?",
+    "options": [
+      "To make the results secret",
+      "To prevent measurements",
+      "To help identify the effect of the factor being changed",
+      "To guarantee a preferred result"
+    ],
+    "answerIndex": 2,
+    "explanation": "Controlling other conditions makes the comparison more meaningful."
+  },
+  {
+    "id": "sci-q3",
+    "prompt": "Which statement about plants is generally correct?",
+    "options": [
+      "All plants obtain food by eating animals",
+      "Green plants can use light energy to make sugars",
+      "Plants do not need water",
+      "Plants cannot respond to their environment"
+    ],
+    "answerIndex": 1,
+    "explanation": "Green plants generally use light energy in photosynthesis to produce sugars."
+  },
+  {
+    "id": "sci-q4",
+    "prompt": "What is the role of a producer in a food chain?",
+    "options": [
+      "It eats every consumer",
+      "It breaks all rocks into soil",
+      "It receives no energy",
+      "It makes organic food, commonly using light energy"
+    ],
+    "answerIndex": 3,
+    "explanation": "Producers such as green plants form the base of many food chains."
+  },
+  {
+    "id": "sci-q5",
+    "prompt": "What do arrows in a food chain usually represent?",
+    "options": [
+      "The direction of energy transfer",
+      "The age of each organism",
+      "The size of the habitat",
+      "The distance animals travel every day"
+    ],
+    "answerIndex": 0,
+    "explanation": "Arrows point from the food source to the organism receiving energy."
+  },
+  {
+    "id": "sci-q6",
+    "prompt": "Which is an example of a physical change?",
+    "options": [
+      "Iron reacting to form rust",
+      "Wood burning into ash",
+      "Ice melting into liquid water",
+      "Food decomposing"
+    ],
+    "answerIndex": 2,
+    "explanation": "Melting changes the state of water without creating a different substance."
+  },
+  {
+    "id": "sci-q7",
+    "prompt": "What happens during condensation?",
+    "options": [
+      "Liquid water becomes ice only",
+      "Water vapour cools and forms liquid droplets",
+      "Soil becomes a gas",
+      "Water disappears permanently"
+    ],
+    "answerIndex": 1,
+    "explanation": "Condensation changes water vapour into liquid droplets."
+  },
+  {
+    "id": "sci-q8",
+    "prompt": "What is the difference between weather and climate?",
+    "options": [
+      "They always mean exactly the same thing",
+      "Climate changes every minute only",
+      "Weather describes centuries only",
+      "Weather is short-term conditions; climate describes longer-term patterns"
+    ],
+    "answerIndex": 3,
+    "explanation": "Weather refers to short-term atmospheric conditions, while climate reflects longer-term patterns."
+  },
+  {
+    "id": "sci-q9",
+    "prompt": "Which action helps reduce soil erosion?",
+    "options": [
+      "Removing all ground cover",
+      "Leaving soil exposed on every slope",
+      "Maintaining suitable vegetation and ground cover",
+      "Directing every drain onto bare soil"
+    ],
+    "answerIndex": 2,
+    "explanation": "Vegetation and ground cover can reduce the impact of rain and flowing water on soil."
+  },
+  {
+    "id": "sci-q10",
+    "prompt": "Which is a safe science practice?",
+    "options": [
+      "Follow instructions and use suitable protective measures",
+      "Taste an unknown chemical",
+      "Touch exposed wiring",
+      "Look directly at the Sun"
+    ],
+    "answerIndex": 0,
+    "explanation": "Following instructions and suitable safety precautions helps prevent injury."
+  }
+],
+  },
+    {
+    id: "primary-social-studies-citizenship",
+    title: "Social Studies & Citizenship",
+    category: "Social Studies",
+    level: "Foundation",
+    description: "Understand communities, citizenship, responsibility, culture, and society.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+  {
+    "id": "social-1",
+    "title": "Maps, direction and local geography",
+    "minutes": 15,
+    "content": [
+      "A map represents a place using symbols and a smaller scale. The title explains what the map shows, a key explains symbols, and a scale relates map distance to real distance. Many maps use a north arrow or compass directions to help users orient themselves.",
+      "Physical features include rivers, hills and plains. Human features include roads, schools, markets and settlements. Geography affects how people travel, grow food, trade and access services, while people's activities can also change the environment.",
+      "Practice: sketch a simple map of a familiar route. Include a title, a direction marker and at least four labelled features. Do not include private information that could compromise someone's safety."
+    ]
+  },
+  {
+    "id": "social-2",
+    "title": "Community, culture and shared responsibilities",
+    "minutes": 15,
+    "content": [
+      "A community consists of people connected by place, interests or shared activities. Communities may include different languages, traditions, beliefs and experiences. Respectful citizenship means listening to others, avoiding discrimination and resolving disagreements peacefully.",
+      "Community services such as schools, health facilities, roads and sanitation support people's well-being. Public resources need responsible use and maintenance. Residents can contribute by following reasonable rules, protecting shared property and reporting problems through appropriate channels.",
+      "Practice: identify one shared facility in your community. Explain who uses it, why it matters, and two practical ways residents can help keep it safe and useful."
+    ]
+  },
+  {
+    "id": "social-3",
+    "title": "Citizenship, rights and responsibilities",
+    "minutes": 15,
+    "content": [
+      "Citizenship includes participation in community life and respect for the rights of others. Rights and responsibilities go together: people should be treated fairly while also respecting lawful rules, public safety and the freedoms of other people.",
+      "In Kenya, national and county governments have different responsibilities. County governments provide and manage various local services, while the national government handles functions assigned to it by the Constitution. Citizens can seek information from official sources and use lawful ways to raise concerns.",
+      "Practice: choose a local public-service issue, such as waste collection or road maintenance. Identify the relevant public office using an official source and draft a respectful, factual request for information or action."
+    ]
+  }
+,
+        {
+          "id": "primary-social-studies-citizenship-lesson-4",
+          "title": "Communities, culture and cooperation",
+          "minutes": 8,
+          "content": [
+            "A community is made up of people connected by place, interests, relationships or shared activities. Communities may include families, schools, neighbourhoods and cultural groups.",
+            "People in a community may have different languages, customs, beliefs and experiences. Respectful curiosity helps people learn from one another without stereotyping.",
+            "Cooperation includes sharing responsibilities, helping others and solving common problems peacefully. Community members can contribute in different ways.",
+            "Practice: identify three ways learners can cooperate to keep their school or neighbourhood safe and welcoming."
+          ]
+        },
+        {
+          "id": "primary-social-studies-citizenship-lesson-5",
+          "title": "Rights, responsibilities and citizenship",
+          "minutes": 9,
+          "content": [
+            "Citizenship includes participation in community life and respect for the rights and dignity of other people. Rights and responsibilities help communities function fairly.",
+            "Responsibilities may include following legitimate rules, respecting others, caring for shared spaces and seeking help when someone is at risk.",
+            "Public decisions should be understood through reliable information and appropriate civic processes. In Kenya, learners can study the Constitution and age-appropriate civic education materials to understand these ideas.",
+            "Practice: give an example of a community right and a related responsibility, and explain why both matter."
+          ]
+        },
+        {
+          "id": "primary-social-studies-citizenship-lesson-6",
+          "title": "The environment and local problem-solving",
+          "minutes": 9,
+          "content": [
+            "Local environments include land, water, plants, animals and the places where people live and work. Human activities can protect or damage these shared resources.",
+            "Littering, unsafe waste disposal and wasting water can create health and environmental problems. Practical responses include proper disposal, conservation and reporting hazards to responsible adults or authorities.",
+            "A community project should identify the problem, consult affected people, agree on safe actions and review the result.",
+            "Practice: plan a small environmental improvement activity and list the people, materials and safety steps required."
+          ]
+        }
+      ],
+    questions: [
+  {
+    "id": "social-q1",
+    "prompt": "What is the purpose of a map key?",
+    "options": [
+      "To show the map's price",
+      "To replace all labels",
+      "To explain the symbols used on the map",
+      "To list every resident's name"
+    ],
+    "answerIndex": 2,
+    "explanation": "A map key explains what its symbols and markings represent."
+  },
+  {
+    "id": "social-q2",
+    "prompt": "Which action shows respect in a diverse community?",
+    "options": [
+      "Listening to others and resolving disagreements peacefully",
+      "Rejecting everyone with a different background",
+      "Damaging shared property",
+      "Spreading unverified accusations"
+    ],
+    "answerIndex": 0,
+    "explanation": "Respectful listening and peaceful problem-solving help people live and work together."
+  },
+  {
+    "id": "social-q3",
+    "prompt": "Why should community facilities be maintained?",
+    "options": [
+      "Only visitors use them",
+      "They should never be shared",
+      "Maintenance is always unnecessary",
+      "They support services and the well-being of residents"
+    ],
+    "answerIndex": 3,
+    "explanation": "Maintained shared facilities remain safer and more useful to the community."
+  },
+  {
+    "id": "social-q4",
+    "prompt": "What is a responsible first step when raising a local public-service concern?",
+    "options": [
+      "Publish an unverified accusation",
+      "Check the responsible office and communicate facts respectfully",
+      "Damage public property",
+      "Share private details about other residents"
+    ],
+    "answerIndex": 1,
+    "explanation": "Verifying the responsible office and presenting facts supports constructive action."
+  }
+,
+        {
+          "id": "primary-social-studies-citizenship-q5",
+          "prompt": "What is one characteristic of a community?",
+          "options": [
+            "Everyone must have identical interests",
+            "People are connected by place, relationships or shared activities",
+            "No one cooperates",
+            "People never share responsibilities"
+          ],
+          "answerIndex": 1,
+          "explanation": "Communities connect people through shared places, relationships or activities."
+        },
+        {
+          "id": "primary-social-studies-citizenship-q6",
+          "prompt": "How can learners show respect for cultural differences?",
+          "options": [
+            "Mock unfamiliar customs",
+            "Assume everyone has the same experiences",
+            "Listen respectfully and avoid stereotypes",
+            "Exclude people who speak another language"
+          ],
+          "answerIndex": 2,
+          "explanation": "Respectful listening helps people learn about differences without unfair assumptions."
+        },
+        {
+          "id": "primary-social-studies-citizenship-q7",
+          "prompt": "Which action demonstrates responsible citizenship?",
+          "options": [
+            "Respecting others and caring for shared spaces",
+            "Damaging public property",
+            "Spreading unverified rumours",
+            "Ignoring every community concern"
+          ],
+          "answerIndex": 0,
+          "explanation": "Responsible citizenship includes respecting people and contributing to community wellbeing."
+        },
+        {
+          "id": "primary-social-studies-citizenship-q8",
+          "prompt": "Why do communities establish legitimate rules?",
+          "options": [
+            "To remove every personal choice",
+            "To prevent all discussion",
+            "To make cooperation impossible",
+            "To help organise shared life and protect people's rights"
+          ],
+          "answerIndex": 3,
+          "explanation": "Appropriate rules can help communities coordinate activities and protect rights."
+        },
+        {
+          "id": "primary-social-studies-citizenship-q9",
+          "prompt": "What is a responsible response to a local environmental problem?",
+          "options": [
+            "Ignore the people affected",
+            "Identify the problem and plan safe, practical action",
+            "Dump more waste nearby",
+            "Make claims without checking facts"
+          ],
+          "answerIndex": 1,
+          "explanation": "Good problem-solving starts with understanding the issue and choosing safe actions."
+        },
+        {
+          "id": "primary-social-studies-citizenship-q10",
+          "prompt": "Why should a community project review its results?",
+          "options": [
+            "To hide mistakes",
+            "To avoid learning",
+            "To understand what worked and what could improve",
+            "To guarantee that no future problems occur"
+          ],
+          "answerIndex": 2,
+          "explanation": "Reviewing results helps the community learn and improve future activities."
+        }
+      ],
+  },
+    {
+    id: "secondary-mathematics",
+    title: "Secondary Mathematics",
+    category: "Mathematics",
+    level: "Intermediate",
+    description: "Practise algebra, geometry, statistics, equations, and mathematical reasoning.",
+    priceKsh: 750,
+    published: true,
+    lessons: [
+      {
+        id: "secondary-mathematics-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nPractise algebra, geometry, statistics, equations, and mathematical reasoning.\n\nLearning objectives\n\n- Identify the main ideas in Secondary Mathematics.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "secondary-mathematics-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how Secondary Mathematics can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "secondary-mathematics-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in Secondary Mathematics.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+        {
+          "id": "secondary-mathematics-lesson-4",
+          "title": "Algebraic expressions and equations",
+          "minutes": 10,
+          "content": [
+            "An algebraic expression combines numbers, variables and operations. Like terms have the same variable parts and can be combined by adding or subtracting their coefficients.",
+            "An equation states that two expressions are equal. To solve a linear equation, perform equivalent operations on both sides while preserving equality.",
+            "Check a proposed solution by substituting it into the original equation. This can reveal arithmetic mistakes or incorrect transformations.",
+            "Practice: solve 3x + 5 = 20 and check your answer by substitution."
+          ]
+        },
+        {
+          "id": "secondary-mathematics-lesson-5",
+          "title": "Ratios, percentages and proportional reasoning",
+          "minutes": 9,
+          "content": [
+            "A ratio compares quantities. Simplify a ratio by dividing its terms by a common factor, while keeping the quantities in the correct order.",
+            "A percentage expresses a quantity per hundred. To calculate a percentage of a number, convert the percentage to a fraction or decimal and multiply.",
+            "Proportional reasoning helps compare prices, rates, scales and quantities. Check units and whether the relationship is directly or inversely proportional.",
+            "Practice: calculate 15% of 800 and explain the steps used."
+          ]
+        },
+        {
+          "id": "secondary-mathematics-lesson-6",
+          "title": "Graphs, data and checking solutions",
+          "minutes": 10,
+          "content": [
+            "Graphs represent relationships between quantities. Read axis labels, scales and units carefully before interpreting a point or trend.",
+            "A coordinate is written as an ordered pair (x, y). In a straight-line graph, changes in y relative to changes in x can help describe the gradient.",
+            "When solving a problem, show the important steps, check units and assess whether the answer is reasonable in context. A graph can support an answer but should not be read beyond the evidence it displays.",
+            "Practice: plot the points (1, 2), (2, 4) and (3, 6), then describe the pattern."
+          ]
+        }
+      ],
+    questions: [
+      {
+        id: "secondary-mathematics-question-1",
+        prompt: "What is a useful first step when learning Secondary Mathematics?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "secondary-mathematics-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "secondary-mathematics-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "secondary-mathematics-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+        {
+          "id": "secondary-mathematics-q5",
+          "prompt": "Solve the equation 3x + 5 = 20.",
+          "options": [
+            "x = 3",
+            "x = 5",
+            "x = 10",
+            "x = 15"
+          ],
+          "answerIndex": 1,
+          "explanation": "Subtract 5 from both sides to get 3x = 15, then divide by 3 to obtain x = 5."
+        },
+        {
+          "id": "secondary-mathematics-q6",
+          "prompt": "What is 15% of 800?",
+          "options": [
+            "80",
+            "100",
+            "120",
+            "150"
+          ],
+          "answerIndex": 2,
+          "explanation": "15% of 800 is 0.15 multiplied by 800, which equals 120."
+        },
+        {
+          "id": "secondary-mathematics-q7",
+          "prompt": "Simplify the ratio 12:18.",
+          "options": [
+            "2:3",
+            "3:2",
+            "6:9",
+            "4:9"
+          ],
+          "answerIndex": 0,
+          "explanation": "Divide both terms by their greatest common factor, 6, to obtain 2:3."
+        },
+        {
+          "id": "secondary-mathematics-q8",
+          "prompt": "Which ordered pair represents a point with x = 2 and y = 4?",
+          "options": [
+            "(4, 2)",
+            "(2, 2)",
+            "(4, 4)",
+            "(2, 4)"
+          ],
+          "answerIndex": 3,
+          "explanation": "Coordinates are written in the order (x, y), so the point is (2, 4)."
+        },
+        {
+          "id": "secondary-mathematics-q9",
+          "prompt": "Why substitute a solution into the original equation?",
+          "options": [
+            "To make the equation longer",
+            "To check whether the proposed value satisfies the equation",
+            "To remove the variable without calculation",
+            "To change the original question"
+          ],
+          "answerIndex": 1,
+          "explanation": "Substitution verifies whether the proposed value makes both sides equal."
+        },
+        {
+          "id": "secondary-mathematics-q10",
+          "prompt": "What should you check when interpreting a graph?",
+          "options": [
+            "Only the line colour",
+            "Only the title font",
+            "Axis labels, scale and units",
+            "Whether the graph contains decorative shapes"
+          ],
+          "answerIndex": 2,
+          "explanation": "Labels, scales and units are essential for interpreting graph values accurately."
+        }
+      ],
+  },
+    {
+    id: "biology-life-sciences",
+    title: "Biology & Life Sciences",
+    category: "Science",
+    level: "Intermediate",
+    description: "Study cells, organisms, body systems, ecosystems, and life processes.",
+    priceKsh: 750,
+    published: true,
+    lessons: [
+      {
+        id: "biology-life-sciences-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nStudy cells, organisms, body systems, ecosystems, and life processes.\n\nLearning objectives\n\n- Identify the main ideas in Biology & Life Sciences.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "biology-life-sciences-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how Biology & Life Sciences can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "biology-life-sciences-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in Biology & Life Sciences.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+        {
+          "id": "biology-life-sciences-lesson-4",
+          "title": "Cells and organisation in living things",
+          "minutes": 10,
+          "content": [
+            "Cells are the basic structural and functional units of living organisms. Many organisms are made of one cell, while multicellular organisms contain many specialised cells.",
+            "Cell structures perform different roles. For example, the cell membrane regulates movement of substances, and the nucleus of typical plant and animal cells contains genetic material.",
+            "In multicellular organisms, cells form tissues, tissues form organs, and organs work together in organ systems. Specialisation allows different tasks to be carried out efficiently.",
+            "Practice: draw and label a simple plant or animal cell, then describe two structures and their functions."
+          ]
+        },
+        {
+          "id": "biology-life-sciences-lesson-5",
+          "title": "Nutrition, respiration and energy",
+          "minutes": 10,
+          "content": [
+            "Living organisms need energy to carry out life processes. Nutrition provides materials used for growth, repair and energy-related activities.",
+            "Photosynthesis allows green plants to use light energy to produce glucose from carbon dioxide and water, releasing oxygen under typical conditions.",
+            "Cellular respiration releases usable energy from food molecules. It is not the same process as breathing, although breathing helps animals exchange gases needed for aerobic respiration.",
+            "Practice: compare photosynthesis and aerobic respiration by identifying their main inputs and outputs."
+          ]
+        },
+        {
+          "id": "biology-life-sciences-lesson-6",
+          "title": "Ecosystems, variation and scientific investigation",
+          "minutes": 10,
+          "content": [
+            "An ecosystem includes organisms and their physical environment. Organisms interact through feeding relationships, competition, cooperation and changes to habitat.",
+            "Biodiversity describes the variety of living things. Habitat protection, responsible resource use and reducing pollution can help support ecosystem health.",
+            "Scientific investigations begin with a question and a method for collecting evidence. Change one factor at a time when appropriate, record observations accurately and avoid claiming more than the evidence supports.",
+            "Practice: propose a simple investigation comparing plant growth under two light conditions, while keeping other important conditions similar."
+          ]
+        }
+      ],
+    questions: [
+      {
+        id: "biology-life-sciences-question-1",
+        prompt: "What is a useful first step when learning Biology & Life Sciences?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "biology-life-sciences-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "biology-life-sciences-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "biology-life-sciences-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+        {
+          "id": "biology-life-sciences-q5",
+          "prompt": "What is a cell?",
+          "options": [
+            "A type of weather",
+            "The basic structural and functional unit of living organisms",
+            "A complete ecosystem in every case",
+            "A non-living mineral"
+          ],
+          "answerIndex": 1,
+          "explanation": "Cells are the basic units from which living organisms are organised."
+        },
+        {
+          "id": "biology-life-sciences-q6",
+          "prompt": "What is a main function of the cell membrane?",
+          "options": [
+            "To make every organism multicellular",
+            "To replace all genetic material",
+            "To regulate movement of substances into and out of the cell",
+            "To perform every cellular function alone"
+          ],
+          "answerIndex": 2,
+          "explanation": "The cell membrane helps regulate the movement of substances."
+        },
+        {
+          "id": "biology-life-sciences-q7",
+          "prompt": "What is needed for photosynthesis in green plants?",
+          "options": [
+            "Light, water and carbon dioxide",
+            "Only oxygen and darkness",
+            "Only soil with no water",
+            "Only glucose from animals"
+          ],
+          "answerIndex": 0,
+          "explanation": "Photosynthesis uses light energy, water and carbon dioxide to produce glucose."
+        },
+        {
+          "id": "biology-life-sciences-q8",
+          "prompt": "What is the role of cellular respiration?",
+          "options": [
+            "To turn every cell into a tissue",
+            "To eliminate the need for nutrients",
+            "To create sunlight",
+            "To release usable energy from food molecules"
+          ],
+          "answerIndex": 3,
+          "explanation": "Cellular respiration releases usable energy from food molecules."
+        },
+        {
+          "id": "biology-life-sciences-q9",
+          "prompt": "What does biodiversity refer to?",
+          "options": [
+            "The number of rocks in one sample only",
+            "The variety of living things",
+            "Only the weather on one day",
+            "The size of a single cell"
+          ],
+          "answerIndex": 1,
+          "explanation": "Biodiversity describes the variety of life in an area or across the planet."
+        },
+        {
+          "id": "biology-life-sciences-q10",
+          "prompt": "Why should a scientific investigation record observations carefully?",
+          "options": [
+            "To guarantee the preferred result",
+            "To avoid comparing evidence",
+            "To support conclusions with reliable evidence",
+            "To remove the need for a method"
+          ],
+          "answerIndex": 2,
+          "explanation": "Accurate observations allow others to evaluate the evidence and conclusions."
+        }
+      ],
+  },
+    {
+    id: "chemistry-fundamentals",
+    title: "Chemistry Fundamentals",
+    category: "Science",
+    level: "Intermediate",
+    description: "Explore matter, elements, compounds, chemical reactions, and laboratory safety.",
+    priceKsh: 750,
+    published: true,
+    lessons: [
+      {
+        id: "chemistry-fundamentals-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nExplore matter, elements, compounds, chemical reactions, and laboratory safety.\n\nLearning objectives\n\n- Identify the main ideas in Chemistry Fundamentals.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "chemistry-fundamentals-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how Chemistry Fundamentals can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "chemistry-fundamentals-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in Chemistry Fundamentals.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+{
+  "id": "chemistry-fundamentals-lesson-4",
+  "title": "Atoms, Elements and Compounds",
+  "minutes": 15,
+  "content": [
+    "Matter is anything that has mass and occupies space. Common states of matter include solids, liquids and gases.",
+    "An atom is a basic unit of an element. Elements contain one type of atom, while compounds contain two or more elements chemically combined in fixed proportions.",
+    "A molecule consists of two or more atoms chemically bonded. Mixtures contain substances physically combined and can often be separated using physical methods.",
+    "The periodic table organizes elements by atomic number and recurring chemical properties. Chemical symbols provide a standard way to represent elements.",
+    "Classifying matter helps explain its properties and predict how substances may interact."
+  ]
+},
+{
+  "id": "chemistry-fundamentals-lesson-5",
+  "title": "Chemical Reactions and Equations",
+  "minutes": 18,
+  "content": [
+    "A chemical reaction transforms reactants into products. Evidence may include a colour change, gas production, a temperature change or formation of a precipitate.",
+    "Chemical equations represent reactions using symbols and formulas. Reactants appear on the left and products on the right.",
+    "A balanced equation has the same number of atoms of each element on both sides. Coefficients balance equations without changing chemical formulas.",
+    "Mass is conserved in a closed chemical system. Atoms are rearranged during a reaction rather than created or destroyed.",
+    "Observe reactions only under appropriate supervision and follow laboratory instructions. Never mix unknown chemicals."
+  ]
+},
+{
+  "id": "chemistry-fundamentals-lesson-6",
+  "title": "Acids, Bases and Laboratory Safety",
+  "minutes": 16,
+  "content": [
+    "Acids and bases have different chemical properties. The pH scale commonly ranges from 0 to 14, with values below 7 acidic, 7 neutral and above 7 basic at ordinary conditions.",
+    "Indicators, such as litmus, change colour depending on whether a solution is acidic or basic. Use approved indicators according to instructions.",
+    "Neutralization is a reaction between an acid and a base that commonly produces a salt and water.",
+    "Wear appropriate protective equipment, read labels and keep chemicals away from food and drink. Never taste laboratory substances.",
+    "If a spill or exposure occurs, alert the supervisor and follow the established emergency procedure. Do not handle hazardous substances without training."
+  ]
+}
+],
+    questions: [
+      {
+        id: "chemistry-fundamentals-question-1",
+        prompt: "What is a useful first step when learning Chemistry Fundamentals?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "chemistry-fundamentals-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "chemistry-fundamentals-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "chemistry-fundamentals-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+{
+  "id": "chemistry-fundamentals-q5",
+  "prompt": "What is an element?",
+  "options": [
+    "A substance containing one type of atom",
+    "Any physical mixture",
+    "A tool used in a laboratory",
+    "A substance that must contain water"
+  ],
+  "answerIndex": 0,
+  "explanation": "An element is made of one type of atom."
+},
+{
+  "id": "chemistry-fundamentals-q6",
+  "prompt": "How does a compound differ from a mixture?",
+  "options": [
+    "A compound has chemically combined elements in fixed proportions",
+    "A mixture always contains only one substance",
+    "A compound can never contain atoms",
+    "A mixture must be a gas"
+  ],
+  "answerIndex": 0,
+  "explanation": "Compounds have chemically bonded components in defined proportions; mixtures are physically combined."
+},
+{
+  "id": "chemistry-fundamentals-q7",
+  "prompt": "Where are reactants normally written in a chemical equation?",
+  "options": [
+    "To the left of the arrow",
+    "Only above the arrow",
+    "To the right of the arrow",
+    "Outside the equation"
+  ],
+  "answerIndex": 0,
+  "explanation": "Reactants are written on the left and products on the right."
+},
+{
+  "id": "chemistry-fundamentals-q8",
+  "prompt": "What does balancing a chemical equation ensure?",
+  "options": [
+    "Equal numbers of atoms of each element on both sides",
+    "Every substance has the same colour",
+    "The reaction always happens instantly",
+    "All coefficients must be one"
+  ],
+  "answerIndex": 0,
+  "explanation": "Balancing reflects conservation of atoms in a chemical reaction."
+},
+{
+  "id": "chemistry-fundamentals-q9",
+  "prompt": "A solution with a pH of 3 is generally classified as what?",
+  "options": [
+    "Acidic",
+    "Neutral",
+    "Basic",
+    "A pure element"
+  ],
+  "answerIndex": 0,
+  "explanation": "A pH below 7 is generally acidic."
+},
+{
+  "id": "chemistry-fundamentals-q10",
+  "prompt": "What should you do before handling a laboratory chemical?",
+  "options": [
+    "Read the label and follow safety instructions",
+    "Smell it closely",
+    "Mix it with another chemical",
+    "Taste a small amount"
+  ],
+  "answerIndex": 0,
+  "explanation": "Read labels, use appropriate protection and follow approved procedures."
+}
+],
+  },
+    {
+    id: "physics-fundamentals",
+    title: "Physics Fundamentals",
+    category: "Science",
+    level: "Intermediate",
+    description: "Learn the basics of forces, motion, energy, electricity, and waves.",
+    priceKsh: 750,
+    published: true,
+    lessons: [
+      {
+        id: "physics-fundamentals-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nLearn the basics of forces, motion, energy, electricity, and waves.\n\nLearning objectives\n\n- Identify the main ideas in Physics Fundamentals.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "physics-fundamentals-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how Physics Fundamentals can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "physics-fundamentals-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in Physics Fundamentals.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+{
+  "id": "physics-fundamentals-lesson-4",
+  "title": "Motion, Forces and Measurement",
+  "minutes": 18,
+  "content": [
+    "Physics studies matter, energy, motion and the interactions between them. Measurements make observations quantitative and comparable.",
+    "Distance describes how much ground an object covers. Displacement describes the change in position in a specified direction.",
+    "Average speed is distance divided by time. Acceleration describes the rate at which velocity changes.",
+    "A force is a push or pull. Forces can change an object's motion or shape. Balanced forces produce no change in motion, while an unbalanced net force causes acceleration.",
+    "Use suitable units, calibrated instruments and repeated measurements where practical. Record results clearly and include units."
+  ]
+},
+{
+  "id": "physics-fundamentals-lesson-5",
+  "title": "Energy, Work and Electricity",
+  "minutes": 18,
+  "content": [
+    "Energy is the capacity to cause change or do work. Forms include kinetic, gravitational potential, thermal, chemical and electrical energy.",
+    "Energy can be transferred or transformed. In a closed system, total energy is conserved, although some may spread into less useful forms such as heat.",
+    "Work is done when a force transfers energy through displacement in the direction of the force.",
+    "An electric circuit needs a complete conducting path for sustained current. A cell or other source can provide a potential difference.",
+    "Electrical safety is essential. Never touch exposed conductors, open live equipment or perform electrical repairs without suitable training and isolation procedures."
+  ]
+},
+{
+  "id": "physics-fundamentals-lesson-6",
+  "title": "Waves, Light and Practical Safety",
+  "minutes": 16,
+  "content": [
+    "Waves transfer energy without requiring the bulk movement of matter from one place to another. Examples include sound and electromagnetic waves.",
+    "Frequency is the number of complete wave cycles per second and is measured in hertz. Wavelength is the distance between corresponding points on consecutive waves.",
+    "Sound requires a medium to travel through, while electromagnetic waves can travel through a vacuum.",
+    "Light can be reflected and refracted. Reflection changes the direction of light at a surface; refraction occurs when light changes speed between materials.",
+    "During practical activities, use equipment only as instructed, keep work areas clear and report damaged instruments. Never look directly at intense light sources."
+  ]
+}
+],
+    questions: [
+      {
+        id: "physics-fundamentals-question-1",
+        prompt: "What is a useful first step when learning Physics Fundamentals?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "physics-fundamentals-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "physics-fundamentals-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "physics-fundamentals-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+{
+  "id": "physics-fundamentals-q5",
+  "prompt": "How is average speed calculated?",
+  "options": [
+    "Distance divided by time",
+    "Time divided by distance",
+    "Mass multiplied by volume",
+    "Force divided by temperature"
+  ],
+  "answerIndex": 0,
+  "explanation": "Average speed equals the total distance travelled divided by the time taken."
+},
+{
+  "id": "physics-fundamentals-q6",
+  "prompt": "What can an unbalanced net force do to an object?",
+  "options": [
+    "Cause its velocity to change",
+    "Guarantee that it stops immediately",
+    "Remove its mass",
+    "Prevent all motion in every case"
+  ],
+  "answerIndex": 0,
+  "explanation": "A non-zero net force causes acceleration, which changes velocity."
+},
+{
+  "id": "physics-fundamentals-q7",
+  "prompt": "Which statement describes energy conservation?",
+  "options": [
+    "Energy is transferred or transformed, not created or destroyed in a closed system",
+    "Energy always disappears",
+    "Every energy transfer is perfectly efficient",
+    "Only moving objects contain energy"
+  ],
+  "answerIndex": 0,
+  "explanation": "Energy conservation states that total energy remains constant in a closed system."
+},
+{
+  "id": "physics-fundamentals-q8",
+  "prompt": "What is required for a simple circuit to carry sustained current?",
+  "options": [
+    "A complete conducting path and a source of potential difference",
+    "A permanently broken wire",
+    "An open switch in every circuit",
+    "Only an insulating material"
+  ],
+  "answerIndex": 0,
+  "explanation": "A complete conducting path and an electrical source are needed in a simple circuit."
+},
+{
+  "id": "physics-fundamentals-q9",
+  "prompt": "What is frequency measured in?",
+  "options": [
+    "Hertz",
+    "Kilograms",
+    "Litres",
+    "Degrees Celsius"
+  ],
+  "answerIndex": 0,
+  "explanation": "Frequency is measured in hertz, or cycles per second."
+},
+{
+  "id": "physics-fundamentals-q10",
+  "prompt": "Which is the safest response to damaged electrical equipment?",
+  "options": [
+    "Stop using it and report it to a qualified person",
+    "Touch the exposed wire to test it",
+    "Repair it while it is live",
+    "Cover the damage with paper and continue"
+  ],
+  "answerIndex": 0,
+  "explanation": "Damaged equipment should be taken out of use and assessed by a qualified person."
+}
+],
+  },
+    {
+    id: "business-studies-accounting-basics",
+    title: "Business Studies & Accounting Basics",
+    category: "Business",
+    level: "Foundation",
+    description: "Understand business operations, transactions, budgets, and basic bookkeeping.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+      {
+        id: "business-studies-accounting-basics-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nUnderstand business operations, transactions, budgets, and basic bookkeeping.\n\nLearning objectives\n\n- Identify the main ideas in Business Studies & Accounting Basics.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "business-studies-accounting-basics-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how Business Studies & Accounting Basics can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "business-studies-accounting-basics-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in Business Studies & Accounting Basics.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+{
+  "id": "business-studies-accounting-basics-lesson-4",
+  "title": "Business Types, Customers and Operations",
+  "minutes": 16,
+  "content": [
+    "A business provides goods or services to meet customer needs. It may operate as a sole proprietorship, partnership, company or another legally recognized form.",
+    "Business owners should understand their legal obligations, registration requirements, licences and tax responsibilities.",
+    "A value proposition explains the benefit a business offers its customers and why they might choose it over alternatives.",
+    "Core activities include purchasing, production or service delivery, marketing, sales, customer support and record keeping.",
+    "Ethical businesses communicate honestly, respect customers, protect personal information and avoid misleading claims."
+  ]
+},
+{
+  "id": "business-studies-accounting-basics-lesson-5",
+  "title": "Source Documents and Basic Accounting",
+  "minutes": 18,
+  "content": [
+    "Accounting records summarize financial transactions and help owners understand business performance and financial position.",
+    "Source documents provide evidence of transactions. Examples include receipts, invoices, purchase orders, payment confirmations and bank statements.",
+    "Record each transaction promptly with its date, description, amount and supporting document. Keep personal and business transactions separate.",
+    "In double-entry accounting, each transaction affects at least two accounts, with total debits equal to total credits. The appropriate accounts depend on the transaction.",
+    "Reconcile records against bank statements regularly and correct discrepancies using a documented process rather than deleting evidence."
+  ]
+},
+{
+  "id": "business-studies-accounting-basics-lesson-6",
+  "title": "Budgets, Cash Flow and Business Ethics",
+  "minutes": 17,
+  "content": [
+    "A budget estimates expected income and spending over a period. Comparing actual results with the budget helps identify differences and improve planning.",
+    "Cash flow tracks money entering and leaving the business. A business may report a profit but still face cash shortages if customers pay late or bills fall due earlier.",
+    "Revenue is income earned from selling goods or services. Profit is what remains after relevant expenses are deducted from revenue.",
+    "Plan for operating costs, taxes, supplier payments, savings and unexpected expenses. Review prices and costs using reliable records.",
+    "Protect financial information, obtain approval for payments, maintain accurate records and disclose conflicts of interest. Follow applicable accounting and tax requirements."
+  ]
+}
+],
+    questions: [
+      {
+        id: "business-studies-accounting-basics-question-1",
+        prompt: "What is a useful first step when learning Business Studies & Accounting Basics?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "business-studies-accounting-basics-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "business-studies-accounting-basics-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "business-studies-accounting-basics-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+{
+  "id": "business-studies-accounting-basics-q5",
+  "prompt": "What is a value proposition?",
+  "options": [
+    "A clear explanation of the value offered to customers",
+    "A list of personal hobbies",
+    "A bank account password",
+    "A record of staff holidays only"
+  ],
+  "answerIndex": 0,
+  "explanation": "A value proposition explains the benefit customers receive and what makes an offer useful."
+},
+{
+  "id": "business-studies-accounting-basics-q6",
+  "prompt": "Which is an example of a source document?",
+  "options": [
+    "A supplier invoice",
+    "An unsupported guess",
+    "A verbal rumour",
+    "An unlabelled calculation with no records"
+  ],
+  "answerIndex": 0,
+  "explanation": "An invoice provides evidence of a transaction and supports accounting records."
+},
+{
+  "id": "business-studies-accounting-basics-q7",
+  "prompt": "What is the basic rule of double-entry accounting?",
+  "options": [
+    "Total debits equal total credits",
+    "Every transaction has only one entry",
+    "Income is never recorded",
+    "Expenses must always equal revenue"
+  ],
+  "answerIndex": 0,
+  "explanation": "Double-entry accounting records corresponding effects so total debits equal total credits."
+},
+{
+  "id": "business-studies-accounting-basics-q8",
+  "prompt": "What does a cash-flow record help a business monitor?",
+  "options": [
+    "Money coming in and going out",
+    "Only the number of employees",
+    "Customer birthdays only",
+    "The colour of products"
+  ],
+  "answerIndex": 0,
+  "explanation": "Cash flow tracks cash inflows and outflows over time."
+},
+{
+  "id": "business-studies-accounting-basics-q9",
+  "prompt": "How is profit generally calculated?",
+  "options": [
+    "Revenue minus expenses",
+    "Expenses plus personal savings",
+    "Cash balance multiplied by staff numbers",
+    "Revenue plus all unpaid bills"
+  ],
+  "answerIndex": 0,
+  "explanation": "Profit is generally revenue remaining after relevant expenses are deducted."
+},
+{
+  "id": "business-studies-accounting-basics-q10",
+  "prompt": "Why should business and personal transactions be kept separate?",
+  "options": [
+    "To improve accurate records and accountability",
+    "To avoid keeping any records",
+    "To make reconciliation impossible",
+    "To conceal all business expenses"
+  ],
+  "answerIndex": 0,
+  "explanation": "Separate records make it easier to monitor business performance and support compliance."
+}
+],
+  },
+    {
+    id: "agriculture-agribusiness",
+    title: "Agriculture & Agribusiness",
+    category: "Agriculture",
+    level: "Foundation",
+    description: "Explore farming practices, farm planning, markets, and agricultural enterprise.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+      {
+        id: "agriculture-agribusiness-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nExplore farming practices, farm planning, markets, and agricultural enterprise.\n\nLearning objectives\n\n- Identify the main ideas in Agriculture & Agribusiness.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "agriculture-agribusiness-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how Agriculture & Agribusiness can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "agriculture-agribusiness-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in Agriculture & Agribusiness.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+{
+  "id": "agriculture-agribusiness-lesson-4",
+  "title": "Soil Health, Crops and Farm Planning",
+  "minutes": 18,
+  "content": [
+    "Agriculture includes crop production, livestock management and related activities that supply food and raw materials. Farm decisions depend on climate, soil, water and available resources.",
+    "Healthy soil provides nutrients, water and support for plant roots. Soil texture, drainage, organic matter and pH influence crop growth.",
+    "Soil conservation practices include mulching, appropriate crop rotation, ground cover and erosion control suited to local conditions.",
+    "Choose crops according to local growing conditions, market demand, seed quality and the resources available. Plan planting, weeding, irrigation and harvesting activities.",
+    "Monitor crop health and seek locally appropriate agricultural advice when identifying pests, diseases or nutrient problems."
+  ]
+},
+{
+  "id": "agriculture-agribusiness-lesson-5",
+  "title": "Livestock Care and Farm Biosecurity",
+  "minutes": 17,
+  "content": [
+    "Responsible livestock production provides suitable feed, clean water, shelter, space and routine observation for animal health.",
+    "A feeding plan should reflect the species, age, production stage and nutritional needs of the animals. Sudden feed changes may cause problems.",
+    "Biosecurity reduces the risk of introducing or spreading disease. Measures include clean equipment, controlled animal movement and appropriate isolation of sick animals.",
+    "Keep records of animal identification, breeding, feed, treatments, mortality and sales. Use veterinary guidance for diagnosis, vaccinations and medication.",
+    "Follow animal-welfare standards and applicable public-health rules. Observe medicine withdrawal periods and never sell products that are unsafe for consumption."
+  ]
+},
+{
+  "id": "agriculture-agribusiness-lesson-6",
+  "title": "Agribusiness Costs, Markets and Sustainability",
+  "minutes": 18,
+  "content": [
+    "Agribusiness connects farm production with inputs, processing, storage, transport, marketing and customers. Value can be added through grading, packaging or processing where appropriate.",
+    "Calculate production costs such as seeds, feed, labour, water, transport, packaging and equipment maintenance before setting prices.",
+    "A simple farm budget compares expected income with expected costs. Cash-flow planning helps cover expenses between planting and selling or between livestock production cycles.",
+    "Research market prices, quality requirements, seasonal demand and potential buyers before committing to a production plan. Consider storage losses and transport costs.",
+    "Sustainable practices conserve soil and water, reduce avoidable waste and use inputs responsibly. Track results and adapt plans using records and local expertise."
+  ]
+}
+],
+    questions: [
+      {
+        id: "agriculture-agribusiness-question-1",
+        prompt: "What is a useful first step when learning Agriculture & Agribusiness?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "agriculture-agribusiness-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "agriculture-agribusiness-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "agriculture-agribusiness-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+{
+  "id": "agriculture-agribusiness-q5",
+  "prompt": "Which factor is important when selecting a crop?",
+  "options": [
+    "Local growing conditions and market demand",
+    "The colour of the farmer's notebook",
+    "Ignoring soil and rainfall",
+    "Choosing without checking seed quality"
+  ],
+  "answerIndex": 0,
+  "explanation": "Crop selection should reflect local conditions, resources and likely demand."
+},
+{
+  "id": "agriculture-agribusiness-q6",
+  "prompt": "Which practice can help reduce soil erosion?",
+  "options": [
+    "Maintaining ground cover and using suitable conservation practices",
+    "Removing all vegetation from slopes",
+    "Leaving soil bare during heavy rain",
+    "Allowing runoff to cut channels"
+  ],
+  "answerIndex": 0,
+  "explanation": "Ground cover and appropriate conservation practices help protect soil from erosion."
+},
+{
+  "id": "agriculture-agribusiness-q7",
+  "prompt": "What is a key purpose of farm biosecurity?",
+  "options": [
+    "Reduce the introduction and spread of disease",
+    "Eliminate the need for clean water",
+    "Replace all veterinary advice",
+    "Increase uncontrolled animal movement"
+  ],
+  "answerIndex": 0,
+  "explanation": "Biosecurity uses practical measures to reduce disease risks on farms."
+},
+{
+  "id": "agriculture-agribusiness-q8",
+  "prompt": "Why should livestock treatment records be maintained?",
+  "options": [
+    "To track care, treatments and relevant withdrawal periods",
+    "To avoid identifying animals",
+    "To replace all feeding records with guesses",
+    "To make animal health harder to monitor"
+  ],
+  "answerIndex": 0,
+  "explanation": "Accurate records support animal health management and food-safety compliance."
+},
+{
+  "id": "agriculture-agribusiness-q9",
+  "prompt": "Which item should be included when calculating farm production costs?",
+  "options": [
+    "Feed, labour and transport",
+    "Only the farmer's favourite crop",
+    "Unrelated household purchases",
+    "Unverified future profits only"
+  ],
+  "answerIndex": 0,
+  "explanation": "Feed, labour, transport and other production expenses help determine total costs."
+},
+{
+  "id": "agriculture-agribusiness-q10",
+  "prompt": "What is one benefit of researching buyers before production?",
+  "options": [
+    "It helps assess demand, quality requirements and likely prices",
+    "It guarantees profit in every season",
+    "It removes all weather risks",
+    "It makes financial records unnecessary"
+  ],
+  "answerIndex": 0,
+  "explanation": "Market research helps producers plan for demand, buyer requirements and costs."
+}
+],
+  },
+    {
+    id: "electrical-technical-skills-awareness",
+    title: "Electrical & Technical Skills Awareness",
+    category: "Technical Skills",
+    level: "Foundation",
+    description: "Learn basic electrical concepts, tool awareness, and essential safety principles.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+      {
+        id: "electrical-technical-skills-awareness-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nLearn basic electrical concepts, tool awareness, and essential safety principles.\n\nLearning objectives\n\n- Identify the main ideas in Electrical & Technical Skills Awareness.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "electrical-technical-skills-awareness-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how Electrical & Technical Skills Awareness can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "electrical-technical-skills-awareness-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in Electrical & Technical Skills Awareness.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+{
+  "id": "electrical-technical-skills-awareness-lesson-4",
+  "title": "Electrical Principles and Circuit Awareness",
+  "minutes": 18,
+  "content": [
+    "Electrical systems use voltage, current and resistance. Voltage is electrical potential difference, current is the flow of electric charge, and resistance opposes current.",
+    "In a simple circuit, a source, conductors and a load form a complete path. A switch controls whether the path is open or closed.",
+    "Conductors such as copper allow current to flow readily. Insulators such as suitable plastics help prevent unwanted current flow when correctly rated and undamaged.",
+    "Electrical devices must be used within their rated voltage, current and power limits. Overloading can cause overheating, equipment damage or fire.",
+    "This lesson is for awareness, not authorization to work on electrical installations. Installation, testing and repairs must be carried out by appropriately qualified people."
+  ]
+},
+{
+  "id": "electrical-technical-skills-awareness-lesson-5",
+  "title": "Tools, Hazards and Safe Work Practices",
+  "minutes": 18,
+  "content": [
+    "Common technical tools include measuring tapes, rulers, insulated hand tools and purpose-built testing instruments. Use each tool only for its intended task.",
+    "Inspect tools before use. Do not use damaged insulation, cracked handles, exposed conductors or instruments with uncertain ratings.",
+    "Electrical hazards include electric shock, burns, arc flash and fire. Wet conditions, damaged cables and unsuitable equipment can increase risk.",
+    "Only trained and authorized people should isolate, verify and work on electrical systems using approved procedures and suitable protective equipment. Never assume a circuit is safe merely because a switch is off.",
+    "Keep work areas dry and orderly, follow warning labels, report hazards and stop work when conditions are unsafe. Do not touch a person in contact with a live electrical source; call emergency services and follow trained emergency guidance."
+  ]
+},
+{
+  "id": "electrical-technical-skills-awareness-lesson-6",
+  "title": "Technical Drawings, Measurement and Maintenance",
+  "minutes": 17,
+  "content": [
+    "Technical drawings communicate the shape, size, layout and arrangement of components. Symbols, labels, dimensions and legends help readers interpret a drawing.",
+    "Use the correct measuring instrument for the task. Read scales carefully, include units and check measurements when accuracy matters.",
+    "A planned maintenance schedule helps identify wear, damage and performance problems before they cause failures.",
+    "Record equipment identification, inspection dates, observations and actions taken. Clear records help technicians understand the equipment's history.",
+    "Do not open, adjust or repair electrical equipment unless qualified and authorized. Refer uncertain drawings, test results or faults to a competent technician."
+  ]
+}
+],
+    questions: [
+      {
+        id: "electrical-technical-skills-awareness-question-1",
+        prompt: "What is a useful first step when learning Electrical & Technical Skills Awareness?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "electrical-technical-skills-awareness-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "electrical-technical-skills-awareness-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "electrical-technical-skills-awareness-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+{
+  "id": "electrical-technical-skills-awareness-q5",
+  "prompt": "What does voltage describe in a circuit?",
+  "options": [
+    "Electrical potential difference",
+    "The physical length of a cable",
+    "The weight of a tool",
+    "The temperature of every component"
+  ],
+  "answerIndex": 0,
+  "explanation": "Voltage is the electrical potential difference between two points."
+},
+{
+  "id": "electrical-technical-skills-awareness-q6",
+  "prompt": "What is the role of a switch in a simple circuit?",
+  "options": [
+    "Open or close the conducting path",
+    "Create unlimited energy",
+    "Replace all insulation",
+    "Measure cable length"
+  ],
+  "answerIndex": 0,
+  "explanation": "A switch controls continuity by opening or closing the circuit path."
+},
+{
+  "id": "electrical-technical-skills-awareness-q7",
+  "prompt": "What should you do if a tool has damaged electrical insulation?",
+  "options": [
+    "Stop using it and report it for proper assessment",
+    "Continue using it with wet hands",
+    "Hide the damage",
+    "Test it by touching exposed parts"
+  ],
+  "answerIndex": 0,
+  "explanation": "Damaged insulation can expose users to serious electrical hazards."
+},
+{
+  "id": "electrical-technical-skills-awareness-q8",
+  "prompt": "Who should perform electrical installation or repair work?",
+  "options": [
+    "An appropriately qualified and authorized person",
+    "Anyone who has seen a video",
+    "An untrained person working on a live circuit",
+    "A person chosen at random"
+  ],
+  "answerIndex": 0,
+  "explanation": "Electrical installation and repair require appropriate competence and authorization."
+},
+{
+  "id": "electrical-technical-skills-awareness-q9",
+  "prompt": "Why are technical drawings useful?",
+  "options": [
+    "They communicate component layouts, dimensions and symbols",
+    "They remove the need for measurements",
+    "They guarantee equipment cannot fail",
+    "They replace every safety procedure"
+  ],
+  "answerIndex": 0,
+  "explanation": "Technical drawings communicate how components are arranged and specified."
+},
+{
+  "id": "electrical-technical-skills-awareness-q10",
+  "prompt": "What should maintenance records include?",
+  "options": [
+    "Inspection dates, observations and actions taken",
+    "Only the technician's favourite tool",
+    "Passwords written in public",
+    "Unverified claims with no dates"
+  ],
+  "answerIndex": 0,
+  "explanation": "Clear maintenance records help track equipment condition and repair history."
+}
+],
+  },
+    {
+    id: "project-management-fundamentals",
+    title: "Project Management Fundamentals",
+    category: "Business",
+    level: "Foundation",
+    description: "Learn project planning, task scheduling, budgeting, teamwork, and monitoring.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+      {
+        id: "project-management-fundamentals-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nLearn project planning, task scheduling, budgeting, teamwork, and monitoring.\n\nLearning objectives\n\n- Identify the main ideas in Project Management Fundamentals.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "project-management-fundamentals-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how Project Management Fundamentals can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "project-management-fundamentals-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in Project Management Fundamentals.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+{
+  "id": "project-management-fundamentals-lesson-4",
+  "title": "Project Goals, Scope and Planning",
+  "minutes": 18,
+  "content": [
+    "A project is a temporary effort undertaken to deliver a defined product, service or result. Projects have objectives, constraints and an intended completion point.",
+    "A project objective should be clear and measurable. Define what success looks like, who benefits and how results will be assessed.",
+    "Scope describes the work included in a project and helps prevent uncontrolled expansion. Record key deliverables, exclusions, assumptions and constraints.",
+    "Break deliverables into manageable activities. Estimate the time, people, materials and budget needed for each activity.",
+    "Consult stakeholders early, document decisions and obtain agreement on the plan before substantial work begins."
+  ]
+},
+{
+  "id": "project-management-fundamentals-lesson-5",
+  "title": "Schedules, Budgets and Risk Management",
+  "minutes": 18,
+  "content": [
+    "A project schedule lists activities, their durations, dependencies and target dates. A milestone marks an important event or achievement.",
+    "A budget estimates project costs, including labour, supplies, transport, services and contingency. Track actual spending against the approved budget.",
+    "A risk is an uncertain event that could affect project objectives. Identify its likelihood, potential impact and practical response.",
+    "Responses may include avoiding a risk, reducing its likelihood or impact, transferring part of its impact, or accepting it with a plan.",
+    "Review schedules, costs and risks regularly. Escalate significant changes early and obtain appropriate approval before changing the baseline plan."
+  ]
+},
+{
+  "id": "project-management-fundamentals-lesson-6",
+  "title": "Teamwork, Monitoring and Project Closure",
+  "minutes": 17,
+  "content": [
+    "Assign responsibilities clearly so each team member understands expected outputs, deadlines and reporting arrangements.",
+    "Use regular updates to compare completed work with the plan. Track milestones, quality, expenditure, issues and decisions.",
+    "When delays occur, identify the cause, assess the effect on dependent activities and agree on a realistic corrective action.",
+    "Project communication should be timely, accurate and appropriate for each audience. Record decisions, changes and actions with owners and due dates.",
+    "At closure, confirm deliverables have been accepted, settle outstanding obligations, document lessons learned and store records securely."
+  ]
+}
+],
+    questions: [
+      {
+        id: "project-management-fundamentals-question-1",
+        prompt: "What is a useful first step when learning Project Management Fundamentals?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "project-management-fundamentals-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "project-management-fundamentals-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "project-management-fundamentals-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+{
+  "id": "project-management-fundamentals-q5",
+  "prompt": "What does project scope define?",
+  "options": [
+    "The work and deliverables included in the project",
+    "Only the names of project staff",
+    "The weather during the project",
+    "An unlimited promise to complete every possible task"
+  ],
+  "answerIndex": 0,
+  "explanation": "Scope establishes what is included and helps manage expectations and changes."
+},
+{
+  "id": "project-management-fundamentals-q6",
+  "prompt": "What is a project milestone?",
+  "options": [
+    "An important event or achievement in the schedule",
+    "An unrecorded expense",
+    "A list of unrelated ideas",
+    "A replacement for every project objective"
+  ],
+  "answerIndex": 0,
+  "explanation": "Milestones mark significant points or achievements in a project."
+},
+{
+  "id": "project-management-fundamentals-q7",
+  "prompt": "What should a project budget contain?",
+  "options": [
+    "Estimated project costs and appropriate contingency",
+    "Only expected profits with no expenses",
+    "Personal passwords",
+    "Costs unrelated to the project only"
+  ],
+  "answerIndex": 0,
+  "explanation": "A budget estimates the resources and costs needed to deliver the project."
+},
+{
+  "id": "project-management-fundamentals-q8",
+  "prompt": "How should a project team assess a risk?",
+  "options": [
+    "Consider its likelihood, impact and possible responses",
+    "Ignore it until the project ends",
+    "Assume every risk will occur",
+    "Remove it from records without review"
+  ],
+  "answerIndex": 0,
+  "explanation": "Risk assessment considers probability, impact and suitable responses."
+},
+{
+  "id": "project-management-fundamentals-q9",
+  "prompt": "What is a useful response when a project falls behind schedule?",
+  "options": [
+    "Identify the cause and agree on corrective action",
+    "Hide the delay from stakeholders",
+    "Delete the schedule",
+    "Change the deadline without consulting anyone"
+  ],
+  "answerIndex": 0,
+  "explanation": "Understanding the cause supports a realistic recovery plan and clear communication."
+},
+{
+  "id": "project-management-fundamentals-q10",
+  "prompt": "Which activity belongs in project closure?",
+  "options": [
+    "Confirming acceptance and documenting lessons learned",
+    "Starting work without approval",
+    "Ignoring outstanding obligations",
+    "Discarding all project records immediately"
+  ],
+  "answerIndex": 0,
+  "explanation": "Closure confirms delivery, resolves outstanding matters and captures lessons."
+}
+],
+  },
+    {
+    id: "data-analysis-spreadsheet-skills",
+    title: "Data Analysis & Spreadsheet Skills",
+    category: "Digital Skills",
+    level: "Foundation",
+    description: "Practise spreadsheet organisation, formulas, tables, charts, and basic analysis.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+      {
+        id: "data-analysis-spreadsheet-skills-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nPractise spreadsheet organisation, formulas, tables, charts, and basic analysis.\n\nLearning objectives\n\n- Identify the main ideas in Data Analysis & Spreadsheet Skills.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "data-analysis-spreadsheet-skills-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how Data Analysis & Spreadsheet Skills can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "data-analysis-spreadsheet-skills-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in Data Analysis & Spreadsheet Skills.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+{
+  "id": "data-analysis-spreadsheet-skills-lesson-4",
+  "title": "Organizing Data in Spreadsheets",
+  "minutes": 17,
+  "content": [
+    "Data analysis begins with a clear question. Decide what information is needed, where it comes from and what decision the analysis should support.",
+    "In a spreadsheet, columns usually represent fields and rows represent individual records. Use clear headings and keep each column consistent in meaning and format.",
+    "Use consistent date, currency and number formats. Avoid merging cells inside data tables because it can interfere with sorting and analysis.",
+    "Check for missing values, duplicate records, inconsistent spelling and impossible values. Correct issues using documented rules rather than guessing.",
+    "Keep a clean original copy of important data and protect sensitive information. Collect and use only information that is appropriate for the task."
+  ]
+},
+{
+  "id": "data-analysis-spreadsheet-skills-lesson-5",
+  "title": "Formulas, Functions and Data Summaries",
+  "minutes": 18,
+  "content": [
+    "Spreadsheet formulas commonly begin with an equals sign. Arithmetic operators can calculate totals, differences, products and ratios.",
+    "Functions such as SUM, AVERAGE, MIN and MAX summarize numerical values. COUNT and related functions help assess how much data is available.",
+    "Cell references identify values used in formulas. Relative references change when formulas are copied, while absolute references lock a row or column using dollar signs in common spreadsheet software.",
+    "Sorting arranges records by a chosen field. Filters display records that match criteria without necessarily deleting other records.",
+    "Check formulas with a small example, review unusual outputs and confirm that the selected range includes the intended records."
+  ]
+},
+{
+  "id": "data-analysis-spreadsheet-skills-lesson-6",
+  "title": "Charts, Interpretation and Responsible Reporting",
+  "minutes": 17,
+  "content": [
+    "Choose a chart that matches the question. Bar charts compare categories, line charts show change over time, and scatter plots explore relationships between numerical variables.",
+    "Label axes, state units and give charts descriptive titles. Avoid misleading scales, unnecessary decoration and missing context.",
+    "A pattern or correlation does not by itself prove that one variable causes another. Consider other explanations and limitations in the data.",
+    "Summaries should separate observed facts from interpretations. Report sample size, relevant time period and important uncertainty where appropriate.",
+    "Before sharing results, verify calculations, remove unnecessary personal information and make the report understandable to its intended audience."
+  ]
+}
+],
+    questions: [
+      {
+        id: "data-analysis-spreadsheet-skills-question-1",
+        prompt: "What is a useful first step when learning Data Analysis & Spreadsheet Skills?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "data-analysis-spreadsheet-skills-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "data-analysis-spreadsheet-skills-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "data-analysis-spreadsheet-skills-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+{
+  "id": "data-analysis-spreadsheet-skills-q5",
+  "prompt": "How should a well-organized spreadsheet table normally be structured?",
+  "options": [
+    "Consistent fields in columns and records in rows",
+    "A different meaning in every cell of one column",
+    "No headings and random formats",
+    "Merged cells throughout the data table"
+  ],
+  "answerIndex": 0,
+  "explanation": "Consistent columns and rows make records easier to sort, filter and analyze."
+},
+{
+  "id": "data-analysis-spreadsheet-skills-q6",
+  "prompt": "Which spreadsheet function adds a group of numbers?",
+  "options": [
+    "SUM",
+    "AVERAGE",
+    "MAX",
+    "MIN"
+  ],
+  "answerIndex": 0,
+  "explanation": "SUM adds the selected numerical values."
+},
+{
+  "id": "data-analysis-spreadsheet-skills-q7",
+  "prompt": "What is the purpose of a filter?",
+  "options": [
+    "Display records that meet selected criteria",
+    "Permanently delete every record",
+    "Guarantee all data is correct",
+    "Replace the need for headings"
+  ],
+  "answerIndex": 0,
+  "explanation": "Filtering displays records that match conditions while leaving other records in the dataset."
+},
+{
+  "id": "data-analysis-spreadsheet-skills-q8",
+  "prompt": "Which chart is commonly useful for showing change over time?",
+  "options": [
+    "Line chart",
+    "A decorative picture with no axes",
+    "An unlabeled text block",
+    "A random list of numbers"
+  ],
+  "answerIndex": 0,
+  "explanation": "A line chart commonly shows how values change across time."
+},
+{
+  "id": "data-analysis-spreadsheet-skills-q9",
+  "prompt": "Does correlation alone prove causation?",
+  "options": [
+    "No, other explanations may exist",
+    "Yes, in every case",
+    "Only if the chart has colours",
+    "Yes, if the dataset has headings"
+  ],
+  "answerIndex": 0,
+  "explanation": "Correlation shows an association but does not establish that one variable causes another."
+},
+{
+  "id": "data-analysis-spreadsheet-skills-q10",
+  "prompt": "What should you do before sharing a data report?",
+  "options": [
+    "Verify calculations and protect unnecessary personal information",
+    "Publish private details without checking",
+    "Remove all units and labels",
+    "Ignore unusual values"
+  ],
+  "answerIndex": 0,
+  "explanation": "Verification and responsible handling of personal data improve accuracy and privacy."
+}
+],
+  },
+    {
+    id: "procurement-supply-chain-fundamentals",
+    title: "Procurement & Supply Chain Fundamentals",
+    category: "Business",
+    level: "Foundation",
+    description: "Understand purchasing, supplier selection, inventory, logistics, and records.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+      {
+        id: "procurement-supply-chain-fundamentals-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nUnderstand purchasing, supplier selection, inventory, logistics, and records.\n\nLearning objectives\n\n- Identify the main ideas in Procurement & Supply Chain Fundamentals.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "procurement-supply-chain-fundamentals-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how Procurement & Supply Chain Fundamentals can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "procurement-supply-chain-fundamentals-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in Procurement & Supply Chain Fundamentals.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+{
+  "id": "procurement-supply-chain-fundamentals-lesson-4",
+  "title": "Procurement Planning and Supplier Selection",
+  "minutes": 18,
+  "content": [
+    "Procurement is the process of identifying needs, obtaining goods or services and managing supplier relationships. Good procurement supports value, quality and accountability.",
+    "Start by defining the requirement, quantity, specifications, delivery location, required date and available budget.",
+    "Compare suppliers using relevant criteria such as total cost, quality, delivery reliability, capacity, compliance and after-sales support.",
+    "A quotation describes a supplier's proposed price and terms. Compare like-for-like specifications and consider transport, taxes, warranties and other relevant costs.",
+    "Follow the organization's approval process, declare conflicts of interest and keep records of supplier selection and purchasing decisions."
+  ]
+},
+{
+  "id": "procurement-supply-chain-fundamentals-lesson-5",
+  "title": "Purchase Orders, Inventory and Logistics",
+  "minutes": 18,
+  "content": [
+    "A purchase order documents an authorized purchase and commonly identifies items, quantities, prices, delivery terms and the parties involved.",
+    "When goods arrive, check quantities and condition against the purchase order and delivery documentation. Record shortages, damage and discrepancies promptly.",
+    "Inventory records track stock received, issued, stored and remaining. Accurate records help prevent shortages, over-ordering and unexplained losses.",
+    "Supply chains connect suppliers, producers, storage, transport and end users. Delays at one stage may affect other stages.",
+    "Plan storage and transport around product requirements, delivery schedules, security and applicable handling rules. Keep important documents traceable."
+  ]
+},
+{
+  "id": "procurement-supply-chain-fundamentals-lesson-6",
+  "title": "Supplier Performance, Ethics and Risk",
+  "minutes": 17,
+  "content": [
+    "Supplier performance can be monitored through quality, delivery timeliness, completeness, responsiveness and compliance with agreed terms.",
+    "Document performance issues with dates and evidence. Agree on corrective actions and monitor whether problems are resolved.",
+    "Supply-chain risks may include delays, price changes, stock shortages, quality failures, fraud and dependence on a single supplier.",
+    "Reduce risk through appropriate supplier checks, clear contracts, sensible stock planning, contingency arrangements and regular communication.",
+    "Ethical procurement requires fair treatment, transparent decisions, confidentiality and compliance with applicable laws and policies. Do not accept improper gifts or payments that could influence decisions."
+  ]
+}
+],
+    questions: [
+      {
+        id: "procurement-supply-chain-fundamentals-question-1",
+        prompt: "What is a useful first step when learning Procurement & Supply Chain Fundamentals?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "procurement-supply-chain-fundamentals-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "procurement-supply-chain-fundamentals-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "procurement-supply-chain-fundamentals-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+{
+  "id": "procurement-supply-chain-fundamentals-q5",
+  "prompt": "What should be defined before requesting supplier quotations?",
+  "options": [
+    "The requirement, specifications, quantities and delivery needs",
+    "Only the preferred supplier's name",
+    "A payment password",
+    "An unlimited budget with no details"
+  ],
+  "answerIndex": 0,
+  "explanation": "Clear requirements make supplier quotations comparable and relevant."
+},
+{
+  "id": "procurement-supply-chain-fundamentals-q6",
+  "prompt": "Why should suppliers be compared using total cost and quality?",
+  "options": [
+    "To assess overall value rather than price alone",
+    "To guarantee the cheapest offer is always best",
+    "To avoid checking delivery terms",
+    "To remove accountability from purchasing"
+  ],
+  "answerIndex": 0,
+  "explanation": "Total cost, quality, reliability and other terms affect the overall value of an offer."
+},
+{
+  "id": "procurement-supply-chain-fundamentals-q7",
+  "prompt": "What is a purchase order used for?",
+  "options": [
+    "Documenting an authorized purchase and its terms",
+    "Replacing all inventory records",
+    "Guaranteeing goods never arrive damaged",
+    "Recording employee holidays only"
+  ],
+  "answerIndex": 0,
+  "explanation": "A purchase order records the authorized items and conditions of a purchase."
+},
+{
+  "id": "procurement-supply-chain-fundamentals-q8",
+  "prompt": "What should happen when delivered goods do not match the order?",
+  "options": [
+    "Record the discrepancy and report it promptly",
+    "Ignore the difference",
+    "Change the records without evidence",
+    "Automatically approve the full delivery"
+  ],
+  "answerIndex": 0,
+  "explanation": "Prompt documentation helps resolve shortages, damage and other receiving problems."
+},
+{
+  "id": "procurement-supply-chain-fundamentals-q9",
+  "prompt": "Which measure can help reduce supply-chain risk?",
+  "options": [
+    "Assessing suppliers and planning appropriate contingencies",
+    "Depending on one supplier without assessment",
+    "Keeping no stock records",
+    "Ignoring delivery delays"
+  ],
+  "answerIndex": 0,
+  "explanation": "Supplier assessment and contingency planning help an organization respond to disruption."
+},
+{
+  "id": "procurement-supply-chain-fundamentals-q10",
+  "prompt": "What is an example of ethical procurement?",
+  "options": [
+    "Declaring conflicts of interest and making transparent decisions",
+    "Accepting secret payments for supplier selection",
+    "Sharing confidential bids unfairly",
+    "Ignoring applicable purchasing rules"
+  ],
+  "answerIndex": 0,
+  "explanation": "Transparency, fairness and conflict-of-interest controls support ethical procurement."
+}
+],
+  },
+    {
+    id: "ai-literacy-responsible-use",
+    title: "AI Literacy & Responsible Use",
+    category: "Digital Skills",
+    level: "Foundation",
+    description: "Understand artificial intelligence, practical applications, limitations, and responsible use.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+      {
+        id: "ai-literacy-responsible-use-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nUnderstand artificial intelligence, practical applications, limitations, and responsible use.\n\nLearning objectives\n\n- Identify the main ideas in AI Literacy & Responsible Use.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "ai-literacy-responsible-use-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how AI Literacy & Responsible Use can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "ai-literacy-responsible-use-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in AI Literacy & Responsible Use.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+{
+  "id": "ai-literacy-responsible-use-lesson-4",
+  "title": "Understanding AI Systems and Their Limits",
+  "minutes": 18,
+  "content": [
+    "Artificial intelligence refers to computer systems designed to perform tasks associated with capabilities such as prediction, language processing, pattern recognition and content generation.",
+    "Different AI systems use different methods and data. Generative AI can produce text, images or other content based on patterns learned during training and information provided in a prompt.",
+    "AI outputs may be incorrect, incomplete, outdated or misleading. Fluent language does not guarantee factual accuracy or sound reasoning.",
+    "Performance depends on the task, available information, system design and evaluation method. Test tools against the actual needs of the intended use.",
+    "Treat AI as an aid to human judgement rather than an unquestionable authority, especially when decisions have important consequences."
+  ]
+},
+{
+  "id": "ai-literacy-responsible-use-lesson-5",
+  "title": "Privacy, Fairness and Human Oversight",
+  "minutes": 18,
+  "content": [
+    "AI systems can reflect limitations or biases in their data, design and deployment. Results may perform differently across people, languages and situations.",
+    "Do not enter confidential business information, passwords, sensitive personal data or private records into a tool unless its approved protections and policies permit that use.",
+    "Collect and use personal information lawfully, fairly and only for an appropriate purpose. Follow applicable privacy requirements and organizational policies.",
+    "Human oversight means checking important outputs, questioning assumptions, correcting errors and providing a way to challenge consequential decisions.",
+    "Use AI in ways that respect dignity, accessibility, intellectual property and the rights of others. Do not use it to deceive, harass or discriminate."
+  ]
+},
+{
+  "id": "ai-literacy-responsible-use-lesson-6",
+  "title": "Verification, Transparency and Responsible Practice",
+  "minutes": 17,
+  "content": [
+    "Verify factual claims against reliable sources, especially names, dates, statistics, legal requirements and health or financial information.",
+    "Ask clear questions, provide relevant context and specify the desired format. Avoid sharing sensitive details merely to improve a prompt.",
+    "Check generated code, calculations, summaries and recommendations before using them. Test outputs in a safe environment when appropriate.",
+    "Be transparent about material AI assistance when required by workplace, educational, legal or professional rules. Never claim that unverified AI-generated work is fully validated.",
+    "Maintain human responsibility for decisions and outcomes. Record important checks and report harmful or unreliable results through appropriate channels."
+  ]
+}
+],
+    questions: [
+      {
+        id: "ai-literacy-responsible-use-question-1",
+        prompt: "What is a useful first step when learning AI Literacy & Responsible Use?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "ai-literacy-responsible-use-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "ai-literacy-responsible-use-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "ai-literacy-responsible-use-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+{
+  "id": "ai-literacy-responsible-use-q5",
+  "prompt": "What does generative AI commonly do?",
+  "options": [
+    "Creates content such as text or images based on learned patterns and prompts",
+    "Guarantees every answer is true",
+    "Removes the need for human judgement",
+    "Works only without any input"
+  ],
+  "answerIndex": 0,
+  "explanation": "Generative AI produces content in response to inputs using patterns learned by the system."
+},
+{
+  "id": "ai-literacy-responsible-use-q6",
+  "prompt": "Why should AI-generated factual claims be checked?",
+  "options": [
+    "AI can produce inaccurate or misleading information",
+    "AI outputs are always verified automatically",
+    "Checking makes information less reliable",
+    "AI cannot generate sentences"
+  ],
+  "answerIndex": 0,
+  "explanation": "AI can make factual errors, so important claims should be verified with reliable sources."
+},
+{
+  "id": "ai-literacy-responsible-use-q7",
+  "prompt": "What is a responsible approach to sensitive information?",
+  "options": [
+    "Use only approved tools and avoid unnecessary disclosure",
+    "Paste passwords into any public tool",
+    "Share private records for convenience",
+    "Ignore privacy policies"
+  ],
+  "answerIndex": 0,
+  "explanation": "Sensitive information should be protected and handled only through approved, appropriate processes."
+},
+{
+  "id": "ai-literacy-responsible-use-q8",
+  "prompt": "What does human oversight involve?",
+  "options": [
+    "Reviewing outputs and correcting errors before important use",
+    "Accepting every AI result without review",
+    "Allowing software to hide every decision",
+    "Avoiding accountability"
+  ],
+  "answerIndex": 0,
+  "explanation": "Human oversight includes checking, questioning and taking responsibility for important outputs."
+},
+{
+  "id": "ai-literacy-responsible-use-q9",
+  "prompt": "What is one reason AI outputs may be biased?",
+  "options": [
+    "Limitations or biases in data, design or deployment",
+    "Every dataset is automatically fair",
+    "AI systems never use data",
+    "Bias can occur only in printed documents"
+  ],
+  "answerIndex": 0,
+  "explanation": "Bias can enter through training data, system design and how a system is used."
+},
+{
+  "id": "ai-literacy-responsible-use-q10",
+  "prompt": "What should a user do before relying on AI-generated code or calculations?",
+  "options": [
+    "Review and test the result as appropriate",
+    "Assume it is correct because it looks convincing",
+    "Disable all checks",
+    "Publish it without understanding its purpose"
+  ],
+  "answerIndex": 0,
+  "explanation": "Review and testing help detect errors before generated material is used."
+}
+],
+  },
+    {
+    id: "research-methods-critical-thinking",
+    title: "Research Methods & Critical Thinking",
+    category: "Personal Development",
+    level: "Foundation",
+    description: "Develop research questions, evaluate evidence, identify bias, and communicate findings.",
+    priceKsh: 300,
+    published: true,
+    lessons: [
+      {
+        id: "research-methods-critical-thinking-lesson-1",
+        title: "Introduction and Key Concepts",
+        minutes: 20,
+        content: ["Introduction\n\nDevelop research questions, evaluate evidence, identify bias, and communicate findings.\n\nLearning objectives\n\n- Identify the main ideas in Research Methods & Critical Thinking.\n- Explain important terms and concepts.\n- Connect the topic to everyday situations.\n\nStudy notes\n\nBegin by identifying what you already know about this topic. Record unfamiliar terms, read the course material carefully, and write a short summary in your own words.\n\nPractice\n\nWrite down three things you learned and one question you would like to explore further."],
+      },
+      {
+        id: "research-methods-critical-thinking-lesson-2",
+        title: "Practical Applications",
+        minutes: 20,
+        content: ["Practical applications\n\nThis lesson explores how Research Methods & Critical Thinking can be applied in everyday life, education, or work.\n\nLearning activities\n\n- Identify a real-life situation related to the topic.\n- Describe the problem or task involved.\n- Explain which concepts or skills could help.\n- Outline the steps you would take and why.\n\nReflection\n\nConsider how planning, careful observation, and checking your work can improve your results. Record an example of how you could use this knowledge."],
+      },
+      {
+        id: "research-methods-critical-thinking-lesson-3",
+        title: "Review and Knowledge Check",
+        minutes: 20,
+        content: ["Review and knowledge check\n\nReview the key concepts covered in Research Methods & Critical Thinking.\n\nBefore the assessment\n\n- Revisit the introduction and key terms.\n- Review the practical examples.\n- Summarise the main ideas without copying the lesson.\n- Identify any areas that need more practice.\n\nReflection questions\n\n1. What are the most important concepts in this course?\n2. How could you apply one of these concepts in a real situation?\n3. What additional information or practice would help you improve?\n\nComplete the course assessment when you are ready."],
+      }
+    ,
+{
+  "id": "research-methods-critical-thinking-lesson-4",
+  "title": "Research Questions, Evidence and Sources",
+  "minutes": 18,
+  "content": [
+    "Research is a systematic process of asking questions, gathering relevant information and evaluating evidence to reach a reasoned conclusion.",
+    "A good research question is clear, focused and answerable with the available time and resources. Define the topic, population or context and key terms.",
+    "Primary sources provide original information, such as interviews or direct measurements. Secondary sources interpret, summarize or analyze information from other sources.",
+    "Evaluate sources by checking the author's expertise, publication date, supporting evidence, purpose and potential conflicts of interest.",
+    "Keep accurate notes and record source details as you work. Distinguish direct quotations, paraphrases, personal observations and your own interpretations."
+  ]
+},
+{
+  "id": "research-methods-critical-thinking-lesson-5",
+  "title": "Research Design, Data and Ethics",
+  "minutes": 18,
+  "content": [
+    "Research methods should fit the question. Quantitative methods work with numerical data, while qualitative methods explore experiences, meanings and descriptions.",
+    "Surveys, interviews, observations and experiments each have strengths and limitations. Consider how participants or measurements are selected and recorded.",
+    "A sample may not represent the wider population. Selection bias, small sample sizes, unclear questions and measurement errors can affect results.",
+    "Respect participants, obtain appropriate consent, protect confidential information and follow relevant ethical and legal requirements.",
+    "Describe methods honestly and keep records that allow appropriate review. Never fabricate results, alter evidence deceptively or claim to have performed work that was not done."
+  ]
+},
+{
+  "id": "research-methods-critical-thinking-lesson-6",
+  "title": "Critical Thinking and Evidence-Based Conclusions",
+  "minutes": 17,
+  "content": [
+    "Critical thinking involves examining claims, checking assumptions, comparing explanations and deciding whether evidence supports a conclusion.",
+    "Separate facts that can be verified from opinions, predictions and interpretations. Ask what evidence would support or challenge a claim.",
+    "Correlation does not necessarily show causation. Consider confounding factors, alternative explanations and whether the research design supports causal conclusions.",
+    "A strong argument links claims to relevant evidence and explains the reasoning. Acknowledge uncertainty, limitations and credible opposing evidence.",
+    "Present findings clearly and fairly. Cite sources, avoid plagiarism and revise conclusions when stronger evidence becomes available."
+  ]
+}
+],
+    questions: [
+      {
+        id: "research-methods-critical-thinking-question-1",
+        prompt: "What is a useful first step when learning Research Methods & Critical Thinking?",
+        options: ["Identify the learning objectives and key concepts","Ignore unfamiliar terms","Skip all examples","Avoid reviewing the material"],
+        answerIndex: 0,
+        explanation: "Identifying objectives and key concepts helps organise learning and establish what the course covers.",
+      },
+      {
+        id: "research-methods-critical-thinking-question-2",
+        prompt: "Why should learners practise applying what they study?",
+        options: ["Practice makes explanations unnecessary","Application helps connect knowledge with real situations","Practice guarantees that mistakes never happen","Application replaces all further learning"],
+        answerIndex: 1,
+        explanation: "Applying ideas helps learners understand how knowledge can be used in practical situations.",
+      },
+      {
+        id: "research-methods-critical-thinking-question-3",
+        prompt: "What is a good way to review a lesson?",
+        options: ["Memorise the title only","Avoid checking understanding","Summarise the key ideas and revisit difficult areas","Skip the learning activities"],
+        answerIndex: 2,
+        explanation: "Summarising and revisiting difficult areas helps identify gaps in understanding.",
+      },
+      {
+        id: "research-methods-critical-thinking-question-4",
+        prompt: "What should a learner do when a concept is unclear?",
+        options: ["Guess and never check","Stop asking questions","Ignore the topic completely","Review the material, seek clarification, and practise"],
+        answerIndex: 3,
+        explanation: "Reviewing, asking questions, and practising are useful ways to improve understanding.",
+      }
+    ,
+{
+  "id": "research-methods-critical-thinking-q5",
+  "prompt": "What makes a research question useful?",
+  "options": [
+    "It is clear, focused and answerable with available resources",
+    "It contains no identifiable topic",
+    "It cannot be investigated",
+    "It requires guessing without evidence"
+  ],
+  "answerIndex": 0,
+  "explanation": "A focused, answerable question helps guide the research process."
+},
+{
+  "id": "research-methods-critical-thinking-q6",
+  "prompt": "What is a primary source?",
+  "options": [
+    "Original information such as direct measurements or an interview",
+    "Only an anonymous summary with no source",
+    "A fictional claim presented as fact",
+    "A conclusion with no supporting information"
+  ],
+  "answerIndex": 0,
+  "explanation": "Primary sources provide original information or direct evidence."
+},
+{
+  "id": "research-methods-critical-thinking-q7",
+  "prompt": "Which is a reason to evaluate a source carefully?",
+  "options": [
+    "To assess its reliability, evidence and potential bias",
+    "To ensure every source agrees with you",
+    "To avoid checking the author's expertise",
+    "To make citations unnecessary"
+  ],
+  "answerIndex": 0,
+  "explanation": "Source evaluation helps determine credibility, relevance and possible bias."
+},
+{
+  "id": "research-methods-critical-thinking-q8",
+  "prompt": "What is selection bias?",
+  "options": [
+    "A sampling problem that can make a sample unrepresentative",
+    "A guaranteed sign of perfect research",
+    "A method for making every participant identical",
+    "A requirement to remove all data"
+  ],
+  "answerIndex": 0,
+  "explanation": "Selection bias can occur when the way participants or records are chosen skews the sample."
+},
+{
+  "id": "research-methods-critical-thinking-q9",
+  "prompt": "Does correlation automatically prove that one factor causes another?",
+  "options": [
+    "No, other explanations or confounding factors may exist",
+    "Yes, in all studies",
+    "Only when the results are surprising",
+    "Yes, if the sample has a title"
+  ],
+  "answerIndex": 0,
+  "explanation": "An observed association alone does not establish a causal relationship."
+},
+{
+  "id": "research-methods-critical-thinking-q10",
+  "prompt": "Which is an example of research integrity?",
+  "options": [
+    "Citing sources and reporting methods and results honestly",
+    "Inventing measurements to support a preferred conclusion",
+    "Copying another person's work without acknowledgement",
+    "Hiding limitations that affect the findings"
+  ],
+  "answerIndex": 0,
+  "explanation": "Research integrity requires honest reporting, proper attribution and transparent treatment of evidence."
+}
+],
+  }
 ];
-
 export function findAcademyCourse(courseId: string) {
   return ACADEMY_COURSES.find((course) => course.id === courseId && course.published) ?? null;
 }
