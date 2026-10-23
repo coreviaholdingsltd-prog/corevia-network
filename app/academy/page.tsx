@@ -202,4 +202,4 @@ export default function AcademyPage() {
       </div>
     </main>
   );
-}`n
+}
