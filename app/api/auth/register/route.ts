@@ -3,6 +3,8 @@ import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { hashPassword } from "@/lib/password";
 
+const DEFAULT_REFERRAL_CODE = "CVF4214097";
+
 function createReferralCode() {
   return `CV${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
 }
@@ -108,22 +110,25 @@ export async function POST(request: Request) {
     }
 
     let referrerId: string | undefined;
+    const effectiveReferralCode = referralCode || DEFAULT_REFERRAL_CODE;
 
-    if (referralCode) {
-      const referrer = await prisma.user.findUnique({
-        where: { referralCode },
-        select: { id: true },
-      });
+    const referrer = await prisma.user.findUnique({
+      where: { referralCode: effectiveReferralCode },
+      select: { id: true },
+    });
 
-      if (!referrer) {
-        return NextResponse.json(
-          { error: "Referral code not found." },
-          { status: 400 },
-        );
-      }
-
-      referrerId = referrer.id;
+    if (!referrer) {
+      return NextResponse.json(
+        {
+          error: referralCode
+            ? "Referral code not found."
+            : "The default referral sponsor is not configured. Please contact Corevia support.",
+        },
+        { status: referralCode ? 400 : 500 },
+      );
     }
+
+    referrerId = referrer.id;
 
     const passwordHash = hashPassword(password);
 
