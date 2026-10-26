@@ -33,6 +33,7 @@ export async function GET() {
         enrolled: unlocked,
         enrollmentStatus: enrollment?.status ?? null,
         lessonsCount: course.lessons.length,
+        questionsCount: course.questions.length,
         completedLessons,
         progressPercent: enrollment?.completion ? 100 : Math.round((completedLessons / course.lessons.length) * 100),
         lessons: unlocked ? course.lessons.map((lesson) => ({ ...lesson, completed: completedIds.has(lesson.id) })) : [],

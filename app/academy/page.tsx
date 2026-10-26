@@ -42,7 +42,8 @@ type Course = {
   enrolled: boolean;
   enrollmentStatus: string | null;
   lessonsCount: number;
-  completedLessons: number;
+questionsCount: number;
+completedLessons: number;
   progressPercent: number;
   lessons: Lesson[];
   questions: Question[];
@@ -537,7 +538,7 @@ export default function AcademyPage() {
                     </span>
 
                     <span className="rounded-full border border-white/10 px-3 py-1">
-                      {course.questions.length} assessment questions
+                      {course.questionsCount} assessment questions
                     </span>
                   </div>
 
