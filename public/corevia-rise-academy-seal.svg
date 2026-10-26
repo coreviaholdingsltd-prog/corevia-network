@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+<circle cx="300" cy="300" r="282" fill="#fffdf7" stroke="#b99a58" stroke-width="12"/>
+<circle cx="300" cy="300" r="258" fill="#12352c" stroke="#d6bd83" stroke-width="4"/>
+<circle cx="300" cy="300" r="202" fill="none" stroke="#d6bd83" stroke-width="3"/>
+<text x="300" y="150" font-family="Georgia,serif" font-size="30" font-weight="bold" letter-spacing="2" fill="#fffdf7" text-anchor="middle">COREVIA RISE</text>
+<text x="300" y="190" font-family="Georgia,serif" font-size="25" font-weight="bold" fill="#d6bd83" text-anchor="middle">ACADEMY</text>
+<path d="M185 280 Q240 255 300 290 Q360 255 415 280 L415 370 Q355 345 300 380 Q245 345 185 370Z" fill="#fffdf7" stroke="#b99a58" stroke-width="6"/>
+<path d="M300 290 L300 380" stroke="#b99a58" stroke-width="5"/>
+<path d="M225 248 L300 205 L375 248 L355 275 L245 275Z" fill="#d6bd83" stroke="#fffdf7" stroke-width="4"/>
+<text x="300" y="430" font-family="Arial,sans-serif" font-size="19" font-weight="bold" letter-spacing="2" fill="#d6bd83" text-anchor="middle">LEARN â€¢ CONNECT â€¢ GROW</text>
+<text x="300" y="475" font-family="Arial,sans-serif" font-size="18" font-weight="bold" fill="#fffdf7" text-anchor="middle">COREVIA HOLDINGS LTD</text>
+<text x="300" y="510" font-family="Arial,sans-serif" font-size="14" fill="#d6bd83" text-anchor="middle">BUILDING TRUST THROUGH EXCELLENCE</text>
+</svg>
