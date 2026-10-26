@@ -34,7 +34,7 @@ export async function GET() {
         enrollmentStatus: enrollment?.status ?? null,
         lessonsCount: course.lessons.length,
         completedLessons,
-        progressPercent: Math.round((completedLessons / course.lessons.length) * 100),
+        progressPercent: enrollment?.completion ? 100 : Math.round((completedLessons / course.lessons.length) * 100),
         lessons: unlocked ? course.lessons.map((lesson) => ({ ...lesson, completed: completedIds.has(lesson.id) })) : [],
         questions: unlocked ? course.questions.map(({ id, prompt, options }) => ({ id, prompt, options })) : [],
         latestAttempt: latest ? { score: latest.score, totalQuestions: latest.totalQuestions, passed: latest.passed, createdAt: latest.createdAt } : null,
