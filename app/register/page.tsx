@@ -4,6 +4,9 @@ import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 
 export default function Register() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
@@ -155,30 +158,52 @@ export default function Register() {
                 <label className="mb-1.5 block text-sm font-semibold">
                   Password
                 </label>
-                <input
-                  type="password"
+                <div className="relative">
+<input
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="At least 8 characters"
                   required
                   minLength={8}
                   autoComplete="new-password"
-                  className="w-full rounded-xl border border-[#12352c]/15 bg-[#f7f5ef]/50 px-4 py-3 outline-none focus:border-[#b99a58]"
+                  className="w-full rounded-xl border border-[#12352c]/15 bg-[#f7f5ef]/50 px-4 py-3 outline-none focus:border-[#b99a58] pr-20"
                 />
+<button
+  type="button"
+  onClick={() => setShowPassword((visible) => !visible)}
+  aria-pressed={showPassword}
+  aria-label={showPassword ? "Hide password" : "Show password"}
+  className="absolute inset-y-0 right-4 my-auto h-fit text-sm font-bold text-[#12352c] underline underline-offset-4"
+>
+  {showPassword ? "Hide" : "Show"}
+</button>
+</div>
               </div>
 
               <div>
                 <label className="mb-1.5 block text-sm font-semibold">
                   Confirm password
                 </label>
-                <input
-                  type="password"
+                <div className="relative">
+<input
+                  type={showConfirmPassword ? "text" : "password"}
                   name="confirmPassword"
                   placeholder="Repeat your password"
                   required
                   minLength={8}
                   autoComplete="new-password"
-                  className="w-full rounded-xl border border-[#12352c]/15 bg-[#f7f5ef]/50 px-4 py-3 outline-none focus:border-[#b99a58]"
+                  className="w-full rounded-xl border border-[#12352c]/15 bg-[#f7f5ef]/50 px-4 py-3 outline-none focus:border-[#b99a58] pr-20"
                 />
+<button
+  type="button"
+  onClick={() => setShowConfirmPassword((visible) => !visible)}
+  aria-pressed={showConfirmPassword}
+  aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+  className="absolute inset-y-0 right-4 my-auto h-fit text-sm font-bold text-[#12352c] underline underline-offset-4"
+>
+  {showConfirmPassword ? "Hide" : "Show"}
+</button>
+</div>
               </div>
 
               <div>

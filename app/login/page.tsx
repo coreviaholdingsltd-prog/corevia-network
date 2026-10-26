@@ -4,6 +4,8 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -97,14 +99,25 @@ export default function Login() {
                 Password
               </label>
 
-              <input
-                type="password"
+              <div className="relative">
+<input
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Your password"
                 required
                 autoComplete="current-password"
-                className="w-full rounded-xl border border-[#12352c]/15 bg-[#f7f5ef]/50 px-4 py-3 outline-none focus:border-[#b99a58]"
+                className="w-full rounded-xl border border-[#12352c]/15 bg-[#f7f5ef]/50 px-4 py-3 outline-none focus:border-[#b99a58] pr-20"
               />
+<button
+  type="button"
+  onClick={() => setShowPassword((visible) => !visible)}
+  aria-pressed={showPassword}
+  aria-label={showPassword ? "Hide password" : "Show password"}
+  className="absolute inset-y-0 right-4 my-auto h-fit text-sm font-bold text-[#12352c] underline underline-offset-4"
+>
+  {showPassword ? "Hide" : "Show"}
+</button>
+</div>
             </div>
 
             <button
