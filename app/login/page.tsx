@@ -54,7 +54,7 @@ export default function Login() {
           href="/"
           className="text-sm font-semibold text-[#b99a58]"
         >
-          ← Corevia Network
+          ← Corevia Rise
         </Link>
 
         <div className="mt-8 rounded-3xl bg-white p-7 shadow-sm ring-1 ring-[#12352c]/10">
@@ -67,7 +67,7 @@ export default function Login() {
           </h1>
 
           <p className="mt-3 text-sm leading-6 text-[#12352c]/65">
-            Sign in to access your Corevia Network member account.
+            Sign in to access your Corevia Rise member account.
           </p>
 
           {error && (

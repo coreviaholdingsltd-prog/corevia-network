@@ -1,122 +1,180 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#f7f5ef] text-[#12352c]">
-      <header className="border-b border-[#12352c]/10">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5">
-          <div>
-            <div className="text-xl font-bold tracking-wide">COREVIA</div>
-            <div className="text-xs tracking-[0.2em] text-[#12352c]/60">
-              NETWORK
+      <header className="border-b border-[#12352c]/10 bg-white/80">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5">
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/corevia-logo.png"
+              alt="COREVIA HOLDINGS LTD official logo"
+              width={609}
+              height={409}
+              priority
+              className="h-12 w-auto object-contain"
+            />
+            <div>
+              <div className="text-xl font-bold tracking-wide">
+                COREVIA RISE
+              </div>
+              <div className="text-xs font-semibold tracking-[0.15em] text-[#12352c]/60">
+                LEARN. CONNECT. GROW.
+              </div>
             </div>
-          </div>
+          </Link>
 
-          <div className="flex items-center gap-3">
+          <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/network"
+              className="rounded-full border border-[#12352c]/15 px-4 py-2.5 text-sm font-semibold"
+            >
+              Network
+            </Link>
+            <Link
+              href="/academy"
+              className="rounded-full border border-[#12352c]/15 px-4 py-2.5 text-sm font-semibold"
+            >
+              Rise Academy
+            </Link>
             <Link
               href="/login"
-              className="rounded-full border border-[#12352c]/15 px-5 py-2.5 text-sm font-semibold"
+              className="rounded-full border border-[#12352c]/15 px-4 py-2.5 text-sm font-semibold"
             >
-              Login
+              Sign In
             </Link>
-
             <Link
               href="/register"
               className="rounded-full bg-[#12352c] px-5 py-2.5 text-sm font-semibold text-white"
             >
-              Join Network
+              Join Corevia Rise
             </Link>
-          </div>
+          </nav>
         </div>
       </header>
 
-      <section className="mx-auto max-w-6xl px-5 pb-20 pt-20 sm:pb-28 sm:pt-28">
-        <div className="max-w-3xl">
-          <p className="mb-5 text-sm font-semibold uppercase tracking-[0.25em] text-[#b99a58]">
-            Corevia Network
+      <section className="mx-auto max-w-7xl px-5 pb-20 pt-20 sm:pb-28 sm:pt-28">
+        <div className="max-w-4xl">
+          <p className="mb-5 text-sm font-bold uppercase tracking-[0.25em] text-[#a88949]">
+            COREVIA HOLDINGS LTD PRESENTS
           </p>
 
-          <h1 className="text-4xl font-bold leading-tight sm:text-6xl">
-            Building a trusted network of people, businesses and opportunities.
+          <h1 className="text-5xl font-bold leading-tight sm:text-7xl">
+            Learn. Connect. Grow.
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#12352c]/70">
-            Connect with people, discover opportunities, grow your network and
-            participate in legitimate commercial activities through Corevia.
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-[#12352c]/75 sm:text-xl">
+            Welcome to Corevia Rise, a connected digital platform bringing
+            together online learning, member networking and opportunity
+            discovery to support your personal and professional growth.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-9 flex flex-wrap gap-3">
             <Link
               href="/register"
               className="rounded-full bg-[#12352c] px-7 py-3.5 font-semibold text-white"
             >
-              Create Your Network Profile
+              Start Your Journey
             </Link>
-
             <Link
-              href="/login"
-              className="rounded-full border border-[#12352c]/15 px-7 py-3.5 font-semibold"
+              href="/academy"
+              className="rounded-full border border-[#12352c]/20 px-7 py-3.5 font-semibold"
             >
-              Sign In
+              Explore Rise Academy
             </Link>
           </div>
+
+          <p className="mt-5 text-sm text-[#12352c]/60">
+            One platform. Two connected systems. A pathway to growth.
+          </p>
         </div>
       </section>
 
-      <section className="border-y border-[#12352c]/10 bg-white/50">
-        <div className="mx-auto grid max-w-6xl gap-5 px-5 py-16 md:grid-cols-3">
-          <div className="rounded-2xl border border-[#12352c]/10 p-6">
-            <h2 className="text-xl font-bold">Your Network</h2>
-            <p className="mt-3 leading-7 text-[#12352c]/65">
-              Build and manage your personal network through a unique referral
-              link and transparent member relationships.
+      <section className="border-y border-[#12352c]/10 bg-white/60">
+        <div className="mx-auto grid max-w-7xl gap-5 px-5 py-16 md:grid-cols-3">
+          <article className="rounded-2xl border border-[#12352c]/10 bg-white p-7">
+            <p className="text-sm font-bold uppercase tracking-[0.15em] text-[#a88949]">
+              Connect
             </p>
-          </div>
+            <h2 className="mt-3 text-2xl font-bold">Corevia Rise Network</h2>
+            <p className="mt-3 leading-7 text-[#12352c]/70">
+              Build connections, manage your member network, use referral
+              features and explore opportunities for collaboration.
+            </p>
+            <Link
+              href="/network"
+              className="mt-5 inline-block font-semibold underline underline-offset-4"
+            >
+              Explore Network
+            </Link>
+          </article>
 
-          <div className="rounded-2xl border border-[#12352c]/10 p-6">
-            <h2 className="text-xl font-bold">Real Opportunities</h2>
-            <p className="mt-3 leading-7 text-[#12352c]/65">
-              Connect referrals to genuine products, services and commercial
-              activity rather than recruitment alone.
+          <article className="rounded-2xl border border-[#12352c]/10 bg-white p-7">
+            <p className="text-sm font-bold uppercase tracking-[0.15em] text-[#a88949]">
+              Learn
             </p>
-          </div>
+            <h2 className="mt-3 text-2xl font-bold">Corevia Rise Academy</h2>
+            <p className="mt-3 leading-7 text-[#12352c]/70">
+              Explore structured courses, study lessons, complete assessments
+              and earn course-completion certificates after meeting the
+              required standards.
+            </p>
+            <Link
+              href="/academy"
+              className="mt-5 inline-block font-semibold underline underline-offset-4"
+            >
+              Explore Academy
+            </Link>
+          </article>
 
-          <div className="rounded-2xl border border-[#12352c]/10 p-6">
-            <h2 className="text-xl font-bold">Transparency</h2>
-            <p className="mt-3 leading-7 text-[#12352c]/65">
-              Keep member activity, network relationships and eligible rewards
-              clear and traceable.
+          <article className="rounded-2xl border border-[#12352c]/10 bg-white p-7">
+            <p className="text-sm font-bold uppercase tracking-[0.15em] text-[#a88949]">
+              Discover
             </p>
-          </div>
+            <h2 className="mt-3 text-2xl font-bold">Opportunities</h2>
+            <p className="mt-3 leading-7 text-[#12352c]/70">
+              Discover the platform's opportunity features and learn more
+              about participating in relevant commercial activities.
+            </p>
+            <Link
+              href="/opportunities"
+              className="mt-5 inline-block font-semibold underline underline-offset-4"
+            >
+              View Opportunities
+            </Link>
+          </article>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20">
-        <div className="rounded-3xl bg-[#12352c] px-6 py-12 text-white sm:px-12">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#b99a58]">
-            Join Corevia Network
+      <section className="mx-auto max-w-7xl px-5 py-20">
+        <div className="rounded-3xl bg-[#12352c] px-6 py-12 text-white sm:px-12 sm:py-14">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#d6bb7e]">
+            Your Next Level Starts Here
           </p>
 
           <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-            Create your network profile today.
+            Take your next step with Corevia Rise.
           </h2>
 
-          <p className="mt-4 max-w-2xl leading-7 text-white/70">
-            Register as a Corevia Network member and receive your unique
-            referral code for building your network.
+          <p className="mt-4 max-w-2xl leading-7 text-white/80">
+            Create your profile, explore the platform and choose the
+            learning and networking features that fit your goals.
           </p>
 
           <Link
             href="/register"
-            className="mt-7 inline-block rounded-full bg-[#b99a58] px-7 py-3.5 font-semibold text-[#12352c]"
+            className="mt-7 inline-block rounded-full bg-[#d6bb7e] px-7 py-3.5 font-bold text-[#12352c]"
           >
-            Register Now
+            Join Corevia Rise
           </Link>
         </div>
       </section>
 
-      <footer className="border-t border-[#12352c]/10 px-5 py-8 text-center text-sm text-[#12352c]/60">
-        COREVIA HOLDINGS LTD - Building Trust Through Excellence.
+      <footer className="border-t border-[#12352c]/10 px-5 py-8 text-center text-sm text-[#12352c]/65">
+        <p className="font-semibold">COREVIA HOLDINGS LTD</p>
+        <p className="mt-1">Building Trust Through Excellence.</p>
+        <p className="mt-1">Corevia Rise | Learn. Connect. Grow.</p>
       </footer>
     </main>
   );

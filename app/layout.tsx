@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -14,16 +14,21 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://network.coreviaholdingltd.com"),
-  title: "COREVIA HOLDINGS LTD | Corevia Network",
+  title: "Corevia Rise | COREVIA HOLDINGS LTD",
   description:
-    "The official Corevia Network platform by COREVIA HOLDINGS LTD. Explore digital learning, member networking, and opportunities.",
-  applicationName: "Corevia Network",
+    "Corevia Rise by COREVIA HOLDINGS LTD brings together Corevia Rise Network and Corevia Rise Academy. Learn. Connect. Grow.",
+  applicationName: "Corevia Rise",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
   openGraph: {
     type: "website",
-    siteName: "COREVIA HOLDINGS LTD",
-    title: "COREVIA HOLDINGS LTD | Corevia Network",
+    siteName: "Corevia Rise",
+    title: "Corevia Rise | COREVIA HOLDINGS LTD",
     description:
-      "Building Trust Through Excellence. Explore Corevia Network, digital learning, member networking, and opportunities.",
+      "Building Trust Through Excellence. Learn, connect and grow with Corevia Rise Network and Corevia Rise Academy.",
     url: "https://network.coreviaholdingltd.com",
     images: [
       {
@@ -36,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "COREVIA HOLDINGS LTD | Corevia Network",
+    title: "Corevia Rise | COREVIA HOLDINGS LTD",
     description:
-      "The official Corevia Network platform by COREVIA HOLDINGS LTD.",
+      "The official Corevia Rise platform by COREVIA HOLDINGS LTD.",
     images: ["/corevia-logo.png"],
   },
 };
@@ -53,4 +58,3 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     </html>
   );
 }
-

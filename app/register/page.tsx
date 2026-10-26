@@ -72,12 +72,12 @@ export default function Register() {
     <main className="min-h-screen bg-[#f7f5ef] text-[#12352c] flex items-center justify-center px-5 py-10">
       <div className="w-full max-w-md">
         <Link href="/" className="text-sm font-semibold text-[#b99a58]">
-          ← Corevia Network
+          ← Corevia Rise
         </Link>
 
         <div className="mt-8 rounded-3xl bg-white p-7 shadow-sm ring-1 ring-[#12352c]/10">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#b99a58]">
-            Join Corevia Network
+            Join Corevia Rise
           </p>
 
           <h1 className="mt-2 text-3xl font-bold">
@@ -85,7 +85,7 @@ export default function Register() {
           </h1>
 
           <p className="mt-3 text-sm leading-6 text-[#12352c]/65">
-            Create your Corevia Network member profile and receive your
+            Create your Corevia Rise member profile and receive your
             unique referral code.
           </p>
 
@@ -209,7 +209,7 @@ export default function Register() {
                   className="mt-1"
                 />
                 <span>
-                  I agree to the Corevia Network terms and understand that
+                  I agree to the Corevia Rise terms and understand that
                   registration creates a member account.
                 </span>
               </label>

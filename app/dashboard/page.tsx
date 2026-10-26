@@ -149,7 +149,7 @@ export default function Dashboard() {
         );
       }
     } catch {
-      setError("Unable to connect to Corevia Network. Please try again.");
+      setError("Unable to connect to Corevia Rise. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -210,7 +210,7 @@ export default function Dashboard() {
         <div className="text-center">
           <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-[#12352c]/15 border-t-[#b99a58]" />
           <p className="mt-4 font-medium">
-            Loading your Corevia Network account...
+            Loading your Corevia Rise account...
           </p>
         </div>
       </main>
@@ -222,7 +222,7 @@ export default function Dashboard() {
       <main className="min-h-screen bg-[#f7f5ef] p-6 text-[#12352c]">
         <div className="mx-auto max-w-xl rounded-3xl bg-white p-6 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#b99a58]">
-            Corevia Network
+            Corevia Rise
           </p>
           <h1 className="mt-3 text-2xl font-bold">Member Dashboard</h1>
           <p role="alert" className="mt-4 text-red-700">
@@ -256,7 +256,7 @@ export default function Dashboard() {
         <header className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#b99a58]">
-              Corevia Network
+              Corevia Rise
             </p>
             <h1 className="mt-2 text-3xl font-bold">
               Welcome, {user.name}
@@ -301,9 +301,7 @@ export default function Dashboard() {
           <a
             href="/academy"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
-          >
-            Academy
-          </a>
+          >Rise Academy</a>
           <button
             type="button"
             onClick={handleSignOut}
@@ -316,7 +314,7 @@ export default function Dashboard() {
         <section className="mt-8 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-[#12352c]/10 sm:p-6">
           <h2 className="text-xl font-bold">Your Referral Link</h2>
           <p className="mt-2 text-sm leading-6 text-[#12352c]/65">
-            Invite new members to Corevia Network using your unique link.
+            Invite new members to Corevia Rise using your unique link.
             Your referral code is included automatically.
           </p>
 
@@ -381,10 +379,10 @@ export default function Dashboard() {
         <section data-corevia-academy-card className="mt-6 rounded-3xl bg-[#12352c] p-5 text-white shadow-sm sm:flex sm:items-center sm:justify-between sm:gap-6">
   <div>
     <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d6bd83]">Corevia learning</p>
-    <h2 className="mt-2 text-xl font-bold">Corevia Academy</h2>
-    <p className="mt-2 max-w-2xl text-sm leading-6 text-white/80">Explore digital skills, AI, programming, business, and professional learning pathways from your existing Corevia Network account.</p>
+    <h2 className="mt-2 text-xl font-bold">Corevia Rise Academy</h2>
+    <p className="mt-2 max-w-2xl text-sm leading-6 text-white/80">Explore digital skills, AI, programming, business, and professional learning pathways from your existing Corevia Rise account.</p>
   </div>
-  <a href="/academy" className="mt-4 inline-flex shrink-0 rounded-xl bg-[#b99a58] px-5 py-3 font-semibold text-[#12352c] hover:bg-[#c7ad75] sm:mt-0">Explore Academy</a>
+  <a href="/academy" className="mt-4 inline-flex shrink-0 rounded-xl bg-[#b99a58] px-5 py-3 font-semibold text-[#12352c] hover:bg-[#c7ad75] sm:mt-0">Explore Rise Academy</a>
 </section>
 <section className="mt-8">
           <h2 className="text-2xl font-bold">My Referred Clients</h2>
@@ -454,7 +452,7 @@ export default function Dashboard() {
                   <p className="mt-2 text-sm leading-6 text-[#12352c]/65">
                     Share your referral link. Members who register through
                     it will appear here when their registrations are
-                    recorded by Corevia Network.
+                    recorded by Corevia Rise.
                   </p>
                 </div>
               ) : (
@@ -524,7 +522,7 @@ export default function Dashboard() {
         </section>
 
         <footer className="mt-10 border-t border-[#12352c]/10 py-6 text-center text-xs text-[#12352c]/55">
-          Corevia Network · Building Trust Through Excellence.
+          Corevia Rise · Building Trust Through Excellence.
         </footer>
       </div>
     </main>

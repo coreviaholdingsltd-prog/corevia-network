@@ -214,7 +214,7 @@ export default function Wallet() {
     return (
       <main className="min-h-screen bg-[#f7f5ef] p-6 text-[#12352c]">
         <div className="mx-auto max-w-2xl">
-          <p>Loading your Corevia Network wallet...</p>
+          <p>Loading your Corevia Rise wallet...</p>
         </div>
       </main>
     );
@@ -244,7 +244,7 @@ export default function Wallet() {
     <main className="min-h-screen bg-[#f7f5ef] p-6 text-[#12352c]">
       <div className="mx-auto max-w-2xl">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#b99a58]">
-          Corevia Network
+          Corevia Rise
         </p>
 
         <h1 className="mt-2 text-3xl font-bold">Wallet</h1>
@@ -267,7 +267,7 @@ export default function Wallet() {
             <div className="mt-6 rounded-2xl border border-[#b99a58]/30 bg-[#f7f5ef] p-5">
               <h2 className="text-xl font-bold">Activate Membership</h2>
               <p className="mt-2 text-sm leading-6 text-[#12352c]/70">
-                The one-time Corevia Network activation fee is KES 1,000.
+                The one-time Corevia Rise activation fee is KES 1,000.
                 If you have already paid, verify that payment before paying again.
               </p>
 

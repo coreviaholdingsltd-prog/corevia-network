@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
@@ -360,7 +360,7 @@ export default function AcademyPage() {
             href="/dashboard"
             className="text-lg font-bold tracking-wide"
           >
-            COREVIA <span className="text-cyan-400">ACADEMY</span>
+            COREVIA RISE <span className="text-cyan-400">ACADEMY</span>
           </Link>
 
           <div className="flex flex-wrap items-center gap-3">
@@ -391,7 +391,7 @@ export default function AcademyPage() {
             </h1>
 
             <p className="mt-5 max-w-3xl leading-7 text-slate-300">
-              Use your existing Corevia Network account to enroll, work
+              Use your existing Corevia Rise account to enroll, work
               through lessons, complete assessments, and access your course
               completion record.
             </p>
@@ -443,7 +443,7 @@ export default function AcademyPage() {
             </h2>
 
             <p className="mt-2 text-slate-300">
-              Use the same email and password as your Corevia Network
+              Use the same email and password as your Corevia Rise
               account. You do not need a separate Academy account.
             </p>
 
@@ -470,7 +470,7 @@ export default function AcademyPage() {
 
                 <p className="mt-2 text-slate-300">
                   Course fees are shown in Kenyan shillings and are paid
-                  separately from the one-time Corevia Network membership
+                  separately from the one-time Corevia Rise membership
                   activation.
                 </p>
               </div>
@@ -838,7 +838,7 @@ export default function AcademyPage() {
             {selected.completion && (
               <div className="mt-6 rounded-2xl border border-emerald-300/30 bg-emerald-300/5 p-6 sm:p-9 print:border-black print:bg-white print:text-black">
                 <p className="text-xs font-bold uppercase tracking-[0.25em] text-emerald-200 print:text-black">
-                  Corevia Academy | Completion record
+                  Corevia Rise Academy | Completion record
                 </p>
 
                 <h3 className="mt-3 text-3xl font-black">
@@ -847,7 +847,7 @@ export default function AcademyPage() {
 
                 <p className="mt-4 leading-7">
                   This confirms that <strong>{memberName}</strong> completed
-                  the Corevia Academy course{" "}
+                  the Corevia Rise Academy course{" "}
                   <strong>{selected.title}</strong> and passed its recorded
                   assessment.
                 </p>
@@ -904,7 +904,7 @@ export default function AcademyPage() {
           <h2 className="text-xl font-bold">Learning with integrity</h2>
 
           <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-300">
-            Corevia Academy issues completion records after learners
+            Corevia Rise Academy issues completion records after learners
             complete all lessons and meet the required assessment
             standards. We celebrate learning, personal growth, and a
             commitment to excellence.
@@ -912,7 +912,7 @@ export default function AcademyPage() {
         </section>
 
         <footer className="mt-10 border-t border-white/10 py-6 text-center text-xs text-slate-500">
-          Corevia Academy | Building Trust Through Excellence.
+          Corevia Rise Academy | Building Trust Through Excellence.
         </footer>
       </div>
     </main>
