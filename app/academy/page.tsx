@@ -669,6 +669,16 @@ export default function AcademyPage() {
                   height={420}
                   className="my-5 h-auto w-full max-w-3xl rounded-2xl border border-white/10"
                 />
+                <div className="my-5 rounded-2xl border border-cyan-300/20 bg-white p-3 sm:p-5">
+                  <Image
+                    src={`/academy/learning-visuals/${selected.id}.svg`}
+                    alt={`${selected.title} step-by-step visual learning guide`}
+                    width={960}
+                    height={390}
+                    className="h-auto w-full rounded-xl"
+                  />
+                  <p className="mt-3 text-sm text-slate-700">Use this visual as a map. Read one step, explain it in your own words, then continue.</p>
+                </div>
 
                 <p className="mt-2 text-slate-300">
                   Read each lesson and mark it complete. The final
