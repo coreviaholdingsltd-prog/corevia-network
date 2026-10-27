@@ -32,6 +32,8 @@ model User {
   withdrawals        Withdrawal[]
   academyEnrollments AcademyEnrollment[]
   academyPayments    AcademyPayment[]
+  postedGigs         Gig[]
+  gigApplications    GigApplication[]
 }
 
 model Wallet {
@@ -293,4 +295,72 @@ model AcademyPayment {
 
   @@index([userId, createdAt])
   @@index([enrollmentId, status])
+}
+
+
+// Corevia Rise Gigs: work listings and applications.
+enum GigStatus {
+  PENDING_REVIEW
+  OPEN
+  PAUSED
+  CLOSED
+  REJECTED
+}
+
+enum GigWorkMode {
+  REMOTE
+  HYBRID
+  ONSITE
+}
+
+enum GigBudgetType {
+  FIXED
+  HOURLY
+  NEGOTIABLE
+}
+
+enum GigApplicationStatus {
+  SUBMITTED
+  SHORTLISTED
+  ACCEPTED
+  DECLINED
+}
+
+model Gig {
+  id          String      @id @default(cuid())
+  ownerId     String
+  title       String
+  description String
+  category    String
+  location    String?
+  workMode    GigWorkMode @default(REMOTE)
+  budgetKsh   Int?
+  budgetType  GigBudgetType @default(NEGOTIABLE)
+  deadline    DateTime?
+  status      GigStatus   @default(PENDING_REVIEW)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  owner       User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  applications GigApplication[]
+
+  @@index([status, createdAt])
+  @@index([ownerId, createdAt])
+  @@index([category, status])
+}
+
+model GigApplication {
+  id          String                @id @default(cuid())
+  gigId       String
+  applicantId String
+  proposal    String
+  portfolioUrl String?
+  status      GigApplicationStatus  @default(SUBMITTED)
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  gig         Gig                   @relation(fields: [gigId], references: [id], onDelete: Cascade)
+  applicant   User                  @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+
+  @@unique([gigId, applicantId])
+  @@index([applicantId, createdAt])
+  @@index([gigId, status])
 }

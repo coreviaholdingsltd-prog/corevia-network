@@ -51,6 +51,12 @@ export default function Home() {
               Skill Missions
             </Link>
             <Link
+              href="/gigs"
+              className="rounded-full border border-[#12352c]/15 px-4 py-2.5 text-sm font-semibold"
+            >
+              Rise Gigs
+            </Link>
+            <Link
               href="/login"
               className="rounded-full border border-[#12352c]/15 px-4 py-2.5 text-sm font-semibold"
             >

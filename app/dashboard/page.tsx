@@ -310,6 +310,14 @@ export default function Dashboard() {
             href="/missions"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
           >Skill Missions</a>
+          <a
+            href="/gigs"
+            className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
+          >Rise Gigs</a>
+          <a
+            href="/gigs/manage"
+            className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
+          >My Gigs & Applications</a>
           <button
             type="button"
             onClick={handleSignOut}

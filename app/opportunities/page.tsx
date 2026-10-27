@@ -129,6 +129,7 @@ export default async function OpportunitiesPage() {
           <nav aria-label="Opportunity navigation" className="flex flex-wrap gap-2 text-sm font-semibold">
             <Link href="/academy" className="rounded-full border border-[#12352c]/15 px-4 py-2 hover:bg-[#f7f5ef]">Academy</Link>
             <Link href="/missions" className="rounded-full border border-[#12352c]/15 px-4 py-2 hover:bg-[#f7f5ef]">Skill missions</Link>
+            <Link href="/gigs" className="rounded-full border border-[#12352c]/15 px-4 py-2 hover:bg-[#f7f5ef]">Rise Gigs</Link>
             <Link href="/register" className="rounded-full bg-[#12352c] px-4 py-2 text-white hover:bg-[#1b493c]">Join Corevia Rise</Link>
           </nav>
         </div>
