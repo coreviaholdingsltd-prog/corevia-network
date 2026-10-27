@@ -318,6 +318,10 @@ export default function Dashboard() {
             href="/gigs/manage"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
           >My Gigs & Applications</a>
+          <a
+            href="/portfolio"
+            className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
+          >My Portfolio</a>
           <button
             type="button"
             onClick={handleSignOut}

@@ -34,6 +34,7 @@ model User {
   academyPayments    AcademyPayment[]
   postedGigs         Gig[]
   gigApplications    GigApplication[]
+  memberProfile      MemberProfile?
 }
 
 model Wallet {
@@ -363,4 +364,38 @@ model GigApplication {
   @@unique([gigId, applicantId])
   @@index([applicantId, createdAt])
   @@index([gigId, status])
+}
+
+// Corevia Network member profiles and public work samples.
+model MemberProfile {
+  id          String          @id @default(cuid())
+  userId      String          @unique
+  headline    String          @default("")
+  bio         String          @default("")
+  location    String?
+  skills      String          @default("")
+  websiteUrl  String?
+  linkedinUrl String?
+  githubUrl   String?
+  isPublic    Boolean         @default(true)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items       PortfolioItem[]
+
+  @@index([isPublic, updatedAt])
+}
+
+model PortfolioItem {
+  id          String        @id @default(cuid())
+  profileId   String
+  title       String
+  category    String?
+  description String
+  projectUrl  String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  profile     MemberProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId, createdAt])
 }
