@@ -39,6 +39,18 @@ export default function Home() {
               Rise Academy
             </Link>
             <Link
+              href="/opportunities"
+              className="rounded-full border border-[#12352c]/15 px-4 py-2.5 text-sm font-semibold"
+            >
+              Opportunities
+            </Link>
+            <Link
+              href="/missions"
+              className="rounded-full border border-[#12352c]/15 px-4 py-2.5 text-sm font-semibold"
+            >
+              Skill Missions
+            </Link>
+            <Link
               href="/login"
               className="rounded-full border border-[#12352c]/15 px-4 py-2.5 text-sm font-semibold"
             >
@@ -92,7 +104,7 @@ export default function Home() {
       </section>
 
       <section className="border-y border-[#12352c]/10 bg-white/60">
-        <div className="mx-auto grid max-w-7xl gap-5 px-5 py-16 md:grid-cols-3">
+        <div className="mx-auto grid max-w-7xl gap-5 px-5 py-16 md:grid-cols-2 xl:grid-cols-4">
           <article className="rounded-2xl border border-[#12352c]/10 bg-white p-7">
             <p className="text-sm font-bold uppercase tracking-[0.15em] text-[#a88949]">
               Connect
@@ -142,6 +154,22 @@ export default function Home() {
               className="mt-5 inline-block font-semibold underline underline-offset-4"
             >
               View Opportunities
+            </Link>
+          </article>
+
+          <article className="rounded-2xl border border-[#12352c]/10 bg-white p-7">
+            <p className="text-sm font-bold uppercase tracking-[0.15em] text-[#a88949]">
+              Build
+            </p>
+            <h2 className="mt-3 text-2xl font-bold">Skill Missions</h2>
+            <p className="mt-3 leading-7 text-[#12352c]/70">
+              Try practical starter projects, keep real work samples and download a simple portfolio summary.
+            </p>
+            <Link
+              href="/missions"
+              className="mt-5 inline-block font-semibold underline underline-offset-4"
+            >
+              Build My Portfolio
             </Link>
           </article>
         </div>

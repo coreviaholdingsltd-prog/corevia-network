@@ -302,6 +302,14 @@ export default function Dashboard() {
             href="/academy"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
           >Rise Academy</a>
+          <a
+            href="/opportunities"
+            className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
+          >Opportunities</a>
+          <a
+            href="/missions"
+            className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
+          >Skill Missions</a>
           <button
             type="button"
             onClick={handleSignOut}
