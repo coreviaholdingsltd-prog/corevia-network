@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -527,6 +528,13 @@ export default function AcademyPage() {
                   <p className="mt-3 min-h-20 leading-7 text-slate-300">
                     {course.description}
                   </p>
+                  <Image
+                    src={`/academy/course-illustrations/${course.id}.svg`}
+                    alt={`${course.title} course illustration`}
+                    width={960}
+                    height={420}
+                    className="mt-4 h-auto w-full rounded-xl border border-white/10"
+                  />
 
                   <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
                     <span className="rounded-full border border-white/10 px-3 py-1">
@@ -654,6 +662,13 @@ export default function AcademyPage() {
                 <h2 className="mt-2 text-3xl font-bold">
                   {selected.title}
                 </h2>
+                <Image
+                  src={`/academy/course-illustrations/${selected.id}.svg`}
+                  alt={`${selected.title} study illustration`}
+                  width={960}
+                  height={420}
+                  className="my-5 h-auto w-full max-w-3xl rounded-2xl border border-white/10"
+                />
 
                 <p className="mt-2 text-slate-300">
                   Read each lesson and mark it complete. The final
