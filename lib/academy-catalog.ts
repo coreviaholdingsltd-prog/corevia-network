@@ -6424,7 +6424,5990 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
   "explanation": "Research integrity requires honest reporting, proper attribution and transparent treatment of evidence."
 }
 ],
-  }
+  },
+    {
+      "id": "microsoft-word-document-design",
+      "title": "Microsoft Word & Document Design",
+      "category": "Digital & Office Skills",
+      "description": "Create polished letters, reports, CVs, forms and accessible documents using Word features.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "microsoft-word-document-design-lesson-1",
+          "title": "Word workspace and text editing",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Recognise the ribbon, document canvas, insertion point, selection, undo and save controls; editing changes text while formatting changes its appearance.",
+            "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+            "KEY TERMS — paragraph and line spacing — controls text layout; style — a reusable set of formatting rules; header and footer — repeated page information; track changes — records edits for review; accessible structure — headings and labels that assist navigation. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Decide the reader, purpose and required format. 2) Draft content and organise it with headings and lists. 3) Apply built-in styles instead of formatting each heading manually. 4) Review spelling, links, page breaks and sensitive details. 5) Save an editable copy and export the requested format.",
+            "WORKED EXAMPLE — Type a short letter, select one sentence, replace it, undo once and redo it. Save a copy with a meaningful filename so the original remains available.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a five-sentence introduction, correct one deliberate typo, move a sentence and save the document in a named folder.",
+            "COMMON MISTAKES TO AVOID — using repeated spaces to align content; formatting headings manually without styles; forgetting page numbers or document title; sharing comments or tracked edits unintentionally. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is the safest way to correct text without retyping the whole document? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-word-document-design-lesson-2",
+          "title": "Professional formatting and styles",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use heading levels, paragraph spacing, lists, margins and page breaks to create a hierarchy that stays consistent when the document changes.",
+            "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+            "KEY TERMS — style — a reusable set of formatting rules; header and footer — repeated page information; track changes — records edits for review; accessible structure — headings and labels that assist navigation; paragraph and line spacing — controls text layout. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Draft content and organise it with headings and lists. 2) Apply built-in styles instead of formatting each heading manually. 3) Review spelling, links, page breaks and sensitive details. 4) Save an editable copy and export the requested format. 5) Decide the reader, purpose and required format.",
+            "WORKED EXAMPLE — Apply Heading 1 to a report title section and Heading 2 to its subsections; update the style once to change all matching headings together.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Format a two-page report with a title, three headings, a numbered procedure and a bulleted list.",
+            "COMMON MISTAKES TO AVOID — formatting headings manually without styles; forgetting page numbers or document title; sharing comments or tracked edits unintentionally; using repeated spaces to align content. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why use built-in heading styles? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-word-document-design-lesson-3",
+          "title": "Tables, images and page layout",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use tables for genuinely tabular information, crop images thoughtfully, add useful alternative text and control page orientation, margins and breaks.",
+            "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+            "KEY TERMS — header and footer — repeated page information; track changes — records edits for review; accessible structure — headings and labels that assist navigation; paragraph and line spacing — controls text layout; style — a reusable set of formatting rules. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Apply built-in styles instead of formatting each heading manually. 2) Review spelling, links, page breaks and sensitive details. 3) Save an editable copy and export the requested format. 4) Decide the reader, purpose and required format. 5) Draft content and organise it with headings and lists.",
+            "WORKED EXAMPLE — A meeting report uses a three-column action table for task, owner and deadline rather than aligning entries with spaces.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create an action table and insert a relevant image with a short descriptive alternative text.",
+            "COMMON MISTAKES TO AVOID — forgetting page numbers or document title; sharing comments or tracked edits unintentionally; using repeated spaces to align content; formatting headings manually without styles. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — When is a Word table preferable to aligning text with spaces? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-word-document-design-lesson-4",
+          "title": "References, review and collaboration",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use comments, track changes, citations and review tools to make feedback traceable; accept or reject edits only after evaluating them.",
+            "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+            "KEY TERMS — track changes — records edits for review; accessible structure — headings and labels that assist navigation; paragraph and line spacing — controls text layout; style — a reusable set of formatting rules; header and footer — repeated page information. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Review spelling, links, page breaks and sensitive details. 2) Save an editable copy and export the requested format. 3) Decide the reader, purpose and required format. 4) Draft content and organise it with headings and lists. 5) Apply built-in styles instead of formatting each heading manually.",
+            "WORKED EXAMPLE — A reviewer proposes a changed date. Confirm it against the approved schedule before accepting the tracked change.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Review a sample document with two comments and two tracked changes, then write what should be accepted and why.",
+            "COMMON MISTAKES TO AVOID — sharing comments or tracked edits unintentionally; using repeated spaces to align content; formatting headings manually without styles; forgetting page numbers or document title. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you do before accepting a tracked change to a key fact? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-word-document-design-lesson-5",
+          "title": "CVs, letters and formal reports",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Match document structure and tone to the purpose, present information honestly and use concise sections that help the reader scan key details.",
+            "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+            "KEY TERMS — accessible structure — headings and labels that assist navigation; paragraph and line spacing — controls text layout; style — a reusable set of formatting rules; header and footer — repeated page information; track changes — records edits for review. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Save an editable copy and export the requested format. 2) Decide the reader, purpose and required format. 3) Draft content and organise it with headings and lists. 4) Apply built-in styles instead of formatting each heading manually. 5) Review spelling, links, page breaks and sensitive details.",
+            "WORKED EXAMPLE — A CV uses clear role headings, dates and measurable achievements without inventing qualifications or personal information.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Prepare a one-page CV or formal letter with a clear title, contact details appropriate to the audience and consistent section styles.",
+            "COMMON MISTAKES TO AVOID — using repeated spaces to align content; formatting headings manually without styles; forgetting page numbers or document title; sharing comments or tracked edits unintentionally. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What makes a formal document more useful to its reader? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-word-document-design-lesson-6",
+          "title": "Accessibility, proofing and PDF export",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Run spelling and accessibility checks, inspect page breaks, confirm links and understand that a PDF is often useful for sharing a stable layout.",
+            "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+            "KEY TERMS — paragraph and line spacing — controls text layout; style — a reusable set of formatting rules; header and footer — repeated page information; track changes — records edits for review; accessible structure — headings and labels that assist navigation. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Decide the reader, purpose and required format. 2) Draft content and organise it with headings and lists. 3) Apply built-in styles instead of formatting each heading manually. 4) Review spelling, links, page breaks and sensitive details. 5) Save an editable copy and export the requested format.",
+            "WORKED EXAMPLE — Before sending a report as PDF, reopen the export to check that tables, special characters and page numbers survived conversion.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Export a formatted report as PDF, inspect every page and record one improvement found during review.",
+            "COMMON MISTAKES TO AVOID — formatting headings manually without styles; forgetting page numbers or document title; sharing comments or tracked edits unintentionally; using repeated spaces to align content. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why inspect a PDF after exporting it? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "microsoft-word-document-design-q1",
+          "prompt": "What is the safest way to correct text without retyping the whole document?",
+          "options": [
+            "Select the relevant text, edit it, and review the result.",
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 0,
+          "explanation": "Select the relevant text, edit it, and review the result. Recognise the ribbon, document canvas, insertion point, selection, undo and save controls; editing changes text while formatting changes its appearance."
+        },
+        {
+          "id": "microsoft-word-document-design-q2",
+          "prompt": "Why use built-in heading styles?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "They create consistent formatting and a navigable document structure.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 1,
+          "explanation": "They create consistent formatting and a navigable document structure. Use heading levels, paragraph spacing, lists, margins and page breaks to create a hierarchy that stays consistent when the document changes."
+        },
+        {
+          "id": "microsoft-word-document-design-q3",
+          "prompt": "When is a Word table preferable to aligning text with spaces?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "When information belongs in rows and columns and needs to remain aligned during edits.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 2,
+          "explanation": "When information belongs in rows and columns and needs to remain aligned during edits. Use tables for genuinely tabular information, crop images thoughtfully, add useful alternative text and control page orientation, margins and breaks."
+        },
+        {
+          "id": "microsoft-word-document-design-q4",
+          "prompt": "What should you do before accepting a tracked change to a key fact?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details.",
+            "Verify the change against a reliable source or approved record."
+          ],
+          "answerIndex": 3,
+          "explanation": "Verify the change against a reliable source or approved record. Use comments, track changes, citations and review tools to make feedback traceable; accept or reject edits only after evaluating them."
+        },
+        {
+          "id": "microsoft-word-document-design-q5",
+          "prompt": "What makes a formal document more useful to its reader?",
+          "options": [
+            "Clear structure, accurate details and content matched to the document purpose.",
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 0,
+          "explanation": "Clear structure, accurate details and content matched to the document purpose. Match document structure and tone to the purpose, present information honestly and use concise sections that help the reader scan key details."
+        },
+        {
+          "id": "microsoft-word-document-design-q6",
+          "prompt": "Why inspect a PDF after exporting it?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "To confirm the shared version preserved layout and content correctly.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 1,
+          "explanation": "To confirm the shared version preserved layout and content correctly. Run spelling and accessibility checks, inspect page breaks, confirm links and understand that a PDF is often useful for sharing a stable layout."
+        }
+      ]
+    },
+    {
+      "id": "microsoft-excel-spreadsheet-analysis",
+      "title": "Microsoft Excel & Spreadsheet Analysis",
+      "category": "Digital & Office Skills",
+      "description": "Build spreadsheets with formulas, tables, charts, data checks and clear business analysis.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-lesson-1",
+          "title": "Workbook, cells, rows and data types",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand workbooks, worksheets, cells, ranges and common data types; organise one record per row and one variable per column.",
+            "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+            "KEY TERMS — cell reference — address of a cell such as B2; formula — expression beginning with =; relative reference — moves when a formula is copied; filter — shows rows matching conditions; chart — visual summary of selected data. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define what each row represents and label every column. 2) Enter consistent values, dates, currencies and units. 3) Use formulas and check their cell ranges. 4) Summarise the data and choose a chart that fits the question. 5) Check a sample manually and explain the limits of the result.",
+            "WORKED EXAMPLE — A sales table has Date, Item, Quantity and Unit Price columns, with a single sale on each row.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Enter six fictional sales records and format dates and KES values consistently.",
+            "COMMON MISTAKES TO AVOID — mixing KES and other currencies in one total; including the header row in a formula range; overwriting a formula with a typed number; treating a chart or correlation as proof of cause. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should one row in a simple sales table usually represent? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-lesson-2",
+          "title": "Formulas, references and core functions",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use addition, multiplication, SUM, AVERAGE, MIN, MAX and COUNT; inspect cell references whenever copying a formula.",
+            "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+            "KEY TERMS — formula — expression beginning with =; relative reference — moves when a formula is copied; filter — shows rows matching conditions; chart — visual summary of selected data; cell reference — address of a cell such as B2. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Enter consistent values, dates, currencies and units. 2) Use formulas and check their cell ranges. 3) Summarise the data and choose a chart that fits the question. 4) Check a sample manually and explain the limits of the result. 5) Define what each row represents and label every column.",
+            "WORKED EXAMPLE — If quantity is in C2 and unit price in D2, the row total is =C2*D2; a column total can use =SUM(E2:E7).",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Calculate each line total and grand total for six fictional orders, then verify one row by hand.",
+            "COMMON MISTAKES TO AVOID — including the header row in a formula range; overwriting a formula with a typed number; treating a chart or correlation as proof of cause; mixing KES and other currencies in one total. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why use a formula for a repeated calculation? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-lesson-3",
+          "title": "Sort, filter, validate and clean data",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Detect blanks, duplicates, inconsistent categories and impossible values before interpreting records; use filters and validation carefully.",
+            "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+            "KEY TERMS — relative reference — moves when a formula is copied; filter — shows rows matching conditions; chart — visual summary of selected data; cell reference — address of a cell such as B2; formula — expression beginning with =. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use formulas and check their cell ranges. 2) Summarise the data and choose a chart that fits the question. 3) Check a sample manually and explain the limits of the result. 4) Define what each row represents and label every column. 5) Enter consistent values, dates, currencies and units.",
+            "WORKED EXAMPLE — A list records Nairobi, nairobi and NAIROBI as three spellings of one location; standardise values before counting locations.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Clean a small fictional list containing a duplicate, a blank and inconsistent category names; document each change.",
+            "COMMON MISTAKES TO AVOID — overwriting a formula with a typed number; treating a chart or correlation as proof of cause; mixing KES and other currencies in one total; including the header row in a formula range. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you do before deleting an apparent duplicate? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-lesson-4",
+          "title": "Business calculations and financial models",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Separate revenue, direct costs, gross margin and overheads; label assumptions and keep price, quantity and percentage units clear.",
+            "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+            "KEY TERMS — filter — shows rows matching conditions; chart — visual summary of selected data; cell reference — address of a cell such as B2; formula — expression beginning with =; relative reference — moves when a formula is copied. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Summarise the data and choose a chart that fits the question. 2) Check a sample manually and explain the limits of the result. 3) Define what each row represents and label every column. 4) Enter consistent values, dates, currencies and units. 5) Use formulas and check their cell ranges.",
+            "WORKED EXAMPLE — A product sells for KES 900 and costs KES 600 directly, leaving KES 300 before transport, fees, rent and other overheads.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a product-cost table and calculate sales, direct cost and gross margin using formulas.",
+            "COMMON MISTAKES TO AVOID — treating a chart or correlation as proof of cause; mixing KES and other currencies in one total; including the header row in a formula range; overwriting a formula with a typed number. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Does selling price minus direct cost automatically equal net profit? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-lesson-5",
+          "title": "Charts, dashboards and interpretation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Select chart types that match the data, label axes and units, and write what the chart supports without overstating causation.",
+            "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+            "KEY TERMS — chart — visual summary of selected data; cell reference — address of a cell such as B2; formula — expression beginning with =; relative reference — moves when a formula is copied; filter — shows rows matching conditions. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Check a sample manually and explain the limits of the result. 2) Define what each row represents and label every column. 3) Enter consistent values, dates, currencies and units. 4) Use formulas and check their cell ranges. 5) Summarise the data and choose a chart that fits the question.",
+            "WORKED EXAMPLE — A monthly line chart can show how recorded sales change over time, while a bar chart can compare sales across product categories.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Build a labelled monthly sales chart and write two observations and one limitation.",
+            "COMMON MISTAKES TO AVOID — mixing KES and other currencies in one total; including the header row in a formula range; overwriting a formula with a typed number; treating a chart or correlation as proof of cause. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should be included on a useful chart axis? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-lesson-6",
+          "title": "Auditing formulas and sharing safely",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Trace formulas, check ranges, protect sensitive records, control sharing and preserve an original copy before major changes.",
+            "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+            "KEY TERMS — cell reference — address of a cell such as B2; formula — expression beginning with =; relative reference — moves when a formula is copied; filter — shows rows matching conditions; chart — visual summary of selected data. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define what each row represents and label every column. 2) Enter consistent values, dates, currencies and units. 3) Use formulas and check their cell ranges. 4) Summarise the data and choose a chart that fits the question. 5) Check a sample manually and explain the limits of the result.",
+            "WORKED EXAMPLE — A total that suddenly doubles may include a new row twice; trace the formula range and compare it with the source transaction list.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Audit a prepared workbook containing one deliberately incorrect formula and explain how you found it.",
+            "COMMON MISTAKES TO AVOID — including the header row in a formula range; overwriting a formula with a typed number; treating a chart or correlation as proof of cause; mixing KES and other currencies in one total. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a strong check for a spreadsheet total? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-q1",
+          "prompt": "What should one row in a simple sales table usually represent?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "One complete sale or observation.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 1,
+          "explanation": "One complete sale or observation. Understand workbooks, worksheets, cells, ranges and common data types; organise one record per row and one variable per column."
+        },
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-q2",
+          "prompt": "Why use a formula for a repeated calculation?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "It applies the same rule consistently and updates when referenced values change.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 2,
+          "explanation": "It applies the same rule consistently and updates when referenced values change. Use addition, multiplication, SUM, AVERAGE, MIN, MAX and COUNT; inspect cell references whenever copying a formula."
+        },
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-q3",
+          "prompt": "What should you do before deleting an apparent duplicate?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy.",
+            "Check whether it is truly an accidental duplicate rather than a legitimate repeated transaction."
+          ],
+          "answerIndex": 3,
+          "explanation": "Check whether it is truly an accidental duplicate rather than a legitimate repeated transaction. Detect blanks, duplicates, inconsistent categories and impossible values before interpreting records; use filters and validation carefully."
+        },
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-q4",
+          "prompt": "Does selling price minus direct cost automatically equal net profit?",
+          "options": [
+            "No; overheads and other expenses still need to be deducted.",
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 0,
+          "explanation": "No; overheads and other expenses still need to be deducted. Separate revenue, direct costs, gross margin and overheads; label assumptions and keep price, quantity and percentage units clear."
+        },
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-q5",
+          "prompt": "What should be included on a useful chart axis?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "A clear label and the relevant unit or measurement.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 1,
+          "explanation": "A clear label and the relevant unit or measurement. Select chart types that match the data, label axes and units, and write what the chart supports without overstating causation."
+        },
+        {
+          "id": "microsoft-excel-spreadsheet-analysis-q6",
+          "prompt": "What is a strong check for a spreadsheet total?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Independently recalculate a sample and compare the formula range with the source records.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 2,
+          "explanation": "Independently recalculate a sample and compare the formula range with the source records. Trace formulas, check ranges, protect sensitive records, control sharing and preserve an original copy before major changes."
+        }
+      ]
+    },
+    {
+      "id": "microsoft-powerpoint-presentation-design",
+      "title": "Microsoft PowerPoint & Presentation Design",
+      "category": "Digital & Office Skills",
+      "description": "Create clear slide decks with visual hierarchy, diagrams, charts, speaker notes and accessible design.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "microsoft-powerpoint-presentation-design-lesson-1",
+          "title": "Plan a presentation and structure a story",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose one objective, learn what the audience already knows and arrange content so each slide advances a clear message.",
+            "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+            "KEY TERMS — slide master — reusable layout and theme settings; visual hierarchy — cues showing what matters first; speaker notes — private reminders for the presenter; contrast — difference helping content stand out; transition — effect between slides. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define the audience, purpose and outcome. 2) Outline the message in a logical beginning, middle and end. 3) Use consistent layouts, readable text and meaningful visuals. 4) Rehearse with timing and check data, notes and sources. 5) Test the file on the presentation device and keep a backup.",
+            "WORKED EXAMPLE — A business pitch moves from customer problem to proposed solution, evidence, costs and requested decision.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a six-slide outline using one sentence per slide before opening PowerPoint.",
+            "COMMON MISTAKES TO AVOID — placing complete paragraphs on every slide; using tiny text and decorative effects everywhere; showing charts without units or source notes; relying on a network connection without a backup. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is the best starting point for a new presentation? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-powerpoint-presentation-design-lesson-2",
+          "title": "Layouts, themes and slide masters",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use layouts and slide masters to maintain alignment, fonts, colours and repeated information across slides.",
+            "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+            "KEY TERMS — visual hierarchy — cues showing what matters first; speaker notes — private reminders for the presenter; contrast — difference helping content stand out; transition — effect between slides; slide master — reusable layout and theme settings. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Outline the message in a logical beginning, middle and end. 2) Use consistent layouts, readable text and meaningful visuals. 3) Rehearse with timing and check data, notes and sources. 4) Test the file on the presentation device and keep a backup. 5) Define the audience, purpose and outcome.",
+            "WORKED EXAMPLE — Changing the title style once in the master helps the whole deck remain visually consistent.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a title slide, a section slide and a content slide from the same theme.",
+            "COMMON MISTAKES TO AVOID — using tiny text and decorative effects everywhere; showing charts without units or source notes; relying on a network connection without a backup; placing complete paragraphs on every slide. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What does a slide master help you control? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-powerpoint-presentation-design-lesson-3",
+          "title": "Images, diagrams, charts and data",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose visuals that explain relationships, cite the origin of external material and ensure charts use honest scales and labels.",
+            "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+            "KEY TERMS — speaker notes — private reminders for the presenter; contrast — difference helping content stand out; transition — effect between slides; slide master — reusable layout and theme settings; visual hierarchy — cues showing what matters first. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use consistent layouts, readable text and meaningful visuals. 2) Rehearse with timing and check data, notes and sources. 3) Test the file on the presentation device and keep a backup. 4) Define the audience, purpose and outcome. 5) Outline the message in a logical beginning, middle and end.",
+            "WORKED EXAMPLE — A process diagram can show a five-step workflow more clearly than five dense text paragraphs.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Replace one text-heavy slide with a simple diagram or labelled chart and write its main message.",
+            "COMMON MISTAKES TO AVOID — showing charts without units or source notes; relying on a network connection without a backup; placing complete paragraphs on every slide; using tiny text and decorative effects everywhere. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What makes a chart trustworthy to an audience? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-powerpoint-presentation-design-lesson-4",
+          "title": "Animation, transitions and accessibility",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use motion only when it improves explanation; ensure contrast, reading order, alternative text and legibility are adequate.",
+            "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+            "KEY TERMS — contrast — difference helping content stand out; transition — effect between slides; slide master — reusable layout and theme settings; visual hierarchy — cues showing what matters first; speaker notes — private reminders for the presenter. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Rehearse with timing and check data, notes and sources. 2) Test the file on the presentation device and keep a backup. 3) Define the audience, purpose and outcome. 4) Outline the message in a logical beginning, middle and end. 5) Use consistent layouts, readable text and meaningful visuals.",
+            "WORKED EXAMPLE — Reveal a process one stage at a time only when the order helps the audience understand it.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Review a sample deck and remove effects that distract from the main idea.",
+            "COMMON MISTAKES TO AVOID — relying on a network connection without a backup; placing complete paragraphs on every slide; using tiny text and decorative effects everywhere; showing charts without units or source notes. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — When should an animation be removed? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-powerpoint-presentation-design-lesson-5",
+          "title": "Speaker notes, rehearsal and delivery",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use notes to support delivery, practise aloud, manage time and plan answers to likely questions.",
+            "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+            "KEY TERMS — transition — effect between slides; slide master — reusable layout and theme settings; visual hierarchy — cues showing what matters first; speaker notes — private reminders for the presenter; contrast — difference helping content stand out. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Test the file on the presentation device and keep a backup. 2) Define the audience, purpose and outcome. 3) Outline the message in a logical beginning, middle and end. 4) Use consistent layouts, readable text and meaningful visuals. 5) Rehearse with timing and check data, notes and sources.",
+            "WORKED EXAMPLE — A five-minute talk needs a shorter set of slides and rehearsed transitions rather than rushing through twenty slides.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Rehearse a three-slide explanation and time each section; revise what is unclear.",
+            "COMMON MISTAKES TO AVOID — placing complete paragraphs on every slide; using tiny text and decorative effects everywhere; showing charts without units or source notes; relying on a network connection without a backup. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why rehearse aloud rather than only reading slides silently? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-powerpoint-presentation-design-lesson-6",
+          "title": "Export, present and troubleshoot",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Test fonts, media, links, aspect ratio and presentation mode; export a PDF backup where appropriate.",
+            "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+            "KEY TERMS — slide master — reusable layout and theme settings; visual hierarchy — cues showing what matters first; speaker notes — private reminders for the presenter; contrast — difference helping content stand out; transition — effect between slides. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define the audience, purpose and outcome. 2) Outline the message in a logical beginning, middle and end. 3) Use consistent layouts, readable text and meaningful visuals. 4) Rehearse with timing and check data, notes and sources. 5) Test the file on the presentation device and keep a backup.",
+            "WORKED EXAMPLE — A video that works on the creator's laptop may fail offline, so include a still image or backup explanation.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Export the deck to PDF and check every slide plus the order of notes and sources.",
+            "COMMON MISTAKES TO AVOID — using tiny text and decorative effects everywhere; showing charts without units or source notes; relying on a network connection without a backup; placing complete paragraphs on every slide. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a sensible backup for an important presentation? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "microsoft-powerpoint-presentation-design-q1",
+          "prompt": "What is the best starting point for a new presentation?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Define the audience, purpose and main takeaway.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 2,
+          "explanation": "Define the audience, purpose and main takeaway. Choose one objective, learn what the audience already knows and arrange content so each slide advances a clear message."
+        },
+        {
+          "id": "microsoft-powerpoint-presentation-design-q2",
+          "prompt": "What does a slide master help you control?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details.",
+            "Consistent repeated design and layout across the deck."
+          ],
+          "answerIndex": 3,
+          "explanation": "Consistent repeated design and layout across the deck. Use layouts and slide masters to maintain alignment, fonts, colours and repeated information across slides."
+        },
+        {
+          "id": "microsoft-powerpoint-presentation-design-q3",
+          "prompt": "What makes a chart trustworthy to an audience?",
+          "options": [
+            "Clear labels, correct data, suitable scales and relevant source notes.",
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 0,
+          "explanation": "Clear labels, correct data, suitable scales and relevant source notes. Choose visuals that explain relationships, cite the origin of external material and ensure charts use honest scales and labels."
+        },
+        {
+          "id": "microsoft-powerpoint-presentation-design-q4",
+          "prompt": "When should an animation be removed?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "When it distracts or adds no explanatory value.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 1,
+          "explanation": "When it distracts or adds no explanatory value. Use motion only when it improves explanation; ensure contrast, reading order, alternative text and legibility are adequate."
+        },
+        {
+          "id": "microsoft-powerpoint-presentation-design-q5",
+          "prompt": "Why rehearse aloud rather than only reading slides silently?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "It reveals timing, unclear transitions and explanations that need improvement.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 2,
+          "explanation": "It reveals timing, unclear transitions and explanations that need improvement. Use notes to support delivery, practise aloud, manage time and plan answers to likely questions."
+        },
+        {
+          "id": "microsoft-powerpoint-presentation-design-q6",
+          "prompt": "What is a sensible backup for an important presentation?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details.",
+            "A tested PDF or other approved copy stored where it is accessible offline."
+          ],
+          "answerIndex": 3,
+          "explanation": "A tested PDF or other approved copy stored where it is accessible offline. Test fonts, media, links, aspect ratio and presentation mode; export a PDF backup where appropriate."
+        }
+      ]
+    },
+    {
+      "id": "microsoft-outlook-email-calendar",
+      "title": "Microsoft Outlook: Email, Calendar & Tasks",
+      "category": "Digital & Office Skills",
+      "description": "Manage professional email, contacts, meetings, calendars, tasks and follow-up safely.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "microsoft-outlook-email-calendar-lesson-1",
+          "title": "Email layout, folders and search",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Recognise Inbox, Sent Items, Drafts, folders, search and conversation threads; file messages so important work can be retrieved.",
+            "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+            "KEY TERMS — To and Cc — primary recipients and those copied for awareness; Bcc — recipient addresses hidden from other recipients; calendar invitation — a scheduled event sent to attendees; recurrence — a repeated scheduled event; flag or task — a reminder to act or follow up. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Confirm the request, recipient and required action. 2) Write a meaningful subject and concise message. 3) Check recipients, attachments and sensitivity before sending. 4) Schedule meetings with correct time, duration and attendees. 5) Track follow-up and close completed tasks.",
+            "WORKED EXAMPLE — Search by sender plus a distinctive subject word rather than scrolling through hundreds of messages.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a small folder system and find a sample message using sender, date and keyword.",
+            "COMMON MISTAKES TO AVOID — replying to all without checking recipients; attaching the wrong version; forgetting the time zone or meeting link; sending confidential details to broad groups. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a useful way to find a specific older email? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-outlook-email-calendar-lesson-2",
+          "title": "Professional messages and attachments",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Write a subject that names the topic, put the requested action near the top, check tone and verify attachments before sending.",
+            "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+            "KEY TERMS — Bcc — recipient addresses hidden from other recipients; calendar invitation — a scheduled event sent to attendees; recurrence — a repeated scheduled event; flag or task — a reminder to act or follow up; To and Cc — primary recipients and those copied for awareness. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Write a meaningful subject and concise message. 2) Check recipients, attachments and sensitivity before sending. 3) Schedule meetings with correct time, duration and attendees. 4) Track follow-up and close completed tasks. 5) Confirm the request, recipient and required action.",
+            "WORKED EXAMPLE — A message asking for approval names the attached document, gives the deadline and states the exact decision needed.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draft a concise request email and perform a recipient, attachment, spelling and confidentiality check.",
+            "COMMON MISTAKES TO AVOID — attaching the wrong version; forgetting the time zone or meeting link; sending confidential details to broad groups; replying to all without checking recipients. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you check just before sending an attachment? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-outlook-email-calendar-lesson-3",
+          "title": "Calendar events and scheduling",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Schedule events using the correct date, duration, time zone, location or meeting link and attendee list.",
+            "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+            "KEY TERMS — calendar invitation — a scheduled event sent to attendees; recurrence — a repeated scheduled event; flag or task — a reminder to act or follow up; To and Cc — primary recipients and those copied for awareness; Bcc — recipient addresses hidden from other recipients. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Check recipients, attachments and sensitivity before sending. 2) Schedule meetings with correct time, duration and attendees. 3) Track follow-up and close completed tasks. 4) Confirm the request, recipient and required action. 5) Write a meaningful subject and concise message.",
+            "WORKED EXAMPLE — For a Nairobi meeting with a remote colleague, verify both local times and send a calendar invitation rather than an ambiguous text time.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a mock 30-minute meeting, add the agenda and invite only the people who need to attend.",
+            "COMMON MISTAKES TO AVOID — forgetting the time zone or meeting link; sending confidential details to broad groups; replying to all without checking recipients; attaching the wrong version. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What prevents confusion when scheduling across regions? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-outlook-email-calendar-lesson-4",
+          "title": "Tasks, flags and follow-up",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Convert promises and requests into clear actions with an owner, deadline and reminder; review overdue work regularly.",
+            "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+            "KEY TERMS — recurrence — a repeated scheduled event; flag or task — a reminder to act or follow up; To and Cc — primary recipients and those copied for awareness; Bcc — recipient addresses hidden from other recipients; calendar invitation — a scheduled event sent to attendees. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Schedule meetings with correct time, duration and attendees. 2) Track follow-up and close completed tasks. 3) Confirm the request, recipient and required action. 4) Write a meaningful subject and concise message. 5) Check recipients, attachments and sensitivity before sending.",
+            "WORKED EXAMPLE — After a meeting, make a task that says who will send the signed report and by what date.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Turn three sample emails into tasks and assign realistic reminders.",
+            "COMMON MISTAKES TO AVOID — sending confidential details to broad groups; replying to all without checking recipients; attaching the wrong version; forgetting the time zone or meeting link. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What makes a task actionable? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-outlook-email-calendar-lesson-5",
+          "title": "Contacts, rules and productivity",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Organise contacts, use rules carefully and avoid automation that may hide urgent or suspicious messages.",
+            "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+            "KEY TERMS — flag or task — a reminder to act or follow up; To and Cc — primary recipients and those copied for awareness; Bcc — recipient addresses hidden from other recipients; calendar invitation — a scheduled event sent to attendees; recurrence — a repeated scheduled event. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Track follow-up and close completed tasks. 2) Confirm the request, recipient and required action. 3) Write a meaningful subject and concise message. 4) Check recipients, attachments and sensitivity before sending. 5) Schedule meetings with correct time, duration and attendees.",
+            "WORKED EXAMPLE — A rule can move newsletters to a folder, but payment requests should still be checked rather than automatically trusted.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Design two safe rules for non-urgent mail and describe how you would test them.",
+            "COMMON MISTAKES TO AVOID — replying to all without checking recipients; attaching the wrong version; forgetting the time zone or meeting link; sending confidential details to broad groups. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why test a mail rule before relying on it? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-outlook-email-calendar-lesson-6",
+          "title": "Email security and etiquette",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Recognise phishing, inspect links, verify unusual payment or password requests and use Bcc when recipient privacy requires it.",
+            "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+            "KEY TERMS — To and Cc — primary recipients and those copied for awareness; Bcc — recipient addresses hidden from other recipients; calendar invitation — a scheduled event sent to attendees; recurrence — a repeated scheduled event; flag or task — a reminder to act or follow up. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Confirm the request, recipient and required action. 2) Write a meaningful subject and concise message. 3) Check recipients, attachments and sensitivity before sending. 4) Schedule meetings with correct time, duration and attendees. 5) Track follow-up and close completed tasks.",
+            "WORKED EXAMPLE — A message requesting a one-time code is verified through the official service rather than answered directly.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Review a fictional suspicious message and list the warning signs and safe reporting steps.",
+            "COMMON MISTAKES TO AVOID — attaching the wrong version; forgetting the time zone or meeting link; sending confidential details to broad groups; replying to all without checking recipients. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — How should you respond to an unexpected request for a one-time code? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "microsoft-outlook-email-calendar-q1",
+          "prompt": "What is a useful way to find a specific older email?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "Search by relevant sender, subject keyword or date."
+          ],
+          "answerIndex": 3,
+          "explanation": "Search by relevant sender, subject keyword or date. Recognise Inbox, Sent Items, Drafts, folders, search and conversation threads; file messages so important work can be retrieved."
+        },
+        {
+          "id": "microsoft-outlook-email-calendar-q2",
+          "prompt": "What should you check just before sending an attachment?",
+          "options": [
+            "Confirm the correct file and version are attached and addressed to the intended recipients.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "Confirm the correct file and version are attached and addressed to the intended recipients. Write a subject that names the topic, put the requested action near the top, check tone and verify attachments before sending."
+        },
+        {
+          "id": "microsoft-outlook-email-calendar-q3",
+          "prompt": "What prevents confusion when scheduling across regions?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Confirming the date, time zone and duration explicitly.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "Confirming the date, time zone and duration explicitly. Schedule events using the correct date, duration, time zone, location or meeting link and attendee list."
+        },
+        {
+          "id": "microsoft-outlook-email-calendar-q4",
+          "prompt": "What makes a task actionable?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "A clear outcome, responsible person and due date.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "A clear outcome, responsible person and due date. Convert promises and requests into clear actions with an owner, deadline and reminder; review overdue work regularly."
+        },
+        {
+          "id": "microsoft-outlook-email-calendar-q5",
+          "prompt": "Why test a mail rule before relying on it?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "To ensure important messages are not hidden or moved incorrectly."
+          ],
+          "answerIndex": 3,
+          "explanation": "To ensure important messages are not hidden or moved incorrectly. Organise contacts, use rules carefully and avoid automation that may hide urgent or suspicious messages."
+        },
+        {
+          "id": "microsoft-outlook-email-calendar-q6",
+          "prompt": "How should you respond to an unexpected request for a one-time code?",
+          "options": [
+            "Do not share it; verify through an official channel.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "Do not share it; verify through an official channel. Recognise phishing, inspect links, verify unusual payment or password requests and use Bcc when recipient privacy requires it."
+        }
+      ]
+    },
+    {
+      "id": "microsoft-access-database-fundamentals",
+      "title": "Microsoft Access & Database Fundamentals",
+      "category": "Digital & Office Skills",
+      "description": "Learn tables, fields, relationships, queries, forms and reports using responsible sample data.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "microsoft-access-database-fundamentals-lesson-1",
+          "title": "Database concepts and table design",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Identify entities, records, fields, data types and unique identifiers; one field should store one clearly defined value.",
+            "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+            "KEY TERMS — table — records arranged in fields; primary key — field uniquely identifying a record; foreign key — field referring to a related table; query — request to select or change data; relationship — defined link between tables. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define what each record represents. 2) Create tables with clear fields and appropriate data types. 3) Choose a primary key and define valid relationships. 4) Use queries to filter or calculate information. 5) Test forms and reports with fictional data before use.",
+            "WORKED EXAMPLE — A customers table stores one customer per row, with a unique CustomerID and separate name, phone and email fields.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Design two fictional tables for customers and orders and label each field's purpose and type.",
+            "COMMON MISTAKES TO AVOID — putting several values in one field; using names as if they are unique keys; creating duplicate copies of the same fact; exposing personal data through reports or exports. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why is a unique ID often better than using a person's name as the primary key? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-access-database-fundamentals-lesson-2",
+          "title": "Primary keys and relationships",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use primary and foreign keys to link tables and understand one-to-many relationships without copying customer details into every order.",
+            "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+            "KEY TERMS — primary key — field uniquely identifying a record; foreign key — field referring to a related table; query — request to select or change data; relationship — defined link between tables; table — records arranged in fields. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Create tables with clear fields and appropriate data types. 2) Choose a primary key and define valid relationships. 3) Use queries to filter or calculate information. 4) Test forms and reports with fictional data before use. 5) Define what each record represents.",
+            "WORKED EXAMPLE — One customer can have many orders; each order stores CustomerID to point back to the customer record.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw a relationship between Customers and Orders and explain which field links them.",
+            "COMMON MISTAKES TO AVOID — using names as if they are unique keys; creating duplicate copies of the same fact; exposing personal data through reports or exports; putting several values in one field. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — In a one-to-many relationship, where is the foreign key normally placed? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-access-database-fundamentals-lesson-3",
+          "title": "Queries, filters and calculations",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Retrieve only the records and fields needed; use criteria and calculated fields, and confirm results on known sample records.",
+            "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+            "KEY TERMS — foreign key — field referring to a related table; query — request to select or change data; relationship — defined link between tables; table — records arranged in fields; primary key — field uniquely identifying a record. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Choose a primary key and define valid relationships. 2) Use queries to filter or calculate information. 3) Test forms and reports with fictional data before use. 4) Define what each record represents. 5) Create tables with clear fields and appropriate data types.",
+            "WORKED EXAMPLE — A query filters orders to the current month and sums amounts, while preserving the underlying transaction records.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a plain-language query plan for unpaid orders above a chosen threshold.",
+            "COMMON MISTAKES TO AVOID — creating duplicate copies of the same fact; exposing personal data through reports or exports; putting several values in one field; using names as if they are unique keys. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is the purpose of a query? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-access-database-fundamentals-lesson-4",
+          "title": "Forms and reliable data entry",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use forms to guide input, add validation rules and provide clear labels to reduce incomplete or inconsistent records.",
+            "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+            "KEY TERMS — query — request to select or change data; relationship — defined link between tables; table — records arranged in fields; primary key — field uniquely identifying a record; foreign key — field referring to a related table. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use queries to filter or calculate information. 2) Test forms and reports with fictional data before use. 3) Define what each record represents. 4) Create tables with clear fields and appropriate data types. 5) Choose a primary key and define valid relationships.",
+            "WORKED EXAMPLE — A date field requires a valid date and an order amount cannot be negative unless a documented adjustment type permits it.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Sketch a data-entry form with required fields, validation and a clear error message.",
+            "COMMON MISTAKES TO AVOID — exposing personal data through reports or exports; putting several values in one field; using names as if they are unique keys; creating duplicate copies of the same fact. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — How can a form reduce data-entry errors? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-access-database-fundamentals-lesson-5",
+          "title": "Reports, totals and business questions",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose a report layout that answers a question, group and total data carefully and show the reporting period and filters.",
+            "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+            "KEY TERMS — relationship — defined link between tables; table — records arranged in fields; primary key — field uniquely identifying a record; foreign key — field referring to a related table; query — request to select or change data. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Test forms and reports with fictional data before use. 2) Define what each record represents. 3) Create tables with clear fields and appropriate data types. 4) Choose a primary key and define valid relationships. 5) Use queries to filter or calculate information.",
+            "WORKED EXAMPLE — A monthly order report states its date range and total value so it is not mistaken for a year-to-date report.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Plan a one-page report showing order date, status, amount and a checked monthly total.",
+            "COMMON MISTAKES TO AVOID — putting several values in one field; using names as if they are unique keys; creating duplicate copies of the same fact; exposing personal data through reports or exports. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why should a report show its period or filter criteria? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-access-database-fundamentals-lesson-6",
+          "title": "Database testing, backups and privacy",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Test expected and invalid inputs, preserve backups, restrict access and avoid using real personal data in practice exercises.",
+            "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+            "KEY TERMS — table — records arranged in fields; primary key — field uniquely identifying a record; foreign key — field referring to a related table; query — request to select or change data; relationship — defined link between tables. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define what each record represents. 2) Create tables with clear fields and appropriate data types. 3) Choose a primary key and define valid relationships. 4) Use queries to filter or calculate information. 5) Test forms and reports with fictional data before use.",
+            "WORKED EXAMPLE — Before distributing a customer export, confirm that every included field is needed and that the recipient is authorised.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a database test checklist covering duplicate records, missing IDs, incorrect values, access and backup restoration.",
+            "COMMON MISTAKES TO AVOID — using names as if they are unique keys; creating duplicate copies of the same fact; exposing personal data through reports or exports; putting several values in one field. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a responsible dataset for beginner practice? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "microsoft-access-database-fundamentals-q1",
+          "prompt": "Why is a unique ID often better than using a person's name as the primary key?",
+          "options": [
+            "Names can repeat or change, while a stable ID uniquely identifies the record.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "Names can repeat or change, while a stable ID uniquely identifies the record. Identify entities, records, fields, data types and unique identifiers; one field should store one clearly defined value."
+        },
+        {
+          "id": "microsoft-access-database-fundamentals-q2",
+          "prompt": "In a one-to-many relationship, where is the foreign key normally placed?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "In the many-side table, pointing to the one-side primary key.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "In the many-side table, pointing to the one-side primary key. Use primary and foreign keys to link tables and understand one-to-many relationships without copying customer details into every order."
+        },
+        {
+          "id": "microsoft-access-database-fundamentals-q3",
+          "prompt": "What is the purpose of a query?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "To retrieve or calculate information that meets defined conditions.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "To retrieve or calculate information that meets defined conditions. Retrieve only the records and fields needed; use criteria and calculated fields, and confirm results on known sample records."
+        },
+        {
+          "id": "microsoft-access-database-fundamentals-q4",
+          "prompt": "How can a form reduce data-entry errors?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "By using clear labels, sensible defaults and validation rules."
+          ],
+          "answerIndex": 3,
+          "explanation": "By using clear labels, sensible defaults and validation rules. Use forms to guide input, add validation rules and provide clear labels to reduce incomplete or inconsistent records."
+        },
+        {
+          "id": "microsoft-access-database-fundamentals-q5",
+          "prompt": "Why should a report show its period or filter criteria?",
+          "options": [
+            "Readers need to understand which records the totals represent.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "Readers need to understand which records the totals represent. Choose a report layout that answers a question, group and total data carefully and show the reporting period and filters."
+        },
+        {
+          "id": "microsoft-access-database-fundamentals-q6",
+          "prompt": "What is a responsible dataset for beginner practice?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Fictional or properly anonymised sample data.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "Fictional or properly anonymised sample data. Test expected and invalid inputs, preserve backups, restrict access and avoid using real personal data in practice exercises."
+        }
+      ]
+    },
+    {
+      "id": "onenote-digital-note-taking",
+      "title": "OneNote & Digital Note Organisation",
+      "category": "Digital & Office Skills",
+      "description": "Capture class and work notes, organise sections, search material and turn notes into review tasks.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "onenote-digital-note-taking-lesson-1",
+          "title": "Notebooks, sections and page structure",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose a simple hierarchy based on subject or project, not an unnecessarily deep structure; use titles that search can find.",
+            "WHY THIS MATTERS — Digital note-taking is useful when notes can be found and used later. Organise notebooks, sections and pages by subject or project, record the source and date of important facts, and turn promises into tasks. A good note is concise enough to review but detailed enough to reconstruct the idea accurately.",
+            "KEY TERMS — notebook — container for related notes; section — group of pages in a notebook; page — individual note or record; tag — label used to classify or locate content; retrieval practice — recalling information without looking. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Choose a notebook and section that match the subject. 2) Give each page a searchable title and date where useful. 3) Capture key ideas in your own words and cite sources. 4) Tag decisions and tasks with the next action and deadline. 5) Review, summarise and practise recall at a later time.",
+            "WORKED EXAMPLE — A study notebook has separate sections for Mathematics, ICT and Research, each with dated lesson pages.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture idea → 2. Organise notes → 3. Link evidence → 4. Review later → 5. Recall and apply. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a mock hierarchy for one course and give three pages searchable titles.",
+            "COMMON MISTAKES TO AVOID — storing everything on one unstructured page; copying large passages without noting the source; using tags inconsistently; assuming saved notes guarantee long-term learning. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What helps you find a note again quickly? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "onenote-digital-note-taking-lesson-2",
+          "title": "Capture useful class and meeting notes",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Record main ideas, decisions, evidence, questions and actions instead of attempting to transcribe everything word for word.",
+            "WHY THIS MATTERS — Digital note-taking is useful when notes can be found and used later. Organise notebooks, sections and pages by subject or project, record the source and date of important facts, and turn promises into tasks. A good note is concise enough to review but detailed enough to reconstruct the idea accurately.",
+            "KEY TERMS — section — group of pages in a notebook; page — individual note or record; tag — label used to classify or locate content; retrieval practice — recalling information without looking; notebook — container for related notes. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Give each page a searchable title and date where useful. 2) Capture key ideas in your own words and cite sources. 3) Tag decisions and tasks with the next action and deadline. 4) Review, summarise and practise recall at a later time. 5) Choose a notebook and section that match the subject.",
+            "WORKED EXAMPLE — A meeting note separates the decision taken from the action owner and due date.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture idea → 2. Organise notes → 3. Link evidence → 4. Review later → 5. Recall and apply. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Turn a short reading passage into five bullet points and one question for later review.",
+            "COMMON MISTAKES TO AVOID — copying large passages without noting the source; using tags inconsistently; assuming saved notes guarantee long-term learning; storing everything on one unstructured page. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a useful way to write study notes? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "onenote-digital-note-taking-lesson-3",
+          "title": "Search, tags and linking sources",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use a small consistent tag set and retain links, source names or page references for facts that must later be verified.",
+            "WHY THIS MATTERS — Digital note-taking is useful when notes can be found and used later. Organise notebooks, sections and pages by subject or project, record the source and date of important facts, and turn promises into tasks. A good note is concise enough to review but detailed enough to reconstruct the idea accurately.",
+            "KEY TERMS — page — individual note or record; tag — label used to classify or locate content; retrieval practice — recalling information without looking; notebook — container for related notes; section — group of pages in a notebook. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Capture key ideas in your own words and cite sources. 2) Tag decisions and tasks with the next action and deadline. 3) Review, summarise and practise recall at a later time. 4) Choose a notebook and section that match the subject. 5) Give each page a searchable title and date where useful.",
+            "WORKED EXAMPLE — Tag an unresolved question as Follow up and record the source link next to a statistic.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture idea → 2. Organise notes → 3. Link evidence → 4. Review later → 5. Recall and apply. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create five sample notes and retrieve the one containing a keyword, tag and source reference.",
+            "COMMON MISTAKES TO AVOID — using tags inconsistently; assuming saved notes guarantee long-term learning; storing everything on one unstructured page; copying large passages without noting the source. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why record a source next to a factual note? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "onenote-digital-note-taking-lesson-4",
+          "title": "Images, handwritten notes and diagrams",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use screenshots or sketches to explain structure, add labels and alternative descriptions where available, and avoid capturing sensitive screens.",
+            "WHY THIS MATTERS — Digital note-taking is useful when notes can be found and used later. Organise notebooks, sections and pages by subject or project, record the source and date of important facts, and turn promises into tasks. A good note is concise enough to review but detailed enough to reconstruct the idea accurately.",
+            "KEY TERMS — tag — label used to classify or locate content; retrieval practice — recalling information without looking; notebook — container for related notes; section — group of pages in a notebook; page — individual note or record. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Tag decisions and tasks with the next action and deadline. 2) Review, summarise and practise recall at a later time. 3) Choose a notebook and section that match the subject. 4) Give each page a searchable title and date where useful. 5) Capture key ideas in your own words and cite sources.",
+            "WORKED EXAMPLE — A labelled diagram of a computer shows keyboard input, CPU processing, RAM and storage without needing a long paragraph.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture idea → 2. Organise notes → 3. Link evidence → 4. Review later → 5. Recall and apply. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw or insert a simple process diagram and write two sentences explaining its arrows.",
+            "COMMON MISTAKES TO AVOID — assuming saved notes guarantee long-term learning; storing everything on one unstructured page; copying large passages without noting the source; using tags inconsistently. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What makes a diagram useful for learning? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "onenote-digital-note-taking-lesson-5",
+          "title": "Tasks, meeting actions and collaboration",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Separate a note's information from commitments that need owners, due dates and follow-up; use sharing permissions thoughtfully.",
+            "WHY THIS MATTERS — Digital note-taking is useful when notes can be found and used later. Organise notebooks, sections and pages by subject or project, record the source and date of important facts, and turn promises into tasks. A good note is concise enough to review but detailed enough to reconstruct the idea accurately.",
+            "KEY TERMS — retrieval practice — recalling information without looking; notebook — container for related notes; section — group of pages in a notebook; page — individual note or record; tag — label used to classify or locate content. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Review, summarise and practise recall at a later time. 2) Choose a notebook and section that match the subject. 3) Give each page a searchable title and date where useful. 4) Capture key ideas in your own words and cite sources. 5) Tag decisions and tasks with the next action and deadline.",
+            "WORKED EXAMPLE — A shared project note records action, owner, deadline and status rather than an unassigned list of promises.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture idea → 2. Organise notes → 3. Link evidence → 4. Review later → 5. Recall and apply. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a meeting page with decisions and an action list, then assign a responsible role to each action.",
+            "COMMON MISTAKES TO AVOID — storing everything on one unstructured page; copying large passages without noting the source; using tags inconsistently; assuming saved notes guarantee long-term learning. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What information should accompany an action item? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "onenote-digital-note-taking-lesson-6",
+          "title": "Review notes for durable learning",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use spaced review and active recall; update old notes with corrections rather than treating copied material as mastered knowledge.",
+            "WHY THIS MATTERS — Digital note-taking is useful when notes can be found and used later. Organise notebooks, sections and pages by subject or project, record the source and date of important facts, and turn promises into tasks. A good note is concise enough to review but detailed enough to reconstruct the idea accurately.",
+            "KEY TERMS — notebook — container for related notes; section — group of pages in a notebook; page — individual note or record; tag — label used to classify or locate content; retrieval practice — recalling information without looking. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Choose a notebook and section that match the subject. 2) Give each page a searchable title and date where useful. 3) Capture key ideas in your own words and cite sources. 4) Tag decisions and tasks with the next action and deadline. 5) Review, summarise and practise recall at a later time.",
+            "WORKED EXAMPLE — The next day, hide the notes and explain a diagram from memory, then check what was missed.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture idea → 2. Organise notes → 3. Link evidence → 4. Review later → 5. Recall and apply. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a three-session revision plan with recall questions and a correction log.",
+            "COMMON MISTAKES TO AVOID — copying large passages without noting the source; using tags inconsistently; assuming saved notes guarantee long-term learning; storing everything on one unstructured page. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is active recall? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "onenote-digital-note-taking-q1",
+          "prompt": "What helps you find a note again quickly?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "A clear page title and consistent notebook or section organisation.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "A clear page title and consistent notebook or section organisation. Choose a simple hierarchy based on subject or project, not an unnecessarily deep structure; use titles that search can find."
+        },
+        {
+          "id": "onenote-digital-note-taking-q2",
+          "prompt": "What is a useful way to write study notes?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Summarise key ideas in your own words and record questions or evidence.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "Summarise key ideas in your own words and record questions or evidence. Record main ideas, decisions, evidence, questions and actions instead of attempting to transcribe everything word for word."
+        },
+        {
+          "id": "onenote-digital-note-taking-q3",
+          "prompt": "Why record a source next to a factual note?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "So you can verify the claim and return to its context."
+          ],
+          "answerIndex": 3,
+          "explanation": "So you can verify the claim and return to its context. Use a small consistent tag set and retain links, source names or page references for facts that must later be verified."
+        },
+        {
+          "id": "onenote-digital-note-taking-q4",
+          "prompt": "What makes a diagram useful for learning?",
+          "options": [
+            "Labels and relationships make the concept easier to reconstruct and explain.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "Labels and relationships make the concept easier to reconstruct and explain. Use screenshots or sketches to explain structure, add labels and alternative descriptions where available, and avoid capturing sensitive screens."
+        },
+        {
+          "id": "onenote-digital-note-taking-q5",
+          "prompt": "What information should accompany an action item?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "A clear next action, a responsible owner and a due date.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "A clear next action, a responsible owner and a due date. Separate a note's information from commitments that need owners, due dates and follow-up; use sharing permissions thoughtfully."
+        },
+        {
+          "id": "onenote-digital-note-taking-q6",
+          "prompt": "What is active recall?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Trying to retrieve an idea from memory before checking the notes.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "Trying to retrieve an idea from memory before checking the notes. Use spaced review and active recall; update old notes with corrections rather than treating copied material as mastered knowledge."
+        }
+      ]
+    },
+    {
+      "id": "microsoft-teams-collaboration",
+      "title": "Microsoft Teams & Online Collaboration",
+      "category": "Digital & Office Skills",
+      "description": "Use chats, channels, meetings, shared files and tasks to collaborate professionally and safely.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "microsoft-teams-collaboration-lesson-1",
+          "title": "Teams, channels and chat etiquette",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose a shared channel for team-wide context and direct chat for appropriate private coordination; write clear, respectful messages.",
+            "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+            "KEY TERMS — channel — shared topic space in a team; chat — direct or small-group conversation; meeting invite — scheduled event information; mention — notification directed to a person or group; permission — controls who can view or edit a resource. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Select the right team, channel or private chat. 2) Write enough context for recipients to understand the request. 3) Use meetings for discussion and record decisions afterwards. 4) Share links with the smallest appropriate audience. 5) Assign actions with owners and deadlines, then follow up.",
+            "WORKED EXAMPLE — A project update goes in the project channel so future teammates can find it instead of remaining hidden in one person's chat.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draft one channel update and one direct request and explain why each belongs in that location.",
+            "COMMON MISTAKES TO AVOID — putting sensitive matters in a public channel; sharing links with broader access than needed; scheduling without an agenda; leaving meeting decisions without owners. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Where should a decision relevant to the whole project normally be recorded? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-teams-collaboration-lesson-2",
+          "title": "Meetings, scheduling and participation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Send a purpose, agenda, time and expected preparation; keep discussion focused and make space for participants to contribute.",
+            "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+            "KEY TERMS — chat — direct or small-group conversation; meeting invite — scheduled event information; mention — notification directed to a person or group; permission — controls who can view or edit a resource; channel — shared topic space in a team. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Write enough context for recipients to understand the request. 2) Use meetings for discussion and record decisions afterwards. 3) Share links with the smallest appropriate audience. 4) Assign actions with owners and deadlines, then follow up. 5) Select the right team, channel or private chat.",
+            "WORKED EXAMPLE — A 30-minute meeting lists two decisions to make and sends the relevant document before the meeting.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a short meeting invitation with an agenda, link, duration and preparation request.",
+            "COMMON MISTAKES TO AVOID — sharing links with broader access than needed; scheduling without an agenda; leaving meeting decisions without owners; putting sensitive matters in a public channel. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should a useful meeting invitation include besides the time? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-teams-collaboration-lesson-3",
+          "title": "File sharing and co-authoring",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand edit versus view access, maintain version context and use shared files rather than sending unclear duplicate versions.",
+            "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+            "KEY TERMS — meeting invite — scheduled event information; mention — notification directed to a person or group; permission — controls who can view or edit a resource; channel — shared topic space in a team; chat — direct or small-group conversation. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use meetings for discussion and record decisions afterwards. 2) Share links with the smallest appropriate audience. 3) Assign actions with owners and deadlines, then follow up. 4) Select the right team, channel or private chat. 5) Write enough context for recipients to understand the request.",
+            "WORKED EXAMPLE — Give a reviewer edit access to one draft rather than making a folder containing several files named final.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Design a safe share workflow for a draft document and a final report.",
+            "COMMON MISTAKES TO AVOID — scheduling without an agenda; leaving meeting decisions without owners; putting sensitive matters in a public channel; sharing links with broader access than needed. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you check before sharing a file link? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-teams-collaboration-lesson-4",
+          "title": "Tasks, approvals and project follow-up",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Convert decisions into actions with a clear deliverable, owner, due date and status; escalate blockers early.",
+            "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+            "KEY TERMS — mention — notification directed to a person or group; permission — controls who can view or edit a resource; channel — shared topic space in a team; chat — direct or small-group conversation; meeting invite — scheduled event information. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Share links with the smallest appropriate audience. 2) Assign actions with owners and deadlines, then follow up. 3) Select the right team, channel or private chat. 4) Write enough context for recipients to understand the request. 5) Use meetings for discussion and record decisions afterwards.",
+            "WORKED EXAMPLE — After a meeting, one person owns the budget revision and another owns the venue confirmation with separate due dates.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Turn three meeting decisions into a task list with owner and evidence of completion.",
+            "COMMON MISTAKES TO AVOID — leaving meeting decisions without owners; putting sensitive matters in a public channel; sharing links with broader access than needed; scheduling without an agenda. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — How do you prevent meeting decisions from being forgotten? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-teams-collaboration-lesson-5",
+          "title": "Notifications and work organisation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use notification settings and status appropriately to protect focus while staying reachable for genuinely urgent work.",
+            "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+            "KEY TERMS — permission — controls who can view or edit a resource; channel — shared topic space in a team; chat — direct or small-group conversation; meeting invite — scheduled event information; mention — notification directed to a person or group. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Assign actions with owners and deadlines, then follow up. 2) Select the right team, channel or private chat. 3) Write enough context for recipients to understand the request. 4) Use meetings for discussion and record decisions afterwards. 5) Share links with the smallest appropriate audience.",
+            "WORKED EXAMPLE — Mute a busy channel during study time and schedule a review rather than ignoring all notifications indefinitely.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Plan a simple routine for checking messages, recording actions and updating status.",
+            "COMMON MISTAKES TO AVOID — putting sensitive matters in a public channel; sharing links with broader access than needed; scheduling without an agenda; leaving meeting decisions without owners. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is the purpose of notification settings? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-teams-collaboration-lesson-6",
+          "title": "Privacy, recording and collaboration safety",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Check meeting recording consent and policy, avoid posting private information to broad groups and report suspicious file requests.",
+            "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+            "KEY TERMS — channel — shared topic space in a team; chat — direct or small-group conversation; meeting invite — scheduled event information; mention — notification directed to a person or group; permission — controls who can view or edit a resource. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Select the right team, channel or private chat. 2) Write enough context for recipients to understand the request. 3) Use meetings for discussion and record decisions afterwards. 4) Share links with the smallest appropriate audience. 5) Assign actions with owners and deadlines, then follow up.",
+            "WORKED EXAMPLE — Before recording a meeting, state the purpose, confirm applicable policy and tell participants how the recording will be used.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Review a fictional sharing scenario and decide who should have view, edit or no access.",
+            "COMMON MISTAKES TO AVOID — sharing links with broader access than needed; scheduling without an agenda; leaving meeting decisions without owners; putting sensitive matters in a public channel. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should be verified before recording or sharing meeting content? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "microsoft-teams-collaboration-q1",
+          "prompt": "Where should a decision relevant to the whole project normally be recorded?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "In the agreed shared project channel or record.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "In the agreed shared project channel or record. Choose a shared channel for team-wide context and direct chat for appropriate private coordination; write clear, respectful messages."
+        },
+        {
+          "id": "microsoft-teams-collaboration-q2",
+          "prompt": "What should a useful meeting invitation include besides the time?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "Purpose, agenda, expected attendees and required preparation or link."
+          ],
+          "answerIndex": 3,
+          "explanation": "Purpose, agenda, expected attendees and required preparation or link. Send a purpose, agenda, time and expected preparation; keep discussion focused and make space for participants to contribute."
+        },
+        {
+          "id": "microsoft-teams-collaboration-q3",
+          "prompt": "What should you check before sharing a file link?",
+          "options": [
+            "That the recipient is authorised and the permission is appropriate.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "That the recipient is authorised and the permission is appropriate. Understand edit versus view access, maintain version context and use shared files rather than sending unclear duplicate versions."
+        },
+        {
+          "id": "microsoft-teams-collaboration-q4",
+          "prompt": "How do you prevent meeting decisions from being forgotten?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Record actions, assign owners and deadlines, and review status.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "Record actions, assign owners and deadlines, and review status. Convert decisions into actions with a clear deliverable, owner, due date and status; escalate blockers early."
+        },
+        {
+          "id": "microsoft-teams-collaboration-q5",
+          "prompt": "What is the purpose of notification settings?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "To make important updates visible without unnecessary interruptions.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "To make important updates visible without unnecessary interruptions. Use notification settings and status appropriately to protect focus while staying reachable for genuinely urgent work."
+        },
+        {
+          "id": "microsoft-teams-collaboration-q6",
+          "prompt": "What should be verified before recording or sharing meeting content?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "Permission, policy, audience and the purpose for retaining it."
+          ],
+          "answerIndex": 3,
+          "explanation": "Permission, policy, audience and the purpose for retaining it. Check meeting recording consent and policy, avoid posting private information to broad groups and report suspicious file requests."
+        }
+      ]
+    },
+    {
+      "id": "google-workspace-productivity",
+      "title": "Google Workspace: Docs, Sheets, Slides & Drive",
+      "category": "Digital & Office Skills",
+      "description": "Work with browser-based documents, spreadsheets, presentations, forms, email and shared cloud files.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "google-workspace-productivity-lesson-1",
+          "title": "Drive folders, search and file sharing",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Organise folders and filenames, use search and understand whether a file is private, shared with named people or accessible by link.",
+            "WHY THIS MATTERS — Google Workspace combines cloud-based tools such as Docs, Sheets, Slides, Drive, Forms and Gmail. Sharing and live collaboration can reduce duplicate files, but only if permissions and versions are managed deliberately. Availability and features can vary by account type, so practise with the tools available in your own account.",
+            "KEY TERMS — Drive — cloud file storage and organisation; Docs — word processing; Sheets — spreadsheets and calculations; Slides — presentations; sharing permission — view, comment or edit access. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Create the right file type for the task. 2) Organise it in a clearly named Drive folder. 3) Use comments and collaboration features appropriately. 4) Check link access and named collaborators before sharing. 5) Review version history and test the final shared result.",
+            "WORKED EXAMPLE — A report stays in the project folder and is shared with named reviewers as commenters until editing is required.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Create file → 2. Organise Drive → 3. Collaborate live → 4. Manage access → 5. Review version. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a folder and sample document, then choose the smallest appropriate sharing permission.",
+            "COMMON MISTAKES TO AVOID — assuming anyone with a link should have edit access; creating duplicate files instead of using version history; losing track of which shared copy is current; depending on network access without planning an export or backup. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a good default when sharing a sensitive draft? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "google-workspace-productivity-lesson-2",
+          "title": "Docs: structured writing and review",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Apply headings, lists, tables, comments and suggested edits to keep a shared document organised.",
+            "WHY THIS MATTERS — Google Workspace combines cloud-based tools such as Docs, Sheets, Slides, Drive, Forms and Gmail. Sharing and live collaboration can reduce duplicate files, but only if permissions and versions are managed deliberately. Availability and features can vary by account type, so practise with the tools available in your own account.",
+            "KEY TERMS — Docs — word processing; Sheets — spreadsheets and calculations; Slides — presentations; sharing permission — view, comment or edit access; Drive — cloud file storage and organisation. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Organise it in a clearly named Drive folder. 2) Use comments and collaboration features appropriately. 3) Check link access and named collaborators before sharing. 4) Review version history and test the final shared result. 5) Create the right file type for the task.",
+            "WORKED EXAMPLE — Several reviewers use comments and suggestions on one proposal rather than emailing separate edited attachments.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Create file → 2. Organise Drive → 3. Collaborate live → 4. Manage access → 5. Review version. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draft a short report with styles and leave a comment requesting clarification on one statement.",
+            "COMMON MISTAKES TO AVOID — creating duplicate files instead of using version history; losing track of which shared copy is current; depending on network access without planning an export or backup; assuming anyone with a link should have edit access. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — How can comments help collaborative editing? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "google-workspace-productivity-lesson-3",
+          "title": "Sheets: formulas, filters and charts",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Build a clean table, use formulas, filter records and show a labelled chart that answers a defined question.",
+            "WHY THIS MATTERS — Google Workspace combines cloud-based tools such as Docs, Sheets, Slides, Drive, Forms and Gmail. Sharing and live collaboration can reduce duplicate files, but only if permissions and versions are managed deliberately. Availability and features can vary by account type, so practise with the tools available in your own account.",
+            "KEY TERMS — Sheets — spreadsheets and calculations; Slides — presentations; sharing permission — view, comment or edit access; Drive — cloud file storage and organisation; Docs — word processing. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use comments and collaboration features appropriately. 2) Check link access and named collaborators before sharing. 3) Review version history and test the final shared result. 4) Create the right file type for the task. 5) Organise it in a clearly named Drive folder.",
+            "WORKED EXAMPLE — A sales sheet totals order values and a chart compares monthly totals using consistent currency values.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Create file → 2. Organise Drive → 3. Collaborate live → 4. Manage access → 5. Review version. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a five-row fictional sales sheet and check one total manually.",
+            "COMMON MISTAKES TO AVOID — losing track of which shared copy is current; depending on network access without planning an export or backup; assuming anyone with a link should have edit access; creating duplicate files instead of using version history. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why should a formula range be checked? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "google-workspace-productivity-lesson-4",
+          "title": "Slides: visual communication",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Structure a presentation around one takeaway per slide, use layouts and keep diagrams or charts readable.",
+            "WHY THIS MATTERS — Google Workspace combines cloud-based tools such as Docs, Sheets, Slides, Drive, Forms and Gmail. Sharing and live collaboration can reduce duplicate files, but only if permissions and versions are managed deliberately. Availability and features can vary by account type, so practise with the tools available in your own account.",
+            "KEY TERMS — Slides — presentations; sharing permission — view, comment or edit access; Drive — cloud file storage and organisation; Docs — word processing; Sheets — spreadsheets and calculations. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Check link access and named collaborators before sharing. 2) Review version history and test the final shared result. 3) Create the right file type for the task. 4) Organise it in a clearly named Drive folder. 5) Use comments and collaboration features appropriately.",
+            "WORKED EXAMPLE — A project update deck shows objective, progress, risk and next actions rather than a wall of text.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Create file → 2. Organise Drive → 3. Collaborate live → 4. Manage access → 5. Review version. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create three slides to explain a small process and export a PDF backup.",
+            "COMMON MISTAKES TO AVOID — depending on network access without planning an export or backup; assuming anyone with a link should have edit access; creating duplicate files instead of using version history; losing track of which shared copy is current. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should each content slide communicate? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "google-workspace-productivity-lesson-5",
+          "title": "Forms, responses and organised collection",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use forms to collect structured answers, tell respondents why information is needed and avoid collecting unnecessary personal data.",
+            "WHY THIS MATTERS — Google Workspace combines cloud-based tools such as Docs, Sheets, Slides, Drive, Forms and Gmail. Sharing and live collaboration can reduce duplicate files, but only if permissions and versions are managed deliberately. Availability and features can vary by account type, so practise with the tools available in your own account.",
+            "KEY TERMS — sharing permission — view, comment or edit access; Drive — cloud file storage and organisation; Docs — word processing; Sheets — spreadsheets and calculations; Slides — presentations. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Review version history and test the final shared result. 2) Create the right file type for the task. 3) Organise it in a clearly named Drive folder. 4) Use comments and collaboration features appropriately. 5) Check link access and named collaborators before sharing.",
+            "WORKED EXAMPLE — A course feedback form asks about clarity, pace and topics to revisit, without requesting a password or unnecessary identification.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Create file → 2. Organise Drive → 3. Collaborate live → 4. Manage access → 5. Review version. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draft five questions for a fictional class feedback form and name the decision each question will inform.",
+            "COMMON MISTAKES TO AVOID — assuming anyone with a link should have edit access; creating duplicate files instead of using version history; losing track of which shared copy is current; depending on network access without planning an export or backup. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should be considered before collecting a field in a form? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "google-workspace-productivity-lesson-6",
+          "title": "Gmail, Calendar and integrated workflow",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Connect messages, meetings and shared files while keeping names, links, due dates and permissions consistent.",
+            "WHY THIS MATTERS — Google Workspace combines cloud-based tools such as Docs, Sheets, Slides, Drive, Forms and Gmail. Sharing and live collaboration can reduce duplicate files, but only if permissions and versions are managed deliberately. Availability and features can vary by account type, so practise with the tools available in your own account.",
+            "KEY TERMS — Drive — cloud file storage and organisation; Docs — word processing; Sheets — spreadsheets and calculations; Slides — presentations; sharing permission — view, comment or edit access. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Create the right file type for the task. 2) Organise it in a clearly named Drive folder. 3) Use comments and collaboration features appropriately. 4) Check link access and named collaborators before sharing. 5) Review version history and test the final shared result.",
+            "WORKED EXAMPLE — A meeting invitation links to the approved shared agenda and states what participants should prepare.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Create file → 2. Organise Drive → 3. Collaborate live → 4. Manage access → 5. Review version. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Plan a task from email request to calendar reminder, shared draft and completion message.",
+            "COMMON MISTAKES TO AVOID — creating duplicate files instead of using version history; losing track of which shared copy is current; depending on network access without planning an export or backup; assuming anyone with a link should have edit access. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What connects a reliable collaboration workflow? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "google-workspace-productivity-q1",
+          "prompt": "What is a good default when sharing a sensitive draft?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "Restrict access to named authorised people and grant only needed permissions."
+          ],
+          "answerIndex": 3,
+          "explanation": "Restrict access to named authorised people and grant only needed permissions. Organise folders and filenames, use search and understand whether a file is private, shared with named people or accessible by link."
+        },
+        {
+          "id": "google-workspace-productivity-q2",
+          "prompt": "How can comments help collaborative editing?",
+          "options": [
+            "They allow questions and feedback without silently changing the original wording.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "They allow questions and feedback without silently changing the original wording. Apply headings, lists, tables, comments and suggested edits to keep a shared document organised."
+        },
+        {
+          "id": "google-workspace-productivity-q3",
+          "prompt": "Why should a formula range be checked?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "To ensure the right rows are included without omissions or double-counting.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "To ensure the right rows are included without omissions or double-counting. Build a clean table, use formulas, filter records and show a labelled chart that answers a defined question."
+        },
+        {
+          "id": "google-workspace-productivity-q4",
+          "prompt": "What should each content slide communicate?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "A clear main idea supported by concise text or a meaningful visual.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "A clear main idea supported by concise text or a meaningful visual. Structure a presentation around one takeaway per slide, use layouts and keep diagrams or charts readable."
+        },
+        {
+          "id": "google-workspace-productivity-q5",
+          "prompt": "What should be considered before collecting a field in a form?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "Whether the information is necessary, appropriate and explained to respondents."
+          ],
+          "answerIndex": 3,
+          "explanation": "Whether the information is necessary, appropriate and explained to respondents. Use forms to collect structured answers, tell respondents why information is needed and avoid collecting unnecessary personal data."
+        },
+        {
+          "id": "google-workspace-productivity-q6",
+          "prompt": "What connects a reliable collaboration workflow?",
+          "options": [
+            "Clear context, correct access, linked records and a defined follow-up.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "Clear context, correct access, linked records and a defined follow-up. Connect messages, meetings and shared files while keeping names, links, due dates and permissions consistent."
+        }
+      ]
+    },
+    {
+      "id": "libreoffice-productivity-suite",
+      "title": "LibreOffice: Writer, Calc, Impress, Draw & Base",
+      "category": "Digital & Office Skills",
+      "description": "Learn an open-source office suite and exchange documents with other file formats reliably.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "libreoffice-productivity-suite-lesson-1",
+          "title": "Choose the right LibreOffice application",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Identify when to use Writer, Calc, Impress, Draw or Base and choose the tool based on the task rather than familiarity.",
+            "WHY THIS MATTERS — LibreOffice is an office suite with applications including Writer for documents, Calc for spreadsheets, Impress for presentations, Draw for diagrams and Base for database tasks. File-format compatibility matters when exchanging work with people using other office software; always inspect the converted file rather than assuming identical layout.",
+            "KEY TERMS — Writer — word processor; Calc — spreadsheet application; Impress — presentation application; Draw — drawing and diagram tool; ODF — Open Document Format family. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Match the task to the correct application. 2) Create the content with clear structure and labels. 3) Use formulas or styles rather than fragile manual formatting. 4) Save an editable working copy and export the requested format. 5) Reopen the exported file and check layout and data.",
+            "WORKED EXAMPLE — A letter belongs in Writer; a budget belongs in Calc; a process diagram may suit Draw.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose module → 2. Create content → 3. Format and calculate → 4. Export correctly → 5. Check compatibility. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Match ten sample tasks to the most suitable application and explain two choices.",
+            "COMMON MISTAKES TO AVOID — choosing a presentation tool for a data table; assuming every complex format converts perfectly; sending only a PDF when the recipient needs an editable file; failing to retain an original copy. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Which application is designed primarily for spreadsheet calculations? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "libreoffice-productivity-suite-lesson-2",
+          "title": "Writer: reports and document structure",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use styles, lists, tables, page layout and accessible structure for long or formal documents.",
+            "WHY THIS MATTERS — LibreOffice is an office suite with applications including Writer for documents, Calc for spreadsheets, Impress for presentations, Draw for diagrams and Base for database tasks. File-format compatibility matters when exchanging work with people using other office software; always inspect the converted file rather than assuming identical layout.",
+            "KEY TERMS — Calc — spreadsheet application; Impress — presentation application; Draw — drawing and diagram tool; ODF — Open Document Format family; Writer — word processor. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Create the content with clear structure and labels. 2) Use formulas or styles rather than fragile manual formatting. 3) Save an editable working copy and export the requested format. 4) Reopen the exported file and check layout and data. 5) Match the task to the correct application.",
+            "WORKED EXAMPLE — A report uses consistent heading styles so that an automatic table of contents can be generated and updated.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose module → 2. Create content → 3. Format and calculate → 4. Export correctly → 5. Check compatibility. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Format a short report and export it to PDF, then compare the PDF to the editable original.",
+            "COMMON MISTAKES TO AVOID — assuming every complex format converts perfectly; sending only a PDF when the recipient needs an editable file; failing to retain an original copy; choosing a presentation tool for a data table. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why use styles instead of manually formatting each heading? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "libreoffice-productivity-suite-lesson-3",
+          "title": "Calc: formulas and data charts",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use rows, columns, functions and charts while checking ranges, data types and currency units.",
+            "WHY THIS MATTERS — LibreOffice is an office suite with applications including Writer for documents, Calc for spreadsheets, Impress for presentations, Draw for diagrams and Base for database tasks. File-format compatibility matters when exchanging work with people using other office software; always inspect the converted file rather than assuming identical layout.",
+            "KEY TERMS — Impress — presentation application; Draw — drawing and diagram tool; ODF — Open Document Format family; Writer — word processor; Calc — spreadsheet application. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use formulas or styles rather than fragile manual formatting. 2) Save an editable working copy and export the requested format. 3) Reopen the exported file and check layout and data. 4) Match the task to the correct application. 5) Create the content with clear structure and labels.",
+            "WORKED EXAMPLE — SUM over a range computes a total that changes when the underlying values change.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose module → 2. Create content → 3. Format and calculate → 4. Export correctly → 5. Check compatibility. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Build a small expense table with a total formula and a labelled column chart.",
+            "COMMON MISTAKES TO AVOID — sending only a PDF when the recipient needs an editable file; failing to retain an original copy; choosing a presentation tool for a data table; assuming every complex format converts perfectly. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you verify if a total looks incorrect? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "libreoffice-productivity-suite-lesson-4",
+          "title": "Impress: slides and presenter flow",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Create a logical slide order, consistent theme and readable visuals; use motion only when it aids understanding.",
+            "WHY THIS MATTERS — LibreOffice is an office suite with applications including Writer for documents, Calc for spreadsheets, Impress for presentations, Draw for diagrams and Base for database tasks. File-format compatibility matters when exchanging work with people using other office software; always inspect the converted file rather than assuming identical layout.",
+            "KEY TERMS — Draw — drawing and diagram tool; ODF — Open Document Format family; Writer — word processor; Calc — spreadsheet application; Impress — presentation application. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Save an editable working copy and export the requested format. 2) Reopen the exported file and check layout and data. 3) Match the task to the correct application. 4) Create the content with clear structure and labels. 5) Use formulas or styles rather than fragile manual formatting.",
+            "WORKED EXAMPLE — A training presentation moves from objective to demonstration to practice to review.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose module → 2. Create content → 3. Format and calculate → 4. Export correctly → 5. Check compatibility. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a four-slide tutorial with a title, three teaching steps and an illustrative diagram.",
+            "COMMON MISTAKES TO AVOID — failing to retain an original copy; choosing a presentation tool for a data table; assuming every complex format converts perfectly; sending only a PDF when the recipient needs an editable file. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should guide the order of slides? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "libreoffice-productivity-suite-lesson-5",
+          "title": "Draw and Base: diagrams and records",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use Draw to show relationships or workflows and understand Base as a front end for structured records and database concepts.",
+            "WHY THIS MATTERS — LibreOffice is an office suite with applications including Writer for documents, Calc for spreadsheets, Impress for presentations, Draw for diagrams and Base for database tasks. File-format compatibility matters when exchanging work with people using other office software; always inspect the converted file rather than assuming identical layout.",
+            "KEY TERMS — ODF — Open Document Format family; Writer — word processor; Calc — spreadsheet application; Impress — presentation application; Draw — drawing and diagram tool. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Reopen the exported file and check layout and data. 2) Match the task to the correct application. 3) Create the content with clear structure and labels. 4) Use formulas or styles rather than fragile manual formatting. 5) Save an editable working copy and export the requested format.",
+            "WORKED EXAMPLE — A Draw flowchart illustrates how a request is received, checked, approved and completed.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose module → 2. Create content → 3. Format and calculate → 4. Export correctly → 5. Check compatibility. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a five-step process diagram and sketch a simple table with a unique ID field.",
+            "COMMON MISTAKES TO AVOID — choosing a presentation tool for a data table; assuming every complex format converts perfectly; sending only a PDF when the recipient needs an editable file; failing to retain an original copy. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is the purpose of a flowchart? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "libreoffice-productivity-suite-lesson-6",
+          "title": "File formats and compatibility",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose ODF or Microsoft-compatible formats based on the recipient's needs, then inspect fonts, charts, tables and formulas after conversion.",
+            "WHY THIS MATTERS — LibreOffice is an office suite with applications including Writer for documents, Calc for spreadsheets, Impress for presentations, Draw for diagrams and Base for database tasks. File-format compatibility matters when exchanging work with people using other office software; always inspect the converted file rather than assuming identical layout.",
+            "KEY TERMS — Writer — word processor; Calc — spreadsheet application; Impress — presentation application; Draw — drawing and diagram tool; ODF — Open Document Format family. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Match the task to the correct application. 2) Create the content with clear structure and labels. 3) Use formulas or styles rather than fragile manual formatting. 4) Save an editable working copy and export the requested format. 5) Reopen the exported file and check layout and data.",
+            "WORKED EXAMPLE — When a report must remain visually stable, send a tested PDF as well as an editable file if both are requested.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose module → 2. Create content → 3. Format and calculate → 4. Export correctly → 5. Check compatibility. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Export a sample document in two formats and list any differences you notice.",
+            "COMMON MISTAKES TO AVOID — assuming every complex format converts perfectly; sending only a PDF when the recipient needs an editable file; failing to retain an original copy; choosing a presentation tool for a data table. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is the safe approach to format conversion? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "libreoffice-productivity-suite-q1",
+          "prompt": "Which application is designed primarily for spreadsheet calculations?",
+          "options": [
+            "LibreOffice Calc.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "LibreOffice Calc. Identify when to use Writer, Calc, Impress, Draw or Base and choose the tool based on the task rather than familiarity."
+        },
+        {
+          "id": "libreoffice-productivity-suite-q2",
+          "prompt": "Why use styles instead of manually formatting each heading?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Styles maintain consistency and make later changes easier.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "Styles maintain consistency and make later changes easier. Use styles, lists, tables, page layout and accessible structure for long or formal documents."
+        },
+        {
+          "id": "libreoffice-productivity-suite-q3",
+          "prompt": "What should you verify if a total looks incorrect?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "The formula range, the source values and the data types or units.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "The formula range, the source values and the data types or units. Use rows, columns, functions and charts while checking ranges, data types and currency units."
+        },
+        {
+          "id": "libreoffice-productivity-suite-q4",
+          "prompt": "What should guide the order of slides?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "The learning or decision sequence the audience needs to follow."
+          ],
+          "answerIndex": 3,
+          "explanation": "The learning or decision sequence the audience needs to follow. Create a logical slide order, consistent theme and readable visuals; use motion only when it aids understanding."
+        },
+        {
+          "id": "libreoffice-productivity-suite-q5",
+          "prompt": "What is the purpose of a flowchart?",
+          "options": [
+            "To represent steps and decisions visually.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "To represent steps and decisions visually. Use Draw to show relationships or workflows and understand Base as a front end for structured records and database concepts."
+        },
+        {
+          "id": "libreoffice-productivity-suite-q6",
+          "prompt": "What is the safe approach to format conversion?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Reopen and inspect the converted file and keep the original working copy.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "Reopen and inspect the converted file and keep the original working copy. Choose ODF or Microsoft-compatible formats based on the recipient's needs, then inspect fonts, charts, tables and formulas after conversion."
+        }
+      ]
+    },
+    {
+      "id": "desktop-publishing-and-layout",
+      "title": "Desktop Publishing, Flyers & Digital Layout",
+      "category": "Digital & Office Skills",
+      "description": "Design readable flyers, brochures and page layouts; migrate legacy Publisher work to supported formats.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "desktop-publishing-and-layout-lesson-1",
+          "title": "Audience, purpose and page plan",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose what the reader should notice and do, then set page size, print or screen destination and a suitable grid.",
+            "WHY THIS MATTERS — Desktop publishing combines text, images, grids and typography to create material such as flyers, brochures, posters and newsletters. Clear visual hierarchy lets the reader find the main message first. Microsoft Publisher reaches end of support in October 2026, so this course focuses on layout principles and supported alternatives such as Word or PowerPoint, including careful migration of legacy files.",
+            "KEY TERMS — grid — alignment structure for page elements; bleed — artwork extending beyond the trim edge for print; typography — selection and arrangement of type; contrast — difference used to establish hierarchy; legacy file — a file format created by a product no longer supported. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Set the audience, purpose, dimensions and output destination. 2) Create margins and a grid before placing elements. 3) Use title, subtitle, body and call-to-action hierarchy. 4) Proof names, prices, dates, permissions and image quality. 5) Export to the printer or screen requirements and inspect the final file.",
+            "WORKED EXAMPLE — A community event flyer places the date, venue and registration details where the viewer can find them quickly.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define audience → 2. Grid the page → 3. Place hierarchy → 4. Proof details → 5. Export for use. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Sketch a flyer layout using boxes for title, main image, details and call to action.",
+            "COMMON MISTAKES TO AVOID — using too many fonts and competing colours; placing important text too close to the page edge; using low-resolution or unlicensed images; assuming an old Publisher file will open perfectly in another tool. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you decide before laying out a flyer? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "desktop-publishing-and-layout-lesson-2",
+          "title": "Typography, hierarchy and alignment",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use a small type system, consistent spacing and alignment to show the reading order without excessive decoration.",
+            "WHY THIS MATTERS — Desktop publishing combines text, images, grids and typography to create material such as flyers, brochures, posters and newsletters. Clear visual hierarchy lets the reader find the main message first. Microsoft Publisher reaches end of support in October 2026, so this course focuses on layout principles and supported alternatives such as Word or PowerPoint, including careful migration of legacy files.",
+            "KEY TERMS — bleed — artwork extending beyond the trim edge for print; typography — selection and arrangement of type; contrast — difference used to establish hierarchy; legacy file — a file format created by a product no longer supported; grid — alignment structure for page elements. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Create margins and a grid before placing elements. 2) Use title, subtitle, body and call-to-action hierarchy. 3) Proof names, prices, dates, permissions and image quality. 4) Export to the printer or screen requirements and inspect the final file. 5) Set the audience, purpose, dimensions and output destination.",
+            "WORKED EXAMPLE — A large event title, medium date line and small supporting details create a clear three-level hierarchy.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define audience → 2. Grid the page → 3. Place hierarchy → 4. Proof details → 5. Export for use. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Redesign a cluttered sample flyer using two font families at most and consistent margins.",
+            "COMMON MISTAKES TO AVOID — placing important text too close to the page edge; using low-resolution or unlicensed images; assuming an old Publisher file will open perfectly in another tool; using too many fonts and competing colours. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — How does visual hierarchy help a reader? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "desktop-publishing-and-layout-lesson-3",
+          "title": "Images, colour and print readiness",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose relevant images, maintain strong contrast, respect licensing and understand print resolution and bleed requirements.",
+            "WHY THIS MATTERS — Desktop publishing combines text, images, grids and typography to create material such as flyers, brochures, posters and newsletters. Clear visual hierarchy lets the reader find the main message first. Microsoft Publisher reaches end of support in October 2026, so this course focuses on layout principles and supported alternatives such as Word or PowerPoint, including careful migration of legacy files.",
+            "KEY TERMS — typography — selection and arrangement of type; contrast — difference used to establish hierarchy; legacy file — a file format created by a product no longer supported; grid — alignment structure for page elements; bleed — artwork extending beyond the trim edge for print. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use title, subtitle, body and call-to-action hierarchy. 2) Proof names, prices, dates, permissions and image quality. 3) Export to the printer or screen requirements and inspect the final file. 4) Set the audience, purpose, dimensions and output destination. 5) Create margins and a grid before placing elements.",
+            "WORKED EXAMPLE — A full-bleed background extends past the trim line, while important text remains safely inside the margins.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define audience → 2. Grid the page → 3. Place hierarchy → 4. Proof details → 5. Export for use. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Prepare a print checklist for one poster, including image permission, contrast, bleed and spelling.",
+            "COMMON MISTAKES TO AVOID — using low-resolution or unlicensed images; assuming an old Publisher file will open perfectly in another tool; using too many fonts and competing colours; placing important text too close to the page edge. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why keep essential text inside safe margins? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "desktop-publishing-and-layout-lesson-4",
+          "title": "Flyers, brochures and repeatable templates",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use templates and consistent components for repeated publication while adapting layout for the information amount and reading sequence.",
+            "WHY THIS MATTERS — Desktop publishing combines text, images, grids and typography to create material such as flyers, brochures, posters and newsletters. Clear visual hierarchy lets the reader find the main message first. Microsoft Publisher reaches end of support in October 2026, so this course focuses on layout principles and supported alternatives such as Word or PowerPoint, including careful migration of legacy files.",
+            "KEY TERMS — contrast — difference used to establish hierarchy; legacy file — a file format created by a product no longer supported; grid — alignment structure for page elements; bleed — artwork extending beyond the trim edge for print; typography — selection and arrangement of type. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Proof names, prices, dates, permissions and image quality. 2) Export to the printer or screen requirements and inspect the final file. 3) Set the audience, purpose, dimensions and output destination. 4) Create margins and a grid before placing elements. 5) Use title, subtitle, body and call-to-action hierarchy.",
+            "WORKED EXAMPLE — A two-sided brochure groups service descriptions, contact information and action details into predictable sections.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define audience → 2. Grid the page → 3. Place hierarchy → 4. Proof details → 5. Export for use. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a one-page service flyer and a simple two-panel brochure outline from the same visual system.",
+            "COMMON MISTAKES TO AVOID — assuming an old Publisher file will open perfectly in another tool; using too many fonts and competing colours; placing important text too close to the page edge; using low-resolution or unlicensed images. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why use a consistent template for a series of publications? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "desktop-publishing-and-layout-lesson-5",
+          "title": "Legacy Publisher file migration",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Identify legacy .pub files, preserve originals and evaluate whether Word, PowerPoint or a PDF export best preserves the needed layout.",
+            "WHY THIS MATTERS — Desktop publishing combines text, images, grids and typography to create material such as flyers, brochures, posters and newsletters. Clear visual hierarchy lets the reader find the main message first. Microsoft Publisher reaches end of support in October 2026, so this course focuses on layout principles and supported alternatives such as Word or PowerPoint, including careful migration of legacy files.",
+            "KEY TERMS — legacy file — a file format created by a product no longer supported; grid — alignment structure for page elements; bleed — artwork extending beyond the trim edge for print; typography — selection and arrangement of type; contrast — difference used to establish hierarchy. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Export to the printer or screen requirements and inspect the final file. 2) Set the audience, purpose, dimensions and output destination. 3) Create margins and a grid before placing elements. 4) Use title, subtitle, body and call-to-action hierarchy. 5) Proof names, prices, dates, permissions and image quality.",
+            "WORKED EXAMPLE — Open a legacy publication in a compatible available environment, export a reference PDF and rebuild complex elements in a supported application if conversion is imperfect.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define audience → 2. Grid the page → 3. Place hierarchy → 4. Proof details → 5. Export for use. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Make a migration checklist listing source file, fonts, images, links, target format, visual review and archived original.",
+            "COMMON MISTAKES TO AVOID — using too many fonts and competing colours; placing important text too close to the page edge; using low-resolution or unlicensed images; assuming an old Publisher file will open perfectly in another tool. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you do before migrating a legacy Publisher publication? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "desktop-publishing-and-layout-lesson-6",
+          "title": "Proofing, export and delivery",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Check text accuracy, links, image rights, embedded fonts where supported, file size and the destination's delivery requirements.",
+            "WHY THIS MATTERS — Desktop publishing combines text, images, grids and typography to create material such as flyers, brochures, posters and newsletters. Clear visual hierarchy lets the reader find the main message first. Microsoft Publisher reaches end of support in October 2026, so this course focuses on layout principles and supported alternatives such as Word or PowerPoint, including careful migration of legacy files.",
+            "KEY TERMS — grid — alignment structure for page elements; bleed — artwork extending beyond the trim edge for print; typography — selection and arrangement of type; contrast — difference used to establish hierarchy; legacy file — a file format created by a product no longer supported. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Set the audience, purpose, dimensions and output destination. 2) Create margins and a grid before placing elements. 3) Use title, subtitle, body and call-to-action hierarchy. 4) Proof names, prices, dates, permissions and image quality. 5) Export to the printer or screen requirements and inspect the final file.",
+            "WORKED EXAMPLE — Inspect the exported PDF at normal zoom and print scale to catch clipping or low-resolution images.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define audience → 2. Grid the page → 3. Place hierarchy → 4. Proof details → 5. Export for use. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Export a final flyer, view every page and write a sign-off checklist before distribution.",
+            "COMMON MISTAKES TO AVOID — placing important text too close to the page edge; using low-resolution or unlicensed images; assuming an old Publisher file will open perfectly in another tool; using too many fonts and competing colours. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a useful final delivery check? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "desktop-publishing-and-layout-q1",
+          "prompt": "What should you decide before laying out a flyer?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Its audience, purpose, dimensions and intended output.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 1,
+          "explanation": "Its audience, purpose, dimensions and intended output. Choose what the reader should notice and do, then set page size, print or screen destination and a suitable grid."
+        },
+        {
+          "id": "desktop-publishing-and-layout-q2",
+          "prompt": "How does visual hierarchy help a reader?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "It signals what to read first and how the supporting information relates.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 2,
+          "explanation": "It signals what to read first and how the supporting information relates. Use a small type system, consistent spacing and alignment to show the reading order without excessive decoration."
+        },
+        {
+          "id": "desktop-publishing-and-layout-q3",
+          "prompt": "Why keep essential text inside safe margins?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details.",
+            "To reduce the risk of important content being cut off during trimming."
+          ],
+          "answerIndex": 3,
+          "explanation": "To reduce the risk of important content being cut off during trimming. Choose relevant images, maintain strong contrast, respect licensing and understand print resolution and bleed requirements."
+        },
+        {
+          "id": "desktop-publishing-and-layout-q4",
+          "prompt": "Why use a consistent template for a series of publications?",
+          "options": [
+            "It creates recognition and reduces repeated layout work.",
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 0,
+          "explanation": "It creates recognition and reduces repeated layout work. Use templates and consistent components for repeated publication while adapting layout for the information amount and reading sequence."
+        },
+        {
+          "id": "desktop-publishing-and-layout-q5",
+          "prompt": "What should you do before migrating a legacy Publisher publication?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Preserve the original and compare a tested conversion or rebuilt file against its reference.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 1,
+          "explanation": "Preserve the original and compare a tested conversion or rebuilt file against its reference. Identify legacy .pub files, preserve originals and evaluate whether Word, PowerPoint or a PDF export best preserves the needed layout."
+        },
+        {
+          "id": "desktop-publishing-and-layout-q6",
+          "prompt": "What is a useful final delivery check?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Inspect the exported file and confirm content, layout and output requirements.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 2,
+          "explanation": "Inspect the exported file and confirm content, layout and output requirements. Check text accuracy, links, image rights, embedded fonts where supported, file size and the destination's delivery requirements."
+        }
+      ]
+    },
+    {
+      "id": "windows-operating-system-file-management",
+      "title": "Windows Operating System & File Management",
+      "category": "Computing Fundamentals",
+      "description": "Use the Windows desktop, settings, folders, file search, shortcuts and safe system practices confidently.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "windows-operating-system-file-management-lesson-1",
+          "title": "Desktop, taskbar, Start and window controls",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Recognise the desktop, Start menu, taskbar, search and window controls; use keyboard shortcuts to switch between applications.",
+            "WHY THIS MATTERS — An operating system manages the computer's hardware, applications, files, users and devices. Windows provides a desktop, taskbar, Start menu, File Explorer and system settings. Knowing where files are saved, how applications run and how to update and back up work makes everyday computing more reliable.",
+            "KEY TERMS — operating system — software managing hardware and applications; File Explorer — tool for viewing files and folders; extension — suffix that often indicates a file format; permissions — controls over access or changes; backup — separate copy for recovery. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Sign in with your own account and lock the screen when away. 2) Use File Explorer to locate drives, folders and file properties. 3) Create descriptive folders and rename or move files carefully. 4) Use official Settings and update tools for system changes. 5) Back up important files and verify the backup can be opened.",
+            "WORKED EXAMPLE — Use Alt+Tab to switch between an assignment and a browser without losing either window.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sign in safely → 2. Find locations → 3. Manage files → 4. Set preferences → 5. Back up and verify. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Open two safe applications, switch between them and identify the taskbar, window title and close or minimise controls.",
+            "COMMON MISTAKES TO AVOID — deleting a folder before checking its contents; installing random utilities to solve ordinary settings problems; ignoring file extensions and opening unexpected attachments; assuming cloud sync is the same as an independent backup. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What does Alt+Tab commonly help you do? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "windows-operating-system-file-management-lesson-2",
+          "title": "File Explorer, folders and file paths",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Navigate drives and folders, understand file paths and use search and sorting to find specific items.",
+            "WHY THIS MATTERS — An operating system manages the computer's hardware, applications, files, users and devices. Windows provides a desktop, taskbar, Start menu, File Explorer and system settings. Knowing where files are saved, how applications run and how to update and back up work makes everyday computing more reliable.",
+            "KEY TERMS — File Explorer — tool for viewing files and folders; extension — suffix that often indicates a file format; permissions — controls over access or changes; backup — separate copy for recovery; operating system — software managing hardware and applications. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use File Explorer to locate drives, folders and file properties. 2) Create descriptive folders and rename or move files carefully. 3) Use official Settings and update tools for system changes. 4) Back up important files and verify the backup can be opened. 5) Sign in with your own account and lock the screen when away.",
+            "WORKED EXAMPLE — A path such as DocumentsStudyReport.docx identifies where a document is located within the folder structure.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sign in safely → 2. Find locations → 3. Manage files → 4. Set preferences → 5. Back up and verify. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a practice folder with three subfolders and locate one file using search and its folder path.",
+            "COMMON MISTAKES TO AVOID — installing random utilities to solve ordinary settings problems; ignoring file extensions and opening unexpected attachments; assuming cloud sync is the same as an independent backup; deleting a folder before checking its contents. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why is a clear folder hierarchy useful? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "windows-operating-system-file-management-lesson-3",
+          "title": "Copy, move, rename and file extensions",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Distinguish copying from moving, understand file type extensions and preserve a source copy before risky changes.",
+            "WHY THIS MATTERS — An operating system manages the computer's hardware, applications, files, users and devices. Windows provides a desktop, taskbar, Start menu, File Explorer and system settings. Knowing where files are saved, how applications run and how to update and back up work makes everyday computing more reliable.",
+            "KEY TERMS — extension — suffix that often indicates a file format; permissions — controls over access or changes; backup — separate copy for recovery; operating system — software managing hardware and applications; File Explorer — tool for viewing files and folders. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Create descriptive folders and rename or move files carefully. 2) Use official Settings and update tools for system changes. 3) Back up important files and verify the backup can be opened. 4) Sign in with your own account and lock the screen when away. 5) Use File Explorer to locate drives, folders and file properties.",
+            "WORKED EXAMPLE — Copy an important document to a backup folder before revising it, and keep the extension unchanged unless deliberately converting the format.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sign in safely → 2. Find locations → 3. Manage files → 4. Set preferences → 5. Back up and verify. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Copy, rename and restore a sample file; inspect its properties and explain where each copy is saved.",
+            "COMMON MISTAKES TO AVOID — ignoring file extensions and opening unexpected attachments; assuming cloud sync is the same as an independent backup; deleting a folder before checking its contents; installing random utilities to solve ordinary settings problems. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is the safer first step before a major edit to an important file? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "windows-operating-system-file-management-lesson-4",
+          "title": "Settings, devices and accessibility",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use appropriate system settings for display, sound, language, connected devices and accessibility while avoiding unknown system changes.",
+            "WHY THIS MATTERS — An operating system manages the computer's hardware, applications, files, users and devices. Windows provides a desktop, taskbar, Start menu, File Explorer and system settings. Knowing where files are saved, how applications run and how to update and back up work makes everyday computing more reliable.",
+            "KEY TERMS — permissions — controls over access or changes; backup — separate copy for recovery; operating system — software managing hardware and applications; File Explorer — tool for viewing files and folders; extension — suffix that often indicates a file format. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use official Settings and update tools for system changes. 2) Back up important files and verify the backup can be opened. 3) Sign in with your own account and lock the screen when away. 4) Use File Explorer to locate drives, folders and file properties. 5) Create descriptive folders and rename or move files carefully.",
+            "WORKED EXAMPLE — Increase text size using accessibility settings rather than changing every application's font separately.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sign in safely → 2. Find locations → 3. Manage files → 4. Set preferences → 5. Back up and verify. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Explore safe display and accessibility settings and document one change and how to reverse it.",
+            "COMMON MISTAKES TO AVOID — assuming cloud sync is the same as an independent backup; deleting a folder before checking its contents; installing random utilities to solve ordinary settings problems; ignoring file extensions and opening unexpected attachments. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you record when changing a system setting? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "windows-operating-system-file-management-lesson-5",
+          "title": "Updates, accounts and permissions",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand standard versus administrator access, keep supported software updated and install programs only from trusted sources.",
+            "WHY THIS MATTERS — An operating system manages the computer's hardware, applications, files, users and devices. Windows provides a desktop, taskbar, Start menu, File Explorer and system settings. Knowing where files are saved, how applications run and how to update and back up work makes everyday computing more reliable.",
+            "KEY TERMS — backup — separate copy for recovery; operating system — software managing hardware and applications; File Explorer — tool for viewing files and folders; extension — suffix that often indicates a file format; permissions — controls over access or changes. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Back up important files and verify the backup can be opened. 2) Sign in with your own account and lock the screen when away. 3) Use File Explorer to locate drives, folders and file properties. 4) Create descriptive folders and rename or move files carefully. 5) Use official Settings and update tools for system changes.",
+            "WORKED EXAMPLE — A standard user account is sufficient for many daily tasks; an unexpected administrator prompt deserves scrutiny.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sign in safely → 2. Find locations → 3. Manage files → 4. Set preferences → 5. Back up and verify. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Review a fictional software prompt and decide whether the requested permission matches the task.",
+            "COMMON MISTAKES TO AVOID — deleting a folder before checking its contents; installing random utilities to solve ordinary settings problems; ignoring file extensions and opening unexpected attachments; assuming cloud sync is the same as an independent backup. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why avoid running every application as administrator? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "windows-operating-system-file-management-lesson-6",
+          "title": "Backups, recovery and basic troubleshooting",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use a repeatable sequence to describe symptoms, try safe basic checks, protect data and escalate unresolved problems.",
+            "WHY THIS MATTERS — An operating system manages the computer's hardware, applications, files, users and devices. Windows provides a desktop, taskbar, Start menu, File Explorer and system settings. Knowing where files are saved, how applications run and how to update and back up work makes everyday computing more reliable.",
+            "KEY TERMS — operating system — software managing hardware and applications; File Explorer — tool for viewing files and folders; extension — suffix that often indicates a file format; permissions — controls over access or changes; backup — separate copy for recovery. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Sign in with your own account and lock the screen when away. 2) Use File Explorer to locate drives, folders and file properties. 3) Create descriptive folders and rename or move files carefully. 4) Use official Settings and update tools for system changes. 5) Back up important files and verify the backup can be opened.",
+            "WORKED EXAMPLE — If a document appears missing, check the folder, recent files and recycle bin before using recovery tools or deleting anything.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sign in safely → 2. Find locations → 3. Manage files → 4. Set preferences → 5. Back up and verify. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a recovery plan for a missing file, a frozen application and an internet connection issue.",
+            "COMMON MISTAKES TO AVOID — installing random utilities to solve ordinary settings problems; ignoring file extensions and opening unexpected attachments; assuming cloud sync is the same as an independent backup; deleting a folder before checking its contents. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should be protected before advanced troubleshooting? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "windows-operating-system-file-management-q1",
+          "prompt": "What does Alt+Tab commonly help you do?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Switch between open applications or windows.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "Switch between open applications or windows. Recognise the desktop, Start menu, taskbar, search and window controls; use keyboard shortcuts to switch between applications."
+        },
+        {
+          "id": "windows-operating-system-file-management-q2",
+          "prompt": "Why is a clear folder hierarchy useful?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "It makes files easier to locate and maintain."
+          ],
+          "answerIndex": 3,
+          "explanation": "It makes files easier to locate and maintain. Navigate drives and folders, understand file paths and use search and sorting to find specific items."
+        },
+        {
+          "id": "windows-operating-system-file-management-q3",
+          "prompt": "What is the safer first step before a major edit to an important file?",
+          "options": [
+            "Make a verified copy or backup of the original.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "Make a verified copy or backup of the original. Distinguish copying from moving, understand file type extensions and preserve a source copy before risky changes."
+        },
+        {
+          "id": "windows-operating-system-file-management-q4",
+          "prompt": "What should you record when changing a system setting?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "What changed and how to restore the previous setting if needed.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "What changed and how to restore the previous setting if needed. Use appropriate system settings for display, sound, language, connected devices and accessibility while avoiding unknown system changes."
+        },
+        {
+          "id": "windows-operating-system-file-management-q5",
+          "prompt": "Why avoid running every application as administrator?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "It gives applications more authority than many tasks require.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "It gives applications more authority than many tasks require. Understand standard versus administrator access, keep supported software updated and install programs only from trusted sources."
+        },
+        {
+          "id": "windows-operating-system-file-management-q6",
+          "prompt": "What should be protected before advanced troubleshooting?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "Important data and the verified original or backup."
+          ],
+          "answerIndex": 3,
+          "explanation": "Important data and the verified original or backup. Use a repeatable sequence to describe symptoms, try safe basic checks, protect data and escalate unresolved problems."
+        }
+      ]
+    },
+    {
+      "id": "software-installation-app-management",
+      "title": "Software Installation, Updates & App Management",
+      "category": "Computing Fundamentals",
+      "description": "Choose trusted apps, install and update software, manage permissions and remove unwanted programs safely.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "software-installation-app-management-lesson-1",
+          "title": "Choose software and verify its source",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Identify the job the app should do, compare reputable options and verify the publisher, version, platform and source.",
+            "WHY THIS MATTERS — Software management includes finding a legitimate source, checking device requirements, understanding licences, installing only what is needed, applying updates and removing apps cleanly. A legitimate download source and least-privilege permissions lower risk, but no source removes the need to read prompts and verify results.",
+            "KEY TERMS — installer — package used to set up an application; licence — terms governing use of software; patch — update that corrects defects or vulnerabilities; permission — access granted to an app; uninstall — remove software through its supported process. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Identify the need and confirm the app is supported. 2) Use an official store or verified publisher download. 3) Read licence, options and permission prompts before accepting. 4) Update from supported channels and keep recovery information. 5) Uninstall through system settings and check for required data backups.",
+            "WORKED EXAMPLE — A PDF reader is obtained from the official store or publisher rather than a misleading download button on an unrelated site.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Verify source → 2. Check requirements → 3. Install with care → 4. Update and review → 5. Remove safely. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Compare three fictional app listings by publisher, purpose, supported operating system, price and data permissions.",
+            "COMMON MISTAKES TO AVOID — using cracked or bundled installers from unknown websites; ignoring publisher identity and permissions; disabling security tools to force an installation; deleting program folders instead of using the supported uninstaller. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a reliable first check before downloading software? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "software-installation-app-management-lesson-2",
+          "title": "Requirements, licences and compatibility",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Check the operating system, processor architecture, memory, storage and licence terms before installing an application.",
+            "WHY THIS MATTERS — Software management includes finding a legitimate source, checking device requirements, understanding licences, installing only what is needed, applying updates and removing apps cleanly. A legitimate download source and least-privilege permissions lower risk, but no source removes the need to read prompts and verify results.",
+            "KEY TERMS — licence — terms governing use of software; patch — update that corrects defects or vulnerabilities; permission — access granted to an app; uninstall — remove software through its supported process; installer — package used to set up an application. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use an official store or verified publisher download. 2) Read licence, options and permission prompts before accepting. 3) Update from supported channels and keep recovery information. 4) Uninstall through system settings and check for required data backups. 5) Identify the need and confirm the app is supported.",
+            "WORKED EXAMPLE — A tool that requires a newer operating system may fail or be unsafe on an unsupported device.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Verify source → 2. Check requirements → 3. Install with care → 4. Update and review → 5. Remove safely. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Read a fictional requirements sheet and decide whether a given computer meets the requirements.",
+            "COMMON MISTAKES TO AVOID — ignoring publisher identity and permissions; disabling security tools to force an installation; deleting program folders instead of using the supported uninstaller; using cracked or bundled installers from unknown websites. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why check software requirements first? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "software-installation-app-management-lesson-3",
+          "title": "Installation options and permissions",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Read setup prompts, select only needed components and understand why admin rights or access to files, camera or microphone are requested.",
+            "WHY THIS MATTERS — Software management includes finding a legitimate source, checking device requirements, understanding licences, installing only what is needed, applying updates and removing apps cleanly. A legitimate download source and least-privilege permissions lower risk, but no source removes the need to read prompts and verify results.",
+            "KEY TERMS — patch — update that corrects defects or vulnerabilities; permission — access granted to an app; uninstall — remove software through its supported process; installer — package used to set up an application; licence — terms governing use of software. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Read licence, options and permission prompts before accepting. 2) Update from supported channels and keep recovery information. 3) Uninstall through system settings and check for required data backups. 4) Identify the need and confirm the app is supported. 5) Use an official store or verified publisher download.",
+            "WORKED EXAMPLE — An image editor may need access to files, but a simple calculator should not ordinarily need access to a user's contacts.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Verify source → 2. Check requirements → 3. Install with care → 4. Update and review → 5. Remove safely. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Evaluate a fictional installer that asks for unrelated browser extensions and excessive permissions.",
+            "COMMON MISTAKES TO AVOID — disabling security tools to force an installation; deleting program folders instead of using the supported uninstaller; using cracked or bundled installers from unknown websites; ignoring publisher identity and permissions. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you do if installation requests unrelated permissions? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "software-installation-app-management-lesson-4",
+          "title": "Updates, patching and version control",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Apply security and reliability updates from supported channels and plan around restart requirements or critical work.",
+            "WHY THIS MATTERS — Software management includes finding a legitimate source, checking device requirements, understanding licences, installing only what is needed, applying updates and removing apps cleanly. A legitimate download source and least-privilege permissions lower risk, but no source removes the need to read prompts and verify results.",
+            "KEY TERMS — permission — access granted to an app; uninstall — remove software through its supported process; installer — package used to set up an application; licence — terms governing use of software; patch — update that corrects defects or vulnerabilities. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Update from supported channels and keep recovery information. 2) Uninstall through system settings and check for required data backups. 3) Identify the need and confirm the app is supported. 4) Use an official store or verified publisher download. 5) Read licence, options and permission prompts before accepting.",
+            "WORKED EXAMPLE — Save open work and confirm backups before a scheduled system update, then verify the app launches correctly.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Verify source → 2. Check requirements → 3. Install with care → 4. Update and review → 5. Remove safely. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create an update plan for an operating system, browser and office suite.",
+            "COMMON MISTAKES TO AVOID — deleting program folders instead of using the supported uninstaller; using cracked or bundled installers from unknown websites; ignoring publisher identity and permissions; disabling security tools to force an installation. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why are security updates important? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "software-installation-app-management-lesson-5",
+          "title": "Uninstalling, storage and app cleanup",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use the supported uninstall path, preserve user files and check that removing an app will not delete shared data or required components.",
+            "WHY THIS MATTERS — Software management includes finding a legitimate source, checking device requirements, understanding licences, installing only what is needed, applying updates and removing apps cleanly. A legitimate download source and least-privilege permissions lower risk, but no source removes the need to read prompts and verify results.",
+            "KEY TERMS — uninstall — remove software through its supported process; installer — package used to set up an application; licence — terms governing use of software; patch — update that corrects defects or vulnerabilities; permission — access granted to an app. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Uninstall through system settings and check for required data backups. 2) Identify the need and confirm the app is supported. 3) Use an official store or verified publisher download. 4) Read licence, options and permission prompts before accepting. 5) Update from supported channels and keep recovery information.",
+            "WORKED EXAMPLE — Before removing a note-taking application, export or back up notes and confirm they are not stored only inside the app.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Verify source → 2. Check requirements → 3. Install with care → 4. Update and review → 5. Remove safely. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a safe uninstall checklist with backup, account sign-out, removal and post-removal checks.",
+            "COMMON MISTAKES TO AVOID — using cracked or bundled installers from unknown websites; ignoring publisher identity and permissions; disabling security tools to force an installation; deleting program folders instead of using the supported uninstaller. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should be checked before uninstalling a productivity app? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "software-installation-app-management-lesson-6",
+          "title": "Troubleshoot installs and errors",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Record the exact error, check device space and compatibility, restart when appropriate and use official support guidance before risky fixes.",
+            "WHY THIS MATTERS — Software management includes finding a legitimate source, checking device requirements, understanding licences, installing only what is needed, applying updates and removing apps cleanly. A legitimate download source and least-privilege permissions lower risk, but no source removes the need to read prompts and verify results.",
+            "KEY TERMS — installer — package used to set up an application; licence — terms governing use of software; patch — update that corrects defects or vulnerabilities; permission — access granted to an app; uninstall — remove software through its supported process. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Identify the need and confirm the app is supported. 2) Use an official store or verified publisher download. 3) Read licence, options and permission prompts before accepting. 4) Update from supported channels and keep recovery information. 5) Uninstall through system settings and check for required data backups.",
+            "WORKED EXAMPLE — A failed update may require checking free storage and the exact error code instead of downloading a random repair utility.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Verify source → 2. Check requirements → 3. Install with care → 4. Update and review → 5. Remove safely. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Diagnose a simulated install failure with a decision tree of safe first checks and escalation steps.",
+            "COMMON MISTAKES TO AVOID — ignoring publisher identity and permissions; disabling security tools to force an installation; deleting program folders instead of using the supported uninstaller; using cracked or bundled installers from unknown websites. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is useful evidence when an installation fails? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "software-installation-app-management-q1",
+          "prompt": "What is a reliable first check before downloading software?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "Verify the app's publisher and use an official or trusted distribution source."
+          ],
+          "answerIndex": 3,
+          "explanation": "Verify the app's publisher and use an official or trusted distribution source. Identify the job the app should do, compare reputable options and verify the publisher, version, platform and source."
+        },
+        {
+          "id": "software-installation-app-management-q2",
+          "prompt": "Why check software requirements first?",
+          "options": [
+            "To avoid failed installation and unsupported or unreliable operation.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "To avoid failed installation and unsupported or unreliable operation. Check the operating system, processor architecture, memory, storage and licence terms before installing an application."
+        },
+        {
+          "id": "software-installation-app-management-q3",
+          "prompt": "What should you do if installation requests unrelated permissions?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Pause, verify the publisher and need, and do not approve unexplained access.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "Pause, verify the publisher and need, and do not approve unexplained access. Read setup prompts, select only needed components and understand why admin rights or access to files, camera or microphone are requested."
+        },
+        {
+          "id": "software-installation-app-management-q4",
+          "prompt": "Why are security updates important?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "They can correct known weaknesses and reliability defects.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "They can correct known weaknesses and reliability defects. Apply security and reliability updates from supported channels and plan around restart requirements or critical work."
+        },
+        {
+          "id": "software-installation-app-management-q5",
+          "prompt": "What should be checked before uninstalling a productivity app?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "Whether important user data needs exporting or backing up first."
+          ],
+          "answerIndex": 3,
+          "explanation": "Whether important user data needs exporting or backing up first. Use the supported uninstall path, preserve user files and check that removing an app will not delete shared data or required components."
+        },
+        {
+          "id": "software-installation-app-management-q6",
+          "prompt": "What is useful evidence when an installation fails?",
+          "options": [
+            "The exact error, app version, device requirements and steps already attempted.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "The exact error, app version, device requirements and steps already attempted. Record the exact error, check device space and compatibility, restart when appropriate and use official support guidance before risky fixes."
+        }
+      ]
+    },
+    {
+      "id": "computer-hardware-fundamentals",
+      "title": "Computer Hardware & System Components",
+      "category": "Computer Engineering",
+      "description": "Identify computer components and understand CPU, RAM, storage, motherboard, power, cooling and input/output.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "computer-hardware-fundamentals-lesson-1",
+          "title": "Computer system overview and input/output",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Trace information through input, processing, temporary working memory, storage and output; distinguish devices by their primary role.",
+            "WHY THIS MATTERS — Computer hardware is the physical equipment that works together to run software. Input devices provide data, the CPU executes instructions, RAM holds working data temporarily, storage retains files, and output devices present results. The motherboard connects components; power delivery and cooling help them operate within safe limits.",
+            "KEY TERMS — CPU — executes instructions and coordinates processing; RAM — fast temporary working memory; SSD or HDD — persistent storage for files and programs; motherboard — board connecting system components; I/O — input and output devices or signals. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Identify the symptom and external connections first. 2) Know the component's role before making a change. 3) Power down and follow approved isolation procedures before authorised inspection. 4) Protect against static damage and use the correct tools and documentation. 5) Test only within training and manufacturer guidance, then record findings.",
+            "WORKED EXAMPLE — Typing a report uses the keyboard for input, CPU and RAM while editing, SSD for saved data and the screen for output.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Input devices → 2. CPU processes → 3. RAM holds active work → 4. Storage keeps files → 5. Output devices. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Label a computer diagram with keyboard, mouse, CPU, RAM, storage, motherboard, power supply and display.",
+            "COMMON MISTAKES TO AVOID — confusing RAM with persistent storage; handling internal parts while power is connected; forcing incompatible components into slots; opening power supplies or attempting unsafe electrical repairs. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Which component group keeps a saved document after power is off? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-hardware-fundamentals-lesson-2",
+          "title": "CPU, cores and instruction processing",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand CPU role, cores, clock behaviour and the difference between executing instructions and storing files.",
+            "WHY THIS MATTERS — Computer hardware is the physical equipment that works together to run software. Input devices provide data, the CPU executes instructions, RAM holds working data temporarily, storage retains files, and output devices present results. The motherboard connects components; power delivery and cooling help them operate within safe limits.",
+            "KEY TERMS — RAM — fast temporary working memory; SSD or HDD — persistent storage for files and programs; motherboard — board connecting system components; I/O — input and output devices or signals; CPU — executes instructions and coordinates processing. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Know the component's role before making a change. 2) Power down and follow approved isolation procedures before authorised inspection. 3) Protect against static damage and use the correct tools and documentation. 4) Test only within training and manufacturer guidance, then record findings. 5) Identify the symptom and external connections first.",
+            "WORKED EXAMPLE — An application requests work and the CPU executes the instructions while data and code are brought into memory as needed.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Input devices → 2. CPU processes → 3. RAM holds active work → 4. Storage keeps files → 5. Output devices. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Use a labelled diagram to describe how an instruction and its data move through a basic computer.",
+            "COMMON MISTAKES TO AVOID — handling internal parts while power is connected; forcing incompatible components into slots; opening power supplies or attempting unsafe electrical repairs; confusing RAM with persistent storage. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is the CPU's main role? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-hardware-fundamentals-lesson-3",
+          "title": "RAM, storage and performance",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Distinguish volatile RAM from persistent storage, understand capacity and speed, and identify common bottlenecks.",
+            "WHY THIS MATTERS — Computer hardware is the physical equipment that works together to run software. Input devices provide data, the CPU executes instructions, RAM holds working data temporarily, storage retains files, and output devices present results. The motherboard connects components; power delivery and cooling help them operate within safe limits.",
+            "KEY TERMS — SSD or HDD — persistent storage for files and programs; motherboard — board connecting system components; I/O — input and output devices or signals; CPU — executes instructions and coordinates processing; RAM — fast temporary working memory. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Power down and follow approved isolation procedures before authorised inspection. 2) Protect against static damage and use the correct tools and documentation. 3) Test only within training and manufacturer guidance, then record findings. 4) Identify the symptom and external connections first. 5) Know the component's role before making a change.",
+            "WORKED EXAMPLE — A device may have free SSD space but still slow when too many applications compete for RAM.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Input devices → 2. CPU processes → 3. RAM holds active work → 4. Storage keeps files → 5. Output devices. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Compare two fictional computer specifications and choose one for a stated workload, explaining the trade-offs.",
+            "COMMON MISTAKES TO AVOID — forcing incompatible components into slots; opening power supplies or attempting unsafe electrical repairs; confusing RAM with persistent storage; handling internal parts while power is connected. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What normally happens to RAM contents when power is removed? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-hardware-fundamentals-lesson-4",
+          "title": "Motherboard, buses and expansion",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Recognise sockets, slots, ports, buses and chipset roles at a conceptual level; check compatibility before any component selection.",
+            "WHY THIS MATTERS — Computer hardware is the physical equipment that works together to run software. Input devices provide data, the CPU executes instructions, RAM holds working data temporarily, storage retains files, and output devices present results. The motherboard connects components; power delivery and cooling help them operate within safe limits.",
+            "KEY TERMS — motherboard — board connecting system components; I/O — input and output devices or signals; CPU — executes instructions and coordinates processing; RAM — fast temporary working memory; SSD or HDD — persistent storage for files and programs. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Protect against static damage and use the correct tools and documentation. 2) Test only within training and manufacturer guidance, then record findings. 3) Identify the symptom and external connections first. 4) Know the component's role before making a change. 5) Power down and follow approved isolation procedures before authorised inspection.",
+            "WORKED EXAMPLE — A storage device must use an interface supported by the system and a form factor that fits the available bay or slot.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Input devices → 2. CPU processes → 3. RAM holds active work → 4. Storage keeps files → 5. Output devices. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Match fictional parts to a motherboard specification sheet without physically installing anything.",
+            "COMMON MISTAKES TO AVOID — opening power supplies or attempting unsafe electrical repairs; confusing RAM with persistent storage; handling internal parts while power is connected; forcing incompatible components into slots. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why should compatibility be checked before buying a component? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-hardware-fundamentals-lesson-5",
+          "title": "Power, cooling and peripherals",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand power supply, cooling fans, heat sinks, cables and external peripherals; recognise warnings that require qualified service.",
+            "WHY THIS MATTERS — Computer hardware is the physical equipment that works together to run software. Input devices provide data, the CPU executes instructions, RAM holds working data temporarily, storage retains files, and output devices present results. The motherboard connects components; power delivery and cooling help them operate within safe limits.",
+            "KEY TERMS — I/O — input and output devices or signals; CPU — executes instructions and coordinates processing; RAM — fast temporary working memory; SSD or HDD — persistent storage for files and programs; motherboard — board connecting system components. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Test only within training and manufacturer guidance, then record findings. 2) Identify the symptom and external connections first. 3) Know the component's role before making a change. 4) Power down and follow approved isolation procedures before authorised inspection. 5) Protect against static damage and use the correct tools and documentation.",
+            "WORKED EXAMPLE — Blocked ventilation may increase heat and cause throttling or shutdown, but damaged power hardware must not be opened by a learner.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Input devices → 2. CPU processes → 3. RAM holds active work → 4. Storage keeps files → 5. Output devices. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Use a picture-based worksheet to identify obstructed vents, damaged cables and unsuitable peripheral connections.",
+            "COMMON MISTAKES TO AVOID — confusing RAM with persistent storage; handling internal parts while power is connected; forcing incompatible components into slots; opening power supplies or attempting unsafe electrical repairs. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should a learner do with a damaged mains power supply? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-hardware-fundamentals-lesson-6",
+          "title": "Read specifications and choose a system",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Match CPU, memory, storage, graphics, ports and upgradeability to the workload and budget rather than choosing from one headline specification.",
+            "WHY THIS MATTERS — Computer hardware is the physical equipment that works together to run software. Input devices provide data, the CPU executes instructions, RAM holds working data temporarily, storage retains files, and output devices present results. The motherboard connects components; power delivery and cooling help them operate within safe limits.",
+            "KEY TERMS — CPU — executes instructions and coordinates processing; RAM — fast temporary working memory; SSD or HDD — persistent storage for files and programs; motherboard — board connecting system components; I/O — input and output devices or signals. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Identify the symptom and external connections first. 2) Know the component's role before making a change. 3) Power down and follow approved isolation procedures before authorised inspection. 4) Protect against static damage and use the correct tools and documentation. 5) Test only within training and manufacturer guidance, then record findings.",
+            "WORKED EXAMPLE — A student using documents and browser research may need a different balance of memory and graphics than a workstation for 3D workloads.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Input devices → 2. CPU processes → 3. RAM holds active work → 4. Storage keeps files → 5. Output devices. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a requirements table for an office PC, a coding laptop and an engineering workstation.",
+            "COMMON MISTAKES TO AVOID — handling internal parts while power is connected; forcing incompatible components into slots; opening power supplies or attempting unsafe electrical repairs; confusing RAM with persistent storage. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is the best basis for selecting a computer? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "computer-hardware-fundamentals-q1",
+          "prompt": "Which component group keeps a saved document after power is off?",
+          "options": [
+            "Persistent storage such as an SSD or HDD.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "Persistent storage such as an SSD or HDD. Trace information through input, processing, temporary working memory, storage and output; distinguish devices by their primary role."
+        },
+        {
+          "id": "computer-hardware-fundamentals-q2",
+          "prompt": "What is the CPU's main role?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Executing instructions and coordinating computation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "Executing instructions and coordinating computation. Understand CPU role, cores, clock behaviour and the difference between executing instructions and storing files."
+        },
+        {
+          "id": "computer-hardware-fundamentals-q3",
+          "prompt": "What normally happens to RAM contents when power is removed?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "The working contents are lost because RAM is volatile.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "The working contents are lost because RAM is volatile. Distinguish volatile RAM from persistent storage, understand capacity and speed, and identify common bottlenecks."
+        },
+        {
+          "id": "computer-hardware-fundamentals-q4",
+          "prompt": "Why should compatibility be checked before buying a component?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "Physical fit, interface, firmware and power requirements must match."
+          ],
+          "answerIndex": 3,
+          "explanation": "Physical fit, interface, firmware and power requirements must match. Recognise sockets, slots, ports, buses and chipset roles at a conceptual level; check compatibility before any component selection."
+        },
+        {
+          "id": "computer-hardware-fundamentals-q5",
+          "prompt": "What should a learner do with a damaged mains power supply?",
+          "options": [
+            "Stop using it and refer it to an appropriately qualified technician.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "Stop using it and refer it to an appropriately qualified technician. Understand power supply, cooling fans, heat sinks, cables and external peripherals; recognise warnings that require qualified service."
+        },
+        {
+          "id": "computer-hardware-fundamentals-q6",
+          "prompt": "What is the best basis for selecting a computer?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "The workload requirements, compatibility, reliability and total budget.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "The workload requirements, compatibility, reliability and total budget. Match CPU, memory, storage, graphics, ports and upgradeability to the workload and budget rather than choosing from one headline specification."
+        }
+      ]
+    },
+    {
+      "id": "computer-maintenance-it-support",
+      "title": "Computer Maintenance & IT Support",
+      "category": "Computer Engineering",
+      "description": "Use safe troubleshooting, symptom logs, basic maintenance, diagnostic reasoning and support documentation.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "computer-maintenance-it-support-lesson-1",
+          "title": "Troubleshooting mindset and support records",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Describe behaviour rather than blame, capture exact errors and reproduce the issue when safe and authorised.",
+            "WHY THIS MATTERS — IT support solves user problems methodically while protecting data and safety. Start with the symptom, ask what changed, collect error messages, check simple causes and test one change at a time. If work risks data loss, electric shock or unauthorised access, stop and escalate to qualified support.",
+            "KEY TERMS — symptom — observable sign of a problem; diagnosis — reasoned identification of a likely cause; reproduction steps — actions that trigger the issue; rollback — return to a known previous state; escalation — referral to a suitable support level. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Record the exact symptom, time and affected task. 2) Ask about recent changes and scope of impact. 3) Try low-risk checks one at a time and log the result. 4) Verify the fix and confirm normal operation with the user. 5) Document the cause and escalate unresolved or high-risk issues.",
+            "WORKED EXAMPLE — Instead of writing 'the computer is broken', note that Wi-Fi disconnects after waking from sleep and record the error and time.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Observe symptom → 2. Check simple causes → 3. Test one change → 4. Verify fix → 5. Document or escalate. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Complete a mock support ticket with device, user impact, error, steps tried and next action.",
+            "COMMON MISTAKES TO AVOID — changing several settings at once; restarting or reinstalling before protecting work; assuming the first guess is the cause; handling live electrical equipment or accessing data without permission. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why record the exact error message? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-maintenance-it-support-lesson-2",
+          "title": "Slow computer and application problems",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Check workload, storage space, app updates, startup behaviour and resource usage before making changes that could remove data.",
+            "WHY THIS MATTERS — IT support solves user problems methodically while protecting data and safety. Start with the symptom, ask what changed, collect error messages, check simple causes and test one change at a time. If work risks data loss, electric shock or unauthorised access, stop and escalate to qualified support.",
+            "KEY TERMS — diagnosis — reasoned identification of a likely cause; reproduction steps — actions that trigger the issue; rollback — return to a known previous state; escalation — referral to a suitable support level; symptom — observable sign of a problem. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Ask about recent changes and scope of impact. 2) Try low-risk checks one at a time and log the result. 3) Verify the fix and confirm normal operation with the user. 4) Document the cause and escalate unresolved or high-risk issues. 5) Record the exact symptom, time and affected task.",
+            "WORKED EXAMPLE — A browser with many tabs may consume substantial memory; close one test set and observe whether performance changes.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Observe symptom → 2. Check simple causes → 3. Test one change → 4. Verify fix → 5. Document or escalate. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Use a simulated task manager screenshot to identify which process is using the most memory or CPU.",
+            "COMMON MISTAKES TO AVOID — restarting or reinstalling before protecting work; assuming the first guess is the cause; handling live electrical equipment or accessing data without permission; changing several settings at once. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why test one change at a time? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-maintenance-it-support-lesson-3",
+          "title": "Network, printing and peripheral issues",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Check power and cable condition, selected device, simple connectivity and error status before reinstalling drivers or resetting settings.",
+            "WHY THIS MATTERS — IT support solves user problems methodically while protecting data and safety. Start with the symptom, ask what changed, collect error messages, check simple causes and test one change at a time. If work risks data loss, electric shock or unauthorised access, stop and escalate to qualified support.",
+            "KEY TERMS — reproduction steps — actions that trigger the issue; rollback — return to a known previous state; escalation — referral to a suitable support level; symptom — observable sign of a problem; diagnosis — reasoned identification of a likely cause. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Try low-risk checks one at a time and log the result. 2) Verify the fix and confirm normal operation with the user. 3) Document the cause and escalate unresolved or high-risk issues. 4) Record the exact symptom, time and affected task. 5) Ask about recent changes and scope of impact.",
+            "WORKED EXAMPLE — A print job may be sent to the wrong printer or paused in a queue rather than caused by a broken printer.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Observe symptom → 2. Check simple causes → 3. Test one change → 4. Verify fix → 5. Document or escalate. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Make a safe decision tree for a printer that will not print and an app that cannot reach the network.",
+            "COMMON MISTAKES TO AVOID — assuming the first guess is the cause; handling live electrical equipment or accessing data without permission; changing several settings at once; restarting or reinstalling before protecting work. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you verify before replacing a printer driver? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-maintenance-it-support-lesson-4",
+          "title": "Maintenance, updates and data protection",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use approved updates, backups, storage housekeeping and manufacturer maintenance advice; avoid aggressive cleaning utilities or unknown tools.",
+            "WHY THIS MATTERS — IT support solves user problems methodically while protecting data and safety. Start with the symptom, ask what changed, collect error messages, check simple causes and test one change at a time. If work risks data loss, electric shock or unauthorised access, stop and escalate to qualified support.",
+            "KEY TERMS — rollback — return to a known previous state; escalation — referral to a suitable support level; symptom — observable sign of a problem; diagnosis — reasoned identification of a likely cause; reproduction steps — actions that trigger the issue. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Verify the fix and confirm normal operation with the user. 2) Document the cause and escalate unresolved or high-risk issues. 3) Record the exact symptom, time and affected task. 4) Ask about recent changes and scope of impact. 5) Try low-risk checks one at a time and log the result.",
+            "WORKED EXAMPLE — Back up important user files and confirm restoration before attempting a repair likely to change disks or system settings.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Observe symptom → 2. Check simple causes → 3. Test one change → 4. Verify fix → 5. Document or escalate. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Prepare a monthly maintenance checklist for updates, backup verification, free space and physical ventilation.",
+            "COMMON MISTAKES TO AVOID — handling live electrical equipment or accessing data without permission; changing several settings at once; restarting or reinstalling before protecting work; assuming the first guess is the cause. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should be verified before a repair that could affect files? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-maintenance-it-support-lesson-5",
+          "title": "User support and clear explanations",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Ask permission before remote help, protect passwords and personal records, and explain actions in language appropriate to the user's experience.",
+            "WHY THIS MATTERS — IT support solves user problems methodically while protecting data and safety. Start with the symptom, ask what changed, collect error messages, check simple causes and test one change at a time. If work risks data loss, electric shock or unauthorised access, stop and escalate to qualified support.",
+            "KEY TERMS — escalation — referral to a suitable support level; symptom — observable sign of a problem; diagnosis — reasoned identification of a likely cause; reproduction steps — actions that trigger the issue; rollback — return to a known previous state. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Document the cause and escalate unresolved or high-risk issues. 2) Record the exact symptom, time and affected task. 3) Ask about recent changes and scope of impact. 4) Try low-risk checks one at a time and log the result. 5) Verify the fix and confirm normal operation with the user.",
+            "WORKED EXAMPLE — Guide a user to open a setting and read its value rather than asking them to send a password or one-time code.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Observe symptom → 2. Check simple causes → 3. Test one change → 4. Verify fix → 5. Document or escalate. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Rewrite a technical error explanation as five clear steps for a beginner.",
+            "COMMON MISTAKES TO AVOID — changing several settings at once; restarting or reinstalling before protecting work; assuming the first guess is the cause; handling live electrical equipment or accessing data without permission. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should a technician never ask a user to send in ordinary support chat? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-maintenance-it-support-lesson-6",
+          "title": "Verify repairs and escalate safely",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Check whether the original problem is resolved, test related functions and document unresolved risks or the need for qualified hardware service.",
+            "WHY THIS MATTERS — IT support solves user problems methodically while protecting data and safety. Start with the symptom, ask what changed, collect error messages, check simple causes and test one change at a time. If work risks data loss, electric shock or unauthorised access, stop and escalate to qualified support.",
+            "KEY TERMS — symptom — observable sign of a problem; diagnosis — reasoned identification of a likely cause; reproduction steps — actions that trigger the issue; rollback — return to a known previous state; escalation — referral to a suitable support level. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Record the exact symptom, time and affected task. 2) Ask about recent changes and scope of impact. 3) Try low-risk checks one at a time and log the result. 4) Verify the fix and confirm normal operation with the user. 5) Document the cause and escalate unresolved or high-risk issues.",
+            "WORKED EXAMPLE — After restoring network access, test the required website, note the change made and inform the user what remains unknown.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Observe symptom → 2. Check simple causes → 3. Test one change → 4. Verify fix → 5. Document or escalate. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Close a simulated ticket with symptom, suspected cause, fix, verification and follow-up recommendation.",
+            "COMMON MISTAKES TO AVOID — restarting or reinstalling before protecting work; assuming the first guess is the cause; handling live electrical equipment or accessing data without permission; changing several settings at once. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — When should a technician escalate instead of continuing? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "computer-maintenance-it-support-q1",
+          "prompt": "Why record the exact error message?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "It provides evidence that helps identify and verify the cause.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "It provides evidence that helps identify and verify the cause. Describe behaviour rather than blame, capture exact errors and reproduce the issue when safe and authorised."
+        },
+        {
+          "id": "computer-maintenance-it-support-q2",
+          "prompt": "Why test one change at a time?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "It helps identify which action affected the result.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "It helps identify which action affected the result. Check workload, storage space, app updates, startup behaviour and resource usage before making changes that could remove data."
+        },
+        {
+          "id": "computer-maintenance-it-support-q3",
+          "prompt": "What should you verify before replacing a printer driver?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "The selected printer, connection, queue status and actual error."
+          ],
+          "answerIndex": 3,
+          "explanation": "The selected printer, connection, queue status and actual error. Check power and cable condition, selected device, simple connectivity and error status before reinstalling drivers or resetting settings."
+        },
+        {
+          "id": "computer-maintenance-it-support-q4",
+          "prompt": "What should be verified before a repair that could affect files?",
+          "options": [
+            "A usable backup and permission to proceed.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "A usable backup and permission to proceed. Use approved updates, backups, storage housekeeping and manufacturer maintenance advice; avoid aggressive cleaning utilities or unknown tools."
+        },
+        {
+          "id": "computer-maintenance-it-support-q5",
+          "prompt": "What should a technician never ask a user to send in ordinary support chat?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Passwords or one-time authentication codes.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "Passwords or one-time authentication codes. Ask permission before remote help, protect passwords and personal records, and explain actions in language appropriate to the user's experience."
+        },
+        {
+          "id": "computer-maintenance-it-support-q6",
+          "prompt": "When should a technician escalate instead of continuing?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "When the risk, access requirements or technical scope exceed their authority or training.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "When the risk, access requirements or technical scope exceed their authority or training. Check whether the original problem is resolved, test related functions and document unresolved risks or the need for qualified hardware service."
+        }
+      ]
+    },
+    {
+      "id": "digital-logic-boolean-design",
+      "title": "Digital Logic & Boolean Design",
+      "category": "Computer Engineering",
+      "description": "Learn binary numbers, logic gates, Boolean expressions, truth tables and combinational circuit reasoning.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "digital-logic-boolean-design-lesson-1",
+          "title": "Binary numbers and digital states",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Convert small binary values to decimal, understand bit positions and treat logic levels as symbolic states with defined electrical interpretations.",
+            "WHY THIS MATTERS — Digital logic represents information with discrete states, commonly 0 and 1. Boolean operations such as AND, OR and NOT describe how outputs depend on inputs. Truth tables list every input combination and resulting output, making it possible to reason about a circuit before building or simulating it.",
+            "KEY TERMS — bit — binary digit 0 or 1; AND — output is 1 only when all inputs are 1; OR — output is 1 when at least one input is 1; NOT — reverses a binary input; truth table — output for each input combination. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define each input and the desired output. 2) Write the truth table for all input combinations. 3) Express the rule using Boolean operators. 4) Draw or simulate the gates in logical order. 5) Compare simulated output against every truth-table row.",
+            "WORKED EXAMPLE — Binary 101 represents 1×4 + 0×2 + 1×1 = decimal 5.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Binary inputs → 2. Logic gate → 3. Truth table → 4. Combine signals → 5. Test output. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Convert binary values 001, 010, 101 and 111 to decimal and check each position's weight.",
+            "COMMON MISTAKES TO AVOID — mixing up AND and OR conditions; forgetting one input combination; confusing active-high and active-low signals; assuming a diagram is correct without checking the table. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What decimal value does binary 101 represent? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "digital-logic-boolean-design-lesson-2",
+          "title": "AND, OR and NOT gates",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Predict the output of basic gates and distinguish a logical condition from the physical voltage thresholds used in a real device.",
+            "WHY THIS MATTERS — Digital logic represents information with discrete states, commonly 0 and 1. Boolean operations such as AND, OR and NOT describe how outputs depend on inputs. Truth tables list every input combination and resulting output, making it possible to reason about a circuit before building or simulating it.",
+            "KEY TERMS — AND — output is 1 only when all inputs are 1; OR — output is 1 when at least one input is 1; NOT — reverses a binary input; truth table — output for each input combination; bit — binary digit 0 or 1. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Write the truth table for all input combinations. 2) Express the rule using Boolean operators. 3) Draw or simulate the gates in logical order. 4) Compare simulated output against every truth-table row. 5) Define each input and the desired output.",
+            "WORKED EXAMPLE — For AND, inputs A=1 and B=0 produce output 0 because both inputs are not 1.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Binary inputs → 2. Logic gate → 3. Truth table → 4. Combine signals → 5. Test output. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Complete truth tables for AND, OR and NOT using every possible input.",
+            "COMMON MISTAKES TO AVOID — forgetting one input combination; confusing active-high and active-low signals; assuming a diagram is correct without checking the table; mixing up AND and OR conditions. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — When does a two-input AND gate output 1? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "digital-logic-boolean-design-lesson-3",
+          "title": "Truth tables and Boolean expressions",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Translate a word condition into symbols, evaluate each row and use parentheses to preserve the intended logic.",
+            "WHY THIS MATTERS — Digital logic represents information with discrete states, commonly 0 and 1. Boolean operations such as AND, OR and NOT describe how outputs depend on inputs. Truth tables list every input combination and resulting output, making it possible to reason about a circuit before building or simulating it.",
+            "KEY TERMS — OR — output is 1 when at least one input is 1; NOT — reverses a binary input; truth table — output for each input combination; bit — binary digit 0 or 1; AND — output is 1 only when all inputs are 1. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Express the rule using Boolean operators. 2) Draw or simulate the gates in logical order. 3) Compare simulated output against every truth-table row. 4) Define each input and the desired output. 5) Write the truth table for all input combinations.",
+            "WORKED EXAMPLE — A warning may activate when the door is open AND the machine is running; both conditions must be true.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Binary inputs → 2. Logic gate → 3. Truth table → 4. Combine signals → 5. Test output. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a truth table for a warning rule, then compare every output with your written rule.",
+            "COMMON MISTAKES TO AVOID — confusing active-high and active-low signals; assuming a diagram is correct without checking the table; mixing up AND and OR conditions; forgetting one input combination. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why list every possible input combination? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "digital-logic-boolean-design-lesson-4",
+          "title": "Combining gates into circuits",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Trace signals stage by stage, label intermediate outputs and use a simulator or diagram to validate a multi-gate design.",
+            "WHY THIS MATTERS — Digital logic represents information with discrete states, commonly 0 and 1. Boolean operations such as AND, OR and NOT describe how outputs depend on inputs. Truth tables list every input combination and resulting output, making it possible to reason about a circuit before building or simulating it.",
+            "KEY TERMS — NOT — reverses a binary input; truth table — output for each input combination; bit — binary digit 0 or 1; AND — output is 1 only when all inputs are 1; OR — output is 1 when at least one input is 1. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Draw or simulate the gates in logical order. 2) Compare simulated output against every truth-table row. 3) Define each input and the desired output. 4) Write the truth table for all input combinations. 5) Express the rule using Boolean operators.",
+            "WORKED EXAMPLE — An AND gate can feed an OR gate; calculate the first output before evaluating the second gate.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Binary inputs → 2. Logic gate → 3. Truth table → 4. Combine signals → 5. Test output. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw a two-stage gate diagram and make a table with inputs, intermediate output and final result.",
+            "COMMON MISTAKES TO AVOID — assuming a diagram is correct without checking the table; mixing up AND and OR conditions; forgetting one input combination; confusing active-high and active-low signals. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a good method for checking a multi-gate circuit on paper? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "digital-logic-boolean-design-lesson-5",
+          "title": "Simplification and equivalent logic",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Compare logically equivalent expressions using Boolean rules and verify simplifications with truth tables rather than relying on visual similarity.",
+            "WHY THIS MATTERS — Digital logic represents information with discrete states, commonly 0 and 1. Boolean operations such as AND, OR and NOT describe how outputs depend on inputs. Truth tables list every input combination and resulting output, making it possible to reason about a circuit before building or simulating it.",
+            "KEY TERMS — truth table — output for each input combination; bit — binary digit 0 or 1; AND — output is 1 only when all inputs are 1; OR — output is 1 when at least one input is 1; NOT — reverses a binary input. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Compare simulated output against every truth-table row. 2) Define each input and the desired output. 3) Write the truth table for all input combinations. 4) Express the rule using Boolean operators. 5) Draw or simulate the gates in logical order.",
+            "WORKED EXAMPLE — A simplified expression is acceptable only if it gives the same output for all valid input combinations.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Binary inputs → 2. Logic gate → 3. Truth table → 4. Combine signals → 5. Test output. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Use a truth table to compare an original expression and a proposed simplification.",
+            "COMMON MISTAKES TO AVOID — mixing up AND and OR conditions; forgetting one input combination; confusing active-high and active-low signals; assuming a diagram is correct without checking the table. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — How can you verify that two Boolean expressions are equivalent? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "digital-logic-boolean-design-lesson-6",
+          "title": "Simulation and logic test cases",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use a digital logic simulator to test input states, observe outputs and record cases that would otherwise be easy to miss.",
+            "WHY THIS MATTERS — Digital logic represents information with discrete states, commonly 0 and 1. Boolean operations such as AND, OR and NOT describe how outputs depend on inputs. Truth tables list every input combination and resulting output, making it possible to reason about a circuit before building or simulating it.",
+            "KEY TERMS — bit — binary digit 0 or 1; AND — output is 1 only when all inputs are 1; OR — output is 1 when at least one input is 1; NOT — reverses a binary input; truth table — output for each input combination. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define each input and the desired output. 2) Write the truth table for all input combinations. 3) Express the rule using Boolean operators. 4) Draw or simulate the gates in logical order. 5) Compare simulated output against every truth-table row.",
+            "WORKED EXAMPLE — A simulated alarm is tested with every door and running-state combination before it is considered correct.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Binary inputs → 2. Logic gate → 3. Truth table → 4. Combine signals → 5. Test output. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a test table for a simple alarm circuit and mark pass or fail for each state.",
+            "COMMON MISTAKES TO AVOID — forgetting one input combination; confusing active-high and active-low signals; assuming a diagram is correct without checking the table; mixing up AND and OR conditions. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should happen if one test row disagrees with the expected table? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "digital-logic-boolean-design-q1",
+          "prompt": "What decimal value does binary 101 represent?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "5.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "5. Convert small binary values to decimal, understand bit positions and treat logic levels as symbolic states with defined electrical interpretations."
+        },
+        {
+          "id": "digital-logic-boolean-design-q2",
+          "prompt": "When does a two-input AND gate output 1?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "Only when both inputs are 1."
+          ],
+          "answerIndex": 3,
+          "explanation": "Only when both inputs are 1. Predict the output of basic gates and distinguish a logical condition from the physical voltage thresholds used in a real device."
+        },
+        {
+          "id": "digital-logic-boolean-design-q3",
+          "prompt": "Why list every possible input combination?",
+          "options": [
+            "To check that the logic rule behaves correctly in every case.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "To check that the logic rule behaves correctly in every case. Translate a word condition into symbols, evaluate each row and use parentheses to preserve the intended logic."
+        },
+        {
+          "id": "digital-logic-boolean-design-q4",
+          "prompt": "What is a good method for checking a multi-gate circuit on paper?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Evaluate and label each intermediate output in order.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "Evaluate and label each intermediate output in order. Trace signals stage by stage, label intermediate outputs and use a simulator or diagram to validate a multi-gate design."
+        },
+        {
+          "id": "digital-logic-boolean-design-q5",
+          "prompt": "How can you verify that two Boolean expressions are equivalent?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Compare their outputs for every input combination.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "Compare their outputs for every input combination. Compare logically equivalent expressions using Boolean rules and verify simplifications with truth tables rather than relying on visual similarity."
+        },
+        {
+          "id": "digital-logic-boolean-design-q6",
+          "prompt": "What should happen if one test row disagrees with the expected table?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "Pause, trace the logic and correct the design before claiming success."
+          ],
+          "answerIndex": 3,
+          "explanation": "Pause, trace the logic and correct the design before claiming success. Use a digital logic simulator to test input states, observe outputs and record cases that would otherwise be easy to miss."
+        }
+      ]
+    },
+    {
+      "id": "computer-architecture-microprocessors",
+      "title": "Computer Architecture & Microprocessors",
+      "category": "Computer Engineering",
+      "description": "Explore instruction cycles, registers, memory hierarchy, buses, interrupts and processor performance.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "computer-architecture-microprocessors-lesson-1",
+          "title": "CPU model, registers and instruction sets",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand the roles of control logic, arithmetic/logic operations, registers and instructions at an introductory architectural level.",
+            "WHY THIS MATTERS — Computer architecture describes the organisation and behaviour of processors, memory and input/output. At a simplified level, the CPU fetches an instruction, decodes its meaning and executes the operation. Registers and caches hold nearby working data while RAM and persistent storage serve different roles and speeds.",
+            "KEY TERMS — register — small fast storage inside a CPU; instruction set — operations a processor can execute; cache — small fast memory for recently needed data; bus — path carrying data, addresses or control signals; interrupt — signal that requests processor attention. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Identify whether the question concerns instruction execution, storage or I/O. 2) Trace instruction and data movement in sequence. 3) Separate latency, throughput and clock-rate ideas. 4) Consider cache, memory and software workload together. 5) Use a labelled diagram or simulation to confirm the explanation.",
+            "WORKED EXAMPLE — An instruction adds two register values and writes the result into a destination register.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Fetch instruction → 2. Decode operation → 3. Execute work → 4. Read or write memory → 5. Repeat cycle. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Label a simplified CPU diagram with control unit, ALU, registers and instruction flow.",
+            "COMMON MISTAKES TO AVOID — assuming clock speed alone determines performance; confusing RAM with cache or disk storage; assuming all processors execute identical instruction sets; forgetting that interrupts and I/O affect system timing. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why are registers used during instruction execution? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-architecture-microprocessors-lesson-2",
+          "title": "Fetch, decode and execute cycle",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Trace the high-level cycle from locating an instruction through decoding its operation to carrying it out and advancing the program sequence.",
+            "WHY THIS MATTERS — Computer architecture describes the organisation and behaviour of processors, memory and input/output. At a simplified level, the CPU fetches an instruction, decodes its meaning and executes the operation. Registers and caches hold nearby working data while RAM and persistent storage serve different roles and speeds.",
+            "KEY TERMS — instruction set — operations a processor can execute; cache — small fast memory for recently needed data; bus — path carrying data, addresses or control signals; interrupt — signal that requests processor attention; register — small fast storage inside a CPU. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Trace instruction and data movement in sequence. 2) Separate latency, throughput and clock-rate ideas. 3) Consider cache, memory and software workload together. 4) Use a labelled diagram or simulation to confirm the explanation. 5) Identify whether the question concerns instruction execution, storage or I/O.",
+            "WORKED EXAMPLE — A simplified processor fetches an add instruction, identifies source registers and performs the addition in its ALU.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Fetch instruction → 2. Decode operation → 3. Execute work → 4. Read or write memory → 5. Repeat cycle. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Sequence the stages of a fictional instruction and note where operands and the result are used.",
+            "COMMON MISTAKES TO AVOID — confusing RAM with cache or disk storage; assuming all processors execute identical instruction sets; forgetting that interrupts and I/O affect system timing; assuming clock speed alone determines performance. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What happens during the decode stage? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-architecture-microprocessors-lesson-3",
+          "title": "Memory hierarchy and caching",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Compare registers, caches, RAM and storage by typical proximity, capacity and speed; understand locality without assuming a single fixed value across all systems.",
+            "WHY THIS MATTERS — Computer architecture describes the organisation and behaviour of processors, memory and input/output. At a simplified level, the CPU fetches an instruction, decodes its meaning and executes the operation. Registers and caches hold nearby working data while RAM and persistent storage serve different roles and speeds.",
+            "KEY TERMS — cache — small fast memory for recently needed data; bus — path carrying data, addresses or control signals; interrupt — signal that requests processor attention; register — small fast storage inside a CPU; instruction set — operations a processor can execute. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Separate latency, throughput and clock-rate ideas. 2) Consider cache, memory and software workload together. 3) Use a labelled diagram or simulation to confirm the explanation. 4) Identify whether the question concerns instruction execution, storage or I/O. 5) Trace instruction and data movement in sequence.",
+            "WORKED EXAMPLE — Repeatedly used instructions may remain in cache and be accessed faster than retrieving data from main memory.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Fetch instruction → 2. Decode operation → 3. Execute work → 4. Read or write memory → 5. Repeat cycle. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Arrange register, cache, RAM and SSD into a conceptual hierarchy and explain the trade-offs.",
+            "COMMON MISTAKES TO AVOID — assuming all processors execute identical instruction sets; forgetting that interrupts and I/O affect system timing; assuming clock speed alone determines performance; confusing RAM with cache or disk storage. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why does a CPU use cache? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-architecture-microprocessors-lesson-4",
+          "title": "Buses, interrupts and input/output",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand data, address and control signalling; explain at a high level how devices notify the CPU and exchange information.",
+            "WHY THIS MATTERS — Computer architecture describes the organisation and behaviour of processors, memory and input/output. At a simplified level, the CPU fetches an instruction, decodes its meaning and executes the operation. Registers and caches hold nearby working data while RAM and persistent storage serve different roles and speeds.",
+            "KEY TERMS — bus — path carrying data, addresses or control signals; interrupt — signal that requests processor attention; register — small fast storage inside a CPU; instruction set — operations a processor can execute; cache — small fast memory for recently needed data. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Consider cache, memory and software workload together. 2) Use a labelled diagram or simulation to confirm the explanation. 3) Identify whether the question concerns instruction execution, storage or I/O. 4) Trace instruction and data movement in sequence. 5) Separate latency, throughput and clock-rate ideas.",
+            "WORKED EXAMPLE — A device interrupt can request service when an event occurs instead of requiring the CPU to poll endlessly.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Fetch instruction → 2. Decode operation → 3. Execute work → 4. Read or write memory → 5. Repeat cycle. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw a conceptual path linking CPU, memory and an I/O device, and label the signal purpose.",
+            "COMMON MISTAKES TO AVOID — forgetting that interrupts and I/O affect system timing; assuming clock speed alone determines performance; confusing RAM with cache or disk storage; assuming all processors execute identical instruction sets. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is one purpose of an interrupt? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-architecture-microprocessors-lesson-5",
+          "title": "Performance, parallel work and bottlenecks",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Distinguish response time and throughput and consider cores, memory bandwidth, cache, storage, workload and thermal limits together.",
+            "WHY THIS MATTERS — Computer architecture describes the organisation and behaviour of processors, memory and input/output. At a simplified level, the CPU fetches an instruction, decodes its meaning and executes the operation. Registers and caches hold nearby working data while RAM and persistent storage serve different roles and speeds.",
+            "KEY TERMS — interrupt — signal that requests processor attention; register — small fast storage inside a CPU; instruction set — operations a processor can execute; cache — small fast memory for recently needed data; bus — path carrying data, addresses or control signals. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use a labelled diagram or simulation to confirm the explanation. 2) Identify whether the question concerns instruction execution, storage or I/O. 3) Trace instruction and data movement in sequence. 4) Separate latency, throughput and clock-rate ideas. 5) Consider cache, memory and software workload together.",
+            "WORKED EXAMPLE — A workload waiting for storage may not speed up much when CPU clock rate increases.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Fetch instruction → 2. Decode operation → 3. Execute work → 4. Read or write memory → 5. Repeat cycle. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Compare three fictional workloads and identify a likely CPU, memory or I/O bottleneck for each.",
+            "COMMON MISTAKES TO AVOID — assuming clock speed alone determines performance; confusing RAM with cache or disk storage; assuming all processors execute identical instruction sets; forgetting that interrupts and I/O affect system timing. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why is clock speed alone insufficient to compare computers? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-architecture-microprocessors-lesson-6",
+          "title": "Architecture diagrams and simulation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Read block diagrams and use educational simulators or trace tables to follow instruction, data and control flow safely.",
+            "WHY THIS MATTERS — Computer architecture describes the organisation and behaviour of processors, memory and input/output. At a simplified level, the CPU fetches an instruction, decodes its meaning and executes the operation. Registers and caches hold nearby working data while RAM and persistent storage serve different roles and speeds.",
+            "KEY TERMS — register — small fast storage inside a CPU; instruction set — operations a processor can execute; cache — small fast memory for recently needed data; bus — path carrying data, addresses or control signals; interrupt — signal that requests processor attention. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Identify whether the question concerns instruction execution, storage or I/O. 2) Trace instruction and data movement in sequence. 3) Separate latency, throughput and clock-rate ideas. 4) Consider cache, memory and software workload together. 5) Use a labelled diagram or simulation to confirm the explanation.",
+            "WORKED EXAMPLE — A trace table records the instruction, input registers and resulting register state after each simulated step.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Fetch instruction → 2. Decode operation → 3. Execute work → 4. Read or write memory → 5. Repeat cycle. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Use a paper trace for three simple operations and explain each change to the register state.",
+            "COMMON MISTAKES TO AVOID — confusing RAM with cache or disk storage; assuming all processors execute identical instruction sets; forgetting that interrupts and I/O affect system timing; assuming clock speed alone determines performance. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What makes a trace table useful? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "computer-architecture-microprocessors-q1",
+          "prompt": "Why are registers used during instruction execution?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "They hold small amounts of data or addresses close to the CPU for fast access."
+          ],
+          "answerIndex": 3,
+          "explanation": "They hold small amounts of data or addresses close to the CPU for fast access. Understand the roles of control logic, arithmetic/logic operations, registers and instructions at an introductory architectural level."
+        },
+        {
+          "id": "computer-architecture-microprocessors-q2",
+          "prompt": "What happens during the decode stage?",
+          "options": [
+            "The processor interprets the instruction and identifies the operation and operands.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "The processor interprets the instruction and identifies the operation and operands. Trace the high-level cycle from locating an instruction through decoding its operation to carrying it out and advancing the program sequence."
+        },
+        {
+          "id": "computer-architecture-microprocessors-q3",
+          "prompt": "Why does a CPU use cache?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "To keep frequently or recently needed data closer to the processor and reduce access delay.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "To keep frequently or recently needed data closer to the processor and reduce access delay. Compare registers, caches, RAM and storage by typical proximity, capacity and speed; understand locality without assuming a single fixed value across all systems."
+        },
+        {
+          "id": "computer-architecture-microprocessors-q4",
+          "prompt": "What is one purpose of an interrupt?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "To signal an event that needs processor attention.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "To signal an event that needs processor attention. Understand data, address and control signalling; explain at a high level how devices notify the CPU and exchange information."
+        },
+        {
+          "id": "computer-architecture-microprocessors-q5",
+          "prompt": "Why is clock speed alone insufficient to compare computers?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "Performance also depends on architecture, cores, memory, workload and bottlenecks."
+          ],
+          "answerIndex": 3,
+          "explanation": "Performance also depends on architecture, cores, memory, workload and bottlenecks. Distinguish response time and throughput and consider cores, memory bandwidth, cache, storage, workload and thermal limits together."
+        },
+        {
+          "id": "computer-architecture-microprocessors-q6",
+          "prompt": "What makes a trace table useful?",
+          "options": [
+            "It records each state change and allows the expected behaviour to be checked.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "It records each state change and allows the expected behaviour to be checked. Read block diagrams and use educational simulators or trace tables to follow instruction, data and control flow safely."
+        }
+      ]
+    },
+    {
+      "id": "electronics-fundamentals-computer-engineering",
+      "title": "Electronics Fundamentals for Computer Engineering",
+      "category": "Computer Engineering",
+      "description": "Understand voltage, current, resistance, components, signals and introductory circuits through diagrams and simulations.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "electronics-fundamentals-computer-engineering-lesson-1",
+          "title": "Voltage, current, resistance and units",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use correct units for volts, amperes and ohms and describe the relationship among voltage, current and resistance in a simple resistive model.",
+            "WHY THIS MATTERS — Electronics helps explain how computer systems represent and move electrical signals. Voltage is potential difference, current is charge flow and resistance opposes current. Components work together in circuits, but theoretical diagrams do not replace safe lab practice. Learner activities in this course use diagrams, simulations and approved low-voltage training equipment only.",
+            "KEY TERMS — voltage — potential difference between points; current — rate of electrical charge flow; resistance — opposition to current; resistor — component designed to provide resistance; signal — changing quantity carrying information. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Identify the source, components and expected operating limits. 2) Draw the circuit and label nodes and component values. 3) Predict behaviour using an appropriate model or simulation. 4) Compare the model with measured results only in an approved supervised low-voltage lab. 5) Stop if the circuit, power source or equipment is damaged or unfamiliar.",
+            "WORKED EXAMPLE — For a 5 V source across a 1 kΩ resistor in an ideal model, current is 5/1000 A = 0.005 A or 5 mA.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Identify source → 2. Trace circuit path → 3. Measure in model → 4. Check expected values → 5. Apply safety limits. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Solve simple V=IR examples on paper and check units before interpreting each answer.",
+            "COMMON MISTAKES TO AVOID — assuming a wire is safe because a diagram looks simple; using incorrect component polarity or ratings; measuring a circuit with an unsuitable meter setting; working on mains or high-energy circuits without qualified supervision. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — In the ideal Ohm's law model, how is current calculated? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "electronics-fundamentals-computer-engineering-lesson-2",
+          "title": "Resistors, capacitors, diodes and transistors",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Recognise common component symbols and understand their broad roles without attempting to identify unknown real components by appearance alone.",
+            "WHY THIS MATTERS — Electronics helps explain how computer systems represent and move electrical signals. Voltage is potential difference, current is charge flow and resistance opposes current. Components work together in circuits, but theoretical diagrams do not replace safe lab practice. Learner activities in this course use diagrams, simulations and approved low-voltage training equipment only.",
+            "KEY TERMS — current — rate of electrical charge flow; resistance — opposition to current; resistor — component designed to provide resistance; signal — changing quantity carrying information; voltage — potential difference between points. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Draw the circuit and label nodes and component values. 2) Predict behaviour using an appropriate model or simulation. 3) Compare the model with measured results only in an approved supervised low-voltage lab. 4) Stop if the circuit, power source or equipment is damaged or unfamiliar. 5) Identify the source, components and expected operating limits.",
+            "WORKED EXAMPLE — A resistor limits current in an LED example, while a capacitor can store charge and smooth some supply variations in suitable circuits.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Identify source → 2. Trace circuit path → 3. Measure in model → 4. Check expected values → 5. Apply safety limits. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Match a set of schematic symbols to their component names and write one safe classroom use for each.",
+            "COMMON MISTAKES TO AVOID — using incorrect component polarity or ratings; measuring a circuit with an unsuitable meter setting; working on mains or high-energy circuits without qualified supervision; assuming a wire is safe because a diagram looks simple. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a common role of a resistor in a simple LED circuit? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "electronics-fundamentals-computer-engineering-lesson-3",
+          "title": "Circuit diagrams and current paths",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Read simple schematics, identify series and parallel connections and reason about the path available to current in a circuit model.",
+            "WHY THIS MATTERS — Electronics helps explain how computer systems represent and move electrical signals. Voltage is potential difference, current is charge flow and resistance opposes current. Components work together in circuits, but theoretical diagrams do not replace safe lab practice. Learner activities in this course use diagrams, simulations and approved low-voltage training equipment only.",
+            "KEY TERMS — resistance — opposition to current; resistor — component designed to provide resistance; signal — changing quantity carrying information; voltage — potential difference between points; current — rate of electrical charge flow. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Predict behaviour using an appropriate model or simulation. 2) Compare the model with measured results only in an approved supervised low-voltage lab. 3) Stop if the circuit, power source or equipment is damaged or unfamiliar. 4) Identify the source, components and expected operating limits. 5) Draw the circuit and label nodes and component values.",
+            "WORKED EXAMPLE — In a series circuit, one open connection interrupts the single current path; parallel branches provide distinct paths.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Identify source → 2. Trace circuit path → 3. Measure in model → 4. Check expected values → 5. Apply safety limits. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw series and parallel resistor models and compare how each arrangement changes the circuit.",
+            "COMMON MISTAKES TO AVOID — measuring a circuit with an unsuitable meter setting; working on mains or high-energy circuits without qualified supervision; assuming a wire is safe because a diagram looks simple; using incorrect component polarity or ratings. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What happens to the single path in a simple series circuit when it opens? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "electronics-fundamentals-computer-engineering-lesson-4",
+          "title": "Digital signals and logic levels",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Relate electrical signals to digital logic while recognising that real devices use defined high and low voltage ranges rather than perfect abstract 0 and 1 values.",
+            "WHY THIS MATTERS — Electronics helps explain how computer systems represent and move electrical signals. Voltage is potential difference, current is charge flow and resistance opposes current. Components work together in circuits, but theoretical diagrams do not replace safe lab practice. Learner activities in this course use diagrams, simulations and approved low-voltage training equipment only.",
+            "KEY TERMS — resistor — component designed to provide resistance; signal — changing quantity carrying information; voltage — potential difference between points; current — rate of electrical charge flow; resistance — opposition to current. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Compare the model with measured results only in an approved supervised low-voltage lab. 2) Stop if the circuit, power source or equipment is damaged or unfamiliar. 3) Identify the source, components and expected operating limits. 4) Draw the circuit and label nodes and component values. 5) Predict behaviour using an appropriate model or simulation.",
+            "WORKED EXAMPLE — A logic input should remain within the component's permitted thresholds; an undefined floating input may behave unpredictably.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Identify source → 2. Trace circuit path → 3. Measure in model → 4. Check expected values → 5. Apply safety limits. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Use a simulation to compare clean high/low input states with a floating or noisy conceptual input.",
+            "COMMON MISTAKES TO AVOID — working on mains or high-energy circuits without qualified supervision; assuming a wire is safe because a diagram looks simple; using incorrect component polarity or ratings; measuring a circuit with an unsuitable meter setting. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why should a real digital input not be left floating unless designed for it? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "electronics-fundamentals-computer-engineering-lesson-5",
+          "title": "Measurement, tolerances and simulation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand meter purpose, measurement range and component tolerance; use circuit simulators to test predictions before any lab measurement.",
+            "WHY THIS MATTERS — Electronics helps explain how computer systems represent and move electrical signals. Voltage is potential difference, current is charge flow and resistance opposes current. Components work together in circuits, but theoretical diagrams do not replace safe lab practice. Learner activities in this course use diagrams, simulations and approved low-voltage training equipment only.",
+            "KEY TERMS — signal — changing quantity carrying information; voltage — potential difference between points; current — rate of electrical charge flow; resistance — opposition to current; resistor — component designed to provide resistance. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Stop if the circuit, power source or equipment is damaged or unfamiliar. 2) Identify the source, components and expected operating limits. 3) Draw the circuit and label nodes and component values. 4) Predict behaviour using an appropriate model or simulation. 5) Compare the model with measured results only in an approved supervised low-voltage lab.",
+            "WORKED EXAMPLE — A resistor marked 1 kΩ with a tolerance allows a range of actual values, so measured current may differ slightly from an ideal calculation.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Identify source → 2. Trace circuit path → 3. Measure in model → 4. Check expected values → 5. Apply safety limits. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Simulate a resistor circuit at two resistance values and explain how current changes.",
+            "COMMON MISTAKES TO AVOID — assuming a wire is safe because a diagram looks simple; using incorrect component polarity or ratings; measuring a circuit with an unsuitable meter setting; working on mains or high-energy circuits without qualified supervision. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why can a measured value differ slightly from an ideal calculation? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "electronics-fundamentals-computer-engineering-lesson-6",
+          "title": "Laboratory safety and fault reasoning",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use only instructor-approved low-voltage supplies and supervised procedures; never work on household mains, opened power supplies or high-energy circuits as a learner task.",
+            "WHY THIS MATTERS — Electronics helps explain how computer systems represent and move electrical signals. Voltage is potential difference, current is charge flow and resistance opposes current. Components work together in circuits, but theoretical diagrams do not replace safe lab practice. Learner activities in this course use diagrams, simulations and approved low-voltage training equipment only.",
+            "KEY TERMS — voltage — potential difference between points; current — rate of electrical charge flow; resistance — opposition to current; resistor — component designed to provide resistance; signal — changing quantity carrying information. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Identify the source, components and expected operating limits. 2) Draw the circuit and label nodes and component values. 3) Predict behaviour using an appropriate model or simulation. 4) Compare the model with measured results only in an approved supervised low-voltage lab. 5) Stop if the circuit, power source or equipment is damaged or unfamiliar.",
+            "WORKED EXAMPLE — A damaged lead is taken out of service and reported rather than taped and returned to use.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Identify source → 2. Trace circuit path → 3. Measure in model → 4. Check expected values → 5. Apply safety limits. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Complete a picture-based hazard checklist for exposed conductors, wrong meter range and damaged insulation.",
+            "COMMON MISTAKES TO AVOID — using incorrect component polarity or ratings; measuring a circuit with an unsuitable meter setting; working on mains or high-energy circuits without qualified supervision; assuming a wire is safe because a diagram looks simple. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should a beginner do with an unfamiliar or damaged powered circuit? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "electronics-fundamentals-computer-engineering-q1",
+          "prompt": "In the ideal Ohm's law model, how is current calculated?",
+          "options": [
+            "Current equals voltage divided by resistance.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "Current equals voltage divided by resistance. Use correct units for volts, amperes and ohms and describe the relationship among voltage, current and resistance in a simple resistive model."
+        },
+        {
+          "id": "electronics-fundamentals-computer-engineering-q2",
+          "prompt": "What is a common role of a resistor in a simple LED circuit?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Limit current to a suitable value.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "Limit current to a suitable value. Recognise common component symbols and understand their broad roles without attempting to identify unknown real components by appearance alone."
+        },
+        {
+          "id": "electronics-fundamentals-computer-engineering-q3",
+          "prompt": "What happens to the single path in a simple series circuit when it opens?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Current through that series path stops.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "Current through that series path stops. Read simple schematics, identify series and parallel connections and reason about the path available to current in a circuit model."
+        },
+        {
+          "id": "electronics-fundamentals-computer-engineering-q4",
+          "prompt": "Why should a real digital input not be left floating unless designed for it?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "Its voltage may become undefined and produce unreliable logic behaviour."
+          ],
+          "answerIndex": 3,
+          "explanation": "Its voltage may become undefined and produce unreliable logic behaviour. Relate electrical signals to digital logic while recognising that real devices use defined high and low voltage ranges rather than perfect abstract 0 and 1 values."
+        },
+        {
+          "id": "electronics-fundamentals-computer-engineering-q5",
+          "prompt": "Why can a measured value differ slightly from an ideal calculation?",
+          "options": [
+            "Component tolerance, measurement uncertainty and non-ideal conditions can affect the result.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "Component tolerance, measurement uncertainty and non-ideal conditions can affect the result. Understand meter purpose, measurement range and component tolerance; use circuit simulators to test predictions before any lab measurement."
+        },
+        {
+          "id": "electronics-fundamentals-computer-engineering-q6",
+          "prompt": "What should a beginner do with an unfamiliar or damaged powered circuit?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Stop, keep clear and seek qualified supervision or approved lab guidance.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "Stop, keep clear and seek qualified supervision or approved lab guidance. Use only instructor-approved low-voltage supplies and supervised procedures; never work on household mains, opened power supplies or high-energy circuits as a learner task."
+        }
+      ]
+    },
+    {
+      "id": "computer-networking-engineering",
+      "title": "Computer Networking & Network Engineering",
+      "category": "Computer Engineering",
+      "description": "Understand LANs, IP addressing, DNS, DHCP, routing, Wi-Fi security and systematic network troubleshooting.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "computer-networking-engineering-lesson-1",
+          "title": "Network basics and topologies",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Distinguish end devices, switches, access points, routers and network links; compare simple star and mesh layouts.",
+            "WHY THIS MATTERS — Computer networks connect devices so they can exchange data. A local network links devices nearby; IP addresses identify network interfaces, routers move traffic between networks, DNS helps find services by name and DHCP can assign network settings automatically. Practical troubleshooting tests one layer at a time and respects network ownership and security.",
+            "KEY TERMS — LAN — local area network; IP address — logical address used for network communication; DNS — maps names to network destinations; DHCP — service that can assign IP settings; router — forwards traffic between networks. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define which device, service and users are affected. 2) Check link, Wi-Fi association and IP configuration. 3) Test local gateway, name resolution and destination separately. 4) Review relevant logs and change one authorised setting at a time. 5) Verify connectivity and document any remaining limitations.",
+            "WORKED EXAMPLE — In a small office star topology, computers connect to a central switch, which gives a clear point to investigate if several wired devices lose connection.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Client device → 2. Switch or access point → 3. Router → 4. DNS and destination → 5. Verify connection. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw a home or small-office network and label devices, links and the internet boundary.",
+            "COMMON MISTAKES TO AVOID — changing several network settings at once; confusing Wi-Fi signal with internet access; sharing Wi-Fi passwords publicly; scanning or accessing networks without permission. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What role does a router usually perform? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-networking-engineering-lesson-2",
+          "title": "IP addressing, subnet basics and gateways",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Read an IP address, subnet mask or prefix and default gateway at an introductory level and distinguish local destinations from remote ones.",
+            "WHY THIS MATTERS — Computer networks connect devices so they can exchange data. A local network links devices nearby; IP addresses identify network interfaces, routers move traffic between networks, DNS helps find services by name and DHCP can assign network settings automatically. Practical troubleshooting tests one layer at a time and respects network ownership and security.",
+            "KEY TERMS — IP address — logical address used for network communication; DNS — maps names to network destinations; DHCP — service that can assign IP settings; router — forwards traffic between networks; LAN — local area network. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Check link, Wi-Fi association and IP configuration. 2) Test local gateway, name resolution and destination separately. 3) Review relevant logs and change one authorised setting at a time. 4) Verify connectivity and document any remaining limitations. 5) Define which device, service and users are affected.",
+            "WORKED EXAMPLE — A computer usually sends traffic for a remote network to its configured default gateway rather than directly to the final remote device.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Client device → 2. Switch or access point → 3. Router → 4. DNS and destination → 5. Verify connection. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Use a networking worksheet to identify IP address, subnet prefix and gateway fields from a fictional configuration.",
+            "COMMON MISTAKES TO AVOID — confusing Wi-Fi signal with internet access; sharing Wi-Fi passwords publicly; scanning or accessing networks without permission; changing several network settings at once. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is the default gateway used for? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-networking-engineering-lesson-3",
+          "title": "DNS, DHCP and name resolution",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Explain how DHCP supplies configuration and DNS resolves names, and test the two services separately when diagnosing a name-based failure.",
+            "WHY THIS MATTERS — Computer networks connect devices so they can exchange data. A local network links devices nearby; IP addresses identify network interfaces, routers move traffic between networks, DNS helps find services by name and DHCP can assign network settings automatically. Practical troubleshooting tests one layer at a time and respects network ownership and security.",
+            "KEY TERMS — DNS — maps names to network destinations; DHCP — service that can assign IP settings; router — forwards traffic between networks; LAN — local area network; IP address — logical address used for network communication. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Test local gateway, name resolution and destination separately. 2) Review relevant logs and change one authorised setting at a time. 3) Verify connectivity and document any remaining limitations. 4) Define which device, service and users are affected. 5) Check link, Wi-Fi association and IP configuration.",
+            "WORKED EXAMPLE — If an IP-address-based test succeeds but a website name does not resolve, DNS becomes a useful area to investigate.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Client device → 2. Switch or access point → 3. Router → 4. DNS and destination → 5. Verify connection. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Trace a browser request from name entry to DNS lookup and connection using a labelled sequence diagram.",
+            "COMMON MISTAKES TO AVOID — sharing Wi-Fi passwords publicly; scanning or accessing networks without permission; changing several network settings at once; confusing Wi-Fi signal with internet access. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is DNS primarily used for? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-networking-engineering-lesson-4",
+          "title": "Switching, routing, Wi-Fi and connectivity",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand switching within a LAN, routing between networks and Wi-Fi association; use approved settings and avoid unauthorised configuration changes.",
+            "WHY THIS MATTERS — Computer networks connect devices so they can exchange data. A local network links devices nearby; IP addresses identify network interfaces, routers move traffic between networks, DNS helps find services by name and DHCP can assign network settings automatically. Practical troubleshooting tests one layer at a time and respects network ownership and security.",
+            "KEY TERMS — DHCP — service that can assign IP settings; router — forwards traffic between networks; LAN — local area network; IP address — logical address used for network communication; DNS — maps names to network destinations. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Review relevant logs and change one authorised setting at a time. 2) Verify connectivity and document any remaining limitations. 3) Define which device, service and users are affected. 4) Check link, Wi-Fi association and IP configuration. 5) Test local gateway, name resolution and destination separately.",
+            "WORKED EXAMPLE — A device can be connected to the Wi-Fi access point yet still lack an internet route or DNS service.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Client device → 2. Switch or access point → 3. Router → 4. DNS and destination → 5. Verify connection. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a decision tree for no Wi-Fi, connected without internet, and one website failing while others work.",
+            "COMMON MISTAKES TO AVOID — scanning or accessing networks without permission; changing several network settings at once; confusing Wi-Fi signal with internet access; sharing Wi-Fi passwords publicly. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Does a Wi-Fi connection alone prove internet access works? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-networking-engineering-lesson-5",
+          "title": "Network security and segmentation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use strong Wi-Fi security, update network equipment, separate guest access where appropriate and provide only the access required.",
+            "WHY THIS MATTERS — Computer networks connect devices so they can exchange data. A local network links devices nearby; IP addresses identify network interfaces, routers move traffic between networks, DNS helps find services by name and DHCP can assign network settings automatically. Practical troubleshooting tests one layer at a time and respects network ownership and security.",
+            "KEY TERMS — router — forwards traffic between networks; LAN — local area network; IP address — logical address used for network communication; DNS — maps names to network destinations; DHCP — service that can assign IP settings. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Verify connectivity and document any remaining limitations. 2) Define which device, service and users are affected. 3) Check link, Wi-Fi association and IP configuration. 4) Test local gateway, name resolution and destination separately. 5) Review relevant logs and change one authorised setting at a time.",
+            "WORKED EXAMPLE — Guest devices use an isolated guest network rather than gaining access to internal workstations and shared storage.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Client device → 2. Switch or access point → 3. Router → 4. DNS and destination → 5. Verify connection. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Design a simple office and guest network diagram and label where access controls belong.",
+            "COMMON MISTAKES TO AVOID — changing several network settings at once; confusing Wi-Fi signal with internet access; sharing Wi-Fi passwords publicly; scanning or accessing networks without permission. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why separate a guest network from sensitive internal devices? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-networking-engineering-lesson-6",
+          "title": "Troubleshooting and network documentation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Test from local link through address configuration, gateway, name resolution and destination, keeping records of results and changes.",
+            "WHY THIS MATTERS — Computer networks connect devices so they can exchange data. A local network links devices nearby; IP addresses identify network interfaces, routers move traffic between networks, DNS helps find services by name and DHCP can assign network settings automatically. Practical troubleshooting tests one layer at a time and respects network ownership and security.",
+            "KEY TERMS — LAN — local area network; IP address — logical address used for network communication; DNS — maps names to network destinations; DHCP — service that can assign IP settings; router — forwards traffic between networks. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define which device, service and users are affected. 2) Check link, Wi-Fi association and IP configuration. 3) Test local gateway, name resolution and destination separately. 4) Review relevant logs and change one authorised setting at a time. 5) Verify connectivity and document any remaining limitations.",
+            "WORKED EXAMPLE — A step-by-step test shows that one computer cannot resolve names while other devices work; record this before changing router settings.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Client device → 2. Switch or access point → 3. Router → 4. DNS and destination → 5. Verify connection. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Diagnose three fictional network cases using only authorised observations and document the evidence for each conclusion.",
+            "COMMON MISTAKES TO AVOID — confusing Wi-Fi signal with internet access; sharing Wi-Fi passwords publicly; scanning or accessing networks without permission; changing several network settings at once. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why test network layers separately? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "computer-networking-engineering-q1",
+          "prompt": "What role does a router usually perform?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "It forwards traffic between different networks.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "It forwards traffic between different networks. Distinguish end devices, switches, access points, routers and network links; compare simple star and mesh layouts."
+        },
+        {
+          "id": "computer-networking-engineering-q2",
+          "prompt": "What is the default gateway used for?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "To forward traffic toward destinations outside the local network.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "To forward traffic toward destinations outside the local network. Read an IP address, subnet mask or prefix and default gateway at an introductory level and distinguish local destinations from remote ones."
+        },
+        {
+          "id": "computer-networking-engineering-q3",
+          "prompt": "What is DNS primarily used for?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "Resolving domain names to network information such as IP addresses."
+          ],
+          "answerIndex": 3,
+          "explanation": "Resolving domain names to network information such as IP addresses. Explain how DHCP supplies configuration and DNS resolves names, and test the two services separately when diagnosing a name-based failure."
+        },
+        {
+          "id": "computer-networking-engineering-q4",
+          "prompt": "Does a Wi-Fi connection alone prove internet access works?",
+          "options": [
+            "No; routing, DNS or an upstream service may still fail.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "No; routing, DNS or an upstream service may still fail. Understand switching within a LAN, routing between networks and Wi-Fi association; use approved settings and avoid unauthorised configuration changes."
+        },
+        {
+          "id": "computer-networking-engineering-q5",
+          "prompt": "Why separate a guest network from sensitive internal devices?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "To reduce unnecessary access and limit the impact of a compromised guest device.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "To reduce unnecessary access and limit the impact of a compromised guest device. Use strong Wi-Fi security, update network equipment, separate guest access where appropriate and provide only the access required."
+        },
+        {
+          "id": "computer-networking-engineering-q6",
+          "prompt": "Why test network layers separately?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "It narrows the likely fault without changing unrelated settings.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "It narrows the likely fault without changing unrelated settings. Test from local link through address configuration, gateway, name resolution and destination, keeping records of results and changes."
+        }
+      ]
+    },
+    {
+      "id": "embedded-systems-microcontrollers",
+      "title": "Embedded Systems & Microcontrollers",
+      "category": "Computer Engineering",
+      "description": "Explore microcontrollers, firmware, sensors, actuators, input/output and control logic in safe simulations.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "embedded-systems-microcontrollers-lesson-1",
+          "title": "Embedded systems and microcontroller boards",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Distinguish an embedded controller from a general-purpose computer and recognise processor, memory, pins and peripherals on a conceptual diagram.",
+            "WHY THIS MATTERS — An embedded system combines computing and electronics to perform a specific function inside a larger product. A microcontroller commonly integrates a processor, memory and input/output interfaces. Firmware reads sensors, makes decisions and controls outputs. Begin with simulations and instructor-approved low-voltage kits; do not improvise mains-powered or high-energy projects.",
+            "KEY TERMS — microcontroller — compact computer for control tasks; firmware — software stored for a device's operation; sensor — component measuring a physical condition; actuator — device that produces a physical action; GPIO — general-purpose digital input/output pin. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) State the intended behaviour and safety limits. 2) Identify inputs, outputs and required timing. 3) Write or simulate a clear control sequence. 4) Test normal, boundary and fault conditions. 5) Record the version, result and any safe recovery method.",
+            "WORKED EXAMPLE — A small controller in a thermostat reads temperature and adjusts an output according to a programmed rule.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sensor input → 2. Read value → 3. Control logic → 4. Actuator output → 5. Test and record. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Label a generic microcontroller block diagram and match each block to its purpose.",
+            "COMMON MISTAKES TO AVOID — connecting components without checking their ratings; ignoring electrical ground and voltage requirements; assuming a sensor always returns valid data; testing control outputs on hazardous machinery. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What distinguishes many embedded systems from general-purpose computers? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "embedded-systems-microcontrollers-lesson-2",
+          "title": "Inputs, sensors and signal quality",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Learn how a sensor provides a measurement and why calibration, noise, range and missing readings need consideration.",
+            "WHY THIS MATTERS — An embedded system combines computing and electronics to perform a specific function inside a larger product. A microcontroller commonly integrates a processor, memory and input/output interfaces. Firmware reads sensors, makes decisions and controls outputs. Begin with simulations and instructor-approved low-voltage kits; do not improvise mains-powered or high-energy projects.",
+            "KEY TERMS — firmware — software stored for a device's operation; sensor — component measuring a physical condition; actuator — device that produces a physical action; GPIO — general-purpose digital input/output pin; microcontroller — compact computer for control tasks. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Identify inputs, outputs and required timing. 2) Write or simulate a clear control sequence. 3) Test normal, boundary and fault conditions. 4) Record the version, result and any safe recovery method. 5) State the intended behaviour and safety limits.",
+            "WORKED EXAMPLE — A simulated temperature sensor returns a value outside its allowed range; the program should report a fault rather than blindly acting on it.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sensor input → 2. Read value → 3. Control logic → 4. Actuator output → 5. Test and record. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Use a simulator or table to classify valid, missing and out-of-range sensor samples.",
+            "COMMON MISTAKES TO AVOID — ignoring electrical ground and voltage requirements; assuming a sensor always returns valid data; testing control outputs on hazardous machinery; connecting components without checking their ratings. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — How should software respond to an implausible sensor value? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "embedded-systems-microcontrollers-lesson-3",
+          "title": "Firmware logic and timing",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Build understandable sequences, conditions and loops; consider timing, event handling and what happens when an input changes unexpectedly.",
+            "WHY THIS MATTERS — An embedded system combines computing and electronics to perform a specific function inside a larger product. A microcontroller commonly integrates a processor, memory and input/output interfaces. Firmware reads sensors, makes decisions and controls outputs. Begin with simulations and instructor-approved low-voltage kits; do not improvise mains-powered or high-energy projects.",
+            "KEY TERMS — sensor — component measuring a physical condition; actuator — device that produces a physical action; GPIO — general-purpose digital input/output pin; microcontroller — compact computer for control tasks; firmware — software stored for a device's operation. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Write or simulate a clear control sequence. 2) Test normal, boundary and fault conditions. 3) Record the version, result and any safe recovery method. 4) State the intended behaviour and safety limits. 5) Identify inputs, outputs and required timing.",
+            "WORKED EXAMPLE — A status light turns on only when a simulated temperature exceeds a threshold and turns off after it returns below a defined reset point.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sensor input → 2. Read value → 3. Control logic → 4. Actuator output → 5. Test and record. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write pseudocode for a non-hazardous status-light controller and list expected test cases.",
+            "COMMON MISTAKES TO AVOID — assuming a sensor always returns valid data; testing control outputs on hazardous machinery; connecting components without checking their ratings; ignoring electrical ground and voltage requirements. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why list expected test cases before running a control program? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "embedded-systems-microcontrollers-lesson-4",
+          "title": "Digital inputs, outputs and actuators",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand digital output states, pull-up/pull-down concepts and why a microcontroller pin cannot power every external device directly.",
+            "WHY THIS MATTERS — An embedded system combines computing and electronics to perform a specific function inside a larger product. A microcontroller commonly integrates a processor, memory and input/output interfaces. Firmware reads sensors, makes decisions and controls outputs. Begin with simulations and instructor-approved low-voltage kits; do not improvise mains-powered or high-energy projects.",
+            "KEY TERMS — actuator — device that produces a physical action; GPIO — general-purpose digital input/output pin; microcontroller — compact computer for control tasks; firmware — software stored for a device's operation; sensor — component measuring a physical condition. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Test normal, boundary and fault conditions. 2) Record the version, result and any safe recovery method. 3) State the intended behaviour and safety limits. 4) Identify inputs, outputs and required timing. 5) Write or simulate a clear control sequence.",
+            "WORKED EXAMPLE — A simulated controller drives an indicator through an appropriate interface rather than powering a large motor directly from a GPIO pin.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sensor input → 2. Read value → 3. Control logic → 4. Actuator output → 5. Test and record. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw a simulation-only block diagram showing controller, driver stage and low-voltage indicator.",
+            "COMMON MISTAKES TO AVOID — testing control outputs on hazardous machinery; connecting components without checking their ratings; ignoring electrical ground and voltage requirements; assuming a sensor always returns valid data. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why should a GPIO pin not directly drive an arbitrary motor? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "embedded-systems-microcontrollers-lesson-5",
+          "title": "Testing, debugging and fault handling",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use serial logs or simulator traces, test boundary cases and define safe behaviour when sensors, connections or timing fail.",
+            "WHY THIS MATTERS — An embedded system combines computing and electronics to perform a specific function inside a larger product. A microcontroller commonly integrates a processor, memory and input/output interfaces. Firmware reads sensors, makes decisions and controls outputs. Begin with simulations and instructor-approved low-voltage kits; do not improvise mains-powered or high-energy projects.",
+            "KEY TERMS — GPIO — general-purpose digital input/output pin; microcontroller — compact computer for control tasks; firmware — software stored for a device's operation; sensor — component measuring a physical condition; actuator — device that produces a physical action. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Record the version, result and any safe recovery method. 2) State the intended behaviour and safety limits. 3) Identify inputs, outputs and required timing. 4) Write or simulate a clear control sequence. 5) Test normal, boundary and fault conditions.",
+            "WORKED EXAMPLE — When a simulated sensor disconnects, the program indicates a fault and avoids continuing with stale measurements.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sensor input → 2. Read value → 3. Control logic → 4. Actuator output → 5. Test and record. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a fault table with condition, expected detection, safe response and test evidence.",
+            "COMMON MISTAKES TO AVOID — connecting components without checking their ratings; ignoring electrical ground and voltage requirements; assuming a sensor always returns valid data; testing control outputs on hazardous machinery. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should a robust controller do when required sensor data is missing? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "embedded-systems-microcontrollers-lesson-6",
+          "title": "Mini-project design and documentation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Describe requirements, inputs, outputs, state logic, tests and limitations so another learner can reproduce the simulation.",
+            "WHY THIS MATTERS — An embedded system combines computing and electronics to perform a specific function inside a larger product. A microcontroller commonly integrates a processor, memory and input/output interfaces. Firmware reads sensors, makes decisions and controls outputs. Begin with simulations and instructor-approved low-voltage kits; do not improvise mains-powered or high-energy projects.",
+            "KEY TERMS — microcontroller — compact computer for control tasks; firmware — software stored for a device's operation; sensor — component measuring a physical condition; actuator — device that produces a physical action; GPIO — general-purpose digital input/output pin. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) State the intended behaviour and safety limits. 2) Identify inputs, outputs and required timing. 3) Write or simulate a clear control sequence. 4) Test normal, boundary and fault conditions. 5) Record the version, result and any safe recovery method.",
+            "WORKED EXAMPLE — A simulated plant monitor records sensor values and lights an alert when soil moisture crosses a stated threshold, with no real pump or mains circuit involved.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Sensor input → 2. Read value → 3. Control logic → 4. Actuator output → 5. Test and record. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a mini-project proposal with a block diagram, pseudocode, test table and safety boundary.",
+            "COMMON MISTAKES TO AVOID — ignoring electrical ground and voltage requirements; assuming a sensor always returns valid data; testing control outputs on hazardous machinery; connecting components without checking their ratings. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What documentation helps another person reproduce a project? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "embedded-systems-microcontrollers-q1",
+          "prompt": "What distinguishes many embedded systems from general-purpose computers?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "They are designed around a specific control or monitoring function.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "They are designed around a specific control or monitoring function. Distinguish an embedded controller from a general-purpose computer and recognise processor, memory, pins and peripherals on a conceptual diagram."
+        },
+        {
+          "id": "embedded-systems-microcontrollers-q2",
+          "prompt": "How should software respond to an implausible sensor value?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "Validate it and use a documented safe response instead of blindly trusting it."
+          ],
+          "answerIndex": 3,
+          "explanation": "Validate it and use a documented safe response instead of blindly trusting it. Learn how a sensor provides a measurement and why calibration, noise, range and missing readings need consideration."
+        },
+        {
+          "id": "embedded-systems-microcontrollers-q3",
+          "prompt": "Why list expected test cases before running a control program?",
+          "options": [
+            "To compare actual behaviour with required behaviour and detect missing cases.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "To compare actual behaviour with required behaviour and detect missing cases. Build understandable sequences, conditions and loops; consider timing, event handling and what happens when an input changes unexpectedly."
+        },
+        {
+          "id": "embedded-systems-microcontrollers-q4",
+          "prompt": "Why should a GPIO pin not directly drive an arbitrary motor?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "The motor may exceed the pin's current and voltage limits and require a suitable driver.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "The motor may exceed the pin's current and voltage limits and require a suitable driver. Understand digital output states, pull-up/pull-down concepts and why a microcontroller pin cannot power every external device directly."
+        },
+        {
+          "id": "embedded-systems-microcontrollers-q5",
+          "prompt": "What should a robust controller do when required sensor data is missing?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Detect the fault and enter a documented safe or stopped state.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "Detect the fault and enter a documented safe or stopped state. Use serial logs or simulator traces, test boundary cases and define safe behaviour when sensors, connections or timing fail."
+        },
+        {
+          "id": "embedded-systems-microcontrollers-q6",
+          "prompt": "What documentation helps another person reproduce a project?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "Requirements, wiring or block diagram, code version, tests and observed results."
+          ],
+          "answerIndex": 3,
+          "explanation": "Requirements, wiring or block diagram, code version, tests and observed results. Describe requirements, inputs, outputs, state logic, tests and limitations so another learner can reproduce the simulation."
+        }
+      ]
+    },
+    {
+      "id": "python-programming-fundamentals",
+      "title": "Python Programming Fundamentals",
+      "category": "Programming & Computer Engineering",
+      "description": "Learn Python variables, data types, conditions, loops, functions, files and basic testing through small projects.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "python-programming-fundamentals-lesson-1",
+          "title": "Python setup, print and variables",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Run a small program, display text and store values in meaningful variables; understand that variable names refer to values used by expressions.",
+            "WHY THIS MATTERS — Python is a general-purpose programming language used for automation, data processing, learning and prototyping. A program expresses steps that a computer follows. Clear names, small functions, input validation and tests make code easier to understand and correct. Beginners should start with small programs and read errors rather than blindly copying fixes.",
+            "KEY TERMS — variable — named reference to a value; data type — kind of value such as number or string; condition — a decision based on a Boolean expression; loop — repeats a block of code; function — reusable named unit of work. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Describe the desired result and example inputs. 2) Break the task into small steps or a function. 3) Write and run a small version of the code. 4) Test normal, boundary and invalid inputs. 5) Explain the output and improve one thing at a time.",
+            "WORKED EXAMPLE — name = 'Amina' followed by print(name) displays the stored string value.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define problem → 2. Write code → 3. Run example → 4. Test cases → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a program that stores a learner name and a course title, then prints a personalised greeting.",
+            "COMMON MISTAKES TO AVOID — confusing assignment with comparison; ignoring indentation or error messages; assuming user input is always valid; copying code without understanding or testing it. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a variable useful for? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "python-programming-fundamentals-lesson-2",
+          "title": "Numbers, strings, lists and dictionaries",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose data structures to match the shape of the information; convert types deliberately and understand common collection operations.",
+            "WHY THIS MATTERS — Python is a general-purpose programming language used for automation, data processing, learning and prototyping. A program expresses steps that a computer follows. Clear names, small functions, input validation and tests make code easier to understand and correct. Beginners should start with small programs and read errors rather than blindly copying fixes.",
+            "KEY TERMS — data type — kind of value such as number or string; condition — a decision based on a Boolean expression; loop — repeats a block of code; function — reusable named unit of work; variable — named reference to a value. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Break the task into small steps or a function. 2) Write and run a small version of the code. 3) Test normal, boundary and invalid inputs. 4) Explain the output and improve one thing at a time. 5) Describe the desired result and example inputs.",
+            "WORKED EXAMPLE — A list can store several course titles, while a dictionary can map a course ID to its display title.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define problem → 2. Write code → 3. Run example → 4. Test cases → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a list of three tasks and a dictionary containing a course title and duration; print selected values.",
+            "COMMON MISTAKES TO AVOID — ignoring indentation or error messages; assuming user input is always valid; copying code without understanding or testing it; confusing assignment with comparison. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — When is a list useful? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "python-programming-fundamentals-lesson-3",
+          "title": "Conditions and loops",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use if/elif/else to select behaviour and loops to repeat work; ensure loop conditions make progress toward stopping.",
+            "WHY THIS MATTERS — Python is a general-purpose programming language used for automation, data processing, learning and prototyping. A program expresses steps that a computer follows. Clear names, small functions, input validation and tests make code easier to understand and correct. Beginners should start with small programs and read errors rather than blindly copying fixes.",
+            "KEY TERMS — condition — a decision based on a Boolean expression; loop — repeats a block of code; function — reusable named unit of work; variable — named reference to a value; data type — kind of value such as number or string. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Write and run a small version of the code. 2) Test normal, boundary and invalid inputs. 3) Explain the output and improve one thing at a time. 4) Describe the desired result and example inputs. 5) Break the task into small steps or a function.",
+            "WORKED EXAMPLE — A loop processes each item in a list and prints it once, rather than copying the same print statement many times.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define problem → 2. Write code → 3. Run example → 4. Test cases → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a loop that totals a short list of fictional prices and a condition that labels the total by a threshold.",
+            "COMMON MISTAKES TO AVOID — assuming user input is always valid; copying code without understanding or testing it; confusing assignment with comparison; ignoring indentation or error messages. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a common risk in a loop? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "python-programming-fundamentals-lesson-4",
+          "title": "Functions and modular code",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use function parameters and return values to separate responsibilities and make repeated calculations easier to test.",
+            "WHY THIS MATTERS — Python is a general-purpose programming language used for automation, data processing, learning and prototyping. A program expresses steps that a computer follows. Clear names, small functions, input validation and tests make code easier to understand and correct. Beginners should start with small programs and read errors rather than blindly copying fixes.",
+            "KEY TERMS — loop — repeats a block of code; function — reusable named unit of work; variable — named reference to a value; data type — kind of value such as number or string; condition — a decision based on a Boolean expression. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Test normal, boundary and invalid inputs. 2) Explain the output and improve one thing at a time. 3) Describe the desired result and example inputs. 4) Break the task into small steps or a function. 5) Write and run a small version of the code.",
+            "WORKED EXAMPLE — A calculate_total function receives a list of values and returns the sum without directly printing or changing unrelated data.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define problem → 2. Write code → 3. Run example → 4. Test cases → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a function that calculates a total or converts minutes to hours and test it with three inputs.",
+            "COMMON MISTAKES TO AVOID — copying code without understanding or testing it; confusing assignment with comparison; ignoring indentation or error messages; assuming user input is always valid. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What benefit does a function provide? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "python-programming-fundamentals-lesson-5",
+          "title": "Files, exceptions and validation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Read and write files through explicit paths, handle expected exceptions and validate input before using it in calculations.",
+            "WHY THIS MATTERS — Python is a general-purpose programming language used for automation, data processing, learning and prototyping. A program expresses steps that a computer follows. Clear names, small functions, input validation and tests make code easier to understand and correct. Beginners should start with small programs and read errors rather than blindly copying fixes.",
+            "KEY TERMS — function — reusable named unit of work; variable — named reference to a value; data type — kind of value such as number or string; condition — a decision based on a Boolean expression; loop — repeats a block of code. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Explain the output and improve one thing at a time. 2) Describe the desired result and example inputs. 3) Break the task into small steps or a function. 4) Write and run a small version of the code. 5) Test normal, boundary and invalid inputs.",
+            "WORKED EXAMPLE — If a numeric field contains text, the program shows a helpful message instead of crashing or silently using a wrong value.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define problem → 2. Write code → 3. Run example → 4. Test cases → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Design pseudocode for reading a small file and handling a missing-file error safely.",
+            "COMMON MISTAKES TO AVOID — confusing assignment with comparison; ignoring indentation or error messages; assuming user input is always valid; copying code without understanding or testing it. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why validate data before calculations? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "python-programming-fundamentals-lesson-6",
+          "title": "Debugging and a small Python project",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Reproduce a defect, inspect the traceback, isolate the failing step and test the correction with normal and edge cases.",
+            "WHY THIS MATTERS — Python is a general-purpose programming language used for automation, data processing, learning and prototyping. A program expresses steps that a computer follows. Clear names, small functions, input validation and tests make code easier to understand and correct. Beginners should start with small programs and read errors rather than blindly copying fixes.",
+            "KEY TERMS — variable — named reference to a value; data type — kind of value such as number or string; condition — a decision based on a Boolean expression; loop — repeats a block of code; function — reusable named unit of work. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Describe the desired result and example inputs. 2) Break the task into small steps or a function. 3) Write and run a small version of the code. 4) Test normal, boundary and invalid inputs. 5) Explain the output and improve one thing at a time.",
+            "WORKED EXAMPLE — A total is incorrect because a string was joined rather than a number added; inspect the types and convert deliberately.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define problem → 2. Write code → 3. Run example → 4. Test cases → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Build a command-line expense summary using fictional data, with comments, a total and two tests.",
+            "COMMON MISTAKES TO AVOID — ignoring indentation or error messages; assuming user input is always valid; copying code without understanding or testing it; confusing assignment with comparison. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a sound debugging process? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "python-programming-fundamentals-q1",
+          "prompt": "What is a variable useful for?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "Giving a meaningful name to a value used by a program."
+          ],
+          "answerIndex": 3,
+          "explanation": "Giving a meaningful name to a value used by a program. Run a small program, display text and store values in meaningful variables; understand that variable names refer to values used by expressions."
+        },
+        {
+          "id": "python-programming-fundamentals-q2",
+          "prompt": "When is a list useful?",
+          "options": [
+            "When storing an ordered collection of items.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "When storing an ordered collection of items. Choose data structures to match the shape of the information; convert types deliberately and understand common collection operations."
+        },
+        {
+          "id": "python-programming-fundamentals-q3",
+          "prompt": "What is a common risk in a loop?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "A stopping condition that never becomes false or an iteration that never makes progress.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "A stopping condition that never becomes false or an iteration that never makes progress. Use if/elif/else to select behaviour and loops to repeat work; ensure loop conditions make progress toward stopping."
+        },
+        {
+          "id": "python-programming-fundamentals-q4",
+          "prompt": "What benefit does a function provide?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "It packages a specific task for reuse and testing.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "It packages a specific task for reuse and testing. Use function parameters and return values to separate responsibilities and make repeated calculations easier to test."
+        },
+        {
+          "id": "python-programming-fundamentals-q5",
+          "prompt": "Why validate data before calculations?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "To catch unexpected or invalid inputs before they produce misleading results."
+          ],
+          "answerIndex": 3,
+          "explanation": "To catch unexpected or invalid inputs before they produce misleading results. Read and write files through explicit paths, handle expected exceptions and validate input before using it in calculations."
+        },
+        {
+          "id": "python-programming-fundamentals-q6",
+          "prompt": "What is a sound debugging process?",
+          "options": [
+            "Reproduce, isolate, correct and retest the issue.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "Reproduce, isolate, correct and retest the issue. Reproduce a defect, inspect the traceback, isolate the failing step and test the correction with normal and edge cases."
+        }
+      ]
+    },
+    {
+      "id": "linux-command-line-essentials",
+      "title": "Linux & Command Line Essentials",
+      "category": "Computing Fundamentals",
+      "description": "Navigate a Linux shell, manage files, inspect processes and permissions, and run safe commands.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "linux-command-line-essentials-lesson-1",
+          "title": "Terminal, shell and paths",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Recognise terminal and shell roles and use absolute and relative paths to orient yourself before making changes.",
+            "WHY THIS MATTERS — The command line allows users to request file, process and system operations through text commands. Linux is commonly used on servers and development systems. Commands should be understood before running them, particularly when they delete files, change permissions or affect remote systems. Practise in a personal lab or virtual machine, not on systems you do not own or administer.",
+            "KEY TERMS — shell — program interpreting commands; working directory — current filesystem location; path — location of a file or directory; permission — rights to read, write or execute; process — running program. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Confirm the terminal and system you are using. 2) Use pwd and ls to inspect location and contents. 3) Run one low-risk command and inspect its output. 4) Read help or manual information before unfamiliar options. 5) Verify effects before running further or destructive commands.",
+            "WORKED EXAMPLE — pwd shows the current directory; a relative filename is interpreted from that location.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Open terminal → 2. Inspect location → 3. Run one command → 4. Check output → 5. Record result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — In a sandbox or VM, navigate between two practice folders and write the path after each move.",
+            "COMMON MISTAKES TO AVOID — running destructive commands without checking the path; using elevated privileges when unnecessary; copying shell commands without understanding them; changing permissions broadly to silence an error. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Which command commonly displays the current working directory? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "linux-command-line-essentials-lesson-2",
+          "title": "List, create, copy and move files",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use basic file commands carefully, quote paths containing spaces and confirm source and destination before copying or moving data.",
+            "WHY THIS MATTERS — The command line allows users to request file, process and system operations through text commands. Linux is commonly used on servers and development systems. Commands should be understood before running them, particularly when they delete files, change permissions or affect remote systems. Practise in a personal lab or virtual machine, not on systems you do not own or administer.",
+            "KEY TERMS — working directory — current filesystem location; path — location of a file or directory; permission — rights to read, write or execute; process — running program; shell — program interpreting commands. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use pwd and ls to inspect location and contents. 2) Run one low-risk command and inspect its output. 3) Read help or manual information before unfamiliar options. 4) Verify effects before running further or destructive commands. 5) Confirm the terminal and system you are using.",
+            "WORKED EXAMPLE — Copy a sample file into a backup folder and compare both files before editing either one.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Open terminal → 2. Inspect location → 3. Run one command → 4. Check output → 5. Record result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a temporary folder, add a text file, copy it and verify the new path with a listing command.",
+            "COMMON MISTAKES TO AVOID — using elevated privileges when unnecessary; copying shell commands without understanding them; changing permissions broadly to silence an error; running destructive commands without checking the path. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you verify before a move or copy operation? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "linux-command-line-essentials-lesson-3",
+          "title": "Permissions, ownership and safe privilege",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand read, write and execute permissions and why least privilege reduces accidental damage and exposure.",
+            "WHY THIS MATTERS — The command line allows users to request file, process and system operations through text commands. Linux is commonly used on servers and development systems. Commands should be understood before running them, particularly when they delete files, change permissions or affect remote systems. Practise in a personal lab or virtual machine, not on systems you do not own or administer.",
+            "KEY TERMS — path — location of a file or directory; permission — rights to read, write or execute; process — running program; shell — program interpreting commands; working directory — current filesystem location. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Run one low-risk command and inspect its output. 2) Read help or manual information before unfamiliar options. 3) Verify effects before running further or destructive commands. 4) Confirm the terminal and system you are using. 5) Use pwd and ls to inspect location and contents.",
+            "WORKED EXAMPLE — A script may need execute permission for its owner rather than making every file on the system writable by everyone.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Open terminal → 2. Inspect location → 3. Run one command → 4. Check output → 5. Record result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Interpret a fictional permission string and describe which users can read, write or execute.",
+            "COMMON MISTAKES TO AVOID — copying shell commands without understanding them; changing permissions broadly to silence an error; running destructive commands without checking the path; using elevated privileges when unnecessary. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why avoid running commands as root by default? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "linux-command-line-essentials-lesson-4",
+          "title": "Processes, logs and system inspection",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Inspect running processes and relevant logs using safe, read-only commands before stopping services or changing system settings.",
+            "WHY THIS MATTERS — The command line allows users to request file, process and system operations through text commands. Linux is commonly used on servers and development systems. Commands should be understood before running them, particularly when they delete files, change permissions or affect remote systems. Practise in a personal lab or virtual machine, not on systems you do not own or administer.",
+            "KEY TERMS — permission — rights to read, write or execute; process — running program; shell — program interpreting commands; working directory — current filesystem location; path — location of a file or directory. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Read help or manual information before unfamiliar options. 2) Verify effects before running further or destructive commands. 3) Confirm the terminal and system you are using. 4) Use pwd and ls to inspect location and contents. 5) Run one low-risk command and inspect its output.",
+            "WORKED EXAMPLE — A slow application is investigated by checking resource use and error logs before killing processes at random.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Open terminal → 2. Inspect location → 3. Run one command → 4. Check output → 5. Record result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Use sample command output to identify a high-resource process and a timestamped error.",
+            "COMMON MISTAKES TO AVOID — changing permissions broadly to silence an error; running destructive commands without checking the path; using elevated privileges when unnecessary; copying shell commands without understanding them. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should precede stopping a process? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "linux-command-line-essentials-lesson-5",
+          "title": "Packages, updates and environment tools",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand the role of package managers and repositories and install software from trusted distribution channels, not random scripts.",
+            "WHY THIS MATTERS — The command line allows users to request file, process and system operations through text commands. Linux is commonly used on servers and development systems. Commands should be understood before running them, particularly when they delete files, change permissions or affect remote systems. Practise in a personal lab or virtual machine, not on systems you do not own or administer.",
+            "KEY TERMS — process — running program; shell — program interpreting commands; working directory — current filesystem location; path — location of a file or directory; permission — rights to read, write or execute. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Verify effects before running further or destructive commands. 2) Confirm the terminal and system you are using. 3) Use pwd and ls to inspect location and contents. 4) Run one low-risk command and inspect its output. 5) Read help or manual information before unfamiliar options.",
+            "WORKED EXAMPLE — Use the approved package manager to inspect an application's installed version and available updates.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Open terminal → 2. Inspect location → 3. Run one command → 4. Check output → 5. Record result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a safe lab checklist for inspecting a package before installing or upgrading it.",
+            "COMMON MISTAKES TO AVOID — running destructive commands without checking the path; using elevated privileges when unnecessary; copying shell commands without understanding them; changing permissions broadly to silence an error. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why use a trusted package repository? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "linux-command-line-essentials-lesson-6",
+          "title": "Shell scripts and recovery habits",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use small scripts to repeat a known workflow, include clear variables and checks, and keep backups before any command changes data.",
+            "WHY THIS MATTERS — The command line allows users to request file, process and system operations through text commands. Linux is commonly used on servers and development systems. Commands should be understood before running them, particularly when they delete files, change permissions or affect remote systems. Practise in a personal lab or virtual machine, not on systems you do not own or administer.",
+            "KEY TERMS — shell — program interpreting commands; working directory — current filesystem location; path — location of a file or directory; permission — rights to read, write or execute; process — running program. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Confirm the terminal and system you are using. 2) Use pwd and ls to inspect location and contents. 3) Run one low-risk command and inspect its output. 4) Read help or manual information before unfamiliar options. 5) Verify effects before running further or destructive commands.",
+            "WORKED EXAMPLE — A script first prints the target folder and lists files before a later cleanup step is enabled.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Open terminal → 2. Inspect location → 3. Run one command → 4. Check output → 5. Record result. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write pseudocode for a script that checks whether a folder exists and reports its contents without deleting anything.",
+            "COMMON MISTAKES TO AVOID — using elevated privileges when unnecessary; copying shell commands without understanding them; changing permissions broadly to silence an error; running destructive commands without checking the path. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a useful safety feature before a script changes files? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "linux-command-line-essentials-q1",
+          "prompt": "Which command commonly displays the current working directory?",
+          "options": [
+            "pwd.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "pwd. Recognise terminal and shell roles and use absolute and relative paths to orient yourself before making changes."
+        },
+        {
+          "id": "linux-command-line-essentials-q2",
+          "prompt": "What should you verify before a move or copy operation?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "The exact source and destination paths.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "The exact source and destination paths. Use basic file commands carefully, quote paths containing spaces and confirm source and destination before copying or moving data."
+        },
+        {
+          "id": "linux-command-line-essentials-q3",
+          "prompt": "Why avoid running commands as root by default?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Elevated privileges increase the potential impact of an error or malicious command.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "Elevated privileges increase the potential impact of an error or malicious command. Understand read, write and execute permissions and why least privilege reduces accidental damage and exposure."
+        },
+        {
+          "id": "linux-command-line-essentials-q4",
+          "prompt": "What should precede stopping a process?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "Identify the process, understand its role and confirm you are authorised to stop it."
+          ],
+          "answerIndex": 3,
+          "explanation": "Identify the process, understand its role and confirm you are authorised to stop it. Inspect running processes and relevant logs using safe, read-only commands before stopping services or changing system settings."
+        },
+        {
+          "id": "linux-command-line-essentials-q5",
+          "prompt": "Why use a trusted package repository?",
+          "options": [
+            "It improves provenance and helps manage dependencies and updates.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "It improves provenance and helps manage dependencies and updates. Understand the role of package managers and repositories and install software from trusted distribution channels, not random scripts."
+        },
+        {
+          "id": "linux-command-line-essentials-q6",
+          "prompt": "What is a useful safety feature before a script changes files?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Explicit path checks and a preview or dry run where supported.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "Explicit path checks and a preview or dry run where supported. Use small scripts to repeat a known workflow, include clear variables and checks, and keep backups before any command changes data."
+        }
+      ]
+    },
+    {
+      "id": "cybersecurity-for-computer-technicians",
+      "title": "Cybersecurity for Computer Technicians",
+      "category": "Computer Engineering",
+      "description": "Apply technician-focused security basics: hardening, accounts, backups, patching, logs and incident response.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "cybersecurity-for-computer-technicians-lesson-1",
+          "title": "Threat models and technician responsibilities",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Identify what must be protected, likely threats, impact and the boundaries of authorised work.",
+            "WHY THIS MATTERS — Computer technicians protect devices and accounts by reducing unnecessary access, keeping supported software updated, monitoring indicators and preserving evidence during incidents. Security work must be authorised, documented and proportionate. Do not experiment on third-party systems or use real private data in exercises.",
+            "KEY TERMS — hardening — reducing unnecessary attack surface; least privilege — granting only the access required; MFA — multi-factor authentication; indicator — an observable sign that may warrant investigation; incident response — organised handling of a suspected compromise. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Confirm authorisation, scope and asset ownership. 2) Inventory the system and reduce unnecessary services or permissions. 3) Apply supported updates and verify backups. 4) Review alerts and logs for relevant context. 5) Contain and report suspected incidents using approved procedures.",
+            "WORKED EXAMPLE — A shared office laptop containing client records needs stronger account controls than a kiosk that holds no private data, though both require updates.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Reduce exposure → 2. Harden account → 3. Patch and back up → 4. Observe alerts → 5. Respond and report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a basic asset-threat-control table for a fictional office laptop.",
+            "COMMON MISTAKES TO AVOID — testing security controls without permission; deleting logs before the incident is understood; disabling protections to make a task easier; sharing passwords or recovery codes in support records. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What must be confirmed before a technician tests a security control? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "cybersecurity-for-computer-technicians-lesson-2",
+          "title": "Accounts, MFA and least privilege",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use unique accounts, multi-factor authentication and limited permissions; separate ordinary tasks from administrator work.",
+            "WHY THIS MATTERS — Computer technicians protect devices and accounts by reducing unnecessary access, keeping supported software updated, monitoring indicators and preserving evidence during incidents. Security work must be authorised, documented and proportionate. Do not experiment on third-party systems or use real private data in exercises.",
+            "KEY TERMS — least privilege — granting only the access required; MFA — multi-factor authentication; indicator — an observable sign that may warrant investigation; incident response — organised handling of a suspected compromise; hardening — reducing unnecessary attack surface. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Inventory the system and reduce unnecessary services or permissions. 2) Apply supported updates and verify backups. 3) Review alerts and logs for relevant context. 4) Contain and report suspected incidents using approved procedures. 5) Confirm authorisation, scope and asset ownership.",
+            "WORKED EXAMPLE — A helpdesk worker uses a standard account for daily tasks and obtains approved temporary elevation when a job requires it.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Reduce exposure → 2. Harden account → 3. Patch and back up → 4. Observe alerts → 5. Respond and report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Review a fictional permissions list and remove unnecessary privileges in a proposed access plan.",
+            "COMMON MISTAKES TO AVOID — deleting logs before the incident is understood; disabling protections to make a task easier; sharing passwords or recovery codes in support records; testing security controls without permission. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What does least privilege mean? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "cybersecurity-for-computer-technicians-lesson-3",
+          "title": "Patching, secure configuration and backups",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Keep supported software updated, remove unnecessary services and verify that important backups can actually be restored.",
+            "WHY THIS MATTERS — Computer technicians protect devices and accounts by reducing unnecessary access, keeping supported software updated, monitoring indicators and preserving evidence during incidents. Security work must be authorised, documented and proportionate. Do not experiment on third-party systems or use real private data in exercises.",
+            "KEY TERMS — MFA — multi-factor authentication; indicator — an observable sign that may warrant investigation; incident response — organised handling of a suspected compromise; hardening — reducing unnecessary attack surface; least privilege — granting only the access required. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Apply supported updates and verify backups. 2) Review alerts and logs for relevant context. 3) Contain and report suspected incidents using approved procedures. 4) Confirm authorisation, scope and asset ownership. 5) Inventory the system and reduce unnecessary services or permissions.",
+            "WORKED EXAMPLE — A team schedules a patch, tests a critical application, monitors the result and preserves a recovery path.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Reduce exposure → 2. Harden account → 3. Patch and back up → 4. Observe alerts → 5. Respond and report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Make a patch and backup plan for a small office with three types of devices.",
+            "COMMON MISTAKES TO AVOID — disabling protections to make a task easier; sharing passwords or recovery codes in support records; testing security controls without permission; deleting logs before the incident is understood. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why test backup restoration rather than only checking that a backup file exists? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "cybersecurity-for-computer-technicians-lesson-4",
+          "title": "Logs, alerts and suspicious activity",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Correlate times, devices, account events and error messages while treating an alert as evidence to investigate rather than proof by itself.",
+            "WHY THIS MATTERS — Computer technicians protect devices and accounts by reducing unnecessary access, keeping supported software updated, monitoring indicators and preserving evidence during incidents. Security work must be authorised, documented and proportionate. Do not experiment on third-party systems or use real private data in exercises.",
+            "KEY TERMS — indicator — an observable sign that may warrant investigation; incident response — organised handling of a suspected compromise; hardening — reducing unnecessary attack surface; least privilege — granting only the access required; MFA — multi-factor authentication. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Review alerts and logs for relevant context. 2) Contain and report suspected incidents using approved procedures. 3) Confirm authorisation, scope and asset ownership. 4) Inventory the system and reduce unnecessary services or permissions. 5) Apply supported updates and verify backups.",
+            "WORKED EXAMPLE — Repeated failed sign-ins followed by a new device session justify a careful account review and approved escalation.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Reduce exposure → 2. Harden account → 3. Patch and back up → 4. Observe alerts → 5. Respond and report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Inspect fictional log entries and build a timeline of events without exposing actual user secrets.",
+            "COMMON MISTAKES TO AVOID — sharing passwords or recovery codes in support records; testing security controls without permission; deleting logs before the incident is understood; disabling protections to make a task easier. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should an analyst do with an alert? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "cybersecurity-for-computer-technicians-lesson-5",
+          "title": "Incident handling and evidence preservation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Follow containment and reporting plans, preserve relevant logs and avoid wiping or altering systems before authorised evidence collection.",
+            "WHY THIS MATTERS — Computer technicians protect devices and accounts by reducing unnecessary access, keeping supported software updated, monitoring indicators and preserving evidence during incidents. Security work must be authorised, documented and proportionate. Do not experiment on third-party systems or use real private data in exercises.",
+            "KEY TERMS — incident response — organised handling of a suspected compromise; hardening — reducing unnecessary attack surface; least privilege — granting only the access required; MFA — multi-factor authentication; indicator — an observable sign that may warrant investigation. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Contain and report suspected incidents using approved procedures. 2) Confirm authorisation, scope and asset ownership. 3) Inventory the system and reduce unnecessary services or permissions. 4) Apply supported updates and verify backups. 5) Review alerts and logs for relevant context.",
+            "WORKED EXAMPLE — A compromised workstation is isolated through the approved process and the incident lead is notified; the learner does not explore malware live.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Reduce exposure → 2. Harden account → 3. Patch and back up → 4. Observe alerts → 5. Respond and report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Sequence a tabletop incident plan for a suspected compromised user account.",
+            "COMMON MISTAKES TO AVOID — testing security controls without permission; deleting logs before the incident is understood; disabling protections to make a task easier; sharing passwords or recovery codes in support records. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why preserve evidence during a suspected incident? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "cybersecurity-for-computer-technicians-lesson-6",
+          "title": "Security checklist and professional reporting",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Write clear technical findings with scope, evidence, risk, recommendation and remaining uncertainty; never claim a system is secure based on one check.",
+            "WHY THIS MATTERS — Computer technicians protect devices and accounts by reducing unnecessary access, keeping supported software updated, monitoring indicators and preserving evidence during incidents. Security work must be authorised, documented and proportionate. Do not experiment on third-party systems or use real private data in exercises.",
+            "KEY TERMS — hardening — reducing unnecessary attack surface; least privilege — granting only the access required; MFA — multi-factor authentication; indicator — an observable sign that may warrant investigation; incident response — organised handling of a suspected compromise. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Confirm authorisation, scope and asset ownership. 2) Inventory the system and reduce unnecessary services or permissions. 3) Apply supported updates and verify backups. 4) Review alerts and logs for relevant context. 5) Contain and report suspected incidents using approved procedures.",
+            "WORKED EXAMPLE — A report distinguishes a confirmed outdated application from a suspected exposure and assigns each a suitable corrective action.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Reduce exposure → 2. Harden account → 3. Patch and back up → 4. Observe alerts → 5. Respond and report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Prepare a one-page fictional security finding with observed fact, impact, recommended fix and verification step.",
+            "COMMON MISTAKES TO AVOID — deleting logs before the incident is understood; disabling protections to make a task easier; sharing passwords or recovery codes in support records; testing security controls without permission. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What makes a security finding useful? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "cybersecurity-for-computer-technicians-q1",
+          "prompt": "What must be confirmed before a technician tests a security control?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Written or otherwise valid authorisation and the permitted scope.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "Written or otherwise valid authorisation and the permitted scope. Identify what must be protected, likely threats, impact and the boundaries of authorised work."
+        },
+        {
+          "id": "cybersecurity-for-computer-technicians-q2",
+          "prompt": "What does least privilege mean?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Give an account only the access required for its task.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "Give an account only the access required for its task. Use unique accounts, multi-factor authentication and limited permissions; separate ordinary tasks from administrator work."
+        },
+        {
+          "id": "cybersecurity-for-computer-technicians-q3",
+          "prompt": "Why test backup restoration rather than only checking that a backup file exists?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "A backup is useful only if the required data can be recovered."
+          ],
+          "answerIndex": 3,
+          "explanation": "A backup is useful only if the required data can be recovered. Keep supported software updated, remove unnecessary services and verify that important backups can actually be restored."
+        },
+        {
+          "id": "cybersecurity-for-computer-technicians-q4",
+          "prompt": "What should an analyst do with an alert?",
+          "options": [
+            "Gather context, corroborate evidence and follow the approved response process.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "Gather context, corroborate evidence and follow the approved response process. Correlate times, devices, account events and error messages while treating an alert as evidence to investigate rather than proof by itself."
+        },
+        {
+          "id": "cybersecurity-for-computer-technicians-q5",
+          "prompt": "Why preserve evidence during a suspected incident?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "It supports investigation, recovery and accurate reporting.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "It supports investigation, recovery and accurate reporting. Follow containment and reporting plans, preserve relevant logs and avoid wiping or altering systems before authorised evidence collection."
+        },
+        {
+          "id": "cybersecurity-for-computer-technicians-q6",
+          "prompt": "What makes a security finding useful?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "A clear finding supported by evidence, risk, recommendation and a way to verify the fix.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "A clear finding supported by evidence, risk, recommendation and a way to verify the fix. Write clear technical findings with scope, evidence, risk, recommendation and remaining uncertainty; never claim a system is secure based on one check."
+        }
+      ]
+    },
+    {
+      "id": "computer-engineering-design-testing",
+      "title": "Computer Engineering Design, Testing & Documentation",
+      "category": "Computer Engineering",
+      "description": "Translate requirements into system blocks, prototypes, test plans, engineering logs and verified design decisions.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "computer-engineering-design-testing-lesson-1",
+          "title": "Requirements and constraints",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Separate essential functions from preferences and state measurable performance, size, cost, power and safety constraints.",
+            "WHY THIS MATTERS — Computer engineering joins hardware and software to make systems that meet measurable requirements. A good design records its constraints, interfaces, assumptions and risks. Testing compares observed behaviour with acceptance criteria, while a change log explains what was modified and why. Prototypes and simulations help reveal errors before a system is used in the real world.",
+            "KEY TERMS — requirement — a condition the design must satisfy; interface — defined connection between components; prototype — early model for learning or testing; acceptance criterion — measurable condition for success; revision log — record of changes and reasons. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Write measurable requirements and operating limits. 2) Draw the block diagram and identify interfaces. 3) Select a safe simulation or prototype approach. 4) Test normal, boundary and failure conditions. 5) Record evidence, revisions, unresolved risks and next steps.",
+            "WORKED EXAMPLE — A sensor logger requirement may specify sampling every second and retaining a defined number of readings, rather than saying only that it should be fast.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define requirements → 2. Sketch architecture → 3. Prototype safely → 4. Test against criteria → 5. Document revision. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write five measurable requirements for a simulated classroom environmental monitor.",
+            "COMMON MISTAKES TO AVOID — designing before defining the problem; testing only the expected happy path; changing hardware without recording the revision; claiming a model proves real-world safety. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What makes a requirement testable? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-engineering-design-testing-lesson-2",
+          "title": "Block diagrams and component interfaces",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Divide a system into understandable blocks and specify what information, power or control passes between them.",
+            "WHY THIS MATTERS — Computer engineering joins hardware and software to make systems that meet measurable requirements. A good design records its constraints, interfaces, assumptions and risks. Testing compares observed behaviour with acceptance criteria, while a change log explains what was modified and why. Prototypes and simulations help reveal errors before a system is used in the real world.",
+            "KEY TERMS — interface — defined connection between components; prototype — early model for learning or testing; acceptance criterion — measurable condition for success; revision log — record of changes and reasons; requirement — a condition the design must satisfy. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Draw the block diagram and identify interfaces. 2) Select a safe simulation or prototype approach. 3) Test normal, boundary and failure conditions. 4) Record evidence, revisions, unresolved risks and next steps. 5) Write measurable requirements and operating limits.",
+            "WORKED EXAMPLE — A temperature monitor connects sensor, controller, storage and display through explicit signal paths.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define requirements → 2. Sketch architecture → 3. Prototype safely → 4. Test against criteria → 5. Document revision. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw a block diagram with labelled inputs, outputs and a boundary around the system.",
+            "COMMON MISTAKES TO AVOID — testing only the expected happy path; changing hardware without recording the revision; claiming a model proves real-world safety; designing before defining the problem. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why label the interfaces between blocks? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-engineering-design-testing-lesson-3",
+          "title": "Prototype planning and risk assessment",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose simulation or approved low-risk prototyping, identify hazards and set a safe stop condition before testing.",
+            "WHY THIS MATTERS — Computer engineering joins hardware and software to make systems that meet measurable requirements. A good design records its constraints, interfaces, assumptions and risks. Testing compares observed behaviour with acceptance criteria, while a change log explains what was modified and why. Prototypes and simulations help reveal errors before a system is used in the real world.",
+            "KEY TERMS — prototype — early model for learning or testing; acceptance criterion — measurable condition for success; revision log — record of changes and reasons; requirement — a condition the design must satisfy; interface — defined connection between components. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Select a safe simulation or prototype approach. 2) Test normal, boundary and failure conditions. 3) Record evidence, revisions, unresolved risks and next steps. 4) Write measurable requirements and operating limits. 5) Draw the block diagram and identify interfaces.",
+            "WORKED EXAMPLE — A control rule is tested in software before a physical output is connected to any device that could injure someone or damage equipment.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define requirements → 2. Sketch architecture → 3. Prototype safely → 4. Test against criteria → 5. Document revision. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Prepare a risk table listing hazard, likelihood, impact, mitigation and who approves a physical test.",
+            "COMMON MISTAKES TO AVOID — changing hardware without recording the revision; claiming a model proves real-world safety; designing before defining the problem; testing only the expected happy path. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should happen before a prototype is tested physically? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-engineering-design-testing-lesson-4",
+          "title": "Test cases and acceptance criteria",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Derive tests from requirements, include boundary and failure inputs and record actual results against expected results.",
+            "WHY THIS MATTERS — Computer engineering joins hardware and software to make systems that meet measurable requirements. A good design records its constraints, interfaces, assumptions and risks. Testing compares observed behaviour with acceptance criteria, while a change log explains what was modified and why. Prototypes and simulations help reveal errors before a system is used in the real world.",
+            "KEY TERMS — acceptance criterion — measurable condition for success; revision log — record of changes and reasons; requirement — a condition the design must satisfy; interface — defined connection between components; prototype — early model for learning or testing. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Test normal, boundary and failure conditions. 2) Record evidence, revisions, unresolved risks and next steps. 3) Write measurable requirements and operating limits. 4) Draw the block diagram and identify interfaces. 5) Select a safe simulation or prototype approach.",
+            "WORKED EXAMPLE — A sensor function is tested with normal, minimum, maximum and missing values rather than only one typical reading.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define requirements → 2. Sketch architecture → 3. Prototype safely → 4. Test against criteria → 5. Document revision. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Build a test table with case, input, expected result, observed result and pass or fail.",
+            "COMMON MISTAKES TO AVOID — claiming a model proves real-world safety; designing before defining the problem; testing only the expected happy path; changing hardware without recording the revision. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What makes testing traceable to requirements? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-engineering-design-testing-lesson-5",
+          "title": "Debugging, revisions and engineering logs",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Reproduce the problem, change a controlled variable, record the outcome and preserve known-good versions to avoid losing progress.",
+            "WHY THIS MATTERS — Computer engineering joins hardware and software to make systems that meet measurable requirements. A good design records its constraints, interfaces, assumptions and risks. Testing compares observed behaviour with acceptance criteria, while a change log explains what was modified and why. Prototypes and simulations help reveal errors before a system is used in the real world.",
+            "KEY TERMS — revision log — record of changes and reasons; requirement — a condition the design must satisfy; interface — defined connection between components; prototype — early model for learning or testing; acceptance criterion — measurable condition for success. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Record evidence, revisions, unresolved risks and next steps. 2) Write measurable requirements and operating limits. 3) Draw the block diagram and identify interfaces. 4) Select a safe simulation or prototype approach. 5) Test normal, boundary and failure conditions.",
+            "WORKED EXAMPLE — Revision B fixes a timing issue; the log describes the change and reruns the tests that might be affected.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define requirements → 2. Sketch architecture → 3. Prototype safely → 4. Test against criteria → 5. Document revision. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a three-entry revision log for a fictional simulation project.",
+            "COMMON MISTAKES TO AVOID — designing before defining the problem; testing only the expected happy path; changing hardware without recording the revision; claiming a model proves real-world safety. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why keep a revision log? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-engineering-design-testing-lesson-6",
+          "title": "Final review, limitations and handover",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Explain what was tested, what passed, what remains unresolved, how to operate the prototype and when specialist review is required.",
+            "WHY THIS MATTERS — Computer engineering joins hardware and software to make systems that meet measurable requirements. A good design records its constraints, interfaces, assumptions and risks. Testing compares observed behaviour with acceptance criteria, while a change log explains what was modified and why. Prototypes and simulations help reveal errors before a system is used in the real world.",
+            "KEY TERMS — requirement — a condition the design must satisfy; interface — defined connection between components; prototype — early model for learning or testing; acceptance criterion — measurable condition for success; revision log — record of changes and reasons. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Write measurable requirements and operating limits. 2) Draw the block diagram and identify interfaces. 3) Select a safe simulation or prototype approach. 4) Test normal, boundary and failure conditions. 5) Record evidence, revisions, unresolved risks and next steps.",
+            "WORKED EXAMPLE — A handover explains a simulated circuit's intended inputs and outputs but explicitly says it has not been validated for real-world operation.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define requirements → 2. Sketch architecture → 3. Prototype safely → 4. Test against criteria → 5. Document revision. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Prepare a one-page handover with diagram, test summary, limitations and maintenance note.",
+            "COMMON MISTAKES TO AVOID — testing only the expected happy path; changing hardware without recording the revision; claiming a model proves real-world safety; designing before defining the problem. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Should passing a simulation automatically prove a physical design safe? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "computer-engineering-design-testing-q1",
+          "prompt": "What makes a requirement testable?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "It describes an observable or measurable condition for success.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "It describes an observable or measurable condition for success. Separate essential functions from preferences and state measurable performance, size, cost, power and safety constraints."
+        },
+        {
+          "id": "computer-engineering-design-testing-q2",
+          "prompt": "Why label the interfaces between blocks?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "It clarifies expected signals and dependencies between components."
+          ],
+          "answerIndex": 3,
+          "explanation": "It clarifies expected signals and dependencies between components. Divide a system into understandable blocks and specify what information, power or control passes between them."
+        },
+        {
+          "id": "computer-engineering-design-testing-q3",
+          "prompt": "What should happen before a prototype is tested physically?",
+          "options": [
+            "Risks, operating limits and required competent supervision should be checked and approved.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "Risks, operating limits and required competent supervision should be checked and approved. Choose simulation or approved low-risk prototyping, identify hazards and set a safe stop condition before testing."
+        },
+        {
+          "id": "computer-engineering-design-testing-q4",
+          "prompt": "What makes testing traceable to requirements?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Each requirement maps to one or more specific test cases and recorded results.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "Each requirement maps to one or more specific test cases and recorded results. Derive tests from requirements, include boundary and failure inputs and record actual results against expected results."
+        },
+        {
+          "id": "computer-engineering-design-testing-q5",
+          "prompt": "Why keep a revision log?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "It records what changed, why it changed and what evidence followed.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "It records what changed, why it changed and what evidence followed. Reproduce the problem, change a controlled variable, record the outcome and preserve known-good versions to avoid losing progress."
+        },
+        {
+          "id": "computer-engineering-design-testing-q6",
+          "prompt": "Should passing a simulation automatically prove a physical design safe?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "No; physical implementation requires appropriate verification, controls and qualified review."
+          ],
+          "answerIndex": 3,
+          "explanation": "No; physical implementation requires appropriate verification, controls and qualified review. Explain what was tested, what passed, what remains unresolved, how to operate the prototype and when specialist review is required."
+        }
+      ]
+    },
+    {
+      "id": "microsoft-project-visio-technical-planning",
+      "title": "Microsoft Project & Visio: Planning and Diagrams",
+      "category": "Digital & Office Skills",
+      "description": "Build schedules, dependencies, milestones, process maps, network diagrams and technical documentation.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "microsoft-project-visio-technical-planning-lesson-1",
+          "title": "Project schedule basics and task structure",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Break a deliverable into manageable activities, name owners and estimate realistic durations.",
+            "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+            "KEY TERMS — milestone — important progress checkpoint; dependency — relationship between tasks; critical path — sequence controlling the earliest project finish; swimlane — diagram area showing responsibility; connector — line showing a relationship or flow. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define the outcome and its deliverables. 2) Break work into tasks and estimate durations. 3) Map dependencies and assign owners. 4) Display milestones or the process in a clear visual. 5) Update actual progress, risks and approved changes.",
+            "WORKED EXAMPLE — A training event plan separates venue booking, agenda preparation, invitations, materials and event delivery.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a task list with owners, durations and a final deliverable for a small project.",
+            "COMMON MISTAKES TO AVOID — assigning dates before understanding dependencies; treating estimates as guarantees; using crossing connectors that obscure the flow; showing a status chart without an as-of date. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why break a large deliverable into smaller tasks? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-project-visio-technical-planning-lesson-2",
+          "title": "Dependencies, milestones and critical path",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Show which activities must precede others and identify the sequence that can affect the earliest finish date.",
+            "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+            "KEY TERMS — dependency — relationship between tasks; critical path — sequence controlling the earliest project finish; swimlane — diagram area showing responsibility; connector — line showing a relationship or flow; milestone — important progress checkpoint. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Break work into tasks and estimate durations. 2) Map dependencies and assign owners. 3) Display milestones or the process in a clear visual. 4) Update actual progress, risks and approved changes. 5) Define the outcome and its deliverables.",
+            "WORKED EXAMPLE — Invitations cannot include a confirmed venue until the venue is booked, so booking is a dependency.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw a small dependency network and identify which delay moves the end date.",
+            "COMMON MISTAKES TO AVOID — treating estimates as guarantees; using crossing connectors that obscure the flow; showing a status chart without an as-of date; assigning dates before understanding dependencies. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a dependency? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-project-visio-technical-planning-lesson-3",
+          "title": "Gantt charts, resources and progress",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Display task timing, overlaps, milestones and current status; update estimates when actual work changes the plan.",
+            "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+            "KEY TERMS — critical path — sequence controlling the earliest project finish; swimlane — diagram area showing responsibility; connector — line showing a relationship or flow; milestone — important progress checkpoint; dependency — relationship between tasks. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Map dependencies and assign owners. 2) Display milestones or the process in a clear visual. 3) Update actual progress, risks and approved changes. 4) Define the outcome and its deliverables. 5) Break work into tasks and estimate durations.",
+            "WORKED EXAMPLE — A Gantt chart shows procurement and design happening in parallel while final testing waits for both.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a simple schedule with six tasks, two dependencies and three milestones.",
+            "COMMON MISTAKES TO AVOID — using crossing connectors that obscure the flow; showing a status chart without an as-of date; assigning dates before understanding dependencies; treating estimates as guarantees. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What does a Gantt chart mainly communicate? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-project-visio-technical-planning-lesson-4",
+          "title": "Visio flowcharts and swimlanes",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use standard shapes and directional connectors for steps and decisions; use swimlanes when responsibility changes between roles.",
+            "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+            "KEY TERMS — swimlane — diagram area showing responsibility; connector — line showing a relationship or flow; milestone — important progress checkpoint; dependency — relationship between tasks; critical path — sequence controlling the earliest project finish. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Display milestones or the process in a clear visual. 2) Update actual progress, risks and approved changes. 3) Define the outcome and its deliverables. 4) Break work into tasks and estimate durations. 5) Map dependencies and assign owners.",
+            "WORKED EXAMPLE — An approval flow routes approved expenses to payment and incomplete requests back to the requester.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw a five-step approval flow with one decision and two responsible roles.",
+            "COMMON MISTAKES TO AVOID — showing a status chart without an as-of date; assigning dates before understanding dependencies; treating estimates as guarantees; using crossing connectors that obscure the flow. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What does a decision shape indicate in a flowchart? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-project-visio-technical-planning-lesson-5",
+          "title": "Network and system diagrams",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Represent components, boundaries and links accurately, using consistent symbols and a legend when a diagram could be misread.",
+            "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+            "KEY TERMS — connector — line showing a relationship or flow; milestone — important progress checkpoint; dependency — relationship between tasks; critical path — sequence controlling the earliest project finish; swimlane — diagram area showing responsibility. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Update actual progress, risks and approved changes. 2) Define the outcome and its deliverables. 3) Break work into tasks and estimate durations. 4) Map dependencies and assign owners. 5) Display milestones or the process in a clear visual.",
+            "WORKED EXAMPLE — A network diagram distinguishes client devices, switch, router and external internet connection.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a small-office network diagram and label interfaces, external boundary and security zones.",
+            "COMMON MISTAKES TO AVOID — assigning dates before understanding dependencies; treating estimates as guarantees; using crossing connectors that obscure the flow; showing a status chart without an as-of date. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What makes a technical diagram easier to interpret? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-project-visio-technical-planning-lesson-6",
+          "title": "Status reporting and change control",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Report current progress, remaining work, risks, decisions and date of the report; document approved schedule or design changes.",
+            "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+            "KEY TERMS — milestone — important progress checkpoint; dependency — relationship between tasks; critical path — sequence controlling the earliest project finish; swimlane — diagram area showing responsibility; connector — line showing a relationship or flow. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define the outcome and its deliverables. 2) Break work into tasks and estimate durations. 3) Map dependencies and assign owners. 4) Display milestones or the process in a clear visual. 5) Update actual progress, risks and approved changes.",
+            "WORKED EXAMPLE — A one-week delay is shown with its cause, affected milestone and a proposed recovery option rather than being hidden.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draft a weekly status update for a fictional project with one risk and one decision needed.",
+            "COMMON MISTAKES TO AVOID — treating estimates as guarantees; using crossing connectors that obscure the flow; showing a status chart without an as-of date; assigning dates before understanding dependencies. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should a project status update include besides percent complete? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "microsoft-project-visio-technical-planning-q1",
+          "prompt": "Why break a large deliverable into smaller tasks?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "It makes effort, ownership and progress easier to estimate and track."
+          ],
+          "answerIndex": 3,
+          "explanation": "It makes effort, ownership and progress easier to estimate and track. Break a deliverable into manageable activities, name owners and estimate realistic durations."
+        },
+        {
+          "id": "microsoft-project-visio-technical-planning-q2",
+          "prompt": "What is a dependency?",
+          "options": [
+            "A relationship in which one task or condition relies on another.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "A relationship in which one task or condition relies on another. Show which activities must precede others and identify the sequence that can affect the earliest finish date."
+        },
+        {
+          "id": "microsoft-project-visio-technical-planning-q3",
+          "prompt": "What does a Gantt chart mainly communicate?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Task timing, duration, overlap and milestones.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "Task timing, duration, overlap and milestones. Display task timing, overlaps, milestones and current status; update estimates when actual work changes the plan."
+        },
+        {
+          "id": "microsoft-project-visio-technical-planning-q4",
+          "prompt": "What does a decision shape indicate in a flowchart?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "A point where the next step depends on a condition or answer.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "A point where the next step depends on a condition or answer. Use standard shapes and directional connectors for steps and decisions; use swimlanes when responsibility changes between roles."
+        },
+        {
+          "id": "microsoft-project-visio-technical-planning-q5",
+          "prompt": "What makes a technical diagram easier to interpret?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "Clear labels, consistent symbols, meaningful connections and a legend when needed."
+          ],
+          "answerIndex": 3,
+          "explanation": "Clear labels, consistent symbols, meaningful connections and a legend when needed. Represent components, boundaries and links accurately, using consistent symbols and a legend when a diagram could be misread."
+        },
+        {
+          "id": "microsoft-project-visio-technical-planning-q6",
+          "prompt": "What should a project status update include besides percent complete?",
+          "options": [
+            "Milestones, risks, blockers, decisions and the reporting date.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "Milestones, risks, blockers, decisions and the reporting date. Report current progress, remaining work, risks, decisions and date of the report; document approved schedule or design changes."
+        }
+      ]
+    },
+    {
+      "id": "power-bi-data-visualisation",
+      "title": "Power BI & Data Visualisation",
+      "category": "Data & Office Tools",
+      "description": "Transform prepared data into measures, interactive reports and dashboards with careful data modelling and interpretation.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "power-bi-data-visualisation-lesson-1",
+          "title": "Power BI workflow and data sources",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand the roles of data import, transformation, modelling, report design and refresh; confirm permission to use each source.",
+            "WHY THIS MATTERS — Power BI supports data preparation, modelling, calculation and interactive reporting. A useful dashboard starts with a real question and reliable source data. Relationships, measures, filters and chart choices affect what users see, so totals and definitions must be checked before a report guides decisions.",
+            "KEY TERMS — data model — tables and relationships describing information; measure — calculation evaluated in a report context; filter context — the subset of data used for a visual or measure; dashboard — organised view of key indicators; refresh — updating report data from a source. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define the decisions and questions the report should support. 2) Inspect and clean source data before modelling it. 3) Build explicit relationships and reusable measures. 4) Choose visuals with clear labels and appropriate scales. 5) Validate totals, filters, refresh status and interpretation.",
+            "WORKED EXAMPLE — A sales report imports a prepared table, removes blank rows and checks column types before calculating any business indicator.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Connect source → 2. Clean model → 3. Define measures → 4. Build visuals → 5. Validate story. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Map the journey of fictional sales records from source file through transformation to a report.",
+            "COMMON MISTAKES TO AVOID — building attractive charts before checking data quality; using unclear metric definitions; duplicating tables rather than modelling relationships; assuming a refreshed report proves every source value is accurate. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should be clarified before building a dashboard? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "power-bi-data-visualisation-lesson-2",
+          "title": "Power Query and data cleaning",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Inspect types, missing values, duplicates, inconsistent categories and transformations; keep changes traceable.",
+            "WHY THIS MATTERS — Power BI supports data preparation, modelling, calculation and interactive reporting. A useful dashboard starts with a real question and reliable source data. Relationships, measures, filters and chart choices affect what users see, so totals and definitions must be checked before a report guides decisions.",
+            "KEY TERMS — measure — calculation evaluated in a report context; filter context — the subset of data used for a visual or measure; dashboard — organised view of key indicators; refresh — updating report data from a source; data model — tables and relationships describing information. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Inspect and clean source data before modelling it. 2) Build explicit relationships and reusable measures. 3) Choose visuals with clear labels and appropriate scales. 4) Validate totals, filters, refresh status and interpretation. 5) Define the decisions and questions the report should support.",
+            "WORKED EXAMPLE — Standardise category spelling before grouping sales by product so that one product is not counted as three categories.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Connect source → 2. Clean model → 3. Define measures → 4. Build visuals → 5. Validate story. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write a cleaning plan for a fictional table with inconsistent dates and duplicate-looking records.",
+            "COMMON MISTAKES TO AVOID — using unclear metric definitions; duplicating tables rather than modelling relationships; assuming a refreshed report proves every source value is accurate; building attractive charts before checking data quality. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why clean data before creating report visuals? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "power-bi-data-visualisation-lesson-3",
+          "title": "Data model and relationships",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Identify table grain and key fields, model relationships carefully and avoid ambiguous joins that duplicate counts.",
+            "WHY THIS MATTERS — Power BI supports data preparation, modelling, calculation and interactive reporting. A useful dashboard starts with a real question and reliable source data. Relationships, measures, filters and chart choices affect what users see, so totals and definitions must be checked before a report guides decisions.",
+            "KEY TERMS — filter context — the subset of data used for a visual or measure; dashboard — organised view of key indicators; refresh — updating report data from a source; data model — tables and relationships describing information; measure — calculation evaluated in a report context. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Build explicit relationships and reusable measures. 2) Choose visuals with clear labels and appropriate scales. 3) Validate totals, filters, refresh status and interpretation. 4) Define the decisions and questions the report should support. 5) Inspect and clean source data before modelling it.",
+            "WORKED EXAMPLE — A separate product table relates to sales through ProductID rather than repeating descriptive product fields across every report table.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Connect source → 2. Clean model → 3. Define measures → 4. Build visuals → 5. Validate story. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw a simple model with a sales table, product dimension and date dimension.",
+            "COMMON MISTAKES TO AVOID — duplicating tables rather than modelling relationships; assuming a refreshed report proves every source value is accurate; building attractive charts before checking data quality; using unclear metric definitions. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why should the meaning of one row be understood before modelling? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "power-bi-data-visualisation-lesson-4",
+          "title": "Measures, metrics and calculations",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Define business measures explicitly and distinguish row-level calculations from totals computed under report filter context.",
+            "WHY THIS MATTERS — Power BI supports data preparation, modelling, calculation and interactive reporting. A useful dashboard starts with a real question and reliable source data. Relationships, measures, filters and chart choices affect what users see, so totals and definitions must be checked before a report guides decisions.",
+            "KEY TERMS — dashboard — organised view of key indicators; refresh — updating report data from a source; data model — tables and relationships describing information; measure — calculation evaluated in a report context; filter context — the subset of data used for a visual or measure. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Choose visuals with clear labels and appropriate scales. 2) Validate totals, filters, refresh status and interpretation. 3) Define the decisions and questions the report should support. 4) Inspect and clean source data before modelling it. 5) Build explicit relationships and reusable measures.",
+            "WORKED EXAMPLE — Sales amount is quantity multiplied by unit price; the total is summed across the rows selected by a report filter.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Connect source → 2. Clean model → 3. Define measures → 4. Build visuals → 5. Validate story. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Define three fictional KPIs with calculation, unit, reporting period and owner.",
+            "COMMON MISTAKES TO AVOID — assuming a refreshed report proves every source value is accurate; building attractive charts before checking data quality; using unclear metric definitions; duplicating tables rather than modelling relationships. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What makes a KPI definition reliable? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "power-bi-data-visualisation-lesson-5",
+          "title": "Visuals, filters and dashboard design",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Select charts that answer a question, keep axes truthful and use filters or drill-down only when they improve interpretation.",
+            "WHY THIS MATTERS — Power BI supports data preparation, modelling, calculation and interactive reporting. A useful dashboard starts with a real question and reliable source data. Relationships, measures, filters and chart choices affect what users see, so totals and definitions must be checked before a report guides decisions.",
+            "KEY TERMS — refresh — updating report data from a source; data model — tables and relationships describing information; measure — calculation evaluated in a report context; filter context — the subset of data used for a visual or measure; dashboard — organised view of key indicators. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Validate totals, filters, refresh status and interpretation. 2) Define the decisions and questions the report should support. 3) Inspect and clean source data before modelling it. 4) Build explicit relationships and reusable measures. 5) Choose visuals with clear labels and appropriate scales.",
+            "WORKED EXAMPLE — A monthly trend chart can show seasonality, while a ranked bar chart can compare category totals more directly.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Connect source → 2. Clean model → 3. Define measures → 4. Build visuals → 5. Validate story. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Sketch a dashboard with three visuals and write the decision each one supports.",
+            "COMMON MISTAKES TO AVOID — building attractive charts before checking data quality; using unclear metric definitions; duplicating tables rather than modelling relationships; assuming a refreshed report proves every source value is accurate. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — How should a chart be selected? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "power-bi-data-visualisation-lesson-6",
+          "title": "Validation, refresh and publishing",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Reconcile key totals with source records, check filter behaviour and permissions, and document refresh time and known limitations.",
+            "WHY THIS MATTERS — Power BI supports data preparation, modelling, calculation and interactive reporting. A useful dashboard starts with a real question and reliable source data. Relationships, measures, filters and chart choices affect what users see, so totals and definitions must be checked before a report guides decisions.",
+            "KEY TERMS — data model — tables and relationships describing information; measure — calculation evaluated in a report context; filter context — the subset of data used for a visual or measure; dashboard — organised view of key indicators; refresh — updating report data from a source. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Define the decisions and questions the report should support. 2) Inspect and clean source data before modelling it. 3) Build explicit relationships and reusable measures. 4) Choose visuals with clear labels and appropriate scales. 5) Validate totals, filters, refresh status and interpretation.",
+            "WORKED EXAMPLE — Before sharing a KPI, compare it with a manually calculated total from a small sample and verify the reporting dates.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Connect source → 2. Clean model → 3. Define measures → 4. Build visuals → 5. Validate story. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Build a release checklist for a fictional report covering data, totals, permissions and refresh status.",
+            "COMMON MISTAKES TO AVOID — using unclear metric definitions; duplicating tables rather than modelling relationships; assuming a refreshed report proves every source value is accurate; building attractive charts before checking data quality. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should be checked before a dashboard is used for decisions? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "power-bi-data-visualisation-q1",
+          "prompt": "What should be clarified before building a dashboard?",
+          "options": [
+            "Which decision or question the dashboard should support.",
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 0,
+          "explanation": "Which decision or question the dashboard should support. Understand the roles of data import, transformation, modelling, report design and refresh; confirm permission to use each source."
+        },
+        {
+          "id": "power-bi-data-visualisation-q2",
+          "prompt": "Why clean data before creating report visuals?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Errors or inconsistent categories can make measures and conclusions misleading.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 1,
+          "explanation": "Errors or inconsistent categories can make measures and conclusions misleading. Inspect types, missing values, duplicates, inconsistent categories and transformations; keep changes traceable."
+        },
+        {
+          "id": "power-bi-data-visualisation-q3",
+          "prompt": "Why should the meaning of one row be understood before modelling?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "It prevents incorrect joins and double-counting.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 2,
+          "explanation": "It prevents incorrect joins and double-counting. Identify table grain and key fields, model relationships carefully and avoid ambiguous joins that duplicate counts."
+        },
+        {
+          "id": "power-bi-data-visualisation-q4",
+          "prompt": "What makes a KPI definition reliable?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy.",
+            "A clear formula, unit, scope and reporting period."
+          ],
+          "answerIndex": 3,
+          "explanation": "A clear formula, unit, scope and reporting period. Define business measures explicitly and distinguish row-level calculations from totals computed under report filter context."
+        },
+        {
+          "id": "power-bi-data-visualisation-q5",
+          "prompt": "How should a chart be selected?",
+          "options": [
+            "By the question and data relationship it needs to communicate.",
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 0,
+          "explanation": "By the question and data relationship it needs to communicate. Select charts that answer a question, keep axes truthful and use filters or drill-down only when they improve interpretation."
+        },
+        {
+          "id": "power-bi-data-visualisation-q6",
+          "prompt": "What should be checked before a dashboard is used for decisions?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Source reliability, calculations, filter behaviour, date scope and access permissions.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 1,
+          "explanation": "Source reliability, calculations, filter behaviour, date scope and access permissions. Reconcile key totals with source records, check filter behaviour and permissions, and document refresh time and known limitations."
+        }
+      ]
+    },
+    {
+      "id": "microsoft-forms-survey-design",
+      "title": "Microsoft Forms & Survey Design",
+      "category": "Digital & Office Skills",
+      "description": "Build accessible forms, quizzes and surveys with clear questions, validation, privacy and response analysis.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "microsoft-forms-survey-design-lesson-1",
+          "title": "Plan a form and its audience",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Define the audience, purpose, completion time and decision that collected answers will support.",
+            "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+            "KEY TERMS — question wording — exact phrasing presented to the respondent; response option — permitted answer choice; required field — information that must be supplied; pilot test — small test before wider release; data minimisation — collect only necessary information. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Write the decision or learning goal the form supports. 2) Use one clear concept per question and balanced answer choices. 3) Set required fields and validation only when necessary. 4) Pilot the form on a small test group and correct confusion. 5) Review results carefully and restrict access to sensitive data.",
+            "WORKED EXAMPLE — A course feedback form asks about clarity, lesson pace and topics to revisit because each response informs a teaching improvement.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Write the goal for a five-question survey and link each question to a decision it informs.",
+            "COMMON MISTAKES TO AVOID — asking leading or double-barrelled questions; collecting information without a clear need; making every field required; sharing respondent data too widely. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why define a form's purpose before writing questions? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-forms-survey-design-lesson-2",
+          "title": "Question wording and response types",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose single choice, multiple choice, rating, text or date fields appropriately; avoid leading and double-barrelled wording.",
+            "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+            "KEY TERMS — response option — permitted answer choice; required field — information that must be supplied; pilot test — small test before wider release; data minimisation — collect only necessary information; question wording — exact phrasing presented to the respondent. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use one clear concept per question and balanced answer choices. 2) Set required fields and validation only when necessary. 3) Pilot the form on a small test group and correct confusion. 4) Review results carefully and restrict access to sensitive data. 5) Write the decision or learning goal the form supports.",
+            "WORKED EXAMPLE — Ask 'How clear was the explanation?' separately from 'Was the pace comfortable?' rather than combining two issues in one question.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Rewrite three biased or unclear fictional questions into neutral, single-topic questions.",
+            "COMMON MISTAKES TO AVOID — collecting information without a clear need; making every field required; sharing respondent data too widely; asking leading or double-barrelled questions. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is wrong with a double-barrelled question? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-forms-survey-design-lesson-3",
+          "title": "Settings, branching and validation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use appropriate required fields, branching and response limits; ensure the form remains understandable on mobile and with assistive technology.",
+            "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+            "KEY TERMS — required field — information that must be supplied; pilot test — small test before wider release; data minimisation — collect only necessary information; question wording — exact phrasing presented to the respondent; response option — permitted answer choice. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Set required fields and validation only when necessary. 2) Pilot the form on a small test group and correct confusion. 3) Review results carefully and restrict access to sensitive data. 4) Write the decision or learning goal the form supports. 5) Use one clear concept per question and balanced answer choices.",
+            "WORKED EXAMPLE — A follow-up question appears only when a learner reports a problem, so other respondents are not forced through irrelevant fields.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Sketch a short branching flow for a course issue report with a clear exit path.",
+            "COMMON MISTAKES TO AVOID — making every field required; sharing respondent data too widely; asking leading or double-barrelled questions; collecting information without a clear need. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a benefit of branching? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-forms-survey-design-lesson-4",
+          "title": "Quiz questions and feedback",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Write one unambiguous correct answer, plausible distractors and feedback that explains the underlying concept.",
+            "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+            "KEY TERMS — pilot test — small test before wider release; data minimisation — collect only necessary information; question wording — exact phrasing presented to the respondent; response option — permitted answer choice; required field — information that must be supplied. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Pilot the form on a small test group and correct confusion. 2) Review results carefully and restrict access to sensitive data. 3) Write the decision or learning goal the form supports. 4) Use one clear concept per question and balanced answer choices. 5) Set required fields and validation only when necessary.",
+            "WORKED EXAMPLE — A quiz about file backups explains why a verified separate copy matters instead of merely marking the response wrong.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create three quiz questions with answer keys and explanatory feedback for a lesson you know.",
+            "COMMON MISTAKES TO AVOID — sharing respondent data too widely; asking leading or double-barrelled questions; collecting information without a clear need; making every field required. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What improves quiz feedback? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-forms-survey-design-lesson-5",
+          "title": "Pilot testing, accessibility and privacy",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Test instructions, completion time, readability, access permissions and the minimal amount of personal information required.",
+            "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+            "KEY TERMS — data minimisation — collect only necessary information; question wording — exact phrasing presented to the respondent; response option — permitted answer choice; required field — information that must be supplied; pilot test — small test before wider release. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Review results carefully and restrict access to sensitive data. 2) Write the decision or learning goal the form supports. 3) Use one clear concept per question and balanced answer choices. 4) Set required fields and validation only when necessary. 5) Pilot the form on a small test group and correct confusion.",
+            "WORKED EXAMPLE — A pilot reveals that a required phone number is unnecessary for an anonymous learning survey, so it is removed.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Use a checklist to review a fictional survey for bias, accessibility, privacy and usability.",
+            "COMMON MISTAKES TO AVOID — asking leading or double-barrelled questions; collecting information without a clear need; making every field required; sharing respondent data too widely. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What does data minimisation mean? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "microsoft-forms-survey-design-lesson-6",
+          "title": "Analyse responses and communicate findings",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Summarise response counts, percentages and common themes, noting response rate, missing answers and limitations.",
+            "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+            "KEY TERMS — question wording — exact phrasing presented to the respondent; response option — permitted answer choice; required field — information that must be supplied; pilot test — small test before wider release; data minimisation — collect only necessary information. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Write the decision or learning goal the form supports. 2) Use one clear concept per question and balanced answer choices. 3) Set required fields and validation only when necessary. 4) Pilot the form on a small test group and correct confusion. 5) Review results carefully and restrict access to sensitive data.",
+            "WORKED EXAMPLE — If only a small group completed a survey, report the count and avoid treating its views as a definite result for everyone.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Analyse a small fictional response table and write two findings plus one limitation.",
+            "COMMON MISTAKES TO AVOID — collecting information without a clear need; making every field required; sharing respondent data too widely; asking leading or double-barrelled questions. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What limitation should be noted when few people respond? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "microsoft-forms-survey-design-q1",
+          "prompt": "Why define a form's purpose before writing questions?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "It helps avoid irrelevant questions and unnecessary data collection.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "It helps avoid irrelevant questions and unnecessary data collection. Define the audience, purpose, completion time and decision that collected answers will support."
+        },
+        {
+          "id": "microsoft-forms-survey-design-q2",
+          "prompt": "What is wrong with a double-barrelled question?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "It asks about two different things but makes the respondent give one answer.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "It asks about two different things but makes the respondent give one answer. Choose single choice, multiple choice, rating, text or date fields appropriately; avoid leading and double-barrelled wording."
+        },
+        {
+          "id": "microsoft-forms-survey-design-q3",
+          "prompt": "What is a benefit of branching?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "It can show relevant follow-up questions while skipping unrelated ones."
+          ],
+          "answerIndex": 3,
+          "explanation": "It can show relevant follow-up questions while skipping unrelated ones. Use appropriate required fields, branching and response limits; ensure the form remains understandable on mobile and with assistive technology."
+        },
+        {
+          "id": "microsoft-forms-survey-design-q4",
+          "prompt": "What improves quiz feedback?",
+          "options": [
+            "Explaining the reasoning and how to correct a misunderstanding.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "Explaining the reasoning and how to correct a misunderstanding. Write one unambiguous correct answer, plausible distractors and feedback that explains the underlying concept."
+        },
+        {
+          "id": "microsoft-forms-survey-design-q5",
+          "prompt": "What does data minimisation mean?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Collect only the personal information necessary for the stated purpose.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "Collect only the personal information necessary for the stated purpose. Test instructions, completion time, readability, access permissions and the minimal amount of personal information required."
+        },
+        {
+          "id": "microsoft-forms-survey-design-q6",
+          "prompt": "What limitation should be noted when few people respond?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "The answers may not represent the wider group and uncertainty is greater.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "The answers may not represent the wider group and uncertainty is greater. Summarise response counts, percentages and common themes, noting response rate, missing answers and limitations."
+        }
+      ]
+    },
+    {
+      "id": "cloud-storage-onedrive-sharepoint",
+      "title": "OneDrive & SharePoint: Cloud Files and Team Sites",
+      "category": "Digital & Office Skills",
+      "description": "Organise cloud files, shared libraries, versions, permissions and team information with controlled access.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "cloud-storage-onedrive-sharepoint-lesson-1",
+          "title": "OneDrive, SharePoint and storage locations",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Distinguish personal work storage from an organisation's shared document library and choose the location based on ownership and continuity.",
+            "WHY THIS MATTERS — Cloud storage allows authorised people to reach files from different devices, while team sites can organise shared documents and information. Sync is convenient but is not by itself a complete backup strategy. Clear folder structure, restrained sharing, version history and account protection help prevent data loss and accidental disclosure.",
+            "KEY TERMS — sync — keeping a local copy aligned with cloud content; shared library — common storage for a team; permission — allowed actions on a resource; version history — earlier saved versions of a file; retention — how long records are kept under policy. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Decide whether a file is personal or shared team work. 2) Place it in the correct library or folder and name it clearly. 3) Give access to the intended audience with minimum permissions. 4) Use version history and co-authoring to prevent duplicate copies. 5) Check sync status, backup options and retention requirements.",
+            "WORKED EXAMPLE — A team procedure belongs in the maintained team library rather than only in one employee's personal folder.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Store in library → 2. Set permissions → 3. Co-edit safely → 4. Track versions → 5. Restore or hand over. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Choose a storage location for five fictional documents and explain the ownership decision.",
+            "COMMON MISTAKES TO AVOID — sharing a sensitive folder through an unrestricted link; deleting a synced file without understanding the effect on others; assuming version history is a full independent backup; creating separate copies with unclear ownership. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Where should a document maintained for a whole team normally live? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "cloud-storage-onedrive-sharepoint-lesson-2",
+          "title": "Folders, sharing links and access control",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Review who can view, edit or reshare a document and remove access when it is no longer needed.",
+            "WHY THIS MATTERS — Cloud storage allows authorised people to reach files from different devices, while team sites can organise shared documents and information. Sync is convenient but is not by itself a complete backup strategy. Clear folder structure, restrained sharing, version history and account protection help prevent data loss and accidental disclosure.",
+            "KEY TERMS — shared library — common storage for a team; permission — allowed actions on a resource; version history — earlier saved versions of a file; retention — how long records are kept under policy; sync — keeping a local copy aligned with cloud content. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Place it in the correct library or folder and name it clearly. 2) Give access to the intended audience with minimum permissions. 3) Use version history and co-authoring to prevent duplicate copies. 4) Check sync status, backup options and retention requirements. 5) Decide whether a file is personal or shared team work.",
+            "WORKED EXAMPLE — A draft report is shared with named reviewers as view-only until their comments are required.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Store in library → 2. Set permissions → 3. Co-edit safely → 4. Track versions → 5. Restore or hand over. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Build an access table with roles, required actions and the least permission each role needs.",
+            "COMMON MISTAKES TO AVOID — deleting a synced file without understanding the effect on others; assuming version history is a full independent backup; creating separate copies with unclear ownership; sharing a sensitive folder through an unrestricted link. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is the guiding rule when granting file access? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "cloud-storage-onedrive-sharepoint-lesson-3",
+          "title": "Sync status and offline use",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand the difference between cloud availability, local sync status and offline files; resolve sync conflicts before editing several copies.",
+            "WHY THIS MATTERS — Cloud storage allows authorised people to reach files from different devices, while team sites can organise shared documents and information. Sync is convenient but is not by itself a complete backup strategy. Clear folder structure, restrained sharing, version history and account protection help prevent data loss and accidental disclosure.",
+            "KEY TERMS — permission — allowed actions on a resource; version history — earlier saved versions of a file; retention — how long records are kept under policy; sync — keeping a local copy aligned with cloud content; shared library — common storage for a team. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Give access to the intended audience with minimum permissions. 2) Use version history and co-authoring to prevent duplicate copies. 3) Check sync status, backup options and retention requirements. 4) Decide whether a file is personal or shared team work. 5) Place it in the correct library or folder and name it clearly.",
+            "WORKED EXAMPLE — A file with a pending upload is not assumed to be safely available to colleagues until the sync status is checked.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Store in library → 2. Set permissions → 3. Co-edit safely → 4. Track versions → 5. Restore or hand over. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Explain the safe steps for recognising a sync conflict and confirming the latest authorised copy.",
+            "COMMON MISTAKES TO AVOID — assuming version history is a full independent backup; creating separate copies with unclear ownership; sharing a sensitive folder through an unrestricted link; deleting a synced file without understanding the effect on others. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why check sync status before telling colleagues a file is ready? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "cloud-storage-onedrive-sharepoint-lesson-4",
+          "title": "Co-authoring and version history",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Collaborate on a shared current document and use version history to compare or restore earlier work when appropriate.",
+            "WHY THIS MATTERS — Cloud storage allows authorised people to reach files from different devices, while team sites can organise shared documents and information. Sync is convenient but is not by itself a complete backup strategy. Clear folder structure, restrained sharing, version history and account protection help prevent data loss and accidental disclosure.",
+            "KEY TERMS — version history — earlier saved versions of a file; retention — how long records are kept under policy; sync — keeping a local copy aligned with cloud content; shared library — common storage for a team; permission — allowed actions on a resource. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Use version history and co-authoring to prevent duplicate copies. 2) Check sync status, backup options and retention requirements. 3) Decide whether a file is personal or shared team work. 4) Place it in the correct library or folder and name it clearly. 5) Give access to the intended audience with minimum permissions.",
+            "WORKED EXAMPLE — If text disappears after a mistaken edit, review version history and restore or copy the relevant previous content with care.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Store in library → 2. Set permissions → 3. Co-edit safely → 4. Track versions → 5. Restore or hand over. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draft a version recovery procedure that preserves the current file before restoring an older version.",
+            "COMMON MISTAKES TO AVOID — creating separate copies with unclear ownership; sharing a sensitive folder through an unrestricted link; deleting a synced file without understanding the effect on others; assuming version history is a full independent backup. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you do before restoring an earlier version? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "cloud-storage-onedrive-sharepoint-lesson-5",
+          "title": "Team sites and document organisation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Organise a team site around stable categories, owners and clear naming so files remain useful when roles change.",
+            "WHY THIS MATTERS — Cloud storage allows authorised people to reach files from different devices, while team sites can organise shared documents and information. Sync is convenient but is not by itself a complete backup strategy. Clear folder structure, restrained sharing, version history and account protection help prevent data loss and accidental disclosure.",
+            "KEY TERMS — retention — how long records are kept under policy; sync — keeping a local copy aligned with cloud content; shared library — common storage for a team; permission — allowed actions on a resource; version history — earlier saved versions of a file. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Check sync status, backup options and retention requirements. 2) Decide whether a file is personal or shared team work. 3) Place it in the correct library or folder and name it clearly. 4) Give access to the intended audience with minimum permissions. 5) Use version history and co-authoring to prevent duplicate copies.",
+            "WORKED EXAMPLE — A project library separates approved templates, working drafts and final deliverables with an owner for each area.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Store in library → 2. Set permissions → 3. Co-edit safely → 4. Track versions → 5. Restore or hand over. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Plan a small team site with three libraries or sections and describe who maintains each one.",
+            "COMMON MISTAKES TO AVOID — sharing a sensitive folder through an unrestricted link; deleting a synced file without understanding the effect on others; assuming version history is a full independent backup; creating separate copies with unclear ownership. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why should shared library ownership be clear? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "cloud-storage-onedrive-sharepoint-lesson-6",
+          "title": "Recovery, retention and secure handover",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand recycle-bin recovery and version features, but also follow organisational retention and backup policy for important records.",
+            "WHY THIS MATTERS — Cloud storage allows authorised people to reach files from different devices, while team sites can organise shared documents and information. Sync is convenient but is not by itself a complete backup strategy. Clear folder structure, restrained sharing, version history and account protection help prevent data loss and accidental disclosure.",
+            "KEY TERMS — sync — keeping a local copy aligned with cloud content; shared library — common storage for a team; permission — allowed actions on a resource; version history — earlier saved versions of a file; retention — how long records are kept under policy. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Decide whether a file is personal or shared team work. 2) Place it in the correct library or folder and name it clearly. 3) Give access to the intended audience with minimum permissions. 4) Use version history and co-authoring to prevent duplicate copies. 5) Check sync status, backup options and retention requirements.",
+            "WORKED EXAMPLE — Before leaving a project, transfer ownership and verify key files rather than relying on a personal account that may later be disabled.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Store in library → 2. Set permissions → 3. Co-edit safely → 4. Track versions → 5. Restore or hand over. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a handover checklist for file ownership, permissions, links, archive needs and recovery.",
+            "COMMON MISTAKES TO AVOID — deleting a synced file without understanding the effect on others; assuming version history is a full independent backup; creating separate copies with unclear ownership; sharing a sensitive folder through an unrestricted link. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is important when a team member leaves a project? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "cloud-storage-onedrive-sharepoint-q1",
+          "prompt": "Where should a document maintained for a whole team normally live?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "In the agreed shared team library with managed access.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "In the agreed shared team library with managed access. Distinguish personal work storage from an organisation's shared document library and choose the location based on ownership and continuity."
+        },
+        {
+          "id": "cloud-storage-onedrive-sharepoint-q2",
+          "prompt": "What is the guiding rule when granting file access?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "Grant only the permissions needed to complete the task."
+          ],
+          "answerIndex": 3,
+          "explanation": "Grant only the permissions needed to complete the task. Review who can view, edit or reshare a document and remove access when it is no longer needed."
+        },
+        {
+          "id": "cloud-storage-onedrive-sharepoint-q3",
+          "prompt": "Why check sync status before telling colleagues a file is ready?",
+          "options": [
+            "The latest changes may not yet have reached the shared cloud copy.",
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 0,
+          "explanation": "The latest changes may not yet have reached the shared cloud copy. Understand the difference between cloud availability, local sync status and offline files; resolve sync conflicts before editing several copies."
+        },
+        {
+          "id": "cloud-storage-onedrive-sharepoint-q4",
+          "prompt": "What should you do before restoring an earlier version?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Check the version and preserve current work that may still be needed.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 1,
+          "explanation": "Check the version and preserve current work that may still be needed. Collaborate on a shared current document and use version history to compare or restore earlier work when appropriate."
+        },
+        {
+          "id": "cloud-storage-onedrive-sharepoint-q5",
+          "prompt": "Why should shared library ownership be clear?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "So that records remain maintained and accessible when team members change.",
+            "Share the result before checking accuracy, privacy and permissions."
+          ],
+          "answerIndex": 2,
+          "explanation": "So that records remain maintained and accessible when team members change. Organise a team site around stable categories, owners and clear naming so files remain useful when roles change."
+        },
+        {
+          "id": "cloud-storage-onedrive-sharepoint-q6",
+          "prompt": "What is important when a team member leaves a project?",
+          "options": [
+            "Skip the instructions and use the first result without checking it.",
+            "Change several settings at once and do not record what changed.",
+            "Share the result before checking accuracy, privacy and permissions.",
+            "Transfer needed ownership, review access and preserve required records according to policy."
+          ],
+          "answerIndex": 3,
+          "explanation": "Transfer needed ownership, review access and preserve required records according to policy. Understand recycle-bin recovery and version features, but also follow organisational retention and backup policy for important records."
+        }
+      ]
+    },
+    {
+      "id": "pdf-document-workflow",
+      "title": "PDF Creation, Forms & Digital Document Workflow",
+      "category": "Digital & Office Skills",
+      "description": "Create, inspect, organise, sign and share PDF documents while preserving layout and protecting sensitive information.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "pdf-document-workflow-lesson-1",
+          "title": "Create a PDF from a source document",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose export settings appropriate for reading, printing or archiving, and distinguish a text PDF from a scanned image-only document.",
+            "WHY THIS MATTERS — PDF is widely used to distribute documents with a stable layout. A good workflow begins with a correct source document, exports to suitable settings and inspects the result. PDFs may contain hidden metadata, comments or sensitive information, and a password or signature workflow should be used according to the organisation's approved process.",
+            "KEY TERMS — PDF — portable document format; OCR — technology that recognises text in scanned images; metadata — information about a file beyond visible text; digital signature — electronic evidence connected to a signer or document; redaction — permanent removal of sensitive content from a document. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Prepare and proofread the source document. 2) Export with the required page size, quality and accessibility settings. 3) Open the PDF and inspect every page, link and form field. 4) Remove comments or sensitive content using supported redaction tools when authorised. 5) Share or archive using the approved naming, permission and retention rules.",
+            "WORKED EXAMPLE — A Word report exported to PDF usually retains selectable text, while a page scanned as an image may require OCR to become searchable.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Prepare source → 2. Export PDF → 3. Inspect pages → 4. Apply access controls → 5. Archive or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Export a sample report and test whether text can be selected and searched.",
+            "COMMON MISTAKES TO AVOID — drawing a black box over text instead of properly redacting it; assuming a scan is searchable without OCR; signing before confirming the final document version; sending a file with unintended comments or metadata. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What can OCR add to an image-only scanned document? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "pdf-document-workflow-lesson-2",
+          "title": "Inspect pages, links and form fields",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Check page order, margins, links, fonts, tables and fillable fields after export rather than assuming conversion succeeded.",
+            "WHY THIS MATTERS — PDF is widely used to distribute documents with a stable layout. A good workflow begins with a correct source document, exports to suitable settings and inspects the result. PDFs may contain hidden metadata, comments or sensitive information, and a password or signature workflow should be used according to the organisation's approved process.",
+            "KEY TERMS — OCR — technology that recognises text in scanned images; metadata — information about a file beyond visible text; digital signature — electronic evidence connected to a signer or document; redaction — permanent removal of sensitive content from a document; PDF — portable document format. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Export with the required page size, quality and accessibility settings. 2) Open the PDF and inspect every page, link and form field. 3) Remove comments or sensitive content using supported redaction tools when authorised. 4) Share or archive using the approved naming, permission and retention rules. 5) Prepare and proofread the source document.",
+            "WORKED EXAMPLE — A PDF form is tested by entering sample data, saving a copy and reopening it to see whether the fields retain their values.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Prepare source → 2. Export PDF → 3. Inspect pages → 4. Apply access controls → 5. Archive or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Prepare a PDF inspection checklist and test every page of a sample document.",
+            "COMMON MISTAKES TO AVOID — assuming a scan is searchable without OCR; signing before confirming the final document version; sending a file with unintended comments or metadata; drawing a black box over text instead of properly redacting it. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why inspect the final PDF rather than only the original document? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "pdf-document-workflow-lesson-3",
+          "title": "Combine, split and organise PDFs",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use supported tools to combine or separate pages while preserving order, source provenance and meaningful filenames.",
+            "WHY THIS MATTERS — PDF is widely used to distribute documents with a stable layout. A good workflow begins with a correct source document, exports to suitable settings and inspects the result. PDFs may contain hidden metadata, comments or sensitive information, and a password or signature workflow should be used according to the organisation's approved process.",
+            "KEY TERMS — metadata — information about a file beyond visible text; digital signature — electronic evidence connected to a signer or document; redaction — permanent removal of sensitive content from a document; PDF — portable document format; OCR — technology that recognises text in scanned images. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Open the PDF and inspect every page, link and form field. 2) Remove comments or sensitive content using supported redaction tools when authorised. 3) Share or archive using the approved naming, permission and retention rules. 4) Prepare and proofread the source document. 5) Export with the required page size, quality and accessibility settings.",
+            "WORKED EXAMPLE — A submission combines a cover letter and required appendices in the stated order, then checks that no page was duplicated or omitted.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Prepare source → 2. Export PDF → 3. Inspect pages → 4. Apply access controls → 5. Archive or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Plan a file sequence for a fictional application pack and verify page numbering after combination.",
+            "COMMON MISTAKES TO AVOID — signing before confirming the final document version; sending a file with unintended comments or metadata; drawing a black box over text instead of properly redacting it; assuming a scan is searchable without OCR. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What must be checked after combining PDF files? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "pdf-document-workflow-lesson-4",
+          "title": "Forms, signatures and approvals",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand form fields and signature workflows, confirm the identity and authority required by policy and keep the approved final copy.",
+            "WHY THIS MATTERS — PDF is widely used to distribute documents with a stable layout. A good workflow begins with a correct source document, exports to suitable settings and inspects the result. PDFs may contain hidden metadata, comments or sensitive information, and a password or signature workflow should be used according to the organisation's approved process.",
+            "KEY TERMS — digital signature — electronic evidence connected to a signer or document; redaction — permanent removal of sensitive content from a document; PDF — portable document format; OCR — technology that recognises text in scanned images; metadata — information about a file beyond visible text. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Remove comments or sensitive content using supported redaction tools when authorised. 2) Share or archive using the approved naming, permission and retention rules. 3) Prepare and proofread the source document. 4) Export with the required page size, quality and accessibility settings. 5) Open the PDF and inspect every page, link and form field.",
+            "WORKED EXAMPLE — A signed agreement is matched to its final version and approval record rather than an earlier draft.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Prepare source → 2. Export PDF → 3. Inspect pages → 4. Apply access controls → 5. Archive or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw an approval workflow showing draft, review, authorised signature and final archive.",
+            "COMMON MISTAKES TO AVOID — sending a file with unintended comments or metadata; drawing a black box over text instead of properly redacting it; assuming a scan is searchable without OCR; signing before confirming the final document version. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why should a signature be linked to the correct final version? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "pdf-document-workflow-lesson-5",
+          "title": "Privacy, metadata and proper redaction",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Inspect comments and metadata where appropriate, use a supported redaction function and verify that removed text cannot be selected or extracted.",
+            "WHY THIS MATTERS — PDF is widely used to distribute documents with a stable layout. A good workflow begins with a correct source document, exports to suitable settings and inspects the result. PDFs may contain hidden metadata, comments or sensitive information, and a password or signature workflow should be used according to the organisation's approved process.",
+            "KEY TERMS — redaction — permanent removal of sensitive content from a document; PDF — portable document format; OCR — technology that recognises text in scanned images; metadata — information about a file beyond visible text; digital signature — electronic evidence connected to a signer or document. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Share or archive using the approved naming, permission and retention rules. 2) Prepare and proofread the source document. 3) Export with the required page size, quality and accessibility settings. 4) Open the PDF and inspect every page, link and form field. 5) Remove comments or sensitive content using supported redaction tools when authorised.",
+            "WORKED EXAMPLE — A document shared externally has sensitive account numbers redacted with a proper redaction tool, then is checked before release.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Prepare source → 2. Export PDF → 3. Inspect pages → 4. Apply access controls → 5. Archive or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Use a fictional document to identify private fields and describe the approved removal and review process.",
+            "COMMON MISTAKES TO AVOID — drawing a black box over text instead of properly redacting it; assuming a scan is searchable without OCR; signing before confirming the final document version; sending a file with unintended comments or metadata. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why is drawing a black rectangle over confidential text unsafe? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "pdf-document-workflow-lesson-6",
+          "title": "File security, archiving and delivery",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use approved encryption or access controls when needed, choose an unambiguous filename and record archive location and retention requirements.",
+            "WHY THIS MATTERS — PDF is widely used to distribute documents with a stable layout. A good workflow begins with a correct source document, exports to suitable settings and inspects the result. PDFs may contain hidden metadata, comments or sensitive information, and a password or signature workflow should be used according to the organisation's approved process.",
+            "KEY TERMS — PDF — portable document format; OCR — technology that recognises text in scanned images; metadata — information about a file beyond visible text; digital signature — electronic evidence connected to a signer or document; redaction — permanent removal of sensitive content from a document. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Prepare and proofread the source document. 2) Export with the required page size, quality and accessibility settings. 3) Open the PDF and inspect every page, link and form field. 4) Remove comments or sensitive content using supported redaction tools when authorised. 5) Share or archive using the approved naming, permission and retention rules.",
+            "WORKED EXAMPLE — The approved final contract is stored in the authorised shared library, while obsolete drafts are handled under the retention policy.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Prepare source → 2. Export PDF → 3. Inspect pages → 4. Apply access controls → 5. Archive or share. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Design a secure handover checklist for an application containing personal information.",
+            "COMMON MISTAKES TO AVOID — assuming a scan is searchable without OCR; signing before confirming the final document version; sending a file with unintended comments or metadata; drawing a black box over text instead of properly redacting it. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should guide storage and retention of an official PDF? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "pdf-document-workflow-q1",
+          "prompt": "What can OCR add to an image-only scanned document?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details.",
+            "Recognised text that can support search and text selection, subject to accuracy checks."
+          ],
+          "answerIndex": 3,
+          "explanation": "Recognised text that can support search and text selection, subject to accuracy checks. Choose export settings appropriate for reading, printing or archiving, and distinguish a text PDF from a scanned image-only document."
+        },
+        {
+          "id": "pdf-document-workflow-q2",
+          "prompt": "Why inspect the final PDF rather than only the original document?",
+          "options": [
+            "Export can alter page breaks, layout, links or form behaviour.",
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 0,
+          "explanation": "Export can alter page breaks, layout, links or form behaviour. Check page order, margins, links, fonts, tables and fillable fields after export rather than assuming conversion succeeded."
+        },
+        {
+          "id": "pdf-document-workflow-q3",
+          "prompt": "What must be checked after combining PDF files?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Correct order, completeness, readability and page numbering or references.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 1,
+          "explanation": "Correct order, completeness, readability and page numbering or references. Use supported tools to combine or separate pages while preserving order, source provenance and meaningful filenames."
+        },
+        {
+          "id": "pdf-document-workflow-q4",
+          "prompt": "Why should a signature be linked to the correct final version?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "So the evidence of approval refers to the actual document agreed.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 2,
+          "explanation": "So the evidence of approval refers to the actual document agreed. Understand form fields and signature workflows, confirm the identity and authority required by policy and keep the approved final copy."
+        },
+        {
+          "id": "pdf-document-workflow-q5",
+          "prompt": "Why is drawing a black rectangle over confidential text unsafe?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details.",
+            "The underlying text may still be present and recoverable from the PDF."
+          ],
+          "answerIndex": 3,
+          "explanation": "The underlying text may still be present and recoverable from the PDF. Inspect comments and metadata where appropriate, use a supported redaction function and verify that removed text cannot be selected or extracted."
+        },
+        {
+          "id": "pdf-document-workflow-q6",
+          "prompt": "What should guide storage and retention of an official PDF?",
+          "options": [
+            "The organisation's security, access and retention rules.",
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 0,
+          "explanation": "The organisation's security, access and retention rules. Use approved encryption or access controls when needed, choose an unambiguous filename and record archive location and retention requirements."
+        }
+      ]
+    },
+    {
+      "id": "graphic-design-for-office-work",
+      "title": "Graphic Design for Office Work: Canva & Image Tools",
+      "category": "Digital & Office Skills",
+      "description": "Create simple posters, social graphics, diagrams and branded materials using design tools and image-editing principles.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "graphic-design-for-office-work-lesson-1",
+          "title": "Design purpose, layout and templates",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Select a template based on the message and output size, then remove unnecessary elements instead of adding decoration without purpose.",
+            "WHY THIS MATTERS — Graphic design tools help arrange text, images, colours and shapes for a clear message. A strong design has one main purpose, readable contrast, consistent alignment and images that are relevant and permitted to use. Canva and image editors differ in features and account terms, but the same design principles apply across tools.",
+            "KEY TERMS — canvas — area where design objects are arranged; template — reusable starting layout; layers — ordered visual objects; contrast — difference that helps distinguish content; licence — conditions governing the use of an image or asset. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Identify audience, channel, dimensions and one main message. 2) Select a suitable layout and organise content hierarchy. 3) Choose images and fonts that are readable and permitted for the intended use. 4) Review spelling, alignment, contrast and brand consistency. 5) Export and inspect the file in its actual destination context.",
+            "WORKED EXAMPLE — A small event poster leads with event name and date, then gives venue and registration instructions.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define message → 2. Choose template → 3. Edit hierarchy → 4. Check image rights → 5. Export and inspect. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Sketch a social post with headline, main image, key details and one call to action.",
+            "COMMON MISTAKES TO AVOID — using too many fonts or competing focal points; stretching images out of proportion; using unlicensed logos, photos or fonts; exporting the wrong dimensions for the platform. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should guide the choice of a design template? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "graphic-design-for-office-work-lesson-2",
+          "title": "Text, hierarchy, colour and accessibility",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use scale, spacing, contrast and alignment to create a clear reading order; never depend on colour alone to communicate critical status.",
+            "WHY THIS MATTERS — Graphic design tools help arrange text, images, colours and shapes for a clear message. A strong design has one main purpose, readable contrast, consistent alignment and images that are relevant and permitted to use. Canva and image editors differ in features and account terms, but the same design principles apply across tools.",
+            "KEY TERMS — template — reusable starting layout; layers — ordered visual objects; contrast — difference that helps distinguish content; licence — conditions governing the use of an image or asset; canvas — area where design objects are arranged. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Select a suitable layout and organise content hierarchy. 2) Choose images and fonts that are readable and permitted for the intended use. 3) Review spelling, alignment, contrast and brand consistency. 4) Export and inspect the file in its actual destination context. 5) Identify audience, channel, dimensions and one main message.",
+            "WORKED EXAMPLE — A warning label uses an icon and a clear heading as well as colour, so the meaning remains understandable in grayscale.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define message → 2. Choose template → 3. Edit hierarchy → 4. Check image rights → 5. Export and inspect. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Improve a cluttered fictional flyer and explain three visual hierarchy decisions.",
+            "COMMON MISTAKES TO AVOID — stretching images out of proportion; using unlicensed logos, photos or fonts; exporting the wrong dimensions for the platform; using too many fonts or competing focal points. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What helps ensure a design is readable for more people? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "graphic-design-for-office-work-lesson-3",
+          "title": "Images, cropping and simple editing",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Crop intentionally, preserve aspect ratio, check resolution and use image edits that match the message without misleading the audience.",
+            "WHY THIS MATTERS — Graphic design tools help arrange text, images, colours and shapes for a clear message. A strong design has one main purpose, readable contrast, consistent alignment and images that are relevant and permitted to use. Canva and image editors differ in features and account terms, but the same design principles apply across tools.",
+            "KEY TERMS — layers — ordered visual objects; contrast — difference that helps distinguish content; licence — conditions governing the use of an image or asset; canvas — area where design objects are arranged; template — reusable starting layout. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Choose images and fonts that are readable and permitted for the intended use. 2) Review spelling, alignment, contrast and brand consistency. 3) Export and inspect the file in its actual destination context. 4) Identify audience, channel, dimensions and one main message. 5) Select a suitable layout and organise content hierarchy.",
+            "WORKED EXAMPLE — Crop a product image to emphasise the item but do not remove a defect in a way that misrepresents its condition.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define message → 2. Choose template → 3. Edit hierarchy → 4. Check image rights → 5. Export and inspect. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Prepare two crops of a fictional product image and compare which shows the relevant details best.",
+            "COMMON MISTAKES TO AVOID — using unlicensed logos, photos or fonts; exporting the wrong dimensions for the platform; using too many fonts or competing focal points; stretching images out of proportion. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why preserve an image's aspect ratio when resizing? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "graphic-design-for-office-work-lesson-4",
+          "title": "Brand kits, logos and consistency",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use approved logos, colours and typography consistently; distinguish official brand assets from lookalikes and do not invent claims or endorsements.",
+            "WHY THIS MATTERS — Graphic design tools help arrange text, images, colours and shapes for a clear message. A strong design has one main purpose, readable contrast, consistent alignment and images that are relevant and permitted to use. Canva and image editors differ in features and account terms, but the same design principles apply across tools.",
+            "KEY TERMS — contrast — difference that helps distinguish content; licence — conditions governing the use of an image or asset; canvas — area where design objects are arranged; template — reusable starting layout; layers — ordered visual objects. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Review spelling, alignment, contrast and brand consistency. 2) Export and inspect the file in its actual destination context. 3) Identify audience, channel, dimensions and one main message. 4) Select a suitable layout and organise content hierarchy. 5) Choose images and fonts that are readable and permitted for the intended use.",
+            "WORKED EXAMPLE — A company announcement reuses approved logo proportions and colour values instead of applying effects that alter the mark.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define message → 2. Choose template → 3. Edit hierarchy → 4. Check image rights → 5. Export and inspect. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a small brand sheet with two colours, font choices, spacing and a logo-use rule.",
+            "COMMON MISTAKES TO AVOID — exporting the wrong dimensions for the platform; using too many fonts or competing focal points; stretching images out of proportion; using unlicensed logos, photos or fonts. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should be checked before using a company's logo? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "graphic-design-for-office-work-lesson-5",
+          "title": "Social graphics and platform dimensions",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Adapt layout to the destination platform, leave safe margins for cropping and test legibility on a phone-sized preview.",
+            "WHY THIS MATTERS — Graphic design tools help arrange text, images, colours and shapes for a clear message. A strong design has one main purpose, readable contrast, consistent alignment and images that are relevant and permitted to use. Canva and image editors differ in features and account terms, but the same design principles apply across tools.",
+            "KEY TERMS — licence — conditions governing the use of an image or asset; canvas — area where design objects are arranged; template — reusable starting layout; layers — ordered visual objects; contrast — difference that helps distinguish content. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Export and inspect the file in its actual destination context. 2) Identify audience, channel, dimensions and one main message. 3) Select a suitable layout and organise content hierarchy. 4) Choose images and fonts that are readable and permitted for the intended use. 5) Review spelling, alignment, contrast and brand consistency.",
+            "WORKED EXAMPLE — A square graphic is reformatted for a vertical story so the headline and call to action are not clipped by interface overlays.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define message → 2. Choose template → 3. Edit hierarchy → 4. Check image rights → 5. Export and inspect. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Plan square and vertical versions of one message and mark the safe area for important text.",
+            "COMMON MISTAKES TO AVOID — using too many fonts or competing focal points; stretching images out of proportion; using unlicensed logos, photos or fonts; exporting the wrong dimensions for the platform. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why preview graphics at mobile size? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "graphic-design-for-office-work-lesson-6",
+          "title": "Export formats, rights and quality review",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose PNG, JPEG or PDF based on transparency, image quality and the recipient's purpose; retain rights information where needed.",
+            "WHY THIS MATTERS — Graphic design tools help arrange text, images, colours and shapes for a clear message. A strong design has one main purpose, readable contrast, consistent alignment and images that are relevant and permitted to use. Canva and image editors differ in features and account terms, but the same design principles apply across tools.",
+            "KEY TERMS — canvas — area where design objects are arranged; template — reusable starting layout; layers — ordered visual objects; contrast — difference that helps distinguish content; licence — conditions governing the use of an image or asset. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Identify audience, channel, dimensions and one main message. 2) Select a suitable layout and organise content hierarchy. 3) Choose images and fonts that are readable and permitted for the intended use. 4) Review spelling, alignment, contrast and brand consistency. 5) Export and inspect the file in its actual destination context.",
+            "WORKED EXAMPLE — A logo with transparency is exported in a format that preserves transparency, while a print flyer is inspected as a PDF.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define message → 2. Choose template → 3. Edit hierarchy → 4. Check image rights → 5. Export and inspect. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Choose export formats for a logo, photograph, poster and editable source file and explain each choice.",
+            "COMMON MISTAKES TO AVOID — stretching images out of proportion; using unlicensed logos, photos or fonts; exporting the wrong dimensions for the platform; using too many fonts or competing focal points. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should be verified before publishing a graphic? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "graphic-design-for-office-work-q1",
+          "prompt": "What should guide the choice of a design template?",
+          "options": [
+            "The audience, message and intended output format.",
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 0,
+          "explanation": "The audience, message and intended output format. Select a template based on the message and output size, then remove unnecessary elements instead of adding decoration without purpose."
+        },
+        {
+          "id": "graphic-design-for-office-work-q2",
+          "prompt": "What helps ensure a design is readable for more people?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Clear text hierarchy, adequate contrast and meaningful labels.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 1,
+          "explanation": "Clear text hierarchy, adequate contrast and meaningful labels. Use scale, spacing, contrast and alignment to create a clear reading order; never depend on colour alone to communicate critical status."
+        },
+        {
+          "id": "graphic-design-for-office-work-q3",
+          "prompt": "Why preserve an image's aspect ratio when resizing?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "To avoid stretching or distorting the subject.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 2,
+          "explanation": "To avoid stretching or distorting the subject. Crop intentionally, preserve aspect ratio, check resolution and use image edits that match the message without misleading the audience."
+        },
+        {
+          "id": "graphic-design-for-office-work-q4",
+          "prompt": "What should be checked before using a company's logo?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details.",
+            "That the asset is authentic and its use is authorised."
+          ],
+          "answerIndex": 3,
+          "explanation": "That the asset is authentic and its use is authorised. Use approved logos, colours and typography consistently; distinguish official brand assets from lookalikes and do not invent claims or endorsements."
+        },
+        {
+          "id": "graphic-design-for-office-work-q5",
+          "prompt": "Why preview graphics at mobile size?",
+          "options": [
+            "Text and details that look clear on a desktop may be too small on a phone.",
+            "Skip proofing and assume the exported file matches the source.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 0,
+          "explanation": "Text and details that look clear on a desktop may be too small on a phone. Adapt layout to the destination platform, leave safe margins for cropping and test legibility on a phone-sized preview."
+        },
+        {
+          "id": "graphic-design-for-office-work-q6",
+          "prompt": "What should be verified before publishing a graphic?",
+          "options": [
+            "Skip proofing and assume the exported file matches the source.",
+            "Spelling, dimensions, image rights, legibility and the exported file.",
+            "Use the most decorative layout even if the message becomes hard to read.",
+            "Share the file without checking rights, recipients or private details."
+          ],
+          "answerIndex": 1,
+          "explanation": "Spelling, dimensions, image rights, legibility and the exported file. Choose PNG, JPEG or PDF based on transparency, image quality and the recipient's purpose; retain rights information where needed."
+        }
+      ]
+    },
+    {
+      "id": "accounting-software-practice",
+      "title": "Accounting Software & Digital Bookkeeping Practice",
+      "category": "Business & Office Software",
+      "description": "Learn common workflows in accounting packages: chart of accounts, invoices, expenses, reconciliation and reports.",
+      "level": "Foundation",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "accounting-software-practice-lesson-1",
+          "title": "Accounting package workspace and chart of accounts",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand the roles of accounts, journals, customers, suppliers and reporting periods without depending on one vendor's screen design.",
+            "WHY THIS MATTERS — Accounting software organises financial records, invoices, expenses, payments and reports. Package interfaces differ, but the core controls remain similar: use the correct period and account, keep supporting evidence, reconcile balances and restrict access to authorised users. Practise with fictional data only; real records and payments require the business's approved procedures.",
+            "KEY TERMS — chart of accounts — named categories used for accounting entries; invoice — request or record of payment for goods or services; accounts receivable — amounts customers owe; accounts payable — amounts owed to suppliers; reconciliation — comparison of records with an independent statement. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Select the correct organisation, period and transaction type. 2) Enter the transaction from source evidence. 3) Choose the proper account and tax settings under policy. 4) Match payments and reconcile against bank or cash records. 5) Review reports and retain records under the required controls.",
+            "WORKED EXAMPLE — A customer sale is recorded through an appropriate sales or invoice workflow, not as an arbitrary transfer entry.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture transaction → 2. Classify account → 3. Post record → 4. Reconcile totals → 5. Review report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Classify ten fictional transactions into income, expense, asset, liability or equity categories.",
+            "COMMON MISTAKES TO AVOID — treating a bank feed as a substitute for review; entering the same transaction twice; using the wrong reporting period or tax setting; sharing financial credentials or bypassing approval. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What does a chart of accounts provide? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "accounting-software-practice-lesson-2",
+          "title": "Customers, invoices and receipts",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Create accurate customer invoices, dates, amounts and descriptions, then record receipts against the correct outstanding invoice.",
+            "WHY THIS MATTERS — Accounting software organises financial records, invoices, expenses, payments and reports. Package interfaces differ, but the core controls remain similar: use the correct period and account, keep supporting evidence, reconcile balances and restrict access to authorised users. Practise with fictional data only; real records and payments require the business's approved procedures.",
+            "KEY TERMS — invoice — request or record of payment for goods or services; accounts receivable — amounts customers owe; accounts payable — amounts owed to suppliers; reconciliation — comparison of records with an independent statement; chart of accounts — named categories used for accounting entries. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Enter the transaction from source evidence. 2) Choose the proper account and tax settings under policy. 3) Match payments and reconcile against bank or cash records. 4) Review reports and retain records under the required controls. 5) Select the correct organisation, period and transaction type.",
+            "WORKED EXAMPLE — A KES 5,000 invoice is partly paid with KES 3,000; the remaining balance should still show as outstanding.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture transaction → 2. Classify account → 3. Post record → 4. Reconcile totals → 5. Review report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Prepare a fictional invoice and record a partial payment, then calculate the remaining balance.",
+            "COMMON MISTAKES TO AVOID — entering the same transaction twice; using the wrong reporting period or tax setting; sharing financial credentials or bypassing approval; treating a bank feed as a substitute for review. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why match a receipt to the correct invoice? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "accounting-software-practice-lesson-3",
+          "title": "Supplier bills, expenses and approvals",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Capture supplier evidence and classify expenses consistently; ensure that the right person approves purchases and payments.",
+            "WHY THIS MATTERS — Accounting software organises financial records, invoices, expenses, payments and reports. Package interfaces differ, but the core controls remain similar: use the correct period and account, keep supporting evidence, reconcile balances and restrict access to authorised users. Practise with fictional data only; real records and payments require the business's approved procedures.",
+            "KEY TERMS — accounts receivable — amounts customers owe; accounts payable — amounts owed to suppliers; reconciliation — comparison of records with an independent statement; chart of accounts — named categories used for accounting entries; invoice — request or record of payment for goods or services. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Choose the proper account and tax settings under policy. 2) Match payments and reconcile against bank or cash records. 3) Review reports and retain records under the required controls. 4) Select the correct organisation, period and transaction type. 5) Enter the transaction from source evidence.",
+            "WORKED EXAMPLE — A receipt for office supplies is recorded with its date and category and linked to the supplier document.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture transaction → 2. Classify account → 3. Post record → 4. Reconcile totals → 5. Review report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Review a fictional expense list and identify missing evidence, duplicate claims and unclear categories.",
+            "COMMON MISTAKES TO AVOID — using the wrong reporting period or tax setting; sharing financial credentials or bypassing approval; treating a bank feed as a substitute for review; entering the same transaction twice. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should support a business expense entry? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "accounting-software-practice-lesson-4",
+          "title": "Bank feeds and reconciliation",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Match imported bank transactions to recorded transactions, investigate unmatched items and avoid forcing a reconciliation balance.",
+            "WHY THIS MATTERS — Accounting software organises financial records, invoices, expenses, payments and reports. Package interfaces differ, but the core controls remain similar: use the correct period and account, keep supporting evidence, reconcile balances and restrict access to authorised users. Practise with fictional data only; real records and payments require the business's approved procedures.",
+            "KEY TERMS — accounts payable — amounts owed to suppliers; reconciliation — comparison of records with an independent statement; chart of accounts — named categories used for accounting entries; invoice — request or record of payment for goods or services; accounts receivable — amounts customers owe. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Match payments and reconcile against bank or cash records. 2) Review reports and retain records under the required controls. 3) Select the correct organisation, period and transaction type. 4) Enter the transaction from source evidence. 5) Choose the proper account and tax settings under policy.",
+            "WORKED EXAMPLE — A bank charge appears in the statement but not the books; it is reviewed and recorded according to the business process.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture transaction → 2. Classify account → 3. Post record → 4. Reconcile totals → 5. Review report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Reconcile a small fictional bank statement to a cashbook and list unexplained differences.",
+            "COMMON MISTAKES TO AVOID — sharing financial credentials or bypassing approval; treating a bank feed as a substitute for review; entering the same transaction twice; using the wrong reporting period or tax setting. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should you do if reconciliation does not balance? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "accounting-software-practice-lesson-5",
+          "title": "Reports, cash flow and review",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Read income and expense reports alongside cash balances, receivables and payables; check reporting period and accounting basis.",
+            "WHY THIS MATTERS — Accounting software organises financial records, invoices, expenses, payments and reports. Package interfaces differ, but the core controls remain similar: use the correct period and account, keep supporting evidence, reconcile balances and restrict access to authorised users. Practise with fictional data only; real records and payments require the business's approved procedures.",
+            "KEY TERMS — reconciliation — comparison of records with an independent statement; chart of accounts — named categories used for accounting entries; invoice — request or record of payment for goods or services; accounts receivable — amounts customers owe; accounts payable — amounts owed to suppliers. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Review reports and retain records under the required controls. 2) Select the correct organisation, period and transaction type. 3) Enter the transaction from source evidence. 4) Choose the proper account and tax settings under policy. 5) Match payments and reconcile against bank or cash records.",
+            "WORKED EXAMPLE — A profitable month may still have low cash if customers have not paid invoices yet.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture transaction → 2. Classify account → 3. Post record → 4. Reconcile totals → 5. Review report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Compare a fictional profit summary with a cash-flow summary and explain one difference.",
+            "COMMON MISTAKES TO AVOID — treating a bank feed as a substitute for review; entering the same transaction twice; using the wrong reporting period or tax setting; sharing financial credentials or bypassing approval. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why might profit and cash available differ? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "accounting-software-practice-lesson-6",
+          "title": "Roles, backups and month-end controls",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Use role-based permissions, reviewed adjustments, protected backups and documented close procedures; do not modify real books without authority.",
+            "WHY THIS MATTERS — Accounting software organises financial records, invoices, expenses, payments and reports. Package interfaces differ, but the core controls remain similar: use the correct period and account, keep supporting evidence, reconcile balances and restrict access to authorised users. Practise with fictional data only; real records and payments require the business's approved procedures.",
+            "KEY TERMS — chart of accounts — named categories used for accounting entries; invoice — request or record of payment for goods or services; accounts receivable — amounts customers owe; accounts payable — amounts owed to suppliers; reconciliation — comparison of records with an independent statement. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Select the correct organisation, period and transaction type. 2) Enter the transaction from source evidence. 3) Choose the proper account and tax settings under policy. 4) Match payments and reconcile against bank or cash records. 5) Review reports and retain records under the required controls.",
+            "WORKED EXAMPLE — Before a month is closed, reconcile bank accounts and review unusual entries with an authorised reviewer.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Capture transaction → 2. Classify account → 3. Post record → 4. Reconcile totals → 5. Review report. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a month-end checklist that includes reconciliation, missing documents, approval and secure backup.",
+            "COMMON MISTAKES TO AVOID — entering the same transaction twice; using the wrong reporting period or tax setting; sharing financial credentials or bypassing approval; treating a bank feed as a substitute for review. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is an important control for accounting records? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "accounting-software-practice-q1",
+          "prompt": "What does a chart of accounts provide?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "A structured list of categories used to classify financial transactions.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 1,
+          "explanation": "A structured list of categories used to classify financial transactions. Understand the roles of accounts, journals, customers, suppliers and reporting periods without depending on one vendor's screen design."
+        },
+        {
+          "id": "accounting-software-practice-q2",
+          "prompt": "Why match a receipt to the correct invoice?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "To keep the customer balance and outstanding amount accurate.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 2,
+          "explanation": "To keep the customer balance and outstanding amount accurate. Create accurate customer invoices, dates, amounts and descriptions, then record receipts against the correct outstanding invoice."
+        },
+        {
+          "id": "accounting-software-practice-q3",
+          "prompt": "What should support a business expense entry?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy.",
+            "A suitable source document or approved record with date, amount and purpose."
+          ],
+          "answerIndex": 3,
+          "explanation": "A suitable source document or approved record with date, amount and purpose. Capture supplier evidence and classify expenses consistently; ensure that the right person approves purchases and payments."
+        },
+        {
+          "id": "accounting-software-practice-q4",
+          "prompt": "What should you do if reconciliation does not balance?",
+          "options": [
+            "Investigate missing, duplicated or misclassified entries instead of forcing the total.",
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 0,
+          "explanation": "Investigate missing, duplicated or misclassified entries instead of forcing the total. Match imported bank transactions to recorded transactions, investigate unmatched items and avoid forcing a reconciliation balance."
+        },
+        {
+          "id": "accounting-software-practice-q5",
+          "prompt": "Why might profit and cash available differ?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Sales or expenses can be recognised at different times than cash collection or payment.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 1,
+          "explanation": "Sales or expenses can be recognised at different times than cash collection or payment. Read income and expense reports alongside cash balances, receivables and payables; check reporting period and accounting basis."
+        },
+        {
+          "id": "accounting-software-practice-q6",
+          "prompt": "What is an important control for accounting records?",
+          "options": [
+            "Replace the formula with a guessed total and ignore the source records.",
+            "Mix reporting periods or currencies without checking the units.",
+            "Restricted access, traceable adjustments and independent reconciliation or review.",
+            "Publish the result before checking filters, permissions or accuracy."
+          ],
+          "answerIndex": 2,
+          "explanation": "Restricted access, traceable adjustments and independent reconciliation or review. Use role-based permissions, reviewed adjustments, protected backups and documented close procedures; do not modify real books without authority."
+        }
+      ]
+    },
+    {
+      "id": "computer-aided-design-cad-basics",
+      "title": "Computer-Aided Design (CAD) Basics for Technical Work",
+      "category": "Computer Engineering",
+      "description": "Learn 2D drawings, 3D modelling concepts, dimensions, constraints, layers and technical drawing review.",
+      "level": "Intermediate",
+      "priceKsh": 300,
+      "published": true,
+      "lessons": [
+        {
+          "id": "computer-aided-design-cad-basics-lesson-1",
+          "title": "CAD workspace, units and drawing setup",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose the correct units, drawing scale, coordinate system and view before creating geometry.",
+            "WHY THIS MATTERS — Computer-aided design tools create accurate drawings and models for technical communication. A useful drawing states units, scale, dimensions, views and revision information. A model must be checked against requirements and intended manufacturing or installation constraints; a screen model does not prove a real component is safe or fit for use.",
+            "KEY TERMS — geometry — shapes and spatial relationships; dimension — measured size or distance shown on a drawing; constraint — rule limiting geometry or movement; layer — organised drawing category; revision — identified version of a design. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Read the task and confirm units, scale and required views. 2) Create basic geometry using accurate coordinates or constraints. 3) Add dimensions, annotations and layers consistently. 4) Check geometry against requirements and intended tolerances. 5) Export a controlled drawing and retain its editable source and revision.",
+            "WORKED EXAMPLE — A part measured in millimetres should not be entered as if every value were inches; unit errors can invalidate a model.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Set units → 2. Create geometry → 3. Add constraints → 4. Dimension and annotate → 5. Inspect and export. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Set up a sample drawing with units, grid or coordinate reference and a title block.",
+            "COMMON MISTAKES TO AVOID — drawing without units or scale; using visual alignment instead of dimensions or constraints; overwriting the only editable source; treating a conceptual model as an approved construction drawing. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why set drawing units before modelling? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-aided-design-cad-basics-lesson-2",
+          "title": "2D geometry, coordinates and precision",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Create points, lines, circles and shapes using exact coordinates and snaps where appropriate rather than relying only on visual placement.",
+            "WHY THIS MATTERS — Computer-aided design tools create accurate drawings and models for technical communication. A useful drawing states units, scale, dimensions, views and revision information. A model must be checked against requirements and intended manufacturing or installation constraints; a screen model does not prove a real component is safe or fit for use.",
+            "KEY TERMS — dimension — measured size or distance shown on a drawing; constraint — rule limiting geometry or movement; layer — organised drawing category; revision — identified version of a design; geometry — shapes and spatial relationships. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Create basic geometry using accurate coordinates or constraints. 2) Add dimensions, annotations and layers consistently. 3) Check geometry against requirements and intended tolerances. 4) Export a controlled drawing and retain its editable source and revision. 5) Read the task and confirm units, scale and required views.",
+            "WORKED EXAMPLE — A rectangle intended to be 80 mm by 40 mm is checked by its dimensions, not simply by how it looks on screen.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Set units → 2. Create geometry → 3. Add constraints → 4. Dimension and annotate → 5. Inspect and export. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Draw a dimensioned simple plate with holes at specified offsets in a CAD exercise.",
+            "COMMON MISTAKES TO AVOID — using visual alignment instead of dimensions or constraints; overwriting the only editable source; treating a conceptual model as an approved construction drawing; drawing without units or scale. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What verifies that a part has the intended size? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-aided-design-cad-basics-lesson-3",
+          "title": "Layers, blocks and reusable parts",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Organise geometry by layer and use reusable components or blocks to maintain consistency and ease of revision.",
+            "WHY THIS MATTERS — Computer-aided design tools create accurate drawings and models for technical communication. A useful drawing states units, scale, dimensions, views and revision information. A model must be checked against requirements and intended manufacturing or installation constraints; a screen model does not prove a real component is safe or fit for use.",
+            "KEY TERMS — constraint — rule limiting geometry or movement; layer — organised drawing category; revision — identified version of a design; geometry — shapes and spatial relationships; dimension — measured size or distance shown on a drawing. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Add dimensions, annotations and layers consistently. 2) Check geometry against requirements and intended tolerances. 3) Export a controlled drawing and retain its editable source and revision. 4) Read the task and confirm units, scale and required views. 5) Create basic geometry using accurate coordinates or constraints.",
+            "WORKED EXAMPLE — Dimensions and centre lines placed on distinct layers can be displayed or edited without changing the part outline.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Set units → 2. Create geometry → 3. Add constraints → 4. Dimension and annotate → 5. Inspect and export. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Prepare a small drawing with outline, dimensions and annotation layers.",
+            "COMMON MISTAKES TO AVOID — overwriting the only editable source; treating a conceptual model as an approved construction drawing; drawing without units or scale; using visual alignment instead of dimensions or constraints. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What is a benefit of separating drawing elements into layers? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-aided-design-cad-basics-lesson-4",
+          "title": "3D modelling and constraints",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Understand sketch constraints, features and how a 3D model is built from defined geometry; distinguish a fully constrained design from a sketch that can still move.",
+            "WHY THIS MATTERS — Computer-aided design tools create accurate drawings and models for technical communication. A useful drawing states units, scale, dimensions, views and revision information. A model must be checked against requirements and intended manufacturing or installation constraints; a screen model does not prove a real component is safe or fit for use.",
+            "KEY TERMS — layer — organised drawing category; revision — identified version of a design; geometry — shapes and spatial relationships; dimension — measured size or distance shown on a drawing; constraint — rule limiting geometry or movement. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Check geometry against requirements and intended tolerances. 2) Export a controlled drawing and retain its editable source and revision. 3) Read the task and confirm units, scale and required views. 4) Create basic geometry using accurate coordinates or constraints. 5) Add dimensions, annotations and layers consistently.",
+            "WORKED EXAMPLE — An extrusion adds depth to a closed 2D profile, while constraints preserve intended relationships as dimensions change.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Set units → 2. Create geometry → 3. Add constraints → 4. Dimension and annotate → 5. Inspect and export. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Model a simple non-functional block in a CAD simulator and record its dimensions and feature sequence.",
+            "COMMON MISTAKES TO AVOID — treating a conceptual model as an approved construction drawing; drawing without units or scale; using visual alignment instead of dimensions or constraints; overwriting the only editable source. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why use constraints in a sketch? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-aided-design-cad-basics-lesson-5",
+          "title": "Dimensions, views and technical communication",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Choose views that show required features, use legible dimensions and annotations, and avoid contradictory or ambiguous measurements.",
+            "WHY THIS MATTERS — Computer-aided design tools create accurate drawings and models for technical communication. A useful drawing states units, scale, dimensions, views and revision information. A model must be checked against requirements and intended manufacturing or installation constraints; a screen model does not prove a real component is safe or fit for use.",
+            "KEY TERMS — revision — identified version of a design; geometry — shapes and spatial relationships; dimension — measured size or distance shown on a drawing; constraint — rule limiting geometry or movement; layer — organised drawing category. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Export a controlled drawing and retain its editable source and revision. 2) Read the task and confirm units, scale and required views. 3) Create basic geometry using accurate coordinates or constraints. 4) Add dimensions, annotations and layers consistently. 5) Check geometry against requirements and intended tolerances.",
+            "WORKED EXAMPLE — A front and side view may communicate thickness more clearly than an unannotated perspective image.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Set units → 2. Create geometry → 3. Add constraints → 4. Dimension and annotate → 5. Inspect and export. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Add dimensions and two orthographic views to a simple sample part and ask another learner to interpret it.",
+            "COMMON MISTAKES TO AVOID — drawing without units or scale; using visual alignment instead of dimensions or constraints; overwriting the only editable source; treating a conceptual model as an approved construction drawing. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — What should technical views and dimensions help a reader determine? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        },
+        {
+          "id": "computer-aided-design-cad-basics-lesson-6",
+          "title": "Drawing review, export and revision control",
+          "minutes": 18,
+          "content": [
+            "LEARNING GOAL — Check units, dimensions, title, scale, revision and export settings; do not treat a learning exercise as a certified engineering drawing.",
+            "WHY THIS MATTERS — Computer-aided design tools create accurate drawings and models for technical communication. A useful drawing states units, scale, dimensions, views and revision information. A model must be checked against requirements and intended manufacturing or installation constraints; a screen model does not prove a real component is safe or fit for use.",
+            "KEY TERMS — geometry — shapes and spatial relationships; dimension — measured size or distance shown on a drawing; constraint — rule limiting geometry or movement; layer — organised drawing category; revision — identified version of a design. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+            "FOLLOW THE STEPS — 1) Read the task and confirm units, scale and required views. 2) Create basic geometry using accurate coordinates or constraints. 3) Add dimensions, annotations and layers consistently. 4) Check geometry against requirements and intended tolerances. 5) Export a controlled drawing and retain its editable source and revision.",
+            "WORKED EXAMPLE — An exported PDF is reviewed beside the CAD source to confirm annotations are visible and the drawing fits its intended page size.",
+            "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Set units → 2. Create geometry → 3. Add constraints → 4. Dimension and annotate → 5. Inspect and export. Point to each stage and say what information enters, what happens and what result should appear.",
+            "YOUR TURN — Create a release checklist and save a clearly versioned editable file and PDF export.",
+            "COMMON MISTAKES TO AVOID — using visual alignment instead of dimensions or constraints; overwriting the only editable source; treating a conceptual model as an approved construction drawing; drawing without units or scale. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+            "CHECK YOUR UNDERSTANDING — Why keep a revision identifier on a technical drawing? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+            "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+            "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "computer-aided-design-cad-basics-q1",
+          "prompt": "Why set drawing units before modelling?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "So dimensions represent the intended real-world sizes.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "So dimensions represent the intended real-world sizes. Choose the correct units, drawing scale, coordinate system and view before creating geometry."
+        },
+        {
+          "id": "computer-aided-design-cad-basics-q2",
+          "prompt": "What verifies that a part has the intended size?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "Explicit dimensions and checked geometry in the correct units."
+          ],
+          "answerIndex": 3,
+          "explanation": "Explicit dimensions and checked geometry in the correct units. Create points, lines, circles and shapes using exact coordinates and snaps where appropriate rather than relying only on visual placement."
+        },
+        {
+          "id": "computer-aided-design-cad-basics-q3",
+          "prompt": "What is a benefit of separating drawing elements into layers?",
+          "options": [
+            "It makes related content easier to manage, display and revise.",
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 0,
+          "explanation": "It makes related content easier to manage, display and revise. Organise geometry by layer and use reusable components or blocks to maintain consistency and ease of revision."
+        },
+        {
+          "id": "computer-aided-design-cad-basics-q4",
+          "prompt": "Why use constraints in a sketch?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "To preserve intended geometric relationships when editing dimensions.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 1,
+          "explanation": "To preserve intended geometric relationships when editing dimensions. Understand sketch constraints, features and how a 3D model is built from defined geometry; distinguish a fully constrained design from a sketch that can still move."
+        },
+        {
+          "id": "computer-aided-design-cad-basics-q5",
+          "prompt": "What should technical views and dimensions help a reader determine?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "The shape, size and relevant relationships needed to understand the design.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation."
+          ],
+          "answerIndex": 2,
+          "explanation": "The shape, size and relevant relationships needed to understand the design. Choose views that show required features, use legible dimensions and annotations, and avoid contradictory or ambiguous measurements."
+        },
+        {
+          "id": "computer-aided-design-cad-basics-q6",
+          "prompt": "Why keep a revision identifier on a technical drawing?",
+          "options": [
+            "Change components or system settings without checking requirements or authorisation.",
+            "Ignore test results and assume the first attempt must be correct.",
+            "Try a hazardous or unauthorised action instead of using a safe simulation.",
+            "It helps users identify the correct version and trace changes."
+          ],
+          "answerIndex": 3,
+          "explanation": "It helps users identify the correct version and trace changes. Check units, dimensions, title, scale, revision and export settings; do not treat a learning exercise as a certified engineering drawing."
+        }
+      ]
+    }
 ];
 export function findAcademyCourse(courseId: string) {
   return ACADEMY_COURSES.find((course) => course.id === courseId && course.published) ?? null;
