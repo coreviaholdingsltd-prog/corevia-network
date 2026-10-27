@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
 import { findAcademyCourse } from "@/lib/academy-catalog";
+import { processAcademyCoursePayment } from "@/lib/academy-payments";
 
 export const runtime = "nodejs";
 
@@ -129,10 +130,154 @@ export async function POST(request: Request) {
         },
       }));
 
-    const reference = `CV-ACADEMY-${Date.now()}-${crypto
+    // Reconcile an earlier attempt before opening another checkout. This prevents
+    // a repeat click from creating a second charge while the first is unresolved.
+    const pendingPayment = await prisma.academyPayment.findFirst({
+      where: {
+        enrollmentId: enrollment.id,
+        provider: "PAYSTACK",
+        status: "PENDING",
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    if (pendingPayment) {
+      let verifyResponse: Response;
+      let verifyData: {
+        status?: boolean;
+        message?: string;
+        data?: {
+          reference?: string;
+          amount?: number;
+          currency?: string;
+          status?: string;
+          paid_at?: string | null;
+          metadata?: Record<string, unknown> | null;
+        };
+      };
+
+      try {
+        verifyResponse = await fetch(
+          `https://api.paystack.co/transaction/verify/${encodeURIComponent(pendingPayment.providerReference)}`,
+          {
+            headers: { Authorization: `Bearer ${secretKey}` },
+            cache: "no-store",
+            signal: AbortSignal.timeout(15000),
+          },
+        );
+        verifyData = await verifyResponse.json();
+      } catch {
+        return NextResponse.json(
+          {
+            error: "An earlier course payment is still being checked. Do not start another payment yet. Retry verification shortly.",
+            reference: pendingPayment.providerReference,
+          },
+          { status: 409 },
+        );
+      }
+
+      if (
+        !verifyResponse.ok ||
+        !verifyData.status ||
+        !verifyData.data ||
+        verifyData.data.reference !== pendingPayment.providerReference
+      ) {
+        return NextResponse.json(
+          {
+            error: "An earlier course payment could not yet be verified. Do not pay again until its status is checked. Retry verification shortly.",
+            reference: pendingPayment.providerReference,
+          },
+          { status: 409 },
+        );
+      }
+
+      const previous = verifyData.data;
+      if (previous.status === "success") {
+        const processed = await processAcademyCoursePayment(
+          {
+            reference: String(previous.reference),
+            amount: Number(previous.amount),
+            currency: String(previous.currency),
+            status: String(previous.status),
+            paid_at: previous.paid_at ?? null,
+            metadata: previous.metadata ?? null,
+          },
+          user.id,
+        );
+        return NextResponse.json({
+          status: true,
+          enrolled: true,
+          alreadyProcessed: processed.alreadyProcessed,
+          courseId: course.id,
+          enrollmentStatus: "ACTIVE",
+          message: "Your earlier payment is confirmed. Your course is ready.",
+        });
+      }
+
+      if (previous.status === "failed" || previous.status === "abandoned") {
+        await prisma.academyPayment.updateMany({
+          where: { id: pendingPayment.id, status: "PENDING" },
+          data: { status: "FAILED" },
+        });
+      } else {
+        return NextResponse.json(
+          {
+            error: "A payment attempt for this course is still pending. Finish the existing checkout or retry verification before starting another payment.",
+            reference: pendingPayment.providerReference,
+          },
+          { status: 409 },
+        );
+      }
+    }
+
+    const candidateReference = `CV-ACADEMY-${Date.now()}-${crypto
       .randomBytes(4)
       .toString("hex")
       .toUpperCase()}`;
+
+    // Lock the enrollment while reserving a payment. A second tab/request will
+    // see the first pending record rather than creating another Paystack charge.
+    const reservation = await prisma.$transaction(async (tx) => {
+      await tx.$queryRaw<Array<{ id: string }>>`
+        SELECT "id" FROM "AcademyEnrollment" WHERE "id" = ${enrollment.id} FOR UPDATE
+      `;
+
+      const existingPending = await tx.academyPayment.findFirst({
+        where: {
+          enrollmentId: enrollment.id,
+          provider: "PAYSTACK",
+          status: "PENDING",
+        },
+        orderBy: { createdAt: "desc" },
+      });
+
+      if (existingPending) return { existingPending, payment: null };
+
+      const payment = await tx.academyPayment.create({
+        data: {
+          userId: user.id,
+          enrollmentId: enrollment.id,
+          courseId: course.id,
+          amount: course.priceKsh,
+          provider: "PAYSTACK",
+          providerReference: candidateReference,
+          status: "PENDING",
+        },
+      });
+      return { existingPending: null, payment };
+    });
+
+    if (reservation.existingPending || !reservation.payment) {
+      return NextResponse.json(
+        {
+          error: "Another payment attempt for this course is already in progress. Do not pay again; retry verification for the existing reference.",
+          reference: reservation.existingPending?.providerReference,
+        },
+        { status: 409 },
+      );
+    }
+
+    const reference = reservation.payment.providerReference;
 
     let response: Response;
     let data: {
@@ -203,6 +348,13 @@ export async function POST(request: Request) {
             : "No provider error message returned",
       });
 
+      // The provider gave an explicit rejection, so this attempt can be retried.
+      // Network/timeout errors above remain pending because their outcome is uncertain.
+      await prisma.academyPayment.updateMany({
+        where: { providerReference: reference, status: "PENDING" },
+        data: { status: "FAILED" },
+      });
+
       return NextResponse.json(
         {
           error:
@@ -214,17 +366,6 @@ export async function POST(request: Request) {
       );
     }
 
-    await prisma.academyPayment.create({
-      data: {
-        userId: user.id,
-        enrollmentId: enrollment.id,
-        courseId: course.id,
-        amount: course.priceKsh,
-        provider: "PAYSTACK",
-        providerReference: reference,
-        status: "PENDING",
-      },
-    });
 
     return NextResponse.json({
       status: true,

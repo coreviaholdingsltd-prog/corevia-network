@@ -96,6 +96,8 @@ export default function AcademyPage() {
   const [authRequired, setAuthRequired] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [pendingPaymentReference, setPendingPaymentReference] = useState("");
+  const [verifyingPayment, setVerifyingPayment] = useState(false);
   const [working, setWorking] = useState("");
   const [expandedCourse, setExpandedCourse] = useState(routeCourseId);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -143,66 +145,51 @@ export default function AcademyPage() {
     }
   }, [routeCourseId]);
 
-  useEffect(() => {
-    let cancelled = false;
+  const verifyAcademyPayment = useCallback(async (reference: string) => {
+    setPendingPaymentReference(reference);
+    setVerifyingPayment(true);
+    setNotice("Confirming your Academy course payment...");
+    setError("");
 
-    async function start() {
-      const reference = new URLSearchParams(window.location.search).get(
-        "payment",
+    try {
+      const response = await fetch("/api/academy/payments/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reference }),
+        cache: "no-store",
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Course payment verification failed.");
+      }
+
+      setNotice(result.message || "Payment confirmed. Your course is now available.");
+      setError("");
+      setPendingPaymentReference("");
+      window.history.replaceState({}, "", "/academy");
+      await loadCourses();
+    } catch (issue) {
+      setError(
+        issue instanceof Error
+          ? `${issue.message} Your payment reference has been kept so you can retry verification. Do not pay again until the status is confirmed.`
+          : "Unable to confirm course payment. Retry verification before paying again.",
       );
-
-      if (reference) {
-        setNotice("Confirming your Academy course payment...");
-        setError("");
-
-        try {
-          const response = await fetch("/api/academy/payments/verify", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ reference }),
-            cache: "no-store",
-          });
-
-          const result = await response.json();
-
-          if (!response.ok) {
-            if (!cancelled) {
-              setError(
-                result.error || "Course payment verification failed.",
-              );
-              setNotice("");
-            }
-          } else if (!cancelled) {
-            setNotice("Payment confirmed. Your course is now available.");
-            setError("");
-          }
-
-          if (!cancelled) {
-            window.history.replaceState({}, "", "/academy");
-          }
-        } catch {
-          if (!cancelled) {
-            setError(
-              "Unable to confirm course payment. Use Refresh courses to check again.",
-            );
-            setNotice("");
-          }
-        }
-      }
-
-      if (!cancelled) {
-        await loadCourses();
-      }
+      setNotice("");
+      setPendingPaymentReference(reference);
+    } finally {
+      setVerifyingPayment(false);
     }
-
-    void start();
-
-    return () => {
-      cancelled = true;
-    };
   }, [loadCourses]);
+
+  useEffect(() => {
+    const reference = new URLSearchParams(window.location.search).get("payment");
+    if (reference) {
+      void verifyAcademyPayment(reference);
+    } else {
+      void loadCourses();
+    }
+  }, [loadCourses, verifyAcademyPayment]);
 
   async function enroll(course: Course) {
     setWorking(course.id);
@@ -223,6 +210,9 @@ export default function AcademyPage() {
       const result = await response.json();
 
       if (!response.ok) {
+        if (typeof result.reference === "string" && result.reference.trim()) {
+          setPendingPaymentReference(result.reference);
+        }
         throw new Error(result.error || "Enrollment failed.");
       }
 
@@ -434,6 +424,22 @@ export default function AcademyPage() {
             className="mb-5 rounded-xl border border-red-400/30 bg-red-400/10 p-4 text-red-200"
           >
             {error}
+          </div>
+        )}
+
+        {pendingPaymentReference && (
+          <div className="mb-5 rounded-xl border border-amber-300/30 bg-amber-300/10 p-4">
+            <p className="text-amber-100">
+              Existing payment reference: <span className="font-mono">{pendingPaymentReference}</span>
+            </p>
+            <button
+              type="button"
+              onClick={() => void verifyAcademyPayment(pendingPaymentReference)}
+              disabled={verifyingPayment}
+              className="mt-3 rounded-lg bg-amber-200 px-4 py-2 font-bold text-slate-950 disabled:opacity-60"
+            >
+              {verifyingPayment ? "Checking payment..." : "Retry payment verification"}
+            </button>
           </div>
         )}
 
