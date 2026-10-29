@@ -8,33 +8,35 @@ datasource db {
 }
 
 model User {
-  id                 String              @id @default(cuid())
-  name               String
-  email              String              @unique
-  phone              String?             @unique
-  passwordHash       String
-  referralCode       String              @unique
-  referredById       String?
-  membershipStatus   MembershipStatus    @default(PENDING)
-  membershipPaidAt   DateTime?
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  ledgerEntries      LedgerEntry[]
-  membershipPayments MembershipPayment[]
-  paymentRecords     PaymentRecord[]
-  referralRewards    ReferralReward[]    @relation("RewardRecipient")
-  generatedRewards   ReferralReward[]    @relation("RewardSource")
-  spinEntries        SpinEntry[]
-  referredBy         User?               @relation("UserReferrals", fields: [referredById], references: [id])
-  referrals          User[]              @relation("UserReferrals")
-  wallet             Wallet?
-  transactions       WalletTransaction[]
-  withdrawals        Withdrawal[]
-  academyEnrollments AcademyEnrollment[]
-  academyPayments    AcademyPayment[]
-  postedGigs         Gig[]
-  gigApplications    GigApplication[]
-  memberProfile      MemberProfile?
+  id                      String              @id @default(cuid())
+  name                    String
+  email                   String              @unique
+  phone                   String?             @unique
+  passwordHash            String
+  referralCode            String              @unique
+  referredById            String?
+  membershipStatus        MembershipStatus    @default(PENDING)
+  membershipPaidAt        DateTime?
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+  ledgerEntries           LedgerEntry[]
+  membershipPayments      MembershipPayment[]
+  paymentRecords          PaymentRecord[]
+  referralRewards         ReferralReward[]    @relation("RewardRecipient")
+  generatedRewards        ReferralReward[]    @relation("RewardSource")
+  spinEntries             SpinEntry[]
+  referredBy              User?               @relation("UserReferrals", fields: [referredById], references: [id])
+  referrals               User[]              @relation("UserReferrals")
+  wallet                  Wallet?
+  transactions            WalletTransaction[]
+  withdrawals             Withdrawal[]
+  sentWalletTransfers     WalletTransfer[]    @relation("WalletTransferSender")
+  receivedWalletTransfers WalletTransfer[]    @relation("WalletTransferRecipient")
+  academyEnrollments      AcademyEnrollment[]
+  academyPayments         AcademyPayment[]
+  postedGigs              Gig[]
+  gigApplications         GigApplication[]
+  memberProfile           MemberProfile?
 }
 
 model Wallet {
@@ -59,6 +61,27 @@ model WalletTransaction {
   user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
+}
+
+model WalletTransfer {
+  id          String            @id @default(cuid())
+  senderId    String
+  recipientId String
+  requestKey  String
+  reference   String            @unique
+  amount      Decimal           @db.Decimal(14, 2)
+  fee         Decimal           @db.Decimal(14, 2)
+  totalDebit  Decimal           @db.Decimal(14, 2)
+  status      TransactionStatus @default(PENDING)
+  createdAt   DateTime          @default(now())
+  completedAt DateTime?
+
+  sender    User @relation("WalletTransferSender", fields: [senderId], references: [id], onDelete: Cascade)
+  recipient User @relation("WalletTransferRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, requestKey])
+  @@index([senderId, createdAt])
+  @@index([recipientId, createdAt])
 }
 
 model MembershipPayment {
@@ -110,13 +133,13 @@ model PaymentRecord {
   userId              String
   amount              Decimal            @db.Decimal(14, 2)
   provider            String
-  providerReference   String             @unique
+  providerReference    String             @unique
   destination         PaymentDestination
   status              TransactionStatus  @default(PENDING)
   verifiedAt          DateTime?
-  allocationReference String?            @unique
-  createdAt           DateTime           @default(now())
-  user                User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  allocationReference String?             @unique
+  createdAt            DateTime            @default(now())
+  user                 User                @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
 }
@@ -187,6 +210,9 @@ enum TransactionType {
   SPIN_REWARD
   WITHDRAWAL
   WITHDRAWAL_FEE
+  WALLET_TRANSFER_SENT
+  WALLET_TRANSFER_RECEIVED
+  WALLET_TRANSFER_FEE
   ADJUSTMENT
 }
 
@@ -223,7 +249,6 @@ enum PaymentDestination {
   OTHER
 }
 
-
 enum AcademyEnrollmentStatus {
   PENDING_PAYMENT
   ACTIVE
@@ -231,14 +256,14 @@ enum AcademyEnrollmentStatus {
 }
 
 model AcademyEnrollment {
-  id             String                  @id @default(cuid())
+  id             String                    @id @default(cuid())
   userId         String
   courseId       String
-  status         AcademyEnrollmentStatus @default(PENDING_PAYMENT)
-  amountPaid     Decimal                 @default(0) @db.Decimal(14, 2)
-  enrolledAt     DateTime                @default(now())
+  status         AcademyEnrollmentStatus   @default(PENDING_PAYMENT)
+  amountPaid     Decimal                   @default(0) @db.Decimal(14, 2)
+  enrolledAt     DateTime                  @default(now())
   completedAt    DateTime?
-  user           User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user           User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
   lessonProgress AcademyLessonProgress[]
   attempts       AcademyAssessmentAttempt[]
   completion     AcademyCompletion?
@@ -298,7 +323,6 @@ model AcademyPayment {
   @@index([enrollmentId, status])
 }
 
-
 // Corevia Rise Gigs: work listings and applications.
 enum GigStatus {
   PENDING_REVIEW
@@ -328,20 +352,20 @@ enum GigApplicationStatus {
 }
 
 model Gig {
-  id          String      @id @default(cuid())
-  ownerId     String
-  title       String
-  description String
-  category    String
-  location    String?
-  workMode    GigWorkMode @default(REMOTE)
-  budgetKsh   Int?
-  budgetType  GigBudgetType @default(NEGOTIABLE)
-  deadline    DateTime?
-  status      GigStatus   @default(PENDING_REVIEW)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  owner       User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  id           String      @id @default(cuid())
+  ownerId      String
+  title        String
+  description  String
+  category     String
+  location     String?
+  workMode     GigWorkMode @default(REMOTE)
+  budgetKsh    Int?
+  budgetType   GigBudgetType @default(NEGOTIABLE)
+  deadline     DateTime?
+  status       GigStatus   @default(PENDING_REVIEW)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  owner        User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   applications GigApplication[]
 
   @@index([status, createdAt])
@@ -350,16 +374,16 @@ model Gig {
 }
 
 model GigApplication {
-  id          String                @id @default(cuid())
-  gigId       String
-  applicantId String
-  proposal    String
+  id           String               @id @default(cuid())
+  gigId        String
+  applicantId  String
+  proposal     String
   portfolioUrl String?
-  status      GigApplicationStatus  @default(SUBMITTED)
-  createdAt   DateTime              @default(now())
-  updatedAt   DateTime              @updatedAt
-  gig         Gig                   @relation(fields: [gigId], references: [id], onDelete: Cascade)
-  applicant   User                  @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  status       GigApplicationStatus @default(SUBMITTED)
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  gig          Gig                  @relation(fields: [gigId], references: [id], onDelete: Cascade)
+  applicant    User                 @relation(fields: [applicantId], references: [id], onDelete: Cascade)
 
   @@unique([gigId, applicantId])
   @@index([applicantId, createdAt])
