@@ -245,7 +245,7 @@ export async function applyPaystackTransferStatus(input: {
         );
       }
 
-      const allowedStatuses =
+      const allowedStatuses: Array<"PAID" | "PENDING" | "PROCESSING"> =
         withdrawal.status === "PAID"
           ? ["PAID"]
           : ["PENDING", "PROCESSING"];
