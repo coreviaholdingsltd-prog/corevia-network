@@ -194,8 +194,10 @@ export async function applyPaystackTransferStatus(input: {
     }
 
     const now = new Date();
-    const paymentReference =
-      transferCode || withdrawal.paymentReference || null;
+    const existingTransferCode = withdrawal.paymentReference?.startsWith("TRF_")
+      ? withdrawal.paymentReference
+      : null;
+    const paymentReference = transferCode || existingTransferCode;
 
     if (status === "success") {
       if (withdrawal.status === "FAILED" || withdrawal.status === "REJECTED") {
