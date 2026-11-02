@@ -532,6 +532,13 @@ export async function POST(request: Request) {
         name: user.name,
         phone: user.phone!,
       });
+      const savedRecipient = await prisma.withdrawal.updateMany({
+        where: { id: withdrawal.id, status: "PROCESSING" },
+        data: { paymentReference: recipientCode },
+      });
+      if (savedRecipient.count !== 1) {
+        throw new Error("Withdrawal state changed before recipient could be secured.");
+      }
     } catch (error) {
       console.error("Paystack M-PESA recipient creation error:", error);
 
