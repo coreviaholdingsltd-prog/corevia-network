@@ -150,6 +150,10 @@ export async function GET() {
       );
     }
 
+    const withdrawalsEnabled =
+      process.env.COREVIA_WITHDRAWALS_ENABLED === "true" &&
+      Boolean(process.env.PAYSTACK_SECRET_KEY);
+
     const [withdrawals, wallet] = await Promise.all([
       prisma.withdrawal.findMany({
         where: { userId: user.id },
@@ -176,6 +180,7 @@ export async function GET() {
       status: true,
       balance: Number(wallet?.balance ?? 0),
       payoutPhone: user.phone,
+      withdrawalsEnabled,
       withdrawals: withdrawals.map(serializeWithdrawal),
     });
   } catch (error) {
@@ -212,6 +217,19 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: "Send a valid JSON request." },
         { status: 400 },
+      );
+    }
+
+    if (
+      process.env.COREVIA_WITHDRAWALS_ENABLED !== "true" ||
+      !process.env.PAYSTACK_SECRET_KEY
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "Withdrawals are temporarily unavailable while Corevia completes payout security checks. No funds were deducted.",
+        },
+        { status: 503 },
       );
     }
 
