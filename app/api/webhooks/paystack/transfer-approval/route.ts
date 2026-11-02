@@ -20,8 +20,18 @@ export async function POST(request: Request) {
       typeof payload.source === "string" ? payload.source.toLowerCase() : "";
     const reason =
       typeof payload.reason === "string" ? payload.reason : "";
+    const recipient =
+      typeof payload.recipient === "string" ? payload.recipient.trim() : "";
 
-    if (!reference || !Number.isFinite(amount)) {
+    if (
+      !reference ||
+      !Number.isSafeInteger(amount) ||
+      amount <= 0 ||
+      currency !== "KES" ||
+      source !== "balance" ||
+      reason !== "Corevia Network withdrawal " + reference ||
+      !recipient
+    ) {
       return NextResponse.json({ approved: false }, { status: 400 });
     }
 
@@ -31,6 +41,7 @@ export async function POST(request: Request) {
         reference: true,
         netAmount: true,
         status: true,
+        paymentReference: true,
       },
     });
 
@@ -39,28 +50,17 @@ export async function POST(request: Request) {
     }
 
     const expectedAmount = Math.round(Number(withdrawal.netAmount) * 100);
-    if (amount !== expectedAmount) {
-      return NextResponse.json({ approved: false }, { status: 400 });
-    }
-
-    if (currency && currency !== "KES") {
-      return NextResponse.json({ approved: false }, { status: 400 });
-    }
-
-    if (source && source !== "balance") {
-      return NextResponse.json({ approved: false }, { status: 400 });
-    }
-
-    if (reason && reason !== "Corevia Network withdrawal " + reference) {
+    if (
+      amount !== expectedAmount ||
+      !withdrawal.paymentReference ||
+      recipient !== withdrawal.paymentReference
+    ) {
       return NextResponse.json({ approved: false }, { status: 400 });
     }
 
     return NextResponse.json({ approved: true }, { status: 200 });
   } catch (error) {
     console.error("Paystack transfer approval error:", error);
-    return NextResponse.json(
-      { approved: false },
-      { status: 500 },
-    );
+    return NextResponse.json({ approved: false }, { status: 500 });
   }
 }
