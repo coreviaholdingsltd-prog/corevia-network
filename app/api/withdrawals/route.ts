@@ -67,10 +67,17 @@ function serializeWithdrawal(withdrawal: {
   processedAt: Date | null;
 }) {
   return {
-    ...withdrawal,
+    id: withdrawal.id,
     amount: Number(withdrawal.amount),
     fee: Number(withdrawal.fee),
     netAmount: Number(withdrawal.netAmount),
+    status: withdrawal.status,
+    reference: withdrawal.reference,
+    paymentReference: withdrawal.paymentReference?.startsWith("TRF_")
+      ? withdrawal.paymentReference
+      : null,
+    createdAt: withdrawal.createdAt,
+    processedAt: withdrawal.processedAt,
   };
 }
 
