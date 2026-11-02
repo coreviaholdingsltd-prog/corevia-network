@@ -17,6 +17,13 @@ const COREVIA_TILL_NUMBER = "6959300";
 const MIN_WITHDRAWAL_KSH = 500;
 const MAX_MPESA_TRANSFER_KSH = 150000;
 
+function isPaystackKeyValidForDeployment() {
+  const key = process.env.PAYSTACK_SECRET_KEY ?? "";
+  if (process.env.VERCEL_ENV === "preview") return key.startsWith("sk_test_");
+  if (process.env.VERCEL_ENV === "production") return key.startsWith("sk_live_");
+  return false;
+}
+
 class WithdrawalRouteError extends Error {
   statusCode: number;
 
@@ -159,7 +166,7 @@ export async function GET() {
 
     const withdrawalsEnabled =
       process.env.COREVIA_WITHDRAWALS_ENABLED === "true" &&
-      Boolean(process.env.PAYSTACK_SECRET_KEY);
+      isPaystackKeyValidForDeployment();
 
     const [withdrawals, wallet] = await Promise.all([
       prisma.withdrawal.findMany({
@@ -229,7 +236,7 @@ export async function POST(request: Request) {
 
     if (
       process.env.COREVIA_WITHDRAWALS_ENABLED !== "true" ||
-      !process.env.PAYSTACK_SECRET_KEY
+      !isPaystackKeyValidForDeployment()
     ) {
       return NextResponse.json(
         {
