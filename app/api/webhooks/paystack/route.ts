@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { processMembershipPayment } from "@/lib/membership-payment";
 import { processAcademyCoursePayment } from "@/lib/academy-payments";
+import { applyPaystackTransferStatus } from "@/lib/paystack-transfers";
 
 export async function POST(request: Request) {
   try {
@@ -24,7 +25,6 @@ export async function POST(request: Request) {
     }
 
     const rawBody = await request.text();
-
     const expectedSignature = crypto
       .createHmac("sha512", secretKey)
       .update(rawBody)
@@ -79,12 +79,41 @@ export async function POST(request: Request) {
           purpose,
         });
       }
+    } else if (
+      event.event === "transfer.success" ||
+      event.event === "transfer.failed" ||
+      event.event === "transfer.reversed"
+    ) {
+      const transfer = event.data ?? {};
+      const reference =
+        typeof transfer.reference === "string" ? transfer.reference : "";
+
+      if (!reference) {
+        throw new Error("Paystack transfer webhook is missing its reference.");
+      }
+
+      const result = await applyPaystackTransferStatus({
+        reference,
+        status: String(event.event).replace("transfer.", ""),
+        amount:
+          transfer.amount === undefined ? undefined : Number(transfer.amount),
+        currency:
+          typeof transfer.currency === "string" ? transfer.currency : undefined,
+        transferCode:
+          typeof transfer.transfer_code === "string"
+            ? transfer.transfer_code
+            : null,
+      });
+
+      console.log("Corevia Paystack transfer webhook processed:", {
+        reference,
+        result,
+      });
     }
 
     return NextResponse.json({ received: true });
   } catch (error) {
     console.error("Paystack webhook error:", error);
-
     return NextResponse.json(
       { error: "Webhook processing failed." },
       { status: 500 },
