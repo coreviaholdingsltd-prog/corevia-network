@@ -17,6 +17,7 @@ type Withdrawal = {
 export default function Withdraw() {
   const [balance, setBalance] = useState(0);
   const [payoutPhone, setPayoutPhone] = useState("");
+  const [withdrawalsEnabled, setWithdrawalsEnabled] = useState(false);
   const [withdrawals, setWithdrawals] = useState<Withdrawal[]>([]);
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(true);
@@ -39,6 +40,7 @@ export default function Withdraw() {
 
       setBalance(Number(result.balance || 0));
       setPayoutPhone(String(result.payoutPhone || ""));
+      setWithdrawalsEnabled(result.withdrawalsEnabled === true);
       setWithdrawals(result.withdrawals || []);
     } catch {
       setError("Unable to connect to the withdrawal service.");
@@ -165,6 +167,16 @@ export default function Withdraw() {
             M-PESA destination: <strong>{payoutPhone || "No phone number on account"}</strong>
           </p>
 
+          {!withdrawalsEnabled && (
+            <div
+              role="status"
+              className="mt-5 rounded-xl border border-[#b99a58]/30 bg-[#f7f5ef] px-4 py-3 text-sm leading-6 text-[#12352c]/75"
+            >
+              Withdrawals are temporarily unavailable while Corevia completes
+              payout security checks. Your wallet balance is unaffected.
+            </div>
+          )}
+
           <form onSubmit={submitWithdrawal} className="mt-7">
             <label htmlFor="withdrawal-amount" className="block text-sm font-semibold">
               Withdrawal amount
@@ -204,7 +216,7 @@ export default function Withdraw() {
 
             <button
               type="submit"
-              disabled={submitting || balance < 500}
+              disabled={!withdrawalsEnabled || submitting || balance < 500}
               className="mt-5 w-full rounded-xl bg-[#12352c] px-5 py-3.5 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
             >
               {submitting ? "Processing..." : "Request Withdrawal"}
