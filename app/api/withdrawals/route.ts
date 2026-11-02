@@ -15,7 +15,7 @@ import {
 const WITHDRAWAL_FEE_RATE = 0.005;
 const COREVIA_TILL_NUMBER = "6959300";
 const MIN_WITHDRAWAL_KSH = 500;
-const MAX_MPESA_TRANSFER_KSH = 250000;
+const MAX_MPESA_TRANSFER_KSH = 150000;
 
 class WithdrawalRouteError extends Error {
   statusCode: number;
