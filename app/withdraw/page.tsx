@@ -131,15 +131,13 @@ export default function Withdraw() {
               value={amount}
               onChange={(event) => setAmount(event.target.value)}
               placeholder="Enter amount"
-              max={balance.toFixed(2)}
+              max={Math.min(balance, 150753.77).toFixed(2)}
               required
               className="mt-2 w-full rounded-xl border border-[#12352c]/15 bg-[#f7f5ef]/50 px-4 py-3 outline-none focus:border-[#b99a58]"
             />
 
             <p className="mt-2 text-xs leading-5 text-[#12352c]/55">
-              You may withdraw up to your available wallet balance.
-              Corevia deducts a 0.50% withdrawal fee from the requested
-              amount. The remaining 99.50% is the member withdrawal amount.
+              You may withdraw up to KES 150,753.77, subject to your available wallet balance. Corevia deducts a 0.50% withdrawal fee. The maximum M-PESA payout is KES 150,000.
             </p>
 
             <div role="note" className="mt-5 rounded-xl border border-[#b99a58]/30 bg-[#f7f5ef] px-4 py-3">

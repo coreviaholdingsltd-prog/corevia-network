@@ -121,6 +121,15 @@ export async function POST(request: Request) {
 
     const fee = Math.round(normalizedAmount * WITHDRAWAL_FEE_RATE * 100) / 100;
     const netAmount = Math.round((normalizedAmount - fee) * 100) / 100;
+    // Maximum member payout is KES 150,000 after the 0.50% fee.
+    if (netAmount > 150000) {
+      return NextResponse.json(
+        {
+          error: "The maximum M-PESA withdrawal payout is KES 150,000. The maximum wallet deduction is KES 150,753.77 including the 0.50% fee.",
+        },
+        { status: 400 },
+      );
+    }
     const reference =
       `CV-WD-${Date.now()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
 
