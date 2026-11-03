@@ -30,8 +30,16 @@ export async function POST(request: Request) {
 
     const originatorId = String(result.OriginatorConversationID || "");
     const conversationId = String(result.ConversationID || "");
-    const resultCode = Number(result.ResultCode);
-    if (!Number.isInteger(resultCode) || resultCode < 0 || (!originatorId && !conversationId)) {
+    const rawResultCode = result.ResultCode;
+    const resultCode = Number(rawResultCode);
+    if (
+      rawResultCode === undefined ||
+      rawResultCode === null ||
+      rawResultCode === "" ||
+      !Number.isInteger(resultCode) ||
+      resultCode < 0 ||
+      (!originatorId && !conversationId)
+    ) {
       return NextResponse.json({ error: "Invalid Safaricom result payload." }, { status: 400 });
     }
 
