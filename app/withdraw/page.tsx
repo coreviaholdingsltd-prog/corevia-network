@@ -11,6 +11,7 @@ type Withdrawal = {
   reference: string;
   createdAt: string;
   processedAt?: string | null;
+  mpesaReceiptNumber?: string | null;
 };
 
 export default function Withdraw() {
@@ -137,12 +138,12 @@ export default function Withdraw() {
             />
 
             <p className="mt-2 text-xs leading-5 text-[#12352c]/55">
-              You may withdraw up to KES 150,753.77, subject to your available wallet balance. Corevia deducts a 0.50% withdrawal fee. The maximum M-PESA payout is KES 150,000.
+              You may withdraw up to KES 150,753.77, subject to your available wallet balance. Corevia deducts a 0.50% fee. M-PESA B2C payouts are made in whole shillings, so the amount after the fee must be a whole KES amount. Maximum payout: KES 150,000.
             </p>
 
             <div role="note" className="mt-5 rounded-xl border border-[#b99a58]/30 bg-[#f7f5ef] px-4 py-3">
               <p className="text-sm font-semibold text-[#12352c]">Withdrawal Notice</p>
-              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Kindly note that withdrawals may take up to 24 hours for verification and processing. Most requests are processed sooner, but additional checks or payment-provider delays may occur. Thank you for your patience and understanding.</p>
+              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Your withdrawal is sent automatically to your registered M-PESA number. Processing may take up to 24 hours. A request is marked PAID only after Safaricom confirms the payout. Do not submit the same withdrawal again while it is PROCESSING.</p>
             </div>
             <button
               type="submit"
