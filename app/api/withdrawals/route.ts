@@ -59,6 +59,9 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    if (process.env.COREVIA_WITHDRAWALS_ENABLED !== "true") {
+      return NextResponse.json({ error: "Withdrawals are temporarily disabled while payout configuration is being verified." }, { status: 503 });
+    }
     const user = await getSessionUser();
     if (!user) return NextResponse.json({ error: "Please sign in first." }, { status: 401 });
     if (user.membershipStatus !== "ACTIVE") {
