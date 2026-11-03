@@ -35,6 +35,8 @@ type Withdrawal = {
   createdAt: string;
   processedAt?: string | null;
   mpesaReceiptNumber?: string | null;
+  resultCode?: number | null;
+  resultDescription?: string | null;
 };
 
 export default function Withdraw() {
@@ -261,6 +263,12 @@ export default function Withdraw() {
                   {withdrawal.mpesaReceiptNumber && (
                     <p className="mt-2 text-xs font-semibold text-[#12352c]">
                       M-PESA receipt: {withdrawal.mpesaReceiptNumber}
+                    </p>
+                  )}
+                  {withdrawal.status === "FAILED" && withdrawal.resultDescription && (
+                    <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs leading-5 text-red-700">
+                      Safaricom response: {withdrawal.resultDescription}
+                      {withdrawal.resultCode !== null && withdrawal.resultCode !== undefined ? ` (code ${withdrawal.resultCode})` : ""}
                     </p>
                   )}
                 </div>
