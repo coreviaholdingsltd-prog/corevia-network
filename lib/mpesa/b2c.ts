@@ -59,6 +59,15 @@ export function buildCallbackUrl(value: string, token: string) {
   return url.toString();
 }
 
+export function assertB2CRecipientAllowed(environment: "sandbox" | "production", phone: string) {
+  // Never let a Preview/Sandbox withdrawal target a member's real M-PESA number.
+  // This is the Safaricom sandbox test MSISDN configured for this project.
+  const sandboxTestPhone = "254708374149";
+  if (environment === "sandbox" && phone !== sandboxTestPhone) {
+    throw new Error("Sandbox safety block: withdrawals can only be sent to the configured Safaricom sandbox test number. Your wallet has not been debited.");
+  }
+}
+
 export function normalizeMpesaPhone(value: string) {
   const digits = value.replace(/\D/g, "");
   if (digits.startsWith("0") && digits.length === 10) return `254${digits.slice(1)}`;
