@@ -68,12 +68,34 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Add and verify a phone number on your member account before requesting a withdrawal." }, { status: 400 });
     }
 
+    const body = await request.json();
+    const requestKey = String(body.requestKey || "");
+    if (requestKey.length < 8 || requestKey.length > 100) {
+      return NextResponse.json({ error: "A valid withdrawal request key is required. Refresh the page and try again." }, { status: 400 });
+    }
+
+    const previous = await prisma.withdrawal.findFirst({
+      where: { userId: user.id, requestKey },
+      select: {
+        id: true, amount: true, fee: true, netAmount: true, status: true,
+        reference: true, createdAt: true,
+      },
+    });
+    if (previous) {
+      const wallet = await prisma.wallet.findUnique({ where: { userId: user.id }, select: { balance: true } });
+      return NextResponse.json({
+        status: true,
+        message: "This withdrawal request was already received. Its existing status is shown; no second M-PESA payment was submitted.",
+        withdrawal: previous,
+        remainingBalance: Number(wallet?.balance ?? 0),
+      }, { status: 202 });
+    }
+
     const config = getDarajaConfig();
     const phone = normalizeMpesaPhone(user.phone);
     // Authenticate before debiting the member wallet.
     const accessToken = await getDarajaAccessToken(config);
 
-    const body = await request.json();
     const amount = Number(body.amount);
     if (!Number.isFinite(amount) || amount <= 0) {
       return NextResponse.json({ error: "Enter a valid withdrawal amount." }, { status: 400 });
@@ -128,6 +150,7 @@ export async function POST(request: Request) {
           netAmount,
           status: "PROCESSING",
           reference,
+          requestKey,
           phoneNumber: phone,
           originatorConversationId,
         },
