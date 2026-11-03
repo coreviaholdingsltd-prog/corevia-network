@@ -91,6 +91,16 @@ export async function POST(request: Request) {
       }, { status: 202 });
     }
 
+    const pendingWithdrawal = await prisma.withdrawal.findFirst({
+      where: { userId: user.id, status: { in: ["PENDING", "PROCESSING"] } },
+      select: { reference: true },
+    });
+    if (pendingWithdrawal) {
+      return NextResponse.json({
+        error: `Withdrawal ${pendingWithdrawal.reference} is still processing. Wait for its M-PESA result before submitting another request.`,
+      }, { status: 409 });
+    }
+
     const config = getDarajaConfig();
     const phone = normalizeMpesaPhone(user.phone);
     // Authenticate before debiting the member wallet.
@@ -123,6 +133,16 @@ export async function POST(request: Request) {
     const originatorConversationId = makeOriginatorConversationId();
 
     const created = await prisma.$transaction(async (tx) => {
+      // Serialize withdrawal creation per member so parallel requests cannot queue two payouts.
+      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${user.id}))`;
+      const pending = await tx.withdrawal.findFirst({
+        where: { userId: user.id, status: { in: ["PENDING", "PROCESSING"] } },
+        select: { reference: true },
+      });
+      if (pending) {
+        throw new Error(`An existing withdrawal ${pending.reference} is still processing. Wait for its M-PESA result before submitting another request.`);
+      }
+
       const wallet = await tx.wallet.findUnique({
         where: { userId: user.id },
         select: { balance: true },
@@ -231,7 +251,9 @@ export async function POST(request: Request) {
       ? 503
       : message.includes("authentication failed")
         ? 502
-        : 400;
+        : message.startsWith("An existing withdrawal")
+          ? 409
+          : 400;
     return NextResponse.json({ error: message }, { status });
   }
 }
