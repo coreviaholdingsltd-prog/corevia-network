@@ -2,6 +2,29 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 
+function getMaxValidWithdrawal(balance: number) {
+  let grossCents = Math.min(Math.floor(balance * 100 + 1e-7), 15075377);
+  for (; grossCents >= 50000; grossCents -= 1) {
+    const feeCents = Math.round(grossCents * 0.005);
+    const netCents = grossCents - feeCents;
+    if (netCents % 100 === 0 && netCents <= 15000000) return grossCents / 100;
+  }
+  return 0;
+}
+
+function getWithdrawalPreview(value: string) {
+  const amount = Number(value);
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+  const grossCents = Math.round(amount * 100);
+  const feeCents = Math.round(grossCents * 0.005);
+  const netCents = grossCents - feeCents;
+  return {
+    fee: feeCents / 100,
+    payout: netCents / 100,
+    valid: netCents % 100 === 0,
+  };
+}
+
 type Withdrawal = {
   id: string;
   amount: number;
@@ -26,6 +49,8 @@ export default function Withdraw() {
   const hasPendingWithdrawal = withdrawals.some(
     (withdrawal) => withdrawal.status === "PENDING" || withdrawal.status === "PROCESSING",
   );
+  const maxValidAmount = getMaxValidWithdrawal(balance);
+  const withdrawalPreview = getWithdrawalPreview(amount);
 
   async function loadWithdrawals() {
     try {
@@ -146,8 +171,27 @@ export default function Withdraw() {
             />
 
             <p className="mt-2 text-xs leading-5 text-[#12352c]/55">
-              You may withdraw up to KES 150,753.77, subject to your available wallet balance. Corevia deducts a 0.50% fee. M-PESA B2C payouts are made in whole shillings, so the amount after the fee must be a whole KES amount. Maximum payout: KES 150,000.
+              Corevia deducts a 0.50% fee. M-PESA payouts must be whole shillings. Maximum payout: KES 150,000.
             </p>
+
+            <button
+              type="button"
+              disabled={maxValidAmount < 500 || hasPendingWithdrawal}
+              onClick={() => setAmount(maxValidAmount.toFixed(2))}
+              className="mt-3 text-sm font-semibold text-[#12352c] underline disabled:opacity-50"
+            >
+              Use maximum valid amount: KES {maxValidAmount.toFixed(2)}
+            </button>
+
+            {withdrawalPreview && (
+              <div className="mt-3 rounded-xl bg-[#f7f5ef] px-4 py-3 text-sm">
+                <p>Corevia fee (0.50%): <strong>KES {withdrawalPreview.fee.toFixed(2)}</strong></p>
+                <p className="mt-1">M-PESA payout: <strong>KES {withdrawalPreview.payout.toFixed(2)}</strong></p>
+                {!withdrawalPreview.valid && (
+                  <p className="mt-2 text-red-700">Adjust the amount until the M-PESA payout is a whole shilling.</p>
+                )}
+              </div>
+            )}
 
             <div role="note" className="mt-5 rounded-xl border border-[#b99a58]/30 bg-[#f7f5ef] px-4 py-3">
               <p className="text-sm font-semibold text-[#12352c]">Withdrawal Notice</p>
