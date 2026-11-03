@@ -30,6 +30,11 @@ export async function POST(request: Request) {
 
     const originatorId = String(result.OriginatorConversationID || "");
     const conversationId = String(result.ConversationID || "");
+    const resultCode = Number(result.ResultCode);
+    if (!Number.isInteger(resultCode) || resultCode < 0 || (!originatorId && !conversationId)) {
+      return NextResponse.json({ error: "Invalid Safaricom result payload." }, { status: 400 });
+    }
+
     const withdrawal = await prisma.withdrawal.findFirst({
       where: {
         OR: [
@@ -44,10 +49,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ Result: "Accepted: no matching withdrawal." });
     }
 
-    const resultCode = Number(result.ResultCode);
-    if (!Number.isInteger(resultCode) || resultCode < 0 || (!originatorId && !conversationId)) {
-      return NextResponse.json({ error: "Invalid Safaricom result payload." }, { status: 400 });
-    }
     const resultDescription = String(result.ResultDesc || "Safaricom B2C result received.");
     if (resultCode === 0) {
       const receipt = resultParameter(result, "TransactionReceipt");
