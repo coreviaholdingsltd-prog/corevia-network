@@ -117,19 +117,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Enter a valid withdrawal amount." }, { status: 400 });
     }
 
-    const normalizedAmount = Math.round(amount * 100) / 100;
+    const grossAmountCents = Math.round(amount * 100);
+    const normalizedAmount = grossAmountCents / 100;
     if (normalizedAmount < 500) {
       return NextResponse.json({ error: "The minimum withdrawal amount is KES 500." }, { status: 400 });
     }
 
-    const fee = Math.round(normalizedAmount * WITHDRAWAL_FEE_RATE * 100) / 100;
-    const netAmount = Math.round((normalizedAmount - fee) * 100) / 100;
+    // Calculate in integer cents to avoid floating-point rounding drift.
+    const feeCents = Math.round(grossAmountCents * WITHDRAWAL_FEE_RATE);
+    const netAmountCents = grossAmountCents - feeCents;
+    const fee = feeCents / 100;
+    const netAmount = netAmountCents / 100;
     if (netAmount > MAX_NET_PAYOUT) {
       return NextResponse.json({
         error: "The maximum M-PESA withdrawal payout is KES 150,000. The maximum wallet deduction is KES 150,753.77 including the 0.50% fee.",
       }, { status: 400 });
     }
-    if (!Number.isInteger(netAmount)) {
+    if (netAmountCents % 100 !== 0) {
       return NextResponse.json({
         error: "Daraja B2C pays whole shillings only. Adjust the withdrawal amount so the payout after the 0.50% fee is a whole KES amount.",
       }, { status: 400 });
