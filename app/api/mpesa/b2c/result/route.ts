@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { timingSafeEqual } from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import { settleWithdrawalFailure, settleWithdrawalSuccess } from "@/lib/mpesa/settlement";
 
@@ -11,7 +12,7 @@ function authorized(request: Request) {
   const supplied = url.searchParams.get("token") || "";
   const a = Buffer.from(supplied);
   const b = Buffer.from(expected);
-  return a.length === b.length && require("node:crypto").timingSafeEqual(a, b);
+  return a.length === b.length && timingSafeEqual(a, b);
 }
 
 function resultParameter(result: Record<string, unknown>, key: string) {
