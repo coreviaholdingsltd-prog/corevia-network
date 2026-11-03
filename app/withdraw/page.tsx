@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 type Withdrawal = {
   id: string;
@@ -22,6 +22,7 @@ export default function Withdraw() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const requestKeyRef = useRef<string | null>(null);
 
   async function loadWithdrawals() {
     try {
@@ -57,6 +58,7 @@ export default function Withdraw() {
     event.preventDefault();
 
     setSubmitting(true);
+    if (!requestKeyRef.current) requestKeyRef.current = window.crypto.randomUUID();
     setError("");
     setMessage("");
 
