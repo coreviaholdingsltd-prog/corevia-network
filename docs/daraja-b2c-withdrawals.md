@@ -7,11 +7,12 @@ The member withdrawal API now submits the net payout through Safaricom Daraja B2
 Set these in Vercel for Preview first. The callback URLs below use the Vercel branch alias generated for the current preview. If Vercel changes that alias, update both URLs to the current public preview alias:
 
 - `MPESA_ENV=sandbox`
+- `COREVIA_WITHDRAWALS_ENABLED=true` — set to `true` only for isolated Preview sandbox testing after confirming Preview uses a separate Neon database; keep `false` otherwise.
 - `MPESA_CONSUMER_KEY` — Daraja sandbox app consumer key
 - `MPESA_CONSUMER_SECRET` — Daraja sandbox app consumer secret
 - `MPESA_B2C_INITIATOR_NAME=testapi`
 - `MPESA_B2C_SECURITY_CREDENTIAL` — sandbox-generated encrypted security credential
-- `MPESA_B2C_PARTY_A=600986` — Daraja B2C sandbox test party A; do not use 174379 here
+- `MPESA_B2C_PARTY_A=600987` — Daraja B2C sandbox test party A; do not use 174379 here
 - `MPESA_B2C_CALLBACK_TOKEN` — generate a long random secret (at least 32 bytes)
 - `MPESA_B2C_RESULT_URL=https://corevia-network-git-feat-daraja-b2c-w-7cc8c3-okerimaxwell8-2828.vercel.app/api/mpesa/b2c/result`
 - `MPESA_B2C_TIMEOUT_URL=https://corevia-network-git-feat-daraja-b2c-w-7cc8c3-okerimaxwell8-2828.vercel.app/api/mpesa/b2c/timeout`
