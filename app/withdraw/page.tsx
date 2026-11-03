@@ -73,6 +73,7 @@ export default function Withdraw() {
         },
         body: JSON.stringify({
           amount,
+          requestKey: requestKeyRef.current,
         }),
       });
 
@@ -87,6 +88,8 @@ export default function Withdraw() {
         `Withdrawal request ${result.withdrawal.reference} submitted successfully.`,
       );
       setAmount("");
+      // A new key is used only after the server has acknowledged this request.
+      requestKeyRef.current = null;
 
       await loadWithdrawals();
     } catch {
@@ -211,6 +214,11 @@ export default function Withdraw() {
                   <p className="mt-2 text-xs text-[#12352c]/55">
                     {new Date(withdrawal.createdAt).toLocaleString()}
                   </p>
+                  {withdrawal.mpesaReceiptNumber && (
+                    <p className="mt-2 text-xs font-semibold text-[#12352c]">
+                      M-PESA receipt: {withdrawal.mpesaReceiptNumber}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
