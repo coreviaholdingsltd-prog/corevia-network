@@ -45,6 +45,9 @@ export async function POST(request: Request) {
     }
 
     const resultCode = Number(result.ResultCode);
+    if (!Number.isInteger(resultCode) || resultCode < 0 || (!originatorId && !conversationId)) {
+      return NextResponse.json({ error: "Invalid Safaricom result payload." }, { status: 400 });
+    }
     const resultDescription = String(result.ResultDesc || "Safaricom B2C result received.");
     if (resultCode === 0) {
       const receipt = resultParameter(result, "TransactionReceipt");
