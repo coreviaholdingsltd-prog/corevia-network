@@ -152,8 +152,14 @@ model Withdrawal {
   netAmount        Decimal          @db.Decimal(14, 2)
   status           WithdrawalStatus @default(PENDING)
   reference        String           @unique
-  paymentReference String?
-  createdAt        DateTime         @default(now())
+  paymentReference          String?
+  phoneNumber               String?
+  originatorConversationId  String?          @unique
+  conversationId            String?          @unique
+  resultCode                Int?
+  resultDescription         String?
+  mpesaReceiptNumber        String?
+  createdAt                 DateTime         @default(now())
   processedAt      DateTime?
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
