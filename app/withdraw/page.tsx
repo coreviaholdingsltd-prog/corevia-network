@@ -23,6 +23,9 @@ export default function Withdraw() {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const requestKeyRef = useRef<string | null>(null);
+  const hasPendingWithdrawal = withdrawals.some(
+    (withdrawal) => withdrawal.status === "PENDING" || withdrawal.status === "PROCESSING",
+  );
 
   async function loadWithdrawals() {
     try {
@@ -149,10 +152,10 @@ export default function Withdraw() {
             </div>
             <button
               type="submit"
-              disabled={submitting || balance <= 0}
+              disabled={submitting || balance <= 0 || hasPendingWithdrawal}
               className="mt-5 w-full rounded-xl bg-[#12352c] px-5 py-3.5 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {submitting ? "Submitting..." : "Request Withdrawal"}
+              {submitting ? "Submitting..." : hasPendingWithdrawal ? "Withdrawal Processing" : "Request Withdrawal"}
             </button>
           </form>
 
