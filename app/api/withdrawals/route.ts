@@ -8,6 +8,7 @@ import {
   getDarajaConfig,
   makeOriginatorConversationId,
   normalizeMpesaPhone,
+  assertB2CRecipientAllowed,
   submitB2CPayment,
 } from "@/lib/mpesa/b2c";
 import { settleWithdrawalFailure } from "@/lib/mpesa/settlement";
@@ -106,6 +107,8 @@ export async function POST(request: Request) {
 
     const config = getDarajaConfig();
     const phone = normalizeMpesaPhone(user.phone);
+    // Enforce sandbox recipient allowlist before OAuth and, critically, before any wallet debit.
+    assertB2CRecipientAllowed(config.environment, phone);
     // Authenticate before debiting the member wallet.
     const accessToken = await getDarajaAccessToken(config);
 
