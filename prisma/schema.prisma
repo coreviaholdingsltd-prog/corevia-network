@@ -153,6 +153,7 @@ model Withdrawal {
   status           WithdrawalStatus @default(PENDING)
   reference        String           @unique
   paymentReference          String?
+  requestKey                String?          @unique
   phoneNumber               String?
   originatorConversationId  String?          @unique
   conversationId            String?          @unique
