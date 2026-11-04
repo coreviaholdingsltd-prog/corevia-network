@@ -1,0 +1,96 @@
+import { prisma } from "@/lib/prisma";
+
+/**
+ * Settles a Paystack M-PESA withdrawal only from a signed, terminal transfer
+ * webhook. Paystack's transfer reference is stored in Withdrawal.paymentReference;
+ * it is deliberately not written into mpesaReceiptNumber (that field is Daraja-only).
+ */
+export async function settlePaystackWithdrawal(args: {
+  reference: string;
+  status: "success" | "failed" | "reversed";
+  amountSubunits: number;
+  currency: string;
+  transferCode?: string | null;
+}) {
+  if (!/^cvps_[a-z0-9_-]{16,45}$/.test(args.reference)) {
+    throw new Error("Invalid Corevia Paystack withdrawal reference.");
+  }
+  if (!Number.isSafeInteger(args.amountSubunits) || args.amountSubunits <= 0 || args.currency !== "KES") {
+    throw new Error("Invalid Paystack withdrawal amount or currency.");
+  }
+
+  return prisma.$transaction(async (tx) => {
+    const withdrawal = await tx.withdrawal.findFirst({
+      where: { paymentReference: args.reference },
+    });
+    if (!withdrawal) return { updated: false, reason: "unmatched" as const };
+
+    const expectedSubunits = Math.round(Number(withdrawal.netAmount) * 100);
+    if (args.amountSubunits !== expectedSubunits) {
+      throw new Error("Paystack transfer amount does not match the withdrawal's promised net payout.");
+    }
+
+    if (["PAID", "FAILED", "REJECTED"].includes(withdrawal.status)) {
+      return { updated: false, reason: "already_terminal" as const };
+    }
+
+    const now = new Date();
+    const success = args.status === "success";
+    const changed = await tx.withdrawal.updateMany({
+      where: {
+        id: withdrawal.id,
+        status: { in: ["PENDING", "PROCESSING"] },
+        paymentReference: args.reference,
+      },
+      data: {
+        status: success ? "PAID" : "FAILED",
+        resultCode: success ? 0 : 1,
+        resultDescription: success
+          ? "Paystack confirmed the M-PESA transfer as successful."
+          : `Paystack confirmed the M-PESA transfer as ${args.status}.`,
+        processedAt: now,
+      },
+    });
+    if (changed.count !== 1) return { updated: false, reason: "raced" as const };
+
+    if (!success) {
+      // A failed or reversed Paystack transfer is terminal. Restore the single
+      // wallet debit and reverse the Corevia fee accrual exactly once.
+      await tx.wallet.update({
+        where: { userId: withdrawal.userId },
+        data: { balance: { increment: withdrawal.amount } },
+      });
+      await tx.ledgerEntry.createMany({
+        data: [
+          {
+            ownerType: "MEMBER",
+            userId: withdrawal.userId,
+            amount: withdrawal.fee,
+            type: "WITHDRAWAL_FEE",
+            reference: `${withdrawal.reference}-FEE-REFUND-MEMBER`,
+            description: `Refund of Corevia withdrawal fee after Paystack ${args.status} for ${withdrawal.reference}`,
+          },
+          {
+            ownerType: "COREVIA",
+            amount: withdrawal.fee.negated(),
+            type: "WITHDRAWAL_FEE",
+            reference: `${withdrawal.reference}-FEE-REFUND-COREVIA`,
+            description: `Reversal of Corevia fee accrual after Paystack ${args.status} for ${withdrawal.reference}`,
+          },
+        ],
+        skipDuplicates: true,
+      });
+      await tx.walletTransaction.updateMany({
+        where: { reference: `${withdrawal.reference}-WALLET` },
+        data: { status: "FAILED" },
+      });
+    } else {
+      await tx.walletTransaction.updateMany({
+        where: { reference: `${withdrawal.reference}-WALLET` },
+        data: { status: "COMPLETED", completedAt: now },
+      });
+    }
+
+    return { updated: true, status: success ? "PAID" as const : "FAILED" as const };
+  });
+}
