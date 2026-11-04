@@ -18,8 +18,8 @@ export async function processWalletDeposit(payment: { reference: string; amount:
       throw new Error("Wallet deposit could not be claimed for processing.");
     }
     await tx.wallet.upsert({ where: { userId }, create: { userId, balance: record.amount }, update: { balance: { increment: record.amount } } });
-    await tx.walletTransaction.create({ data: { userId, type: "WALLET_DEPOSIT", status: "COMPLETED", amount: record.amount, reference: allocation, description: "Paystack wallet deposit", completedAt: paidAt } });
-    await tx.ledgerEntry.create({ data: { ownerType: "MEMBER", userId, amount: record.amount, type: "WALLET_DEPOSIT", reference: allocation + "-LEDGER", description: "Member wallet deposit confirmed by Paystack" } });
+    await tx.walletTransaction.create({ data: { userId, type: "ADJUSTMENT", status: "COMPLETED", amount: record.amount, reference: allocation, description: "Paystack wallet deposit", completedAt: paidAt } });
+    await tx.ledgerEntry.create({ data: { ownerType: "MEMBER", userId, amount: record.amount, type: "ADJUSTMENT", reference: allocation + "-LEDGER", description: "Member wallet deposit confirmed by Paystack" } });
     return { alreadyProcessed: false, reference, amount: Number(record.amount) };
   });
 }
