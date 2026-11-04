@@ -11,7 +11,7 @@ A provider outage must not stop the whole withdrawal service when the other prov
 
 ## Important account prerequisites
 
-Paystack documents Kenya mobile-money transfers to M-PESA customers, and Kenya business mobile-money recipients use `MPESA`. Paystack also documents business mobile-money recipients for Till numbers using `MPTILL`. These capabilities are not proof that Corevia's own Paystack integration has Transfers enabled. Before enabling Paystack payouts, verify that the Corevia account is a registered business, Transfers are enabled, the Paystack balance is available, and the account's approval configuration permits fully automated transfers without manual OTP.
+Paystack documents Kenya mobile-money transfers to M-PESA customers, and Kenya business mobile-money recipients use `MPESA`. Paystack also documents business mobile-money recipients for Till numbers using `MPTILL`. These capabilities are not proof that Corevia's own Paystack integration has Transfers enabled. Before enabling Paystack payouts, verify that the Corevia account is a registered business, Transfers are enabled, the Paystack KES balance is available (including transfer fees), and the Dashboard's **Confirm transfers before sending** setting is disabled. The code requires `COREVIA_PAYSTACK_WITHDRAWALS_ENABLED=true` and `COREVIA_PAYSTACK_NO_OTP_CONFIRMED=true`; these are explicit operator attestations, not automatic proof of Paystack approval.
 
 Safaricom B2C remains subject to Safaricom's B2C account onboarding, bank mapping, settlement-option change, production credentials, and available Utility-account float.
 
@@ -46,7 +46,7 @@ Safaricom B2C remains subject to Safaricom's B2C account onboarding, bank mappin
 
 ## Current repository state
 
-The withdrawal route now supports Paystack and Daraja selection with pre-debit fallback. Paystack's KES balance is checked before wallet debit; Daraja uses its existing float reservation model. The database still lacks provider-attempt rows and separate Paystack float reservations. Preview withdrawal execution remains disabled until database isolation and provider readiness are proven.
+The withdrawal route now supports Paystack and Daraja selection with pre-debit fallback. In `auto` mode it prefers Paystack, checks the Paystack KES balance and recipient before wallet debit, and can preflight Daraja if Paystack is not ready or lacks the payout principal. Paystack fees are additional and Paystack remains the authority on whether the balance covers principal plus fees. Daraja uses its existing float reservation model. The database still lacks provider-attempt rows and separate Paystack float reservations. Preview withdrawal execution remains disabled until database isolation and provider readiness are proven.
 
 ## Safety rule
 
