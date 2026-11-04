@@ -26,17 +26,19 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const result = body?.Result as Record<string, unknown> | undefined;
-    if (!result) return NextResponse.json({ Result: "Ignored: missing result payload." });
+    if (!result) return NextResponse.json({ error: "Missing Safaricom result payload." }, { status: 400 });
 
     const originatorId = String(result.OriginatorConversationID || "");
     const conversationId = String(result.ConversationID || "");
     const rawResultCode = result.ResultCode;
-    const resultCode = Number(rawResultCode);
+    const resultCode = typeof rawResultCode === "number"
+      ? rawResultCode
+      : typeof rawResultCode === "string" && /^\\d+$/.test(rawResultCode)
+        ? Number(rawResultCode)
+        : Number.NaN;
+
     if (
-      rawResultCode === undefined ||
-      rawResultCode === null ||
-      rawResultCode === "" ||
-      !Number.isInteger(resultCode) ||
+      !Number.isSafeInteger(resultCode) ||
       resultCode < 0 ||
       (!originatorId && !conversationId)
     ) {
@@ -57,16 +59,28 @@ export async function POST(request: Request) {
       return NextResponse.json({ Result: "Accepted: no matching withdrawal." });
     }
 
-    const resultDescription = String(result.ResultDesc || "Safaricom B2C result received.");
+    const resultDescription = typeof result.ResultDesc === "string" ? result.ResultDesc : "";
     if (resultCode === 0) {
-      const receipt = resultParameter(result, "TransactionReceipt");
+      const rawReceipt = resultParameter(result, "TransactionReceipt");
+      const receipt = typeof rawReceipt === "string" ? rawReceipt.trim() : "";
+      if (!/^[A-Z0-9]{8,20}$/i.test(receipt) || !resultDescription.trim()) {
+        console.error("Successful Daraja callback is missing a valid receipt or description.", {
+          reference: withdrawal.reference,
+          conversationId,
+        });
+        return NextResponse.json({ error: "Successful result is incomplete; withdrawal remains processing for reconciliation." }, { status: 400 });
+      }
+
       await settleWithdrawalSuccess(withdrawal.reference, {
         resultCode,
         resultDescription,
-        receiptNumber: receipt == null ? null : String(receipt),
+        receiptNumber: receipt,
         conversationId: conversationId || null,
       });
     } else {
+      if (!resultDescription.trim()) {
+        return NextResponse.json({ error: "Failure result is missing its description; withdrawal remains processing." }, { status: 400 });
+      }
       await settleWithdrawalFailure(withdrawal.reference, resultCode, resultDescription);
     }
 
