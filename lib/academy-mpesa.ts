@@ -41,7 +41,8 @@ export async function initiateAcademyMpesaPush(input: {
   if (!tokenResponse.ok || !tokenData.access_token) throw new Error("Unable to authenticate with Safaricom Daraja.");
 
   const parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Africa/Nairobi", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" }).formatToParts(new Date());
-  const part = (type: string) => parts.find((item) => item.type === type)?.value ?? "";\n  const timestamp = `${part("year")}${part("month")}${part("day")}${part("hour")}${part("minute")}${part("second")}`;
+  const part = (type: string) => parts.find((item) => item.type === type)?.value ?? "";
+  const timestamp = `${part("year")}${part("month")}${part("day")}${part("hour")}${part("minute")}${part("second")}`;
   const password = Buffer.from(`${config.shortcode}${config.passkey}${timestamp}`).toString("base64");
   const phone = normalizeMpesaPhone(input.phone);
   if (!phone) throw new Error("Enter a valid Kenyan M-PESA phone number.");
