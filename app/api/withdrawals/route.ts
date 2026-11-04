@@ -47,7 +47,12 @@ export async function GET() {
         select: {
           id: true, amount: true, fee: true, netAmount: true, status: true,
           reference: true, paymentReference: true, mpesaReceiptNumber: true,
-          resultCode: true, resultDescription: true,
+          resultCode: true, resultDescription: true, payoutProvider: true,
+          providerAttempts: {
+            orderBy: { attemptNumber: "desc" },
+            take: 1,
+            select: { provider: true, status: true, errorDescription: true },
+          },
           createdAt: true, processedAt: true,
         },
       }),
