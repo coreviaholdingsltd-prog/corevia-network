@@ -3,12 +3,12 @@ import { prisma } from "@/lib/prisma";
 function mpesaConfig() {
   const consumerKey = process.env.MPESA_CONSUMER_KEY;
   const consumerSecret = process.env.MPESA_CONSUMER_SECRET;
-  const shortcode = process.env.MPESA_SHORTCODE || "6959300";
+  const shortcode = process.env.MPESA_SHORTCODE;
   const passkey = process.env.MPESA_PASSKEY;
   const callbackUrl = process.env.MPESA_ACADEMY_CALLBACK_URL;
   const callbackToken = process.env.MPESA_CALLBACK_TOKEN;
   const environment = process.env.MPESA_ENV === "production" ? "production" : "sandbox";
-  if (!consumerKey || !consumerSecret || !passkey || !callbackUrl || !callbackToken) {
+  if (!consumerKey || !consumerSecret || !shortcode || !passkey || !callbackUrl || !callbackToken) {
     throw new Error("M-PESA Academy collection is not configured. Add the Daraja credentials and callback URL in Vercel.");
   }
   if (!callbackUrl.startsWith("https://")) throw new Error("The M-PESA callback URL must use HTTPS.");
