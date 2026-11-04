@@ -241,9 +241,9 @@ export async function POST(request: Request) {
     {
       try {
         const transfer = await initiateKenyaMpesaTransfer({
-          recipientCode: paystackRecipientCode!,
+          recipientCode,
           amountKsh: netAmount,
-          reference: paystackReference!,
+          reference: paystackReference,
           reason: `Corevia Network withdrawal ${reference}`,
         });
         // The initiation response is an acknowledgement, not our settlement
