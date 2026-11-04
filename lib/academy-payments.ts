@@ -25,7 +25,7 @@ export async function processAcademyCoursePayment(
   });
   if (!stored) throw new Error("Academy payment reference was not found.");
   if (expectedUserId && stored.userId !== expectedUserId) throw new Error("This payment belongs to another member.");
-  if (payment.metadata?.userId !== stored.userId || payment.metadata?.courseId !== stored.courseId || payment.metadata?.enrollmentId !== stored.enrollmentId) {
+  if (payment.metadata?.userId !== stored.userId || payment.metadata?.courseId !== stored.courseId || payment.metadata?.enrollmentId !== stored.enrollmentId || payment.metadata?.qualificationLevel !== stored.qualificationLevel) {
     throw new Error("Course payment metadata does not match the saved enrollment.");
   }
   if (Number(payment.amount) !== Math.round(Number(stored.amount) * 100)) {
