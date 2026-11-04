@@ -31,6 +31,37 @@ export async function settleWithdrawalFailure(
       data: { balance: { increment: withdrawal.amount } },
     });
 
+    const reservation = await tx.payoutFloatReservation.findUnique({
+      where: { withdrawalId: withdrawal.id },
+    });
+    if (reservation?.status === "RESERVED") {
+      const released = await tx.payoutFloatReservation.updateMany({
+        where: { id: reservation.id, status: "RESERVED" },
+        data: { status: "RELEASED" },
+      });
+      if (released.count === 1) {
+        const accountUpdated = await tx.payoutFloatAccount.updateMany({
+          where: { id: reservation.accountId, reservedBalance: { gte: reservation.amount } },
+          data: {
+            reservedBalance: { decrement: reservation.amount },
+            availableBalance: { increment: reservation.amount },
+          },
+        });
+        if (accountUpdated.count !== 1) {
+          throw new Error("Payout float reservation could not be released safely; transaction rolled back.");
+        }
+        await tx.payoutFloatEntry.create({
+          data: {
+            accountId: reservation.accountId,
+            reference: `${reference}-FLOAT-RELEASE`,
+            type: "RELEASE",
+            amount: reservation.amount,
+            description: `Released reserved M-PESA payout float after confirmed failure of ${reference}`,
+          },
+        });
+      }
+    }
+
     await tx.ledgerEntry.createMany({
       data: [
         {
@@ -97,6 +128,34 @@ export async function settleWithdrawalSuccess(
       },
     });
     if (changed.count !== 1) return { updated: false };
+
+    const reservation = await tx.payoutFloatReservation.findUnique({
+      where: { withdrawalId: withdrawal.id },
+    });
+    if (reservation?.status === "RESERVED") {
+      const settled = await tx.payoutFloatReservation.updateMany({
+        where: { id: reservation.id, status: "RESERVED" },
+        data: { status: "SETTLED" },
+      });
+      if (settled.count === 1) {
+        const accountUpdated = await tx.payoutFloatAccount.updateMany({
+          where: { id: reservation.accountId, reservedBalance: { gte: reservation.amount } },
+          data: { reservedBalance: { decrement: reservation.amount } },
+        });
+        if (accountUpdated.count !== 1) {
+          throw new Error("Payout float reservation could not be settled safely; transaction rolled back.");
+        }
+        await tx.payoutFloatEntry.create({
+          data: {
+            accountId: reservation.accountId,
+            reference: `${reference}-FLOAT-SETTLED`,
+            type: "SETTLEMENT",
+            amount: reservation.amount,
+            description: `Consumed reserved M-PESA Utility payout float after confirmed success of ${reference}`,
+          },
+        });
+      }
+    }
 
     await tx.walletTransaction.updateMany({
       where: { reference: `${reference}-WALLET` },
