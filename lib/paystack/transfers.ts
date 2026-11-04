@@ -79,7 +79,8 @@ export async function initiateKenyaMpesaTransfer(args: {
   reference: string;
   reason: string;
 }) {
-  if (!Number.isSafeInteger(args.amountKsh) || args.amountKsh < 10 || args.amountKsh > 250000) {
+  const amountSubunits = Math.round(args.amountKsh * 100);
+  if (!Number.isSafeInteger(amountSubunits) || amountSubunits < 1000 || amountSubunits > 25000000) {
     throw new Error("Paystack Kenya M-PESA customer transfers must be between KES 10 and KES 250,000.");
   }
   if (!/^[a-z0-9_-]{16,50}$/.test(args.reference)) {
@@ -94,7 +95,7 @@ export async function initiateKenyaMpesaTransfer(args: {
     method: "POST",
     body: JSON.stringify({
       source: "balance",
-      amount: args.amountKsh * 100,
+      amount: amountSubunits,
       recipient: args.recipientCode,
       reference: args.reference,
       reason: args.reason.slice(0, 100),
