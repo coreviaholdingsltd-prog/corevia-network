@@ -214,7 +214,7 @@ export default function Withdraw() {
 
             <div role="note" className="mt-5 rounded-xl border border-[#b99a58]/30 bg-[#f7f5ef] px-4 py-3">
               <p className="text-sm font-semibold text-[#12352c]">Withdrawal Notice</p>
-              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Your withdrawal is sent automatically to your registered M-PESA number. Processing may take up to 24 hours. A request is marked PAID only after Safaricom confirms the payout. Do not submit the same withdrawal again while it is PROCESSING.</p>
+              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Your withdrawal is sent automatically to your registered M-PESA number. Processing may take up to 24 hours. A request is marked PAID only after Paystack confirms the M-PESA transfer. Do not submit the same withdrawal again while it is PROCESSING.</p>
             </div>
             <button
               type="submit"
