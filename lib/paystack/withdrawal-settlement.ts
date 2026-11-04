@@ -78,7 +78,13 @@ export async function settlePaystackWithdrawal(args: {
     const reservation = await tx.payoutFloatReservation.findUnique({
       where: { withdrawalId: withdrawal.id },
     });
-    if (reservation && (reservation.status === "RESERVED" || (args.status === "reversed" && reservation.status === "SETTLED"))) {
+    if (
+      reservation &&
+      (
+        (reservation.status === "RESERVED" && !success) ||
+        (args.status === "reversed" && reservation.status === "SETTLED")
+      )
+    ) {
       const released = await tx.payoutFloatReservation.updateMany({
         where: {
           id: reservation.id,
