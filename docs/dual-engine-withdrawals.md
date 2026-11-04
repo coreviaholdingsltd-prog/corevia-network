@@ -48,7 +48,7 @@ Production gates remain independent: `COREVIA_LIVE_WITHDRAWALS_APPROVED`, `COREV
 Implemented on this feature branch:
 - Daraja B2C and Paystack M-PESA initiation adapters.
 - Pre-debit provider selection and fallback.
-- Separate provider float accounts and atomic Paystack float reservation.
+- Separate provider float accounts and atomic Paystack float reservation, with distinct success-settlement versus failure-release paths.
 - Durable provider-attempt records and provider references.
 - Signed Paystack transfer webhook settlement and authenticated Daraja callback settlement.
 - Paystack verification/reconciliation cron.
