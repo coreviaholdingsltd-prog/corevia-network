@@ -245,7 +245,7 @@ export async function POST(request: Request) {
     }
 
     const responseCode = acknowledgement?.ResponseCode;
-    if (typeof responseCode !== "string" || !/^\\d+$/.test(responseCode)) {
+    if (typeof responseCode !== "string" || !/^\d+$/.test(responseCode)) {
       // An invalid acknowledgement is ambiguous. Never refund or retry automatically.
       console.error("Daraja returned a malformed B2C acknowledgement; leaving withdrawal processing.", {
         reference,
