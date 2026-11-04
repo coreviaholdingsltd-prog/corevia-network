@@ -314,6 +314,10 @@ model AcademyPayment {
   courseId          String
   amount            Decimal           @db.Decimal(14, 2)
   qualificationLevel String           @default("CERTIFICATE")
+  providerCheckoutId String?           @unique
+  merchantRequestId  String?
+  mpesaReceiptNumber String?           @unique
+  payerPhone         String?
   provider          String
   providerReference String            @unique
   status            TransactionStatus @default(PENDING)
