@@ -560,7 +560,15 @@ export default function AcademyPage() {
                           <option key={key} value={key}>{item.label} — {money(item.feeKsh)}</option>
                         ))}
                       </select>
-                      <span className="mt-1 block text-xs font-normal text-slate-400">The selected study pathway sets the course fee. Completion records confirm this course only; they do not represent an accredited academic degree.</span>\n                      <span className="mt-4 block text-sm font-semibold text-slate-200">Payment method</span>\n                      <select value={paymentMethodByCourse[course.id] ?? "PAYSTACK"} onChange={(event) => setPaymentMethodByCourse((current) => ({ ...current, [course.id]: event.target.value as "PAYSTACK" | "MPESA" }))} className="mt-2 w-full rounded-xl border border-white/15 bg-slate-900 px-3 py-3 text-white">\n                        <option value="PAYSTACK">Paystack</option>\n                        <option value="MPESA">M-PESA STK Push</option>\n                      </select>\n                      {(paymentMethodByCourse[course.id] ?? "PAYSTACK") === "MPESA" && (\n                        <input type="tel" inputMode="tel" autoComplete="tel" placeholder="M-PESA number e.g. 0712345678" value={mpesaPhoneByCourse[course.id] ?? ""} onChange={(event) => setMpesaPhoneByCourse((current) => ({ ...current, [course.id]: event.target.value }))} className="mt-3 w-full rounded-xl border border-white/15 bg-slate-900 px-3 py-3 text-white" />\n                      )}
+                      <span className="mt-1 block text-xs font-normal text-slate-400">The selected study pathway sets the course fee. Completion records confirm this course only; they do not represent an accredited academic degree.</span>
+                      <span className="mt-4 block text-sm font-semibold text-slate-200">Payment method</span>
+                      <select value={paymentMethodByCourse[course.id] ?? "PAYSTACK"} onChange={(event) => setPaymentMethodByCourse((current) => ({ ...current, [course.id]: event.target.value as "PAYSTACK" | "MPESA" }))} className="mt-2 w-full rounded-xl border border-white/15 bg-slate-900 px-3 py-3 text-white">
+                        <option value="PAYSTACK">Paystack</option>
+                        <option value="MPESA">M-PESA STK Push</option>
+                      </select>
+                      {(paymentMethodByCourse[course.id] ?? "PAYSTACK") === "MPESA" && (
+                        <input type="tel" inputMode="tel" autoComplete="tel" placeholder="M-PESA number e.g. 0712345678" value={mpesaPhoneByCourse[course.id] ?? ""} onChange={(event) => setMpesaPhoneByCourse((current) => ({ ...current, [course.id]: event.target.value }))} className="mt-3 w-full rounded-xl border border-white/15 bg-slate-900 px-3 py-3 text-white" />
+                      )}
                     </label>
                   )}
 
