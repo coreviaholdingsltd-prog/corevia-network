@@ -628,8 +628,7 @@ export default function AcademyPage() {
                         ? course.completion
                           ? "View completion record"
                           : "Open course"
-                        : `Enroll & Pay ${money(ACADEMY_QUALIFICATION_LEVELS[qualificationByCourse[course.id] ?? "CERTIFICATE"].feeKsh)}`
-                          : "Enroll"}
+                        : `Enroll & Pay ${money(ACADEMY_QUALIFICATION_LEVELS[qualificationByCourse[course.id] ?? "CERTIFICATE"].feeKsh)}` }
                   </button>
                 </article>
               ))}
