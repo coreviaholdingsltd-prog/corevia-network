@@ -40,6 +40,20 @@ export async function settlePaystackWithdrawal(args: {
 
     const now = new Date();
     const success = args.status === "success";
+    await tx.payoutProviderAttempt.updateMany({
+      where: { withdrawalId: withdrawal.id, providerReference: args.reference },
+      data: {
+        status: success ? "SUCCEEDED" : args.status === "reversed" ? "REVERSED" : "FAILED",
+        providerTransferId: args.transferCode ?? undefined,
+        completedAt: now,
+        responsePayload: {
+          status: args.status,
+          amount: args.amountSubunits,
+          currency: args.currency,
+          transferCode: args.transferCode ?? null,
+        },
+      },
+    });
     const allowedStatuses: ("PENDING" | "PROCESSING" | "PAID")[] = args.status === "reversed"
       ? ["PENDING", "PROCESSING", "PAID"]
       : ["PENDING", "PROCESSING"];
