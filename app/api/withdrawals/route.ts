@@ -36,8 +36,7 @@ export async function GET() {
         orderBy: { createdAt: "desc" },
         select: {
           id: true, amount: true, fee: true, netAmount: true, status: true,
-          reference: true, paymentReference: true, mpesaReceiptNumber: true,
-          resultCode: true, resultDescription: true,
+          reference: true, paymentReference: true,
           createdAt: true, processedAt: true,
         },
       }),
