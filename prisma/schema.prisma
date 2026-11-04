@@ -163,8 +163,59 @@ model Withdrawal {
   createdAt                 DateTime         @default(now())
   processedAt      DateTime?
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payoutFloatReservation PayoutFloatReservation?
 
   @@index([userId, createdAt])
+}
+
+model PayoutFloatAccount {
+  id               String                  @id @default("primary")
+  availableBalance Decimal                 @default(0) @db.Decimal(14, 2)
+  reservedBalance  Decimal                 @default(0) @db.Decimal(14, 2)
+  createdAt        DateTime                @default(now())
+  updatedAt        DateTime                @updatedAt
+  reservations     PayoutFloatReservation[]
+  entries          PayoutFloatEntry[]
+}
+
+model PayoutFloatReservation {
+  id           String                        @id @default(cuid())
+  accountId    String                        @default("primary")
+  withdrawalId String                        @unique
+  amount       Decimal                       @db.Decimal(14, 2)
+  status       PayoutFloatReservationStatus   @default(RESERVED)
+  createdAt    DateTime                      @default(now())
+  updatedAt    DateTime                      @updatedAt
+  account      PayoutFloatAccount            @relation(fields: [accountId], references: [id], onDelete: Restrict)
+  withdrawal   Withdrawal                    @relation(fields: [withdrawalId], references: [id], onDelete: Restrict)
+
+  @@index([status, createdAt])
+}
+
+model PayoutFloatEntry {
+  id          String                 @id @default(cuid())
+  accountId   String                 @default("primary")
+  reference   String                 @unique
+  type        PayoutFloatEntryType
+  amount      Decimal                @db.Decimal(14, 2)
+  description String
+  createdAt   DateTime               @default(now())
+  account     PayoutFloatAccount     @relation(fields: [accountId], references: [id], onDelete: Restrict)
+
+  @@index([type, createdAt])
+}
+
+enum PayoutFloatReservationStatus {
+  RESERVED
+  SETTLED
+  RELEASED
+}
+
+enum PayoutFloatEntryType {
+  FUNDING
+  RESERVATION
+  SETTLEMENT
+  RELEASE
 }
 
 model SpinEvent {
