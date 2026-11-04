@@ -27,6 +27,12 @@ export async function POST(request: Request) {
       data?: Record<string, unknown>;
     };
     const data = event.data;
+    const asRecord = (value: unknown): Record<string, unknown> | null =>
+      typeof value === "object" && value !== null && !Array.isArray(value)
+        ? value as Record<string, unknown>
+        : null;
+    const asOptionalString = (value: unknown): string | null =>
+      typeof value === "string" ? value : null;
 
     if (event.event === "charge.success") {
       const payment = data;
@@ -40,8 +46,8 @@ export async function POST(request: Request) {
           amount: Number(payment?.amount ?? 0),
           currency: String(payment?.currency ?? ""),
           status: String(payment?.status ?? ""),
-          paid_at: typeof payment?.paid_at === "string" ? payment.paid_at : null,
-          metadata: typeof payment?.metadata === "object" && payment.metadata !== null ? payment.metadata as Record<string, unknown> : null,
+          paid_at: asOptionalString(payment?.paid_at),
+          metadata: asRecord(payment?.metadata),
         });
         console.log("Corevia membership webhook processed:", result);
       } else if (purpose === "COREVIA_ACADEMY_COURSE") {
@@ -50,8 +56,8 @@ export async function POST(request: Request) {
           amount: Number(payment?.amount ?? 0),
           currency: String(payment?.currency ?? ""),
           status: String(payment?.status ?? ""),
-          paid_at: payment?.paid_at ?? null,
-          metadata: payment?.metadata ?? null,
+          paid_at: asOptionalString(payment?.paid_at),
+          metadata: asRecord(payment?.metadata),
         });
         console.log("Corevia Academy payment processed:", result);
       }
