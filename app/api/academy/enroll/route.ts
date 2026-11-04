@@ -152,6 +152,8 @@ export async function POST(request: Request) {
       orderBy: { createdAt: "desc" },
     });
 
+    let pendingPaymentFailed = false;
+
     if (pendingPayment) {
       let verifyResponse: Response;
       let verifyData: {
@@ -230,6 +232,7 @@ export async function POST(request: Request) {
           where: { id: pendingPayment.id, status: "PENDING" },
           data: { status: "FAILED" },
         });
+        pendingPaymentFailed = true;
       } else {
         return NextResponse.json(
           {
@@ -241,7 +244,7 @@ export async function POST(request: Request) {
       }
     }
 
-    if (existing && existing.status === "PENDING_PAYMENT" && !pendingPayment) {
+    if (existing && existing.status === "PENDING_PAYMENT" && (!pendingPayment || pendingPaymentFailed)) {
       await prisma.academyEnrollment.update({
         where: { id: existing.id },
         data: { qualificationLevel, qualificationFeeKsh: qualification.feeKsh },
