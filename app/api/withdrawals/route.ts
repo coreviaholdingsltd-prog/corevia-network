@@ -77,12 +77,11 @@ export async function POST(request: Request) {
       (isProductionDeployment || mpesaEnvironment === "production") &&
       (
         process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED !== "true" ||
-        process.env.COREVIA_PAYOUT_FLOAT_READY !== "true" ||
         process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true"
       )
     ) {
       return NextResponse.json({
-        error: "Live withdrawals are locked until Safaricom production approval, verified client payout float, and the separate Corevia Till fee-transfer route are all confirmed.",
+        error: "Live withdrawals are locked until company live-payout approval and the separate Corevia Till fee-transfer route are confirmed.",
       }, { status: 503 });
     }
     const user = await getSessionUser();
@@ -153,7 +152,13 @@ export async function POST(request: Request) {
             process.env.COREVIA_PAYSTACK_WITHDRAWALS_ENABLED !== "true" ||
             process.env.COREVIA_PAYSTACK_NO_OTP_CONFIRMED !== "true"
           ) {
-            throw new Error("Paystack Transfers or automated approval is not confirmed.");
+            throw new Error("Paystack Transfers or no-OTP automated approval is not confirmed.");
+          }
+          if (isProductionDeployment && (
+            process.env.COREVIA_PAYSTACK_LIVE_READY !== "true" ||
+            process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true"
+          )) {
+            throw new Error("Paystack live transfer approval or funded KES float is not confirmed.");
           }
           const recipient = await createKenyaMpesaRecipient({ name: user.name, phone });
           if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money") {
@@ -165,8 +170,12 @@ export async function POST(request: Request) {
           break;
         }
 
-        if (isProductionDeployment && mpesaEnvironment !== "production") {
-          throw new Error("Production Daraja requires MPESA_ENV=production.");
+        if (isProductionDeployment && (
+          mpesaEnvironment !== "production" ||
+          process.env.COREVIA_DARAJA_LIVE_READY !== "true" ||
+          process.env.COREVIA_DARAJA_FLOAT_READY !== "true"
+        )) {
+          throw new Error("Safaricom B2C production approval, credentials, or Utility float is not confirmed.");
         }
         config = getDarajaConfig();
         assertB2CRecipientAllowed(config.environment, phone);
@@ -223,8 +232,12 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Paystack's available KES balance is below this payout. Your wallet has not been debited." }, { status: 503 });
       }
       try {
-        if (isProductionDeployment && mpesaEnvironment !== "production") {
-          throw new Error("Production Daraja requires MPESA_ENV=production.");
+        if (isProductionDeployment && (
+          mpesaEnvironment !== "production" ||
+          process.env.COREVIA_DARAJA_LIVE_READY !== "true" ||
+          process.env.COREVIA_DARAJA_FLOAT_READY !== "true"
+        )) {
+          throw new Error("Safaricom B2C production approval, credentials, or Utility float is not confirmed.");
         }
         const fallbackConfig = getDarajaConfig();
         assertB2CRecipientAllowed(fallbackConfig.environment, phone);
