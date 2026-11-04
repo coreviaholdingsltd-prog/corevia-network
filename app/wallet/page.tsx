@@ -459,14 +459,14 @@ export default function Wallet() {
         cache: "no-store",
       });
       const result = await response.json();
-      if (!response.ok || result.status !== true) {
+      if (!response.ok || result.status !== true || typeof result.authorizationUrl !== "string") {
         if (typeof result.reference === "string") setPendingDepositReference(result.reference);
-        throw new Error(result.error || "Unable to start wallet deposit.");
+        throw new Error(result.error || "Unable to open Paystack checkout.");
       }
       setPendingDepositReference(result.reference || "");
-      setDepositMessage(result.displayText || result.message || "M-PESA payment request sent. Check your phone and authorize it with your M-PESA PIN.");
+      window.location.assign(result.authorizationUrl);
     } catch (err) {
-      setDepositError(err instanceof Error ? err.message : "Unable to start wallet deposit.");
+      setDepositError(err instanceof Error ? err.message : "Unable to open Paystack checkout.");
       setDepositing(false);
     }
   }
@@ -798,7 +798,7 @@ export default function Wallet() {
                 className="mt-5 w-full rounded-xl bg-[#12352c] px-5 py-3.5 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {paying
-                  ? "Opening Paystack..."
+                  ? "Redirecting to Paystack..."
                   : "Pay KES 1,000 & Activate"}
               </button>
 
@@ -839,7 +839,7 @@ export default function Wallet() {
             <section className="mt-6 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-[#12352c]/10 sm:p-6">
               <h2 className="text-xl font-bold">Add Money to Wallet</h2>
               <p className="mt-2 text-sm leading-6 text-[#12352c]/70">
-                Fund your member wallet securely through Paystack STK Push. Your wallet is credited only after Paystack confirms a successful payment.
+                Fund your member wallet through secure Paystack Checkout. Select M-PESA on the Paystack payment page. Your wallet is credited only after Paystack confirms successful payment.
               </p>
               <form className="mt-5 space-y-4" onSubmit={(event) => { event.preventDefault(); void startWalletDeposit(); }}>
                 <div>
@@ -847,12 +847,12 @@ export default function Wallet() {
                   <input id="walletDepositAmount" type="number" min="100" max="150000" step="0.01" value={depositAmount} onChange={(event) => setDepositAmount(event.target.value)} disabled={depositing} required className="w-full rounded-xl border border-[#12352c]/20 bg-white px-4 py-3 text-[#12352c] outline-none focus:border-[#b99a58] disabled:bg-gray-100" />
                 </div>
                 <button type="submit" disabled={depositing || !Number.isFinite(Number(depositAmount)) || Number(depositAmount) < 100 || Number(depositAmount) > 150000} className="w-full rounded-xl bg-[#12352c] px-5 py-3.5 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60">
-                  {depositing ? "Opening Paystack..." : "Deposit with M-PESA"}
+                  {depositing ? "Opening Paystack..." : "Continue to Paystack"}
                 </button>
               </form>
               {pendingDepositReference && (
                 <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4">
-                  <p className="text-sm font-semibold text-amber-900">Pending deposit needs confirmation</p>
+                  <p className="text-sm font-semibold text-amber-900">Wallet payment awaiting confirmation</p>
                   <p className="mt-1 text-xs text-amber-800">Reference: {pendingDepositReference}</p>
                   <button type="button" onClick={() => void verifyPendingWalletDeposit()} disabled={verifyingDeposit} className="mt-3 w-full rounded-xl bg-[#12352c] px-4 py-3 text-sm font-semibold text-white disabled:opacity-60">
                     {verifyingDeposit ? "Checking Paystack..." : "Verify Pending Deposit"}
