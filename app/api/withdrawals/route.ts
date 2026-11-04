@@ -306,8 +306,25 @@ export async function POST(request: Request) {
           phoneNumber: phone,
           originatorConversationId,
           paymentReference: paystackReference,
+          payoutProvider: payoutProvider === "paystack" ? "PAYSTACK" : "DARAJA",
         },
         select: { id: true, amount: true, fee: true, netAmount: true, status: true, reference: true, createdAt: true },
+      });
+
+      await tx.payoutProviderAttempt.create({
+        data: {
+          withdrawalId: withdrawal.id,
+          provider: payoutProvider === "paystack" ? "PAYSTACK" : "DARAJA",
+          attemptNumber: 1,
+          providerReference: paystackReference ?? originatorConversationId!,
+          status: "PREFLIGHT",
+          requestPayload: {
+            amountKsh: netAmount,
+            currency: "KES",
+            phone,
+            provider: payoutProvider,
+          },
+        },
       });
 
       // Production B2C payouts must be backed by a separately funded Utility-account float.
@@ -375,11 +392,33 @@ export async function POST(request: Request) {
 
     if (payoutProvider === "paystack") {
       try {
+        await prisma.payoutProviderAttempt.updateMany({
+          where: { withdrawalId: created.withdrawal.id, attemptNumber: 1, status: "PREFLIGHT" },
+          data: { status: "SUBMITTED" },
+        });
         const transfer = await initiateKenyaMpesaTransfer({
           recipientCode: paystackRecipientCode!,
           amountKsh: netAmount,
           reference: paystackReference!,
           reason: `Corevia Network withdrawal ${reference}`,
+        });
+        await prisma.payoutProviderAttempt.updateMany({
+          where: { withdrawalId: created.withdrawal.id, attemptNumber: 1 },
+          data: {
+            status: transfer.status === "success" ? "SUCCEEDED"
+              : transfer.status === "failed" ? "FAILED"
+              : transfer.status === "reversed" ? "REVERSED"
+              : transfer.status === "pending" || transfer.status === "otp" ? "ACCEPTED" : "AMBIGUOUS",
+            providerTransferId: transfer.transfer_code,
+            acceptedAt: new Date(),
+            responsePayload: {
+              status: transfer.status,
+              transferCode: transfer.transfer_code,
+              amount: transfer.amount,
+              currency: transfer.currency,
+            },
+            completedAt: ["success", "failed", "reversed"].includes(transfer.status) ? new Date() : null,
+          },
         });
         if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed") {
           await settlePaystackWithdrawal({
@@ -401,6 +440,13 @@ export async function POST(request: Request) {
       } catch (error) {
         // A network timeout or provider error after transfer submission is ambiguous.
         // Keep the wallet debit and provider lock; never send the same withdrawal to Daraja.
+        await prisma.payoutProviderAttempt.updateMany({
+          where: { withdrawalId: created.withdrawal.id, attemptNumber: 1, status: { in: ["PREFLIGHT", "SUBMITTED"] } },
+          data: {
+            status: "AMBIGUOUS",
+            errorDescription: error instanceof Error ? error.message.slice(0, 500) : "Unknown transfer submission outcome",
+          },
+        });
         console.error("Paystack transfer submission outcome is uncertain:", error);
         return NextResponse.json({
           status: true,
@@ -416,11 +462,22 @@ export async function POST(request: Request) {
     }
     let acknowledgement;
     try {
+      await prisma.payoutProviderAttempt.updateMany({
+        where: { withdrawalId: created.withdrawal.id, attemptNumber: 1, status: "PREFLIGHT" },
+        data: { status: "SUBMITTED" },
+      });
       acknowledgement = await submitB2CPayment({
         config, accessToken, amount: netAmount, phone, reference, originatorConversationId,
       });
     } catch (error) {
       // Do not refund on an ambiguous network/HTTP failure: Safaricom may have accepted the payout.
+      await prisma.payoutProviderAttempt.updateMany({
+        where: { withdrawalId: created.withdrawal.id, attemptNumber: 1, status: { in: ["PREFLIGHT", "SUBMITTED"] } },
+        data: {
+          status: "AMBIGUOUS",
+          errorDescription: error instanceof Error ? error.message.slice(0, 500) : "Unknown Daraja submission outcome",
+        },
+      });
       console.error("Daraja B2C submission outcome is uncertain:", error);
       return NextResponse.json({
         status: true,
@@ -433,6 +490,14 @@ export async function POST(request: Request) {
     const responseCode = acknowledgement?.ResponseCode;
     if (typeof responseCode !== "string" || !/^\d+$/.test(responseCode)) {
       // An invalid acknowledgement is ambiguous. Never refund or retry automatically.
+      await prisma.payoutProviderAttempt.updateMany({
+        where: { withdrawalId: created.withdrawal.id, attemptNumber: 1 },
+        data: {
+          status: "AMBIGUOUS",
+          responsePayload: acknowledgement as object,
+          errorDescription: "Malformed or missing Safaricom response code",
+        },
+      });
       console.error("Daraja returned a malformed B2C acknowledgement; leaving withdrawal processing.", {
         reference,
         responseCode,
@@ -450,12 +515,30 @@ export async function POST(request: Request) {
       const rejectionDescription = typeof acknowledgement.ResponseDescription === "string" && acknowledgement.ResponseDescription.trim()
         ? acknowledgement.ResponseDescription
         : "Safaricom rejected the B2C request.";
+      await prisma.payoutProviderAttempt.updateMany({
+        where: { withdrawalId: created.withdrawal.id, attemptNumber: 1 },
+        data: {
+          status: "FAILED",
+          responsePayload: acknowledgement as object,
+          errorCode: String(rejectionCode),
+          errorDescription: rejectionDescription.slice(0, 500),
+          completedAt: new Date(),
+        },
+      });
       await settleWithdrawalFailure(reference, rejectionCode, rejectionDescription);
       return NextResponse.json({
         error: `${rejectionDescription} Your wallet will be refunded only after the rejection is recorded.`,
       }, { status: 502 });
     }
 
+    await prisma.payoutProviderAttempt.updateMany({
+      where: { withdrawalId: created.withdrawal.id, attemptNumber: 1 },
+      data: {
+        status: "ACCEPTED",
+        acceptedAt: new Date(),
+        responsePayload: acknowledgement as object,
+      },
+    });
     await prisma.withdrawal.updateMany({
       where: { id: created.withdrawal.id, status: "PROCESSING" },
       data: {
