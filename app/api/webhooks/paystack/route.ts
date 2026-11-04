@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import { processMembershipPayment } from "@/lib/membership-payment";
 import { processAcademyCoursePayment } from "@/lib/academy-payments";
 import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
+import { processWalletDeposit } from "@/lib/wallet-deposits";
 
 export const runtime = "nodejs";
 
@@ -60,6 +61,16 @@ export async function POST(request: Request) {
           metadata: asRecord(payment?.metadata),
         });
         console.log("Corevia Academy payment processed:", result);
+      } else if (purpose === "COREVIA_WALLET_DEPOSIT") {
+        const result = await processWalletDeposit({
+          reference: String(payment?.reference ?? ""),
+          amount: Number(payment?.amount ?? 0),
+          currency: String(payment?.currency ?? ""),
+          status: String(payment?.status ?? ""),
+          paid_at: asOptionalString(payment?.paid_at),
+          metadata: asRecord(payment?.metadata),
+        });
+        console.log("Corevia wallet deposit processed:", result);
       }
     }
 
