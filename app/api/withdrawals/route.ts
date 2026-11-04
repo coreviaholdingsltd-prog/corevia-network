@@ -274,9 +274,9 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Neither Paystack nor Daraja has sufficient verified payout readiness. Your wallet has not been debited." }, { status: 503 });
       }
     }
-    if (payoutProvider === "daraja" && netAmountCents % 100 !== 0) {
+    if (netAmountCents % 100 !== 0) {
       return NextResponse.json({
-        error: "Daraja B2C pays whole shillings only. Adjust the withdrawal amount so the payout after the 0.50% fee is a whole KES amount.",
+        error: "M-PESA payouts must be whole shillings. Adjust the withdrawal amount so the payout after the 0.50% fee is a whole KES amount.",
       }, { status: 400 });
     }
 
@@ -459,7 +459,7 @@ export async function POST(request: Request) {
             status: transfer.status === "success" ? "SUCCEEDED"
               : transfer.status === "failed" ? "FAILED"
               : transfer.status === "reversed" ? "REVERSED"
-              : transfer.status === "pending" || transfer.status === "otp" ? "ACCEPTED" : "AMBIGUOUS",
+              : ["pending", "otp", "processing"].includes(transfer.status) ? "ACCEPTED" : "AMBIGUOUS",
             providerTransferId: transfer.transfer_code,
             acceptedAt: new Date(),
             responsePayload: {
