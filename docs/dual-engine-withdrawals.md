@@ -36,16 +36,17 @@ Safaricom B2C remains subject to Safaricom's B2C account onboarding, bank mappin
 
 - Add provider-neutral payout-attempt records with unique provider references and immutable request/response audit data.
 - Add per-provider float/balance reservation and reconciliation.
-- Add Paystack transfer-recipient creation for `MPESA`, transfer initiation, verify-transfer support, and signed webhook handling for `transfer.success`, `transfer.failed`, and `transfer.reversed`.
-- Extend the existing Paystack webhook without disrupting `charge.success` handling for membership and Academy payments.
-- Generalize withdrawal settlement so Daraja receipts and Paystack transfer references can each be validated without pretending one provider's receipt is the other's.
-- Add a durable queue/outbox and automated retry worker. Never retry or fail over on an ambiguous status.
+- Paystack M-PESA recipient creation, KES balance preflight, transfer initiation, and verify-transfer helper are implemented.
+- The Paystack webhook handles signed `transfer.success`, `transfer.failed`, and `transfer.reversed` events alongside membership and Academy `charge.success` events.
+- Paystack terminal settlement is idempotent and uses the Paystack reference separately from Daraja's M-PESA receipt.
+- The route supports automatic **pre-debit** fallback: it can try the other provider only when recipient creation, authentication, or balance preflight fails before a payout is sent.
+- Durable provider-attempt records, provider-specific float reservations, scheduled reconciliation/retry workers, and failover after a verified terminal failure are not yet implemented. An accepted or ambiguous transfer remains locked to its original provider.
 - Add provider readiness flags, health checks, rate limits, and circuit breakers. All live payout flags remain off until both providers' production eligibility, funding, webhook, and compliance requirements are confirmed.
 - Test both providers in isolated test environments, including duplicate callbacks, delayed callbacks, timeout after provider acceptance, confirmed failure, reversal, provider outage, insufficient provider balance, and recovery.
 
 ## Current repository state
 
-The existing withdrawal route is Daraja-specific. The existing Paystack webhook currently handles membership and Academy `charge.success` events only. The schema currently has a single shared payout-float account, so provider-specific attempts and balances must be added before safe automatic failover is enabled.
+The withdrawal route now supports Paystack and Daraja selection with pre-debit fallback. Paystack's KES balance is checked before wallet debit; Daraja uses its existing float reservation model. The database still lacks provider-attempt rows and separate Paystack float reservations. Preview withdrawal execution remains disabled until database isolation and provider readiness are proven.
 
 ## Safety rule
 
