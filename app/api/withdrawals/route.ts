@@ -185,7 +185,7 @@ export async function POST(request: Request) {
 
     const created = await prisma.$transaction(async (tx) => {
       // Serialize withdrawal creation per member so parallel requests cannot queue two payouts.
-      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${user.id})) IS NULL AS lock_acquired`;
+      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${user.id}))::text AS lock_acquired`;
       const pending = await tx.withdrawal.findFirst({
         where: { userId: user.id, status: { in: ["PENDING", "PROCESSING"] } },
         select: { reference: true },
