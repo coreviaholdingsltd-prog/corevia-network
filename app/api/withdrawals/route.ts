@@ -326,7 +326,8 @@ export async function POST(request: Request) {
       ? 503
       : message.includes("authentication failed")
         ? 502
-        : message.startsWith("An existing withdrawal")
+        : message.startsWith("An existing withdrawal") ||
+          message.startsWith("Insufficient available M-PESA payout float")
           ? 409
           : 400;
     return NextResponse.json({ error: message }, { status });
