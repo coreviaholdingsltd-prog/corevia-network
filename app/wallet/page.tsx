@@ -99,6 +99,8 @@ export default function Wallet() {
   const [depositing, setDepositing] = useState(false);
   const [depositMessage, setDepositMessage] = useState("");
   const [depositError, setDepositError] = useState("");
+  const [pendingDepositReference, setPendingDepositReference] = useState("");
+  const [verifyingDeposit, setVerifyingDeposit] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
@@ -457,11 +459,63 @@ export default function Wallet() {
         cache: "no-store",
       });
       const result = await response.json();
-      if (!response.ok || result.status !== true || !result.authorization_url) throw new Error(result.error || "Unable to start wallet deposit.");
+      if (!response.ok || result.status !== true || !result.authorization_url) {
+        if (typeof result.reference === "string") setPendingDepositReference(result.reference);
+        throw new Error(result.error || "Unable to start wallet deposit.");
+      }
+      setPendingDepositReference(result.reference || "");
       window.location.href = result.authorization_url;
     } catch (err) {
       setDepositError(err instanceof Error ? err.message : "Unable to start wallet deposit.");
       setDepositing(false);
+    }
+  }
+
+  useEffect(() => {
+    if (!user || user.membershipStatus !== "ACTIVE") return;
+    let cancelled = false;
+    async function loadPendingDeposit() {
+      try {
+        const response = await fetch("/api/wallet/deposit/pending", { cache: "no-store" });
+        const result = await response.json();
+        if (!cancelled && response.ok && result.status === true) {
+          setPendingDepositReference(result.pending?.reference || "");
+        }
+      } catch {
+        // The wallet remains usable; the member can retry the lookup.
+      }
+    }
+    void loadPendingDeposit();
+    return () => { cancelled = true; };
+  }, [user?.id, user?.membershipStatus]);
+
+  async function verifyPendingWalletDeposit(reference = pendingDepositReference) {
+    if (!reference) {
+      setDepositError("There is no pending wallet deposit to verify.");
+      return;
+    }
+    setVerifyingDeposit(true);
+    setDepositError("");
+    setDepositMessage("Checking Paystack for the pending payment...");
+    try {
+      const response = await fetch("/api/wallet/deposit/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reference }),
+        cache: "no-store",
+      });
+      const result = await response.json();
+      if (!response.ok || result.status !== true) {
+        throw new Error(result.error || "Paystack has not confirmed this deposit yet.");
+      }
+      setPendingDepositReference("");
+      setDepositMessage(result.alreadyProcessed ? "This deposit was already credited to your wallet." : "Payment confirmed. Your wallet has been credited.");
+      await refreshWalletSummary();
+    } catch (err) {
+      setDepositMessage("");
+      setDepositError(err instanceof Error ? err.message : "Unable to verify this deposit.");
+    } finally {
+      setVerifyingDeposit(false);
     }
   }
 
@@ -796,6 +850,15 @@ export default function Wallet() {
                   {depositing ? "Opening Paystack..." : "Deposit with M-PESA"}
                 </button>
               </form>
+              {pendingDepositReference && (
+                <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4">
+                  <p className="text-sm font-semibold text-amber-900">Pending deposit needs confirmation</p>
+                  <p className="mt-1 text-xs text-amber-800">Reference: {pendingDepositReference}</p>
+                  <button type="button" onClick={() => void verifyPendingWalletDeposit()} disabled={verifyingDeposit} className="mt-3 w-full rounded-xl bg-[#12352c] px-4 py-3 text-sm font-semibold text-white disabled:opacity-60">
+                    {verifyingDeposit ? "Checking Paystack..." : "Verify Pending Deposit"}
+                  </button>
+                </div>
+              )}
               {depositMessage && <div role="status" className="mt-4 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">{depositMessage}</div>}
               {depositError && <div role="alert" className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{depositError}</div>}
             </section>
