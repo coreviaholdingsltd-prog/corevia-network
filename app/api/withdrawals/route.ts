@@ -125,18 +125,6 @@ export async function POST(request: Request) {
     if (isProductionDeployment && (process.env.COREVIA_PAYSTACK_LIVE_READY !== "true" || process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true")) {
       return NextResponse.json({ error: "Paystack live transfer approval and funded KES float must be confirmed. Your wallet has not been debited." }, { status: 503 });
     }
-    let recipientCode: string;
-    let paystackKesBalanceSubunits: number;
-    try {
-      const recipient = await createKenyaMpesaRecipient({ name: user.name, phone });
-      if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money") throw new Error("Paystack did not return an active Kenyan M-PESA recipient.");
-      recipientCode = recipient.recipient_code;
-      paystackKesBalanceSubunits = await getPaystackKesBalanceSubunits();
-    } catch (error) {
-      console.error("Paystack withdrawal preflight failed:", error);
-      return NextResponse.json({ error: "Paystack is not ready. Your wallet has not been debited." }, { status: 503 });
-    }
-
     const amount = Number(body.amount);
     if (!Number.isFinite(amount) || amount <= 0) {
       return NextResponse.json({ error: "Enter a valid withdrawal amount." }, { status: 400 });
@@ -162,6 +150,30 @@ export async function POST(request: Request) {
       return NextResponse.json({
         error: "The M-PESA payout must be a whole KES amount. Adjust the withdrawal amount; your wallet has not been debited.",
       }, { status: 400 });
+    }
+
+    // Validate local wallet funds before creating a Paystack recipient or making
+    // provider calls. The transaction below repeats the authoritative balance check.
+    const walletPrecheck = await prisma.wallet.findUnique({
+      where: { userId: user.id },
+      select: { balance: true },
+    });
+    if (!walletPrecheck || Number(walletPrecheck.balance) < normalizedAmount) {
+      return NextResponse.json({
+        error: "Insufficient wallet balance. Available balance is KES " + Number(walletPrecheck?.balance ?? 0).toFixed(2) + ".",
+      }, { status: 400 });
+    }
+
+    let recipientCode: string;
+    let paystackKesBalanceSubunits: number;
+    try {
+      const recipient = await createKenyaMpesaRecipient({ name: user.name, phone });
+      if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money") throw new Error("Paystack did not return an active Kenyan M-PESA recipient.");
+      recipientCode = recipient.recipient_code;
+      paystackKesBalanceSubunits = await getPaystackKesBalanceSubunits();
+    } catch (error) {
+      console.error("Paystack withdrawal preflight failed:", error);
+      return NextResponse.json({ error: "Paystack is not ready. Your wallet has not been debited." }, { status: 503 });
     }
 
     if (paystackKesBalanceSubunits < netAmountCents) {
