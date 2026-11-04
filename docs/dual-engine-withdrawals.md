@@ -2,53 +2,66 @@
 
 ## Objective
 
-Keep one member-facing withdrawal service while supporting two independent payout rails:
+One member-facing withdrawal service supports two independent M-PESA payout rails:
 
-- **Safaricom Daraja B2C** — direct M-PESA customer payout.
-- **Paystack Transfers** — M-PESA customer-wallet transfer using a Kenyan `MPESA` mobile-money recipient.
+- **Safaricom Daraja B2C** — direct customer payout.
+- **Paystack Transfers** — Kenyan M-PESA mobile-money transfer.
 
-A provider outage must not stop the whole withdrawal service when the other provider is enabled, funded, and healthy. The system is provider-neutral; members do not choose providers and no Corevia admin approves individual payouts.
+Members do not select a provider and no admin approves individual payouts. The engines must never pay twice for one internal withdrawal.
 
-## Important account prerequisites
+## Account prerequisites
 
-Paystack documents Kenya mobile-money transfers to M-PESA customers, and Kenya business mobile-money recipients use `MPESA`. Paystack also documents business mobile-money recipients for Till numbers using `MPTILL`. These capabilities are not proof that Corevia's own Paystack integration has Transfers enabled. Before enabling Paystack payouts, verify that the Corevia account is a registered business, Transfers are enabled, the Paystack KES balance is available (including transfer fees), and the Dashboard's **Confirm transfers before sending** setting is disabled. The code requires `COREVIA_PAYSTACK_WITHDRAWALS_ENABLED=true` and `COREVIA_PAYSTACK_NO_OTP_CONFIRMED=true`; these are explicit operator attestations, not automatic proof of Paystack approval. In production it also requires `COREVIA_LIVE_WITHDRAWALS_APPROVED=true`, `COREVIA_TILL_FEE_TRANSFER_READY=true`, `COREVIA_PAYSTACK_LIVE_READY=true`, and `COREVIA_PAYSTACK_FLOAT_READY=true). Daraja has separate `COREVIA_DARAJA_LIVE_READY` and `COREVIA_DARAJA_FLOAT_READY` gates plus `MPESA_ENV=production`, so one provider's onboarding does not falsely certify the other.
+Paystack's Kenya M-PESA recipient type is `mobile_money` with bank code `MPESA`. Paystack Till payouts may use `mobile_money_business` / `MPTILL`, but Corevia's own account must be verified for this feature. Before Paystack is enabled, confirm Transfers access, KES settlement balance, transfer-fee schedule, and that the Dashboard's **Confirm transfers before sending** setting is disabled (or an approved automated URL-approval flow is configured). Required attestations include `COREVIA_PAYSTACK_WITHDRAWALS_ENABLED=true`, `COREVIA_PAYSTACK_NO_OTP_CONFIRMED=true`, and a positive `COREVIA_PAYSTACK_TRANSFER_FEE_BUFFER_KES`. These flags do not themselves prove provider approval.
 
-Safaricom B2C remains subject to Safaricom's B2C account onboarding, bank mapping, settlement-option change, production credentials, and available Utility-account float.
+Safaricom B2C requires completed B2C onboarding, bank mapping and settlement-option change, production credentials, approved shortcode/roles, and funded Utility-account float. The Daraja sandbox app is not a live payout account.
 
-## Routing policy
+Production gates remain independent: `COREVIA_LIVE_WITHDRAWALS_APPROVED`, `COREVIA_TILL_FEE_TRANSFER_READY`, `COREVIA_PAYSTACK_LIVE_READY`, `COREVIA_PAYSTACK_FLOAT_READY`, `COREVIA_DARAJA_LIVE_READY`, and `COREVIA_DARAJA_FLOAT_READY`, plus `MPESA_ENV=production` for Daraja. Never enable these merely to make a deployment pass.
 
-1. Select an enabled, healthy provider using configured priority and a short-lived health state.
-2. Before a provider accepts a payout, a definitive pre-submission failure (for example, missing credentials or failed authentication before sending a payment request) may allow the other provider to be selected.
-3. A provider's accepted, pending, OTP, or otherwise ambiguous response locks the withdrawal to that provider. Never submit the same withdrawal to the other provider while the first result is inconclusive.
-4. A provider may be failed over only after a definitive, verified terminal failure/reversal, and only after confirming the first provider cannot still pay. Reuse one internal withdrawal reference and record every provider attempt.
-5. If both engines are unavailable, keep the member's funds reserved and the withdrawal queued. Retry automatically with bounded backoff and provider health checks. Do not debit again.
-6. A success webhook/verified terminal success from either provider settles the withdrawal exactly once. Duplicate and out-of-order callbacks are idempotent.
-7. A terminal failure/reversal releases the applicable provider float reservation and restores the member's wallet exactly once. An unknown/pending outcome stays in reconciliation and must not trigger a second payout.
+## Routing and duplicate-payment controls
 
-## Ledger and float separation
+1. The route performs provider preflight before the member wallet is debited.
+2. Automatic fallback is currently **pre-debit only**. A recipient-creation, authentication, or balance-preflight failure can select the other configured provider.
+3. Once a transfer request is sent, an accepted, pending, OTP, timeout, malformed, or otherwise ambiguous result is locked to that provider. Do not fail over or issue another provider request while the first result is inconclusive.
+4. One member wallet debit and one internal withdrawal are created under a member-level transaction lock.
+5. A provider-specific attempt row records the provider reference, attempt number, status, request context, response context, and terminal error/result.
+6. Signed Paystack transfer webhooks and authenticated Daraja B2C callbacks settle only verified terminal outcomes. Duplicate callbacks use conditional state changes and idempotent ledger references.
+7. Terminal failure restores the member wallet once and reverses the fee accrual. Success marks the wallet transaction complete. Daraja and Paystack float reservations are settled or released independently.
 
-- Member wallet debit is made once per internal withdrawal.
-- Provider payout float/balance is tracked separately per provider. Daraja Utility float and Paystack available balance are not interchangeable.
-- Corevia's 0.50% fee is a separate company ledger accrual. Where approved, Paystack can be evaluated for a separate `MPTILL` transfer to Till 6959300; that fee transfer must have its own reference, webhook/reconciliation, and idempotency key. Never treat a ledger entry as proof the Till received funds.
-- Provider charges are recorded separately and must not silently reduce the member's promised net payout or Corevia fee.
+## Float and accounting
 
-## Required implementation before activation
+- `PayoutFloatAccount` is provider-specific. Daraja's existing `primary` account remains the Daraja Utility float; a separate `paystack` account is seeded for Paystack.
+- Paystack available balance is refreshed from the provider before reservation. A database transaction reserves the payout principal plus a configured fee buffer before wallet debit, preventing concurrent withdrawals from reserving the same provider funds.
+- Daraja production uses its own Utility-float reservation. The float migration must be applied only after Preview and Production database isolation is verified.
+- The member receives the stated net payout. Provider fees are additional and must not silently reduce that amount.
+- The 0.50% Corevia withdrawal fee is currently accrued in the company ledger. That ledger entry is **not** proof of money received by Till 6959300. A separately approved, idempotent, reconciled Till settlement mechanism is still a release blocker. Paystack MPTILL support, minimum transfer amounts, fee aggregation, and the actual Corevia recipient must be confirmed before implementing/activating automatic fee transfers.
 
-- Add provider-neutral payout-attempt records with unique provider references and immutable request/response audit data.
-- Add per-provider float/balance reservation and reconciliation.
-- Paystack M-PESA recipient creation, KES balance preflight, transfer initiation, and verify-transfer helper are implemented.
-- The Paystack webhook handles signed `transfer.success`, `transfer.failed`, and `transfer.reversed` events alongside membership and Academy `charge.success` events.
-- Paystack terminal settlement is idempotent and uses the Paystack reference separately from Daraja's M-PESA receipt.
-- The route supports automatic **pre-debit** fallback: it can try the other provider only when recipient creation, authentication, or balance preflight fails before a payout is sent.
-- A Vercel Cron job verifies up to 50 processing Paystack transfers daily and settles only verified terminal results. It is protected by the production-only `CRON_SECRET`. The connected Vercel Hobby plan rejects schedules more frequent than once per day; five-minute reconciliation requires Vercel Pro or an external scheduler.
-- Durable provider-attempt records, provider-specific float reservations, a bounded retry queue, Daraja reconciliation, and failover after a verified terminal failure are not yet implemented. An accepted or ambiguous transfer remains locked to its original provider.
-- Add provider readiness flags, health checks, rate limits, and circuit breakers. All live payout flags remain off until both providers' production eligibility, funding, webhook, and compliance requirements are confirmed.
-- Test both providers in isolated test environments, including duplicate callbacks, delayed callbacks, timeout after provider acceptance, confirmed failure, reversal, provider outage, insufficient provider balance, and recovery.
+## Reconciliation
 
-## Current repository state
+- The authenticated `/api/cron/withdrawal-reconciliation` job verifies up to 50 stale Paystack transfers and settles only verified terminal results.
+- `CRON_SECRET` protects the job.
+- The current Vercel cron schedule is daily. It is not instant reconciliation; five-minute polling requires a compatible Vercel plan or external scheduler.
+- Daraja success/failure callbacks are processed, but automated querying of an unreturned/ambiguous Daraja transaction is not yet implemented. A timeout remains processing; it is never treated as a failure.
+- There is no durable automatic retry queue for both-provider outages and no post-terminal-failure cross-provider failover yet. The current route returns before debit if no provider passes preflight. Once a provider request has been sent, it will not switch rails.
 
-The withdrawal route now supports Paystack and Daraja selection with pre-debit fallback. In `auto` mode it prefers Paystack, checks the Paystack KES balance and recipient before wallet debit, and can preflight Daraja if Paystack is not ready or lacks the payout principal. Paystack fees are additional and Paystack remains the authority on whether the balance covers principal plus fees. Daraja uses its existing float reservation model. The database still lacks provider-attempt rows and separate Paystack float reservations. Preview withdrawal execution remains disabled until database isolation and provider readiness are proven.
+## Implementation status
+
+Implemented on this feature branch:
+- Daraja B2C and Paystack M-PESA initiation adapters.
+- Pre-debit provider selection and fallback.
+- Separate provider float accounts and atomic Paystack float reservation.
+- Durable provider-attempt records and provider references.
+- Signed Paystack transfer webhook settlement and authenticated Daraja callback settlement.
+- Paystack verification/reconciliation cron.
+- Member-facing status polling and strict live-readiness gates.
+
+Still required before activation:
+- Review and test the provider-attempt / float migrations against an isolated Preview database.
+- Add an automated durable retry queue and safe, verified post-terminal failover state machine.
+- Implement and verify the Corevia Till fee transfer/aggregation route, including provider fees and idempotent reconciliation.
+- Add Daraja status reconciliation for ambiguous callbacks where Safaricom supports it.
+- Run sandbox end-to-end tests for success, failure, duplicate/delayed callbacks, timeout after provider acceptance, reversal, concurrency, low balance, and recovery.
+- Verify both providers' live onboarding, permissions, no-manual-OTP flow, webhook URLs, and actual funded balances.
 
 ## Safety rule
 
-A queued withdrawal is not a failed withdrawal. A provider acknowledgement is not proof of payment. A timeout is not proof that no payment occurred. Only a provider's verified terminal success marks the withdrawal paid.
+A provider acknowledgement is not proof of payment. A timeout is not proof that no payment occurred. An internal fee ledger entry is not proof that the Corevia Till received funds. Only a verified terminal provider result can settle a member payout.
