@@ -27,7 +27,7 @@ export async function settleWithdrawalFailure(
     if (changed.count !== 1) return { updated: false };
 
     await tx.payoutProviderAttempt.updateMany({
-      where: { withdrawalId: withdrawal.id, provider: "DARAJA" },
+      where: { withdrawalId: withdrawal.id, providerReference: withdrawal.originatorConversationId ?? undefined },
       data: {
         status: "FAILED",
         errorCode: String(resultCode),
