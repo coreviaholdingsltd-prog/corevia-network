@@ -272,6 +272,7 @@ enum TransactionType {
   WALLET_TRANSFER_RECEIVED
   WALLET_TRANSFER_FEE
   ADJUSTMENT
+  WALLET_DEPOSIT
 }
 
 enum TransactionStatus {
