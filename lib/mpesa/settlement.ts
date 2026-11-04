@@ -5,6 +5,10 @@ export async function settleWithdrawalFailure(
   resultCode: number,
   resultDescription: string,
 ) {
+  if (!Number.isInteger(resultCode) || resultCode <= 0 || !resultDescription.trim()) {
+    throw new Error("A confirmed non-zero Safaricom result code and description are required to fail a withdrawal.");
+  }
+
   return prisma.$transaction(async (tx) => {
     const withdrawal = await tx.withdrawal.findUnique({ where: { reference } });
     if (!withdrawal || ["PAID", "FAILED", "REJECTED"].includes(withdrawal.status)) {
@@ -66,6 +70,15 @@ export async function settleWithdrawalSuccess(
     conversationId?: string | null;
   },
 ) {
+  if (
+    details.resultCode !== 0 ||
+    !details.resultDescription.trim() ||
+    !details.receiptNumber ||
+    !/^[A-Z0-9]{8,20}$/i.test(details.receiptNumber)
+  ) {
+    throw new Error("A successful Safaricom result, description, and valid M-PESA receipt are required to mark a withdrawal paid.");
+  }
+
   return prisma.$transaction(async (tx) => {
     const withdrawal = await tx.withdrawal.findUnique({ where: { reference } });
     if (!withdrawal || ["PAID", "FAILED", "REJECTED"].includes(withdrawal.status)) {
@@ -78,7 +91,7 @@ export async function settleWithdrawalSuccess(
         status: "PAID",
         resultCode: details.resultCode,
         resultDescription: details.resultDescription.slice(0, 500),
-        mpesaReceiptNumber: details.receiptNumber ?? null,
+        mpesaReceiptNumber: details.receiptNumber,
         conversationId: details.conversationId ?? withdrawal.conversationId,
         processedAt: new Date(),
       },
