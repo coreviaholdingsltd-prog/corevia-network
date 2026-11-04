@@ -32,6 +32,7 @@ type Withdrawal = {
   netAmount: number;
   status: string;
   reference: string;
+  paymentReference?: string | null;
   createdAt: string;
   processedAt?: string | null;
   mpesaReceiptNumber?: string | null;
@@ -83,6 +84,22 @@ export default function Withdraw() {
 
     return () => window.clearTimeout(timer);
   }, []);
+
+  // Refresh wallet balance and withdrawal history while a provider is processing.
+  useEffect(() => {
+    if (!hasPendingWithdrawal) return;
+    const timer = window.setInterval(() => {
+      void fetch("/api/withdrawals", { cache: "no-store" })
+        .then(async (response) => {
+          const result = await response.json();
+          if (!response.ok) return;
+          setBalance(Number(result.balance || 0));
+          setWithdrawals(result.withdrawals || []);
+        })
+        .catch(() => undefined);
+    }, 15000);
+    return () => window.clearInterval(timer);
+  }, [hasPendingWithdrawal]);
 
   async function submitWithdrawal(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -265,10 +282,20 @@ export default function Withdraw() {
                       M-PESA receipt: {withdrawal.mpesaReceiptNumber}
                     </p>
                   )}
-                  {withdrawal.status === "FAILED" && withdrawal.resultDescription && (
-                    <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs leading-5 text-red-700">
-                      Safaricom response: {withdrawal.resultDescription}
+                  {withdrawal.paymentReference && (
+                    <p className="mt-2 text-xs text-[#12352c]/55">
+                      Provider reference: {withdrawal.paymentReference}
+                    </p>
+                  )}
+                  {withdrawal.resultDescription && (
+                    <p className={withdrawal.status === "FAILED" || withdrawal.status === "REJECTED" ? "mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs leading-5 text-red-700" : "mt-2 rounded-lg bg-[#f7f5ef] px-3 py-2 text-xs leading-5 text-[#12352c]/70"}>
+                      Provider update: {withdrawal.resultDescription}
                       {withdrawal.resultCode !== null && withdrawal.resultCode !== undefined ? ` (code ${withdrawal.resultCode})` : ""}
+                    </p>
+                  )}
+                  {withdrawal.processedAt && (
+                    <p className="mt-2 text-xs text-[#12352c]/55">
+                      Updated: {new Date(withdrawal.processedAt).toLocaleString()}
                     </p>
                   )}
                 </div>
