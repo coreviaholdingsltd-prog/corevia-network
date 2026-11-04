@@ -126,46 +126,64 @@ export async function POST(request: Request) {
       }, { status: 409 });
     }
 
-    const payoutProvider = (process.env.COREVIA_WITHDRAWAL_PROVIDER || "daraja").toLowerCase();
-    if (payoutProvider !== "daraja" && payoutProvider !== "paystack") {
+    const requestedProvider = (process.env.COREVIA_WITHDRAWAL_PROVIDER || "auto").toLowerCase();
+    if (!["auto", "daraja", "paystack"].includes(requestedProvider)) {
       return NextResponse.json({ error: "Withdrawal provider configuration is invalid." }, { status: 503 });
     }
-    if (isProductionDeployment && payoutProvider === "daraja" && mpesaEnvironment !== "production") {
-      return NextResponse.json({ error: "Production Daraja payouts require MPESA_ENV=production and Safaricom production credentials." }, { status: 503 });
-    }
     const phone = normalizeMpesaPhone(user.phone);
+    let payoutProvider: "daraja" | "paystack" | null = null;
     let config: ReturnType<typeof getDarajaConfig> | null = null;
     let accessToken: string | null = null;
     let paystackRecipientCode: string | null = null;
+    const providerOrder = requestedProvider === "auto"
+      ? (process.env.COREVIA_WITHDRAWAL_PROVIDER_ORDER || "paystack,daraja")
+          .split(",").map((value) => value.trim().toLowerCase()).filter(Boolean)
+      : [requestedProvider];
+    const providerFailures: string[] = [];
 
-    if (payoutProvider === "paystack") {
-      if (
-        process.env.COREVIA_PAYSTACK_WITHDRAWALS_ENABLED !== "true" ||
-        process.env.COREVIA_PAYSTACK_AUTOMATED_APPROVAL_CONFIRMED !== "true"
-      ) {
-        return NextResponse.json({
-          error: "Paystack withdrawals are not enabled for automated transfers. Confirm Transfers activation and no-OTP or automated URL approval first.",
-        }, { status: 503 });
+    // Provider preflight happens before any wallet debit. Auto mode may try the
+    // other rail only when the first rail has not been asked to send money.
+    for (const candidate of providerOrder) {
+      if (candidate !== "paystack" && candidate !== "daraja") continue;
+      try {
+        if (candidate === "paystack") {
+          if (
+            process.env.COREVIA_PAYSTACK_WITHDRAWALS_ENABLED !== "true" ||
+            process.env.COREVIA_PAYSTACK_AUTOMATED_APPROVAL_CONFIRMED !== "true"
+          ) {
+            throw new Error("Paystack Transfers or automated approval is not confirmed.");
+          }
+          const recipient = await createKenyaMpesaRecipient({ name: user.name, phone });
+          if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money") {
+            throw new Error("Paystack did not return an active Kenyan M-PESA recipient.");
+          }
+          payoutProvider = "paystack";
+          paystackRecipientCode = recipient.recipient_code;
+          break;
+        }
+
+        if (isProductionDeployment && mpesaEnvironment !== "production") {
+          throw new Error("Production Daraja requires MPESA_ENV=production.");
+        }
+        config = getDarajaConfig();
+        assertB2CRecipientAllowed(config.environment, phone);
+        accessToken = await getDarajaAccessToken(config);
+        payoutProvider = "daraja";
+        break;
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Provider preflight failed.";
+        providerFailures.push(`${candidate}: ${message}`);
+        config = null;
+        accessToken = null;
+        paystackRecipientCode = null;
       }
-      if (mpesaEnvironment === "production" && (
-        process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED !== "true" ||
-        process.env.COREVIA_PAYOUT_FLOAT_READY !== "true" ||
-        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true"
-      )) {
-        return NextResponse.json({ error: "Live Paystack withdrawals remain locked until payout funding and Corevia Till fee settlement are verified." }, { status: 503 });
-      }
-      // Creating a recipient does not move money. Do it before reserving the member's wallet.
-      const recipient = await createKenyaMpesaRecipient({ name: user.name, phone });
-      if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money") {
-        return NextResponse.json({ error: "Paystack did not return an active Kenyan M-PESA recipient." }, { status: 503 });
-      }
-      paystackRecipientCode = recipient.recipient_code;
-    } else {
-      config = getDarajaConfig();
-      // Enforce sandbox recipient allowlist before OAuth and, critically, before any wallet debit.
-      assertB2CRecipientAllowed(config.environment, phone);
-      // Authenticate before debiting the member wallet.
-      accessToken = await getDarajaAccessToken(config);
+    }
+
+    if (!payoutProvider) {
+      console.error("No withdrawal provider passed preflight:", providerFailures);
+      return NextResponse.json({
+        error: "No M-PESA payout provider is currently ready. Your wallet has not been debited. Please try again later.",
+      }, { status: 503 });
     }
 
     const amount = Number(body.amount);
