@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ACADEMY_QUALIFICATION_LEVELS, type AcademyQualificationLevel } from "@/lib/academy-levels";
 
 type Lesson = {
   id: string;
@@ -40,6 +41,8 @@ type Course = {
   description: string;
   level: string;
   priceKsh: number;
+  qualificationLevel: string | null;
+  qualificationFeeKsh: number | null;
   enrolled: boolean;
   enrollmentStatus: string | null;
   lessonsCount: number;
@@ -91,6 +94,7 @@ export default function AcademyPage() {
     : "";
 
   const [courses, setCourses] = useState<Course[]>([]);
+  const [qualificationByCourse, setQualificationByCourse] = useState<Record<string, AcademyQualificationLevel>>({});
   const [memberName, setMemberName] = useState("Corevia member");
   const [loading, setLoading] = useState(true);
   const [authRequired, setAuthRequired] = useState(false);
@@ -192,6 +196,7 @@ export default function AcademyPage() {
   }, [loadCourses, verifyAcademyPayment]);
 
   async function enroll(course: Course) {
+    const qualificationLevel = qualificationByCourse[course.id] ?? "CERTIFICATE";
     setWorking(course.id);
     setError("");
     setNotice("");
@@ -204,6 +209,7 @@ export default function AcademyPage() {
         },
         body: JSON.stringify({
           courseId: course.id,
+          qualificationLevel,
         }),
       });
 
@@ -523,9 +529,25 @@ export default function AcademyPage() {
                     </span>
 
                     <span className="text-sm font-bold text-amber-200">
-                      {money(course.priceKsh)}
+                      {money(course.enrolled ? (course.qualificationFeeKsh ?? course.priceKsh) : ACADEMY_QUALIFICATION_LEVELS[qualificationByCourse[course.id] ?? "CERTIFICATE"].feeKsh)}
                     </span>
                   </div>
+
+                  {!course.enrolled && (
+                    <label className="mt-4 block text-sm font-semibold text-slate-200">
+                      Qualification level
+                      <select
+                        value={qualificationByCourse[course.id] ?? "CERTIFICATE"}
+                        onChange={(event) => setQualificationByCourse((current) => ({ ...current, [course.id]: event.target.value as AcademyQualificationLevel }))}
+                        className="mt-2 w-full rounded-xl border border-white/15 bg-slate-900 px-3 py-3 text-white"
+                      >
+                        {Object.entries(ACADEMY_QUALIFICATION_LEVELS).map(([key, item]) => (
+                          <option key={key} value={key}>{item.label} — {money(item.feeKsh)}</option>
+                        ))}
+                      </select>
+                      <span className="mt-1 block text-xs font-normal text-slate-400">One qualification fee covers this course enrolment; the old course fee is not added again.</span>
+                    </label>
+                  )}
 
                   <h3 className="mt-5 text-2xl font-bold">
                     {course.title}
@@ -606,8 +628,7 @@ export default function AcademyPage() {
                         ? course.completion
                           ? "View completion record"
                           : "Open course"
-                        : course.priceKsh > 0
-                          ? `Enroll & Pay ${money(course.priceKsh)}`
+                        : `Enroll & Pay ${money(ACADEMY_QUALIFICATION_LEVELS[qualificationByCourse[course.id] ?? "CERTIFICATE"].feeKsh)}`
                           : "Enroll"}
                   </button>
                 </article>
