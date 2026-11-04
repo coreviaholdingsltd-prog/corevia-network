@@ -27,7 +27,7 @@ Do not copy sandbox values into production. A Till number alone does not prove t
 
 ## Callback registration
 
-Register this HTTPS callback URL in the Daraja application / merchant configuration:
+For Preview testing, register the stable branch deployment callback URL in the Daraja sandbox application. The preview alias currently points to the Academy feature branch; use the active Preview alias shown in Vercel if it changes. For production, register the production custom-domain callback only after the code and migrations have been promoted.\n\nRegister this HTTPS callback URL in the Daraja application / merchant configuration:
 
 `https://network.coreviaholdingltd.com/api/webhooks/mpesa/academy?token=<MPESA_CALLBACK_TOKEN>`
 
