@@ -15,6 +15,7 @@ import { settleWithdrawalFailure } from "@/lib/mpesa/settlement";
 import {
   createKenyaMpesaRecipient,
   initiateKenyaMpesaTransfer,
+  getPaystackKesBalanceSubunits,
 } from "@/lib/paystack/transfers";
 import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
 
@@ -135,6 +136,7 @@ export async function POST(request: Request) {
     let config: ReturnType<typeof getDarajaConfig> | null = null;
     let accessToken: string | null = null;
     let paystackRecipientCode: string | null = null;
+    let paystackKesBalanceSubunits: number | null = null;
     const providerOrder = requestedProvider === "auto"
       ? (process.env.COREVIA_WITHDRAWAL_PROVIDER_ORDER || "paystack,daraja")
           .split(",").map((value) => value.trim().toLowerCase()).filter(Boolean)
@@ -149,7 +151,7 @@ export async function POST(request: Request) {
         if (candidate === "paystack") {
           if (
             process.env.COREVIA_PAYSTACK_WITHDRAWALS_ENABLED !== "true" ||
-            process.env.COREVIA_PAYSTACK_AUTOMATED_APPROVAL_CONFIRMED !== "true"
+            process.env.COREVIA_PAYSTACK_NO_OTP_CONFIRMED !== "true"
           ) {
             throw new Error("Paystack Transfers or automated approval is not confirmed.");
           }
@@ -159,6 +161,7 @@ export async function POST(request: Request) {
           }
           payoutProvider = "paystack";
           paystackRecipientCode = recipient.recipient_code;
+          paystackKesBalanceSubunits = await getPaystackKesBalanceSubunits();
           break;
         }
 
@@ -176,6 +179,7 @@ export async function POST(request: Request) {
         config = null;
         accessToken = null;
         paystackRecipientCode = null;
+        paystackKesBalanceSubunits = null;
       }
     }
 
@@ -206,6 +210,31 @@ export async function POST(request: Request) {
       return NextResponse.json({
         error: "The maximum M-PESA withdrawal payout is KES 150,000. The maximum wallet deduction is KES 150,753.77 including the 0.50% fee.",
       }, { status: 400 });
+    }
+
+    // Check the Paystack KES balance before touching the member wallet. If the
+    // preferred rail is short, auto mode may prepare Daraja as a pre-debit fallback.
+    if (
+      payoutProvider === "paystack" &&
+      paystackKesBalanceSubunits !== null &&
+      paystackKesBalanceSubunits < Math.round(netAmount * 100)
+    ) {
+      if (requestedProvider !== "auto") {
+        return NextResponse.json({ error: "Paystack's available KES balance is below this payout. Your wallet has not been debited." }, { status: 503 });
+      }
+      try {
+        const fallbackConfig = getDarajaConfig();
+        assertB2CRecipientAllowed(fallbackConfig.environment, phone);
+        const fallbackToken = await getDarajaAccessToken(fallbackConfig);
+        config = fallbackConfig;
+        accessToken = fallbackToken;
+        payoutProvider = "daraja";
+        paystackRecipientCode = null;
+        paystackKesBalanceSubunits = null;
+      } catch (error) {
+        console.error("Both payout rails failed balance/preflight checks:", error);
+        return NextResponse.json({ error: "Neither Paystack nor Daraja has sufficient verified payout readiness. Your wallet has not been debited." }, { status: 503 });
+      }
     }
     if (payoutProvider === "daraja" && netAmountCents % 100 !== 0) {
       return NextResponse.json({
