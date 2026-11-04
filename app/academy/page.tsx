@@ -172,6 +172,11 @@ export default function AcademyPage() {
 
       setNotice(result.message || "Payment confirmed. Your course is now available.");
       setError("");
+      if (result.paymentPending) {
+        setPendingPaymentReference(reference);
+        await loadCourses();
+        return;
+      }
       setPendingPaymentReference("");
       window.history.replaceState({}, "", "/academy");
       await loadCourses();
