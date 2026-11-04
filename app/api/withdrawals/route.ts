@@ -223,6 +223,9 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Paystack's available KES balance is below this payout. Your wallet has not been debited." }, { status: 503 });
       }
       try {
+        if (isProductionDeployment && mpesaEnvironment !== "production") {
+          throw new Error("Production Daraja requires MPESA_ENV=production.");
+        }
         const fallbackConfig = getDarajaConfig();
         assertB2CRecipientAllowed(fallbackConfig.environment, phone);
         const fallbackToken = await getDarajaAccessToken(fallbackConfig);
