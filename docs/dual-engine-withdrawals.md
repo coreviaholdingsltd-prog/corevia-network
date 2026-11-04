@@ -52,6 +52,7 @@ Implemented on this feature branch:
 - Durable provider-attempt records and provider references.
 - Signed Paystack transfer webhook settlement and authenticated Daraja callback settlement.
 - Paystack verification/reconciliation cron.
+- Protected `/api/internal/withdrawal-readiness` diagnostics for API connectivity, environment gates, provider float schema, and activation checks. It never initiates a payout and does not expose credentials.
 - Member-facing status polling and strict live-readiness gates.
 
 Still required before activation:
