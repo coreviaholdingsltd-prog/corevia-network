@@ -22,6 +22,8 @@ import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
 const WITHDRAWAL_FEE_RATE = 0.005;
 const MAX_NET_PAYOUT = 150000;
 const COREVIA_TILL_NUMBER = "6959300";
+// Hard fail-closed until an idempotent, reconciled Till fee-transfer rail is implemented.
+const COREVIA_TILL_FEE_TRANSFER_IMPLEMENTED = false;
 
 async function getSessionUser() {
   const cookieStore = await cookies();
@@ -82,11 +84,12 @@ export async function POST(request: Request) {
       (isProductionDeployment || mpesaEnvironment === "production") &&
       (
         process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED !== "true" ||
-        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true"
+        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true" ||
+        !COREVIA_TILL_FEE_TRANSFER_IMPLEMENTED
       )
     ) {
       return NextResponse.json({
-        error: "Live withdrawals are locked until company live-payout approval and the separate Corevia Till fee-transfer route are confirmed.",
+        error: "Live withdrawals are locked until company approval and the separate Corevia Till fee-transfer route is implemented and confirmed.",
       }, { status: 503 });
     }
     const user = await getSessionUser();
