@@ -166,8 +166,38 @@ model Withdrawal {
   payoutFloatReservation PayoutFloatReservation?
   providerAttempts       PayoutProviderAttempt[]
   payoutProvider         PayoutProvider?
+  coreviaFeeSettlement   CoreviaFeeSettlement?
 
   @@index([userId, createdAt])
+}
+
+model CoreviaFeeSettlement {
+  id               String               @id @default(cuid())
+  withdrawalId     String               @unique
+  reference        String               @unique
+  providerReference String              @unique
+  amount           Decimal              @db.Decimal(14, 2)
+  status           FeeSettlementStatus  @default(PENDING)
+  transferCode     String?
+  attemptCount     Int                  @default(0)
+  lastError        String?
+  nextAttemptAt    DateTime?
+  submittedAt      DateTime?
+  completedAt      DateTime?
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+  withdrawal       Withdrawal           @relation(fields: [withdrawalId], references: [id], onDelete: Restrict)
+
+  @@index([status, nextAttemptAt])
+}
+
+enum FeeSettlementStatus {
+  PENDING
+  SUBMITTED
+  SUCCEEDED
+  FAILED
+  BLOCKED
+  REVERSED
 }
 
 model PayoutProviderAttempt {
