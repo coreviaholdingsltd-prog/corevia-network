@@ -30,24 +30,31 @@ export async function settlePaystackWithdrawal(args: {
       throw new Error("Paystack transfer amount does not match the withdrawal's promised net payout.");
     }
 
-    if (["PAID", "FAILED", "REJECTED"].includes(withdrawal.status)) {
+    // A reversal can arrive after a success webhook; restore the member balance once.
+    if (withdrawal.status === "FAILED" || withdrawal.status === "REJECTED") {
+      return { updated: false, reason: "already_terminal" as const };
+    }
+    if (withdrawal.status === "PAID" && args.status !== "reversed") {
       return { updated: false, reason: "already_terminal" as const };
     }
 
     const now = new Date();
     const success = args.status === "success";
+    const allowedStatuses = args.status === "reversed"
+      ? ["PENDING", "PROCESSING", "PAID"]
+      : ["PENDING", "PROCESSING"];
     const changed = await tx.withdrawal.updateMany({
       where: {
         id: withdrawal.id,
-        status: { in: ["PENDING", "PROCESSING"] },
+        status: { in: allowedStatuses },
         paymentReference: args.reference,
       },
       data: {
         status: success ? "PAID" : "FAILED",
-        resultCode: success ? 0 : 1,
+        resultCode: success ? 0 : args.status === "reversed" ? 2 : 1,
         resultDescription: success
           ? "Paystack confirmed the M-PESA transfer as successful."
-          : `Paystack confirmed the M-PESA transfer as ${args.status}.`,
+          : "Paystack confirmed the M-PESA transfer as " + args.status + ".",
         processedAt: now,
       },
     });
