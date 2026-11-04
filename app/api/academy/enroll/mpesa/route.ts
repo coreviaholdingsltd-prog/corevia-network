@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     const qualificationLevel = typeof body.qualificationLevel === "string" ? body.qualificationLevel : "CERTIFICATE";
     const qualification = getAcademyQualification(qualificationLevel);
     const phone = normalizeMpesaPhone(body.phone);
-    if (!process.env.MPESA_CONSUMER_KEY || !process.env.MPESA_CONSUMER_SECRET || !process.env.MPESA_PASSKEY || !process.env.MPESA_ACADEMY_CALLBACK_URL || !process.env.MPESA_CALLBACK_TOKEN) {
+    if (!process.env.MPESA_CONSUMER_KEY || !process.env.MPESA_CONSUMER_SECRET || !process.env.MPESA_SHORTCODE || !process.env.MPESA_PASSKEY || !process.env.MPESA_ACADEMY_CALLBACK_URL || !process.env.MPESA_CALLBACK_TOKEN) {
       return NextResponse.json({ error: "M-PESA tuition collection is awaiting Daraja credentials and callback configuration." }, { status: 503 });
     }
     if (!courseId || !qualification || !phone) {
