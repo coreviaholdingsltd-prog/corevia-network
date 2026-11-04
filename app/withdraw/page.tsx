@@ -1,6 +1,29 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
+
+function getMaxValidWithdrawal(balance: number) {
+  let grossCents = Math.min(Math.floor(balance * 100 + 1e-7), 15075377);
+  for (; grossCents >= 50000; grossCents -= 1) {
+    const feeCents = Math.round(grossCents * 0.005);
+    const netCents = grossCents - feeCents;
+    if (netCents % 100 === 0 && netCents <= 15000000) return grossCents / 100;
+  }
+  return 0;
+}
+
+function getWithdrawalPreview(value: string) {
+  const amount = Number(value);
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+  const grossCents = Math.round(amount * 100);
+  const feeCents = Math.round(grossCents * 0.005);
+  const netCents = grossCents - feeCents;
+  return {
+    fee: feeCents / 100,
+    payout: netCents / 100,
+    valid: netCents % 100 === 0,
+  };
+}
 
 type Withdrawal = {
   id: string;
@@ -11,6 +34,9 @@ type Withdrawal = {
   reference: string;
   createdAt: string;
   processedAt?: string | null;
+  mpesaReceiptNumber?: string | null;
+  resultCode?: number | null;
+  resultDescription?: string | null;
 };
 
 export default function Withdraw() {
@@ -21,6 +47,12 @@ export default function Withdraw() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const requestKeyRef = useRef<string | null>(null);
+  const hasPendingWithdrawal = withdrawals.some(
+    (withdrawal) => withdrawal.status === "PENDING" || withdrawal.status === "PROCESSING",
+  );
+  const maxValidAmount = getMaxValidWithdrawal(balance);
+  const withdrawalPreview = getWithdrawalPreview(amount);
 
   async function loadWithdrawals() {
     try {
@@ -56,6 +88,7 @@ export default function Withdraw() {
     event.preventDefault();
 
     setSubmitting(true);
+    if (!requestKeyRef.current) requestKeyRef.current = window.crypto.randomUUID();
     setError("");
     setMessage("");
 
@@ -67,6 +100,7 @@ export default function Withdraw() {
         },
         body: JSON.stringify({
           amount,
+          requestKey: requestKeyRef.current,
         }),
       });
 
@@ -81,6 +115,8 @@ export default function Withdraw() {
         `Withdrawal request ${result.withdrawal.reference} submitted successfully.`,
       );
       setAmount("");
+      // A new key is used only after the server has acknowledged this request.
+      requestKeyRef.current = null;
 
       await loadWithdrawals();
     } catch {
@@ -137,19 +173,38 @@ export default function Withdraw() {
             />
 
             <p className="mt-2 text-xs leading-5 text-[#12352c]/55">
-              You may withdraw up to KES 150,753.77, subject to your available wallet balance. Corevia deducts a 0.50% withdrawal fee. The maximum M-PESA payout is KES 150,000.
+              Corevia deducts a 0.50% fee. M-PESA payouts must be whole shillings. Maximum payout: KES 150,000.
             </p>
+
+            <button
+              type="button"
+              disabled={maxValidAmount < 500 || hasPendingWithdrawal}
+              onClick={() => setAmount(maxValidAmount.toFixed(2))}
+              className="mt-3 text-sm font-semibold text-[#12352c] underline disabled:opacity-50"
+            >
+              Use maximum valid amount: KES {maxValidAmount.toFixed(2)}
+            </button>
+
+            {withdrawalPreview && (
+              <div className="mt-3 rounded-xl bg-[#f7f5ef] px-4 py-3 text-sm">
+                <p>Corevia fee (0.50%): <strong>KES {withdrawalPreview.fee.toFixed(2)}</strong></p>
+                <p className="mt-1">M-PESA payout: <strong>KES {withdrawalPreview.payout.toFixed(2)}</strong></p>
+                {!withdrawalPreview.valid && (
+                  <p className="mt-2 text-red-700">Adjust the amount until the M-PESA payout is a whole shilling.</p>
+                )}
+              </div>
+            )}
 
             <div role="note" className="mt-5 rounded-xl border border-[#b99a58]/30 bg-[#f7f5ef] px-4 py-3">
               <p className="text-sm font-semibold text-[#12352c]">Withdrawal Notice</p>
-              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Kindly note that withdrawals may take up to 24 hours for verification and processing. Most requests are processed sooner, but additional checks or payment-provider delays may occur. Thank you for your patience and understanding.</p>
+              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Your withdrawal is sent automatically to your registered M-PESA number. Processing may take up to 24 hours. A request is marked PAID only after Safaricom confirms the payout. Do not submit the same withdrawal again while it is PROCESSING.</p>
             </div>
             <button
               type="submit"
-              disabled={submitting || balance <= 0}
+              disabled={submitting || balance <= 0 || hasPendingWithdrawal}
               className="mt-5 w-full rounded-xl bg-[#12352c] px-5 py-3.5 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {submitting ? "Submitting..." : "Request Withdrawal"}
+              {submitting ? "Submitting..." : hasPendingWithdrawal ? "Withdrawal Processing" : "Request Withdrawal"}
             </button>
           </form>
 
@@ -205,6 +260,17 @@ export default function Withdraw() {
                   <p className="mt-2 text-xs text-[#12352c]/55">
                     {new Date(withdrawal.createdAt).toLocaleString()}
                   </p>
+                  {withdrawal.mpesaReceiptNumber && (
+                    <p className="mt-2 text-xs font-semibold text-[#12352c]">
+                      M-PESA receipt: {withdrawal.mpesaReceiptNumber}
+                    </p>
+                  )}
+                  {withdrawal.status === "FAILED" && withdrawal.resultDescription && (
+                    <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs leading-5 text-red-700">
+                      Safaricom response: {withdrawal.resultDescription}
+                      {withdrawal.resultCode !== null && withdrawal.resultCode !== undefined ? ` (code ${withdrawal.resultCode})` : ""}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
