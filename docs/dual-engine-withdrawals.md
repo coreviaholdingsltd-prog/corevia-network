@@ -33,7 +33,7 @@ Production gates remain independent: `COREVIA_LIVE_WITHDRAWALS_APPROVED`, `COREV
 - Paystack available balance is refreshed from the provider before reservation. A database transaction reserves the payout principal plus a configured fee buffer before wallet debit, preventing concurrent withdrawals from reserving the same provider funds.
 - Daraja production uses its own Utility-float reservation. The float migration must be applied only after Preview and Production database isolation is verified.
 - The member receives the stated net payout. Provider fees are additional and must not silently reduce that amount.
-- The 0.50% Corevia withdrawal fee is currently accrued in the company ledger. That ledger entry is **not** proof of money received by Till 6959300. A separately approved, idempotent, reconciled Till settlement mechanism is still a release blocker. Paystack MPTILL support, minimum transfer amounts, fee aggregation, and the actual Corevia recipient must be confirmed before implementing/activating automatic fee transfers.
+- The 0.50% Corevia withdrawal fee is currently accrued in the company ledger. That ledger entry is **not** proof of money received by Till 6959300. A separately approved, idempotent, reconciled Till settlement mechanism is still a release blocker. The code has a hard-coded production lock that remains closed until this mechanism is implemented; setting an environment flag cannot bypass it. Paystack MPTILL support, minimum transfer amounts, fee aggregation, and the actual Corevia recipient must be confirmed before implementing/activating automatic fee transfers.
 
 ## Reconciliation
 
