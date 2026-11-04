@@ -40,8 +40,8 @@ export async function POST(request: Request) {
           amount: Number(payment?.amount ?? 0),
           currency: String(payment?.currency ?? ""),
           status: String(payment?.status ?? ""),
-          paid_at: payment?.paid_at ?? null,
-          metadata: payment?.metadata ?? null,
+          paid_at: typeof payment?.paid_at === "string" ? payment.paid_at : null,
+          metadata: typeof payment?.metadata === "object" && payment.metadata !== null ? payment.metadata as Record<string, unknown> : null,
         });
         console.log("Corevia membership webhook processed:", result);
       } else if (purpose === "COREVIA_ACADEMY_COURSE") {
