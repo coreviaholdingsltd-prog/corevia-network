@@ -25,6 +25,8 @@ export async function GET(request: Request) {
   const withdrawalsEnabled = process.env.COREVIA_WITHDRAWALS_ENABLED === "true";
   const globalLiveApproval = process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED === "true";
   const tillFeeReady = process.env.COREVIA_TILL_FEE_TRANSFER_READY === "true";
+  // Must remain false until the real Till transfer, batching, webhook and reconciliation flow ships.
+  const tillFeeTransferImplemented = false;
   const paystackFeeBuffer = Number(process.env.COREVIA_PAYSTACK_TRANSFER_FEE_BUFFER_KES || "NaN");
 
   const [paystack, daraja, floatAccounts] = await Promise.all([
@@ -97,6 +99,7 @@ export async function GET(request: Request) {
   const liveReady = technicalReady &&
     globalLiveApproval &&
     tillFeeReady &&
+    tillFeeTransferImplemented &&
     paystack.liveApproval &&
     paystack.floatAttested &&
     daraja.environment === "production" &&
@@ -108,6 +111,7 @@ export async function GET(request: Request) {
     withdrawalsEnabled,
     globalLiveApproval,
     tillFeeReady,
+    tillFeeTransferImplemented,
     database: {
       providerFloatSchemaReady: databaseReady,
       accounts: floatAccounts,
