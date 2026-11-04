@@ -164,8 +164,52 @@ model Withdrawal {
   processedAt      DateTime?
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   payoutFloatReservation PayoutFloatReservation?
+  providerAttempts       PayoutProviderAttempt[]
+  payoutProvider         PayoutProvider?
 
   @@index([userId, createdAt])
+}
+
+model PayoutProviderAttempt {
+  id                  String                  @id @default(cuid())
+  withdrawalId        String
+  provider            PayoutProvider
+  attemptNumber       Int
+  providerReference   String                  @unique
+  providerTransferId  String?
+  status              PayoutProviderAttemptStatus @default(PREFLIGHT)
+  requestPayload      Json?
+  responsePayload     Json?
+  errorCode           String?
+  errorDescription    String?
+  startedAt           DateTime                @default(now())
+  acceptedAt          DateTime?
+  completedAt         DateTime?
+  nextAttemptAt       DateTime?
+  retryCount          Int                     @default(0)
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @updatedAt
+  withdrawal          Withdrawal              @relation(fields: [withdrawalId], references: [id], onDelete: Restrict)
+
+  @@unique([withdrawalId, attemptNumber])
+  @@index([provider, status, nextAttemptAt])
+  @@index([withdrawalId, createdAt])
+}
+
+enum PayoutProvider {
+  DARAJA
+  PAYSTACK
+}
+
+enum PayoutProviderAttemptStatus {
+  PREFLIGHT
+  SUBMITTED
+  ACCEPTED
+  PROCESSING
+  SUCCEEDED
+  FAILED
+  REVERSED
+  AMBIGUOUS
 }
 
 model PayoutFloatAccount {
