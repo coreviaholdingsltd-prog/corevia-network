@@ -71,8 +71,9 @@ export async function POST(request: Request) {
     }
 
     const mpesaEnvironment = (process.env.MPESA_ENV || "sandbox").toLowerCase();
+    const isProductionDeployment = process.env.VERCEL_ENV === "production";
     if (
-      mpesaEnvironment === "production" &&
+      (isProductionDeployment || mpesaEnvironment === "production") &&
       (
         process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED !== "true" ||
         process.env.COREVIA_PAYOUT_FLOAT_READY !== "true" ||
@@ -128,6 +129,9 @@ export async function POST(request: Request) {
     const payoutProvider = (process.env.COREVIA_WITHDRAWAL_PROVIDER || "daraja").toLowerCase();
     if (payoutProvider !== "daraja" && payoutProvider !== "paystack") {
       return NextResponse.json({ error: "Withdrawal provider configuration is invalid." }, { status: 503 });
+    }
+    if (isProductionDeployment && payoutProvider === "daraja" && mpesaEnvironment !== "production") {
+      return NextResponse.json({ error: "Production Daraja payouts require MPESA_ENV=production and Safaricom production credentials." }, { status: 503 });
     }
     const phone = normalizeMpesaPhone(user.phone);
     let config: ReturnType<typeof getDarajaConfig> | null = null;
