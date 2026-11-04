@@ -36,10 +36,6 @@ export async function POST(request: Request) {
     const enrollment = existing ?? await prisma.academyEnrollment.create({
       data: { userId: user.id, courseId: course.id, status: "PENDING_PAYMENT", amountPaid: 0, qualificationLevel, qualificationFeeKsh: qualification.feeKsh },
     });
-    if (existing) await prisma.academyEnrollment.update({
-      where: { id: existing.id }, data: { qualificationLevel, qualificationFeeKsh: qualification.feeKsh },
-    });
-
     const reference = `CVA${Date.now().toString().slice(-9)}${crypto.randomBytes(2).toString("hex").toUpperCase()}`.slice(0, 12);
     const reservation = await prisma.$transaction(async (tx) => {
       await tx.$queryRaw<Array<{ id: string }>>`SELECT "id" FROM "AcademyEnrollment" WHERE "id" = ${enrollment.id} FOR UPDATE`;
@@ -48,6 +44,10 @@ export async function POST(request: Request) {
         orderBy: { createdAt: "desc" },
       });
       if (pending) return { pending, payment: null };
+      await tx.academyEnrollment.update({
+        where: { id: enrollment.id },
+        data: { qualificationLevel, qualificationFeeKsh: qualification.feeKsh },
+      });
       const payment = await tx.academyPayment.create({
         data: {
           userId: user.id,
