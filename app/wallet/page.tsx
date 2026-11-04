@@ -73,6 +73,7 @@ function transactionLabel(type: string) {
     WALLET_TRANSFER_RECEIVED: "Wallet transfer received",
     WALLET_TRANSFER_FEE: "Wallet transfer fee",
     ADJUSTMENT: "Wallet adjustment",
+    WALLET_DEPOSIT: "Wallet deposit",
   };
 
   return (
@@ -94,6 +95,12 @@ export default function Wallet() {
 
   const [paying, setPaying] = useState(false);
   const [checkingPayment, setCheckingPayment] = useState(false);
+  const [depositAmount, setDepositAmount] = useState("1000");
+  const [depositing, setDepositing] = useState(false);
+  const [depositMessage, setDepositMessage] = useState("");
+  const [depositError, setDepositError] = useState("");
+  const [pendingDepositReference, setPendingDepositReference] = useState("");
+  const [verifyingDeposit, setVerifyingDeposit] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
@@ -281,6 +288,37 @@ export default function Wallet() {
   }, []);
 
   useEffect(() => {
+    const deposit = new URLSearchParams(window.location.search).get("deposit");
+    if (!deposit) return;
+    let cancelled = false;
+    async function verifyReturnedDeposit() {
+      setDepositMessage("Confirming your wallet deposit...");
+      setDepositError("");
+      try {
+        const response = await fetch("/api/wallet/deposit/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ reference: deposit }),
+          cache: "no-store",
+        });
+        const result = await response.json();
+        if (cancelled) return;
+        if (!response.ok || result.status !== true) throw new Error(result.error || "Wallet deposit is not confirmed yet.");
+        setDepositMessage(result.alreadyProcessed ? "This wallet deposit was already credited." : "Payment confirmed. Your wallet has been credited.");
+        window.history.replaceState({}, "", "/wallet");
+        await refreshWalletSummary();
+      } catch (err) {
+        if (!cancelled) {
+          setDepositError(err instanceof Error ? err.message : "Unable to verify wallet deposit.");
+          setDepositMessage("");
+        }
+      }
+    }
+    void verifyReturnedDeposit();
+    return () => { cancelled = true; };
+  }, [refreshWalletSummary]);
+
+  useEffect(() => {
     if (!user?.id) return;
 
     const storageKey =
@@ -406,6 +444,78 @@ export default function Wallet() {
       setMessage("");
     } finally {
       setCheckingPayment(false);
+    }
+  }
+
+  async function startWalletDeposit() {
+    setDepositing(true);
+    setDepositError("");
+    setDepositMessage("");
+    try {
+      const response = await fetch("/api/wallet/deposit/initialize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: depositAmount }),
+        cache: "no-store",
+      });
+      const result = await response.json();
+      if (!response.ok || result.status !== true || typeof result.authorizationUrl !== "string") {
+        if (typeof result.reference === "string") setPendingDepositReference(result.reference);
+        throw new Error(result.error || "Unable to open Paystack checkout.");
+      }
+      setPendingDepositReference(result.reference || "");
+      window.location.assign(result.authorizationUrl);
+    } catch (err) {
+      setDepositError(err instanceof Error ? err.message : "Unable to open Paystack checkout.");
+      setDepositing(false);
+    }
+  }
+
+  useEffect(() => {
+    if (!user || user.membershipStatus !== "ACTIVE") return;
+    let cancelled = false;
+    async function loadPendingDeposit() {
+      try {
+        const response = await fetch("/api/wallet/deposit/pending", { cache: "no-store" });
+        const result = await response.json();
+        if (!cancelled && response.ok && result.status === true) {
+          setPendingDepositReference(result.pending?.reference || "");
+        }
+      } catch {
+        // The wallet remains usable; the member can retry the lookup.
+      }
+    }
+    void loadPendingDeposit();
+    return () => { cancelled = true; };
+  }, [user?.id, user?.membershipStatus]);
+
+  async function verifyPendingWalletDeposit(reference = pendingDepositReference) {
+    if (!reference) {
+      setDepositError("There is no pending wallet deposit to verify.");
+      return;
+    }
+    setVerifyingDeposit(true);
+    setDepositError("");
+    setDepositMessage("Checking Paystack for the pending payment...");
+    try {
+      const response = await fetch("/api/wallet/deposit/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reference }),
+        cache: "no-store",
+      });
+      const result = await response.json();
+      if (!response.ok || result.status !== true) {
+        throw new Error(result.error || "Paystack has not confirmed this deposit yet.");
+      }
+      setPendingDepositReference("");
+      setDepositMessage(result.alreadyProcessed ? "This deposit was already credited to your wallet." : "Payment confirmed. Your wallet has been credited.");
+      await refreshWalletSummary();
+    } catch (err) {
+      setDepositMessage("");
+      setDepositError(err instanceof Error ? err.message : "Unable to verify this deposit.");
+    } finally {
+      setVerifyingDeposit(false);
     }
   }
 
@@ -688,7 +798,7 @@ export default function Wallet() {
                 className="mt-5 w-full rounded-xl bg-[#12352c] px-5 py-3.5 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {paying
-                  ? "Opening Paystack..."
+                  ? "Redirecting to Paystack..."
                   : "Pay KES 1,000 & Activate"}
               </button>
 
@@ -726,6 +836,33 @@ export default function Wallet() {
 
         {active && (
           <>
+            <section className="mt-6 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-[#12352c]/10 sm:p-6">
+              <h2 className="text-xl font-bold">Add Money to Wallet</h2>
+              <p className="mt-2 text-sm leading-6 text-[#12352c]/70">
+                Fund your member wallet through secure Paystack Checkout. Select M-PESA on the Paystack payment page. Your wallet is credited only after Paystack confirms successful payment.
+              </p>
+              <form className="mt-5 space-y-4" onSubmit={(event) => { event.preventDefault(); void startWalletDeposit(); }}>
+                <div>
+                  <label htmlFor="walletDepositAmount" className="mb-2 block text-sm font-semibold">Deposit amount (KES)</label>
+                  <input id="walletDepositAmount" type="number" min="100" max="150000" step="0.01" value={depositAmount} onChange={(event) => setDepositAmount(event.target.value)} disabled={depositing} required className="w-full rounded-xl border border-[#12352c]/20 bg-white px-4 py-3 text-[#12352c] outline-none focus:border-[#b99a58] disabled:bg-gray-100" />
+                </div>
+                <button type="submit" disabled={depositing || !Number.isFinite(Number(depositAmount)) || Number(depositAmount) < 100 || Number(depositAmount) > 150000} className="w-full rounded-xl bg-[#12352c] px-5 py-3.5 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60">
+                  {depositing ? "Opening Paystack..." : "Continue to Paystack"}
+                </button>
+              </form>
+              {pendingDepositReference && (
+                <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4">
+                  <p className="text-sm font-semibold text-amber-900">Wallet payment awaiting confirmation</p>
+                  <p className="mt-1 text-xs text-amber-800">Reference: {pendingDepositReference}</p>
+                  <button type="button" onClick={() => void verifyPendingWalletDeposit()} disabled={verifyingDeposit} className="mt-3 w-full rounded-xl bg-[#12352c] px-4 py-3 text-sm font-semibold text-white disabled:opacity-60">
+                    {verifyingDeposit ? "Checking Paystack..." : "Verify Pending Deposit"}
+                  </button>
+                </div>
+              )}
+              {depositMessage && <div role="status" className="mt-4 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">{depositMessage}</div>}
+              {depositError && <div role="alert" className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{depositError}</div>}
+            </section>
+
             <section className="mt-6 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-[#12352c]/10 sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
@@ -970,7 +1107,7 @@ export default function Wallet() {
 
                           <div className="text-right">
                             <p className="font-bold">
-                              {`${["WALLET_TRANSFER_SENT", "WALLET_TRANSFER_FEE", "WITHDRAWAL", "WITHDRAWAL_FEE"].includes(transaction.type) ? "-" : transaction.type === "WALLET_TRANSFER_RECEIVED" ? "+" : ""}${formatKES(Math.abs(Number(transaction.amount)))}`}
+                              {`${["WALLET_TRANSFER_SENT", "WALLET_TRANSFER_FEE", "WITHDRAWAL", "WITHDRAWAL_FEE"].includes(transaction.type) ? "-" : ["WALLET_TRANSFER_RECEIVED", "ADJUSTMENT", "REFERRAL_REWARD", "SPIN_REWARD"].includes(transaction.type) ? "+" : ""}${formatKES(Math.abs(Number(transaction.amount)))}`}
                             </p>
                             <p
                               className={`mt-1 text-xs font-semibold ${
