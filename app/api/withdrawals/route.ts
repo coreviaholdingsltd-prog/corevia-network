@@ -198,7 +198,7 @@ export async function POST(request: Request) {
           {
             ownerType: "COREVIA", amount: fee, type: "WITHDRAWAL_FEE",
             reference: `${reference}-FEE-COREVIA`,
-            description: `0.50% withdrawal fee earned by Corevia. Till ${COREVIA_TILL_NUMBER}`,
+            description: `0.50% withdrawal fee accrued to Corevia; external settlement to Till ${COREVIA_TILL_NUMBER} is separate and not confirmed by this ledger entry.`,
           },
         ],
       });
@@ -230,14 +230,29 @@ export async function POST(request: Request) {
       }, { status: 202 });
     }
 
-    if (String(acknowledgement.ResponseCode) !== "0") {
-      await settleWithdrawalFailure(
+    const responseCode = acknowledgement?.ResponseCode;
+    if (typeof responseCode !== "string" || !/^\\d+$/.test(responseCode)) {
+      // An invalid acknowledgement is ambiguous. Never refund or retry automatically.
+      console.error("Daraja returned a malformed B2C acknowledgement; leaving withdrawal processing.", {
         reference,
-        Number(acknowledgement.ResponseCode) || -1,
-        acknowledgement.ResponseDescription || "Safaricom rejected the B2C request.",
-      );
+        responseCode,
+      });
       return NextResponse.json({
-        error: acknowledgement.ResponseDescription || "Safaricom rejected the withdrawal request. Your wallet has been refunded.",
+        status: true,
+        message: "M-PESA returned an unclear acknowledgement. Your withdrawal remains processing for reconciliation. Do not submit it again.",
+        withdrawal: created.withdrawal,
+        remainingBalance: created.remainingBalance,
+      }, { status: 202 });
+    }
+
+    if (responseCode !== "0") {
+      const rejectionCode = Number(responseCode);
+      const rejectionDescription = typeof acknowledgement.ResponseDescription === "string" && acknowledgement.ResponseDescription.trim()
+        ? acknowledgement.ResponseDescription
+        : "Safaricom rejected the B2C request.";
+      await settleWithdrawalFailure(reference, rejectionCode, rejectionDescription);
+      return NextResponse.json({
+        error: `${rejectionDescription} Your wallet will be refunded only after the rejection is recorded.`,
       }, { status: 502 });
     }
 
