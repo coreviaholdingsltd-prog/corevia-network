@@ -15,9 +15,9 @@ export async function POST(request: Request) {
     const user = await prisma.user.findUnique({ where: { id: session.userId }, select: { id: true, email: true, phone: true, membershipStatus: true } });
     if (!user) return NextResponse.json({ error: "Member account not found." }, { status: 404 });
     if (user.membershipStatus !== "ACTIVE") return NextResponse.json({ error: "Activate your membership before funding your wallet." }, { status: 403 });
-    const digits = String(user.phone || "").replace(/\\D/g, "");
+    const digits = String(user.phone || "").replace(/\D/g, "");
     const mpesaPhone = digits.startsWith("254") ? "+" + digits : digits.startsWith("0") ? "+254" + digits.slice(1) : digits.startsWith("7") || digits.startsWith("1") ? "+254" + digits : "";
-    if (!/^\\+254[17]\\d{8}$/.test(mpesaPhone)) return NextResponse.json({ error: "Add a valid Kenyan M-PESA phone number to your member profile before depositing." }, { status: 400 });
+    if (!/^\+254[17]\d{8}$/.test(mpesaPhone)) return NextResponse.json({ error: "Add a valid Kenyan M-PESA phone number to your member profile before depositing." }, { status: 400 });
     const body = await request.json();
     const raw = String(body.amount ?? "").trim();
     const amount = Number(raw), cents = Math.round(amount * 100);
@@ -26,7 +26,6 @@ export async function POST(request: Request) {
     if (pending) return NextResponse.json({ error: "A wallet deposit is already awaiting confirmation. Verify it before starting another.", reference: pending.providerReference }, { status: 409 });
     const reference = "CV-WALLET-" + Date.now() + "-" + crypto.randomBytes(4).toString("hex").toUpperCase();
     await prisma.paymentRecord.create({ data: { userId: user.id, amount: cents / 100, provider: "PAYSTACK", providerReference: reference, destination: "OTHER", status: "PENDING" } });
-    const site = (process.env.NEXT_PUBLIC_SITE_URL || new URL(request.url).origin).replace(/\/$/, "");
     let response: Response;
     let data: { status?: boolean; message?: string; data?: { reference?: string; status?: string; display_text?: string } };
     try {
