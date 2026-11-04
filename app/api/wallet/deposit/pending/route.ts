@@ -10,7 +10,7 @@ export async function GET() {
     const session = verifySession(jar.get(sessionCookieName)?.value);
     if (!session) return NextResponse.json({ error: "Please sign in first." }, { status: 401 });
     const pending = await prisma.paymentRecord.findFirst({
-      where: { userId: session.userId, provider: "PAYSTACK", destination: "OTHER", status: "PENDING" },
+      where: { userId: session.userId, provider: "PAYSTACK", destination: "OTHER", status: "PENDING", providerReference: { startsWith: "CV-MPESA-" } },
       orderBy: { createdAt: "desc" },
       select: { providerReference: true, amount: true, createdAt: true },
     });
