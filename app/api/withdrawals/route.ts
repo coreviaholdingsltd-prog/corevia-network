@@ -17,7 +17,6 @@ import {
   initiateKenyaMpesaTransfer,
   getPaystackKesBalanceSubunits,
 } from "@/lib/paystack/transfers";
-import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const MAX_NET_PAYOUT = 150000;
