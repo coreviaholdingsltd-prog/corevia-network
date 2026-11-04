@@ -214,6 +214,7 @@ enum PayoutProviderAttemptStatus {
 
 model PayoutFloatAccount {
   id               String                  @id @default("primary")
+  provider         PayoutProvider           @unique @default(DARAJA)
   availableBalance Decimal                 @default(0) @db.Decimal(14, 2)
   reservedBalance  Decimal                 @default(0) @db.Decimal(14, 2)
   createdAt        DateTime                @default(now())
