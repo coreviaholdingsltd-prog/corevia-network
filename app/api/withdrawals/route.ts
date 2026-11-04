@@ -64,6 +64,20 @@ export async function POST(request: Request) {
     if (process.env.COREVIA_WITHDRAWALS_ENABLED !== "true") {
       return NextResponse.json({ error: "Withdrawals are temporarily disabled while payout configuration is being verified." }, { status: 503 });
     }
+
+    const mpesaEnvironment = (process.env.MPESA_ENV || "sandbox").toLowerCase();
+    if (
+      mpesaEnvironment === "production" &&
+      (
+        process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED !== "true" ||
+        process.env.COREVIA_PAYOUT_FLOAT_READY !== "true" ||
+        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true"
+      )
+    ) {
+      return NextResponse.json({
+        error: "Live withdrawals are locked until Safaricom production approval, verified client payout float, and the separate Corevia Till fee-transfer route are all confirmed.",
+      }, { status: 503 });
+    }
     const user = await getSessionUser();
     if (!user) return NextResponse.json({ error: "Please sign in first." }, { status: 401 });
     if (user.membershipStatus !== "ACTIVE") {
