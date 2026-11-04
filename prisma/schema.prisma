@@ -88,6 +88,7 @@ model MembershipPayment {
   id                String            @id @default(cuid())
   userId            String
   amount            Decimal           @db.Decimal(14, 2)
+  qualificationLevel String           @default("CERTIFICATE")
   provider          String
   providerReference String            @unique
   status            TransactionStatus @default(PENDING)
@@ -261,6 +262,8 @@ model AcademyEnrollment {
   courseId       String
   status         AcademyEnrollmentStatus   @default(PENDING_PAYMENT)
   amountPaid     Decimal                   @default(0) @db.Decimal(14, 2)
+  qualificationLevel String                 @default("CERTIFICATE")
+  qualificationFeeKsh Decimal               @default(1500) @db.Decimal(14, 2)
   enrolledAt     DateTime                  @default(now())
   completedAt    DateTime?
   user           User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
