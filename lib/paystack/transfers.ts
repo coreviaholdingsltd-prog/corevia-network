@@ -56,6 +56,20 @@ type TransferResponse = {
   currency: string;
 };
 
+type BalanceResponse = {
+  currency: string;
+  balance: number;
+};
+
+export async function getPaystackKesBalanceSubunits() {
+  const balances = await paystackRequest<BalanceResponse[]>("/balance", { method: "GET" });
+  const kes = balances.find((entry) => entry.currency === "KES");
+  if (!kes || !Number.isSafeInteger(kes.balance) || kes.balance < 0) {
+    throw new Error("Paystack did not return a valid KES balance.");
+  }
+  return kes.balance;
+}
+
 export async function createKenyaMpesaRecipient(args: {
   name: string;
   phone: string;
