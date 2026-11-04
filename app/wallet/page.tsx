@@ -459,12 +459,12 @@ export default function Wallet() {
         cache: "no-store",
       });
       const result = await response.json();
-      if (!response.ok || result.status !== true || !result.authorization_url) {
+      if (!response.ok || result.status !== true) {
         if (typeof result.reference === "string") setPendingDepositReference(result.reference);
         throw new Error(result.error || "Unable to start wallet deposit.");
       }
       setPendingDepositReference(result.reference || "");
-      window.location.href = result.authorization_url;
+      setDepositMessage(result.displayText || result.message || "M-PESA payment request sent. Check your phone and authorize it with your M-PESA PIN.");
     } catch (err) {
       setDepositError(err instanceof Error ? err.message : "Unable to start wallet deposit.");
       setDepositing(false);
