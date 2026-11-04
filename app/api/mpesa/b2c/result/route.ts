@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     const rawResultCode = result.ResultCode;
     const resultCode = typeof rawResultCode === "number"
       ? rawResultCode
-      : typeof rawResultCode === "string" && /^\\d+$/.test(rawResultCode)
+      : typeof rawResultCode === "string" && /^\d+$/.test(rawResultCode)
         ? Number(rawResultCode)
         : Number.NaN;
 
