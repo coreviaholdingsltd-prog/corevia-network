@@ -202,6 +202,41 @@ export async function POST(request: Request) {
         select: { id: true, amount: true, fee: true, netAmount: true, status: true, reference: true, createdAt: true },
       });
 
+      // Production B2C payouts must be backed by a separately funded Utility-account float.
+      // Sandbox can exercise the Daraja callback flow without real-money float reservations.
+      const enforcePayoutFloat = mpesaEnvironment === "production" ||
+        process.env.COREVIA_PAYOUT_FLOAT_ENFORCED === "true";
+      if (enforcePayoutFloat) {
+        const floatReserved = await tx.payoutFloatAccount.updateMany({
+          where: { id: "primary", availableBalance: { gte: netAmount } },
+          data: {
+            availableBalance: { decrement: netAmount },
+            reservedBalance: { increment: netAmount },
+          },
+        });
+        if (floatReserved.count !== 1) {
+          throw new Error("Insufficient available M-PESA payout float. Your wallet has not been debited; fund and reconcile the Safaricom Utility account first.");
+        }
+
+        await tx.payoutFloatReservation.create({
+          data: {
+            accountId: "primary",
+            withdrawalId: withdrawal.id,
+            amount: netAmount,
+            status: "RESERVED",
+          },
+        });
+        await tx.payoutFloatEntry.create({
+          data: {
+            accountId: "primary",
+            reference: `${reference}-FLOAT-RESERVE`,
+            type: "RESERVATION",
+            amount: netAmount,
+            description: `Reserved M-PESA Utility payout float for ${reference}`,
+          },
+        });
+      }
+
       await tx.ledgerEntry.createMany({
         data: [
           {
