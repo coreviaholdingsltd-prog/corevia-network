@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { sessionCookieName, verifySession } from "@/lib/session";
 import { processWalletDeposit } from "@/lib/wallet-deposits";
+import { prisma } from "@/lib/prisma";
 
 export const runtime = "nodejs";
 export async function POST(request: Request) {
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
     if (data.data.status !== "success") {
       const terminalFailure = data.data.status === "failed" || data.data.status === "abandoned";
       if (terminalFailure) {
-        await (await import("@/lib/prisma")).prisma.paymentRecord.updateMany({
+        await prisma.paymentRecord.updateMany({
           where: { providerReference: reference, userId: session.userId, provider: "PAYSTACK", destination: "OTHER", status: "PENDING" },
           data: { status: "FAILED" },
         });
