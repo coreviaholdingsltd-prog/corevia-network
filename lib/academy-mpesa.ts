@@ -21,9 +21,9 @@ function mpesaConfig() {
 }
 
 export function normalizeMpesaPhone(value: unknown) {
-  const digits = String(value ?? "").replace(/\\D/g, "");
+  const digits = String(value ?? "").replace(/\D/g, "");
   const normalized = digits.startsWith("0") ? `254${digits.slice(1)}` : digits.startsWith("7") || digits.startsWith("1") ? `254${digits}` : digits;
-  return /^254[17]\\d{8}$/.test(normalized) ? normalized : null;
+  return /^254[17]\d{8}$/.test(normalized) ? normalized : null;
 }
 
 export async function initiateAcademyMpesaPush(input: {
