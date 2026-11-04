@@ -213,6 +213,7 @@ export default function AcademyPage() {
         body: JSON.stringify({
           courseId: course.id,
           qualificationLevel,
+          phone: mpesaPhoneByCourse[course.id] ?? "",
         }),
       });
 
@@ -227,6 +228,12 @@ export default function AcademyPage() {
 
       if (result.authorization_url) {
         window.location.href = result.authorization_url;
+        return;
+      }
+
+      if (result.paymentPending) {
+        setPendingPaymentReference(result.reference || "");
+        setNotice(result.message || "M-PESA prompt sent. Your course unlocks after payment confirmation.");
         return;
       }
 
