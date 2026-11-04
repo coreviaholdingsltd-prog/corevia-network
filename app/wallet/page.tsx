@@ -1044,7 +1044,7 @@ export default function Wallet() {
 
                           <div className="text-right">
                             <p className="font-bold">
-                              {`${["WALLET_TRANSFER_SENT", "WALLET_TRANSFER_FEE", "WITHDRAWAL", "WITHDRAWAL_FEE"].includes(transaction.type) ? "-" : ["WALLET_TRANSFER_RECEIVED", "WALLET_DEPOSIT", "REFERRAL_REWARD", "SPIN_REWARD"].includes(transaction.type) ? "+" : ""}${formatKES(Math.abs(Number(transaction.amount)))}`}
+                              {`${["WALLET_TRANSFER_SENT", "WALLET_TRANSFER_FEE", "WITHDRAWAL", "WITHDRAWAL_FEE"].includes(transaction.type) ? "-" : ["WALLET_TRANSFER_RECEIVED", "ADJUSTMENT", "REFERRAL_REWARD", "SPIN_REWARD"].includes(transaction.type) ? "+" : ""}${formatKES(Math.abs(Number(transaction.amount)))}`}
                             </p>
                             <p
                               className={`mt-1 text-xs font-semibold ${
