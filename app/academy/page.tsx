@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ACADEMY_QUALIFICATION_LEVELS, type AcademyQualificationLevel } from "@/lib/academy-levels";
 
 type Lesson = {
   id: string;
@@ -40,6 +41,8 @@ type Course = {
   description: string;
   level: string;
   priceKsh: number;
+  qualificationLevel: string | null;
+  qualificationFeeKsh: number | null;
   enrolled: boolean;
   enrollmentStatus: string | null;
   lessonsCount: number;
@@ -91,6 +94,9 @@ export default function AcademyPage() {
     : "";
 
   const [courses, setCourses] = useState<Course[]>([]);
+  const [qualificationByCourse, setQualificationByCourse] = useState<Record<string, AcademyQualificationLevel>>({});
+  const [paymentMethodByCourse, setPaymentMethodByCourse] = useState<Record<string, "PAYSTACK" | "MPESA">>({});
+  const [mpesaPhoneByCourse, setMpesaPhoneByCourse] = useState<Record<string, string>>({});
   const [memberName, setMemberName] = useState("Corevia member");
   const [loading, setLoading] = useState(true);
   const [authRequired, setAuthRequired] = useState(false);
@@ -166,6 +172,11 @@ export default function AcademyPage() {
 
       setNotice(result.message || "Payment confirmed. Your course is now available.");
       setError("");
+      if (result.paymentPending) {
+        setPendingPaymentReference(reference);
+        await loadCourses();
+        return;
+      }
       setPendingPaymentReference("");
       window.history.replaceState({}, "", "/academy");
       await loadCourses();
@@ -192,18 +203,22 @@ export default function AcademyPage() {
   }, [loadCourses, verifyAcademyPayment]);
 
   async function enroll(course: Course) {
+    const qualificationLevel = qualificationByCourse[course.id] ?? "CERTIFICATE";
+    const paymentMethod = paymentMethodByCourse[course.id] ?? "PAYSTACK";
     setWorking(course.id);
     setError("");
     setNotice("");
 
     try {
-      const response = await fetch("/api/academy/enroll", {
+      const response = await fetch(paymentMethod === "MPESA" ? "/api/academy/enroll/mpesa" : "/api/academy/enroll", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           courseId: course.id,
+          qualificationLevel,
+          phone: mpesaPhoneByCourse[course.id] ?? "",
         }),
       });
 
@@ -218,6 +233,12 @@ export default function AcademyPage() {
 
       if (result.authorization_url) {
         window.location.href = result.authorization_url;
+        return;
+      }
+
+      if (result.paymentPending) {
+        setPendingPaymentReference(result.reference || "");
+        setNotice(result.message || "M-PESA prompt sent. Your course unlocks after payment confirmation.");
         return;
       }
 
@@ -523,9 +544,33 @@ export default function AcademyPage() {
                     </span>
 
                     <span className="text-sm font-bold text-amber-200">
-                      {money(course.priceKsh)}
+                      {money(course.enrolled ? (course.qualificationFeeKsh ?? course.priceKsh) : ACADEMY_QUALIFICATION_LEVELS[qualificationByCourse[course.id] ?? "CERTIFICATE"].feeKsh)}
                     </span>
                   </div>
+
+                  {!course.enrolled && (
+                    <label className="mt-4 block text-sm font-semibold text-slate-200">
+                      Study pathway
+                      <select
+                        value={qualificationByCourse[course.id] ?? "CERTIFICATE"}
+                        onChange={(event) => setQualificationByCourse((current) => ({ ...current, [course.id]: event.target.value as AcademyQualificationLevel }))}
+                        className="mt-2 w-full rounded-xl border border-white/15 bg-slate-900 px-3 py-3 text-white"
+                      >
+                        {Object.entries(ACADEMY_QUALIFICATION_LEVELS).map(([key, item]) => (
+                          <option key={key} value={key}>{item.label} — {money(item.feeKsh)}</option>
+                        ))}
+                      </select>
+                      <span className="mt-1 block text-xs font-normal text-slate-400">The selected study pathway sets the course fee. Completion records confirm this course only; they do not represent an accredited academic degree.</span>
+                      <span className="mt-4 block text-sm font-semibold text-slate-200">Payment method</span>
+                      <select value={paymentMethodByCourse[course.id] ?? "PAYSTACK"} onChange={(event) => setPaymentMethodByCourse((current) => ({ ...current, [course.id]: event.target.value as "PAYSTACK" | "MPESA" }))} className="mt-2 w-full rounded-xl border border-white/15 bg-slate-900 px-3 py-3 text-white">
+                        <option value="PAYSTACK">Paystack</option>
+                        <option value="MPESA">M-PESA STK Push</option>
+                      </select>
+                      {(paymentMethodByCourse[course.id] ?? "PAYSTACK") === "MPESA" && (
+                        <input type="tel" inputMode="tel" autoComplete="tel" placeholder="M-PESA number e.g. 0712345678" value={mpesaPhoneByCourse[course.id] ?? ""} onChange={(event) => setMpesaPhoneByCourse((current) => ({ ...current, [course.id]: event.target.value }))} className="mt-3 w-full rounded-xl border border-white/15 bg-slate-900 px-3 py-3 text-white" />
+                      )}
+                    </label>
+                  )}
 
                   <h3 className="mt-5 text-2xl font-bold">
                     {course.title}
@@ -606,9 +651,7 @@ export default function AcademyPage() {
                         ? course.completion
                           ? "View completion record"
                           : "Open course"
-                        : course.priceKsh > 0
-                          ? `Enroll & Pay ${money(course.priceKsh)}`
-                          : "Enroll"}
+                        : `Enroll & Pay ${money(ACADEMY_QUALIFICATION_LEVELS[qualificationByCourse[course.id] ?? "CERTIFICATE"].feeKsh)}` }
                   </button>
                 </article>
               ))}

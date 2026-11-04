@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
 import { findAcademyCourse } from "@/lib/academy-catalog";
 import { processAcademyCoursePayment } from "@/lib/academy-payments";
+import { getAcademyQualification } from "@/lib/academy-levels";
 
 export const runtime = "nodejs";
 
@@ -19,7 +20,7 @@ export async function POST(request: Request) {
       );
     }
 
-    let body: { courseId?: unknown };
+    let body: { courseId?: unknown; qualificationLevel?: unknown };
 
     try {
       body = await request.json();
@@ -39,6 +40,10 @@ export async function POST(request: Request) {
         { status: 400 },
       );
     }
+
+    const qualificationLevel = typeof body.qualificationLevel === "string" ? body.qualificationLevel : "CERTIFICATE";
+    const qualification = getAcademyQualification(qualificationLevel);
+    if (!qualification) return NextResponse.json({ error: "Please select a valid Academy qualification level." }, { status: 400 });
 
     const course = findAcademyCourse(courseId);
 
@@ -71,7 +76,7 @@ export async function POST(request: Request) {
       });
     }
 
-    if (course.priceKsh <= 0) {
+    if (qualification.feeKsh <= 0) {
       const enrollment = await prisma.academyEnrollment.upsert({
         where: {
           userId_courseId: {
@@ -84,10 +89,14 @@ export async function POST(request: Request) {
           courseId: course.id,
           status: "ACTIVE",
           amountPaid: 0,
+          qualificationLevel,
+          qualificationFeeKsh: qualification.feeKsh,
         },
         update: {
           status: "ACTIVE",
           amountPaid: 0,
+          qualificationLevel,
+          qualificationFeeKsh: qualification.feeKsh,
         },
       });
 
@@ -127,6 +136,8 @@ export async function POST(request: Request) {
           courseId: course.id,
           status: "PENDING_PAYMENT",
           amountPaid: 0,
+          qualificationLevel,
+          qualificationFeeKsh: qualification.feeKsh,
         },
       }));
 
@@ -140,6 +151,8 @@ export async function POST(request: Request) {
       },
       orderBy: { createdAt: "desc" },
     });
+
+    let pendingPaymentFailed = false;
 
     if (pendingPayment) {
       let verifyResponse: Response;
@@ -219,6 +232,7 @@ export async function POST(request: Request) {
           where: { id: pendingPayment.id, status: "PENDING" },
           data: { status: "FAILED" },
         });
+        pendingPaymentFailed = true;
       } else {
         return NextResponse.json(
           {
@@ -228,6 +242,13 @@ export async function POST(request: Request) {
           { status: 409 },
         );
       }
+    }
+
+    if (existing && existing.status === "PENDING_PAYMENT" && (!pendingPayment || pendingPaymentFailed)) {
+      await prisma.academyEnrollment.update({
+        where: { id: existing.id },
+        data: { qualificationLevel, qualificationFeeKsh: qualification.feeKsh },
+      });
     }
 
     const candidateReference = `CV-ACADEMY-${Date.now()}-${crypto
@@ -258,7 +279,8 @@ export async function POST(request: Request) {
           userId: user.id,
           enrollmentId: enrollment.id,
           courseId: course.id,
-          amount: course.priceKsh,
+          amount: qualification.feeKsh,
+          qualificationLevel,
           provider: "PAYSTACK",
           providerReference: candidateReference,
           status: "PENDING",
@@ -297,7 +319,7 @@ export async function POST(request: Request) {
           },
           body: JSON.stringify({
             email: user.email,
-            amount: Math.round(course.priceKsh * 100),
+            amount: Math.round(qualification.feeKsh * 100),
             currency: "KES",
             reference,
             callback_url: `${siteUrl}/academy?payment=${encodeURIComponent(reference)}`,
@@ -307,6 +329,7 @@ export async function POST(request: Request) {
               courseId: course.id,
               enrollmentId: enrollment.id,
               courseTitle: course.title,
+              qualificationLevel,
             },
           }),
           cache: "no-store",

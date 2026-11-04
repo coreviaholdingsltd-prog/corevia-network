@@ -30,6 +30,8 @@ export async function GET() {
         description: course.description,
         level: course.level,
         priceKsh: course.priceKsh,
+        qualificationLevel: enrollment?.qualificationLevel ?? null,
+        qualificationFeeKsh: enrollment ? Number(enrollment.qualificationFeeKsh) : null,
         enrolled: unlocked,
         enrollmentStatus: enrollment?.status ?? null,
         lessonsCount: course.lessons.length,

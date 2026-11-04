@@ -16,7 +16,19 @@ export async function POST(request: Request) {
     const saved = await prisma.academyPayment.findUnique({ where: { providerReference: reference } });
     if (!saved) return NextResponse.json({ error: "Academy payment reference was not found." }, { status: 404 });
     if (saved.userId !== session.userId) return NextResponse.json({ error: "This payment belongs to another member." }, { status: 403 });
-    if (saved.status === "COMPLETED") return NextResponse.json({ status: true, alreadyProcessed: true, courseId: saved.courseId });
+    if (saved.status === "COMPLETED") return NextResponse.json({ status: true, alreadyProcessed: true, courseId: saved.courseId, message: "Academy payment confirmed." });
+    if (saved.provider === "MPESA") {
+      return NextResponse.json({
+        status: true,
+        paymentPending: saved.status === "PENDING",
+        paymentFailed: saved.status === "FAILED",
+        courseId: saved.courseId,
+        receipt: saved.mpesaReceiptNumber,
+        message: saved.status === "PENDING"
+          ? "Safaricom has not yet confirmed this payment. Do not pay again; wait for the M-PESA callback and retry verification."
+          : "This M-PESA payment was not completed. You may start a new payment.",
+      });
+    }
 
     const secretKey = process.env.PAYSTACK_SECRET_KEY;
     if (!secretKey) return NextResponse.json({ error: "Paystack is not configured." }, { status: 503 });

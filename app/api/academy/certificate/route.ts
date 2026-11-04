@@ -87,8 +87,9 @@ export async function GET(request: Request) {
     page.drawLine({start:{x:145,y:383},end:{x:697,y:383},thickness:1.2,color:gold});
     centered("for successfully completing the course",348,12,normal,ink);
     fit(course.title,315,700,20,bold,green);
-    centered("and passing the required course assessment.",287,11,normal,ink);
-    centered("Certificate No: "+completion.certificateCode,246,11,bold,green);
+    centered("Study pathway: "+(enrollment.qualificationLevel || "CERTIFICATE").replace("MASTERS","MASTER’S").replace("PHD","PhD").replace("CERTIFICATE","Certificate").replace("DIPLOMA","Diploma").replace("DEGREE","Degree"),287,11,bold,green);
+    centered("and passing the required course assessment.",267,11,normal,ink);
+    centered("Certificate No: "+completion.certificateCode,235,11,bold,green);
     centered("Issued: "+new Intl.DateTimeFormat("en-GB",{day:"2-digit",month:"long",year:"numeric",timeZone:"UTC"}).format(completion.issuedAt),222,10,normal,ink);
     centered("Issued by COREVIA HOLDINGS LTD | COREVIA RISE ACADEMY",189,10,bold,green);
 

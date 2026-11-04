@@ -1,0 +1,98 @@
+import crypto from "crypto";
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { getAcademyUser } from "@/lib/academy-auth";
+import { findAcademyCourse } from "@/lib/academy-catalog";
+import { getAcademyQualification } from "@/lib/academy-levels";
+import { initiateAcademyMpesaPush, normalizeMpesaPhone } from "@/lib/academy-mpesa";
+
+export const runtime = "nodejs";
+
+export async function POST(request: Request) {
+  try {
+    const user = await getAcademyUser();
+    if (!user) return NextResponse.json({ error: "Please sign in to enroll." }, { status: 401 });
+    const body = await request.json();
+    const courseId = typeof body.courseId === "string" ? body.courseId.trim() : "";
+    const qualificationLevel = typeof body.qualificationLevel === "string" ? body.qualificationLevel : "CERTIFICATE";
+    const qualification = getAcademyQualification(qualificationLevel);
+    const phone = normalizeMpesaPhone(body.phone);
+    if (!process.env.MPESA_CONSUMER_KEY || !process.env.MPESA_CONSUMER_SECRET || !process.env.MPESA_SHORTCODE || !process.env.MPESA_PASSKEY || !process.env.MPESA_ACADEMY_CALLBACK_URL || !process.env.MPESA_CALLBACK_TOKEN) {
+      return NextResponse.json({ error: "M-PESA tuition collection is awaiting Daraja credentials and callback configuration." }, { status: 503 });
+    }
+    if (!courseId || !qualification || !phone) {
+      return NextResponse.json({ error: "Select a course and qualification, and enter a valid Kenyan M-PESA number." }, { status: 400 });
+    }
+    const course = findAcademyCourse(courseId);
+    if (!course || !course.published) return NextResponse.json({ error: "Course not found or not available." }, { status: 404 });
+
+    const existing = await prisma.academyEnrollment.findUnique({
+      where: { userId_courseId: { userId: user.id, courseId: course.id } },
+    });
+    if (existing && (existing.status === "ACTIVE" || existing.status === "COMPLETED")) {
+      return NextResponse.json({ status: true, alreadyEnrolled: true, message: "You are already enrolled in this course." });
+    }
+
+    const enrollment = existing ?? await prisma.academyEnrollment.create({
+      data: { userId: user.id, courseId: course.id, status: "PENDING_PAYMENT", amountPaid: 0, qualificationLevel, qualificationFeeKsh: qualification.feeKsh },
+    });
+    const reference = `CVA${Date.now().toString().slice(-9)}${crypto.randomBytes(2).toString("hex").toUpperCase()}`.slice(0, 12);
+    const reservation = await prisma.$transaction(async (tx) => {
+      await tx.$queryRaw<Array<{ id: string }>>`SELECT "id" FROM "AcademyEnrollment" WHERE "id" = ${enrollment.id} FOR UPDATE`;
+      const pending = await tx.academyPayment.findFirst({
+        where: { enrollmentId: enrollment.id, status: "PENDING" },
+        orderBy: { createdAt: "desc" },
+      });
+      if (pending) return { pending, payment: null };
+      await tx.academyEnrollment.update({
+        where: { id: enrollment.id },
+        data: { qualificationLevel, qualificationFeeKsh: qualification.feeKsh },
+      });
+      const payment = await tx.academyPayment.create({
+        data: {
+          userId: user.id,
+          enrollmentId: enrollment.id,
+          courseId: course.id,
+          amount: qualification.feeKsh,
+          qualificationLevel,
+          provider: "MPESA",
+          providerReference: reference,
+          status: "PENDING",
+        },
+      });
+      return { pending: null, payment };
+    });
+    if (reservation.pending || !reservation.payment) {
+      return NextResponse.json({
+        error: "An earlier payment is still awaiting confirmation. Do not pay again; retry verification using its reference.",
+        reference: reservation.pending?.providerReference,
+      }, { status: 409 });
+    }
+    const payment = reservation.payment;
+
+    try {
+      const push = await initiateAcademyMpesaPush({
+        paymentId: payment.id,
+        reference,
+        phone,
+        amount: qualification.feeKsh,
+        courseTitle: course.title,
+      });
+      return NextResponse.json({
+        status: true,
+        paymentPending: true,
+        reference,
+        message: `${push.customerMessage} Enter your M-PESA PIN on your phone. Your course unlocks after Safaricom confirms payment.`,
+      });
+    } catch (error) {
+      console.error("Academy M-PESA initiation requires reconciliation:", error);
+      return NextResponse.json({
+        error: error instanceof Error ? error.message : "M-PESA request could not be confirmed. Do not retry payment until this reference is checked.",
+        reference,
+      }, { status: 502 });
+    }
+  } catch (error) {
+    console.error("Academy M-PESA enrollment error:", error);
+    return NextResponse.json({ error: "Unable to start M-PESA Academy payment." }, { status: 500 });
+  }
+}
