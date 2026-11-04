@@ -95,6 +95,8 @@ export default function AcademyPage() {
 
   const [courses, setCourses] = useState<Course[]>([]);
   const [qualificationByCourse, setQualificationByCourse] = useState<Record<string, AcademyQualificationLevel>>({});
+  const [paymentMethodByCourse, setPaymentMethodByCourse] = useState<Record<string, "PAYSTACK" | "MPESA">>({});
+  const [mpesaPhoneByCourse, setMpesaPhoneByCourse] = useState<Record<string, string>>({});
   const [memberName, setMemberName] = useState("Corevia member");
   const [loading, setLoading] = useState(true);
   const [authRequired, setAuthRequired] = useState(false);
@@ -197,12 +199,13 @@ export default function AcademyPage() {
 
   async function enroll(course: Course) {
     const qualificationLevel = qualificationByCourse[course.id] ?? "CERTIFICATE";
+    const paymentMethod = paymentMethodByCourse[course.id] ?? "PAYSTACK";
     setWorking(course.id);
     setError("");
     setNotice("");
 
     try {
-      const response = await fetch("/api/academy/enroll", {
+      const response = await fetch(paymentMethod === "MPESA" ? "/api/academy/enroll/mpesa" : "/api/academy/enroll", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -535,7 +538,7 @@ export default function AcademyPage() {
 
                   {!course.enrolled && (
                     <label className="mt-4 block text-sm font-semibold text-slate-200">
-                      Qualification level
+                      Study pathway
                       <select
                         value={qualificationByCourse[course.id] ?? "CERTIFICATE"}
                         onChange={(event) => setQualificationByCourse((current) => ({ ...current, [course.id]: event.target.value as AcademyQualificationLevel }))}
@@ -545,7 +548,7 @@ export default function AcademyPage() {
                           <option key={key} value={key}>{item.label} — {money(item.feeKsh)}</option>
                         ))}
                       </select>
-                      <span className="mt-1 block text-xs font-normal text-slate-400">One qualification fee covers this course enrolment; the old course fee is not added again.</span>
+                      <span className="mt-1 block text-xs font-normal text-slate-400">The selected study pathway sets the course fee. Completion records confirm this course only; they do not represent an accredited academic degree.</span>\n                      <span className="mt-4 block text-sm font-semibold text-slate-200">Payment method</span>\n                      <select value={paymentMethodByCourse[course.id] ?? "PAYSTACK"} onChange={(event) => setPaymentMethodByCourse((current) => ({ ...current, [course.id]: event.target.value as "PAYSTACK" | "MPESA" }))} className="mt-2 w-full rounded-xl border border-white/15 bg-slate-900 px-3 py-3 text-white">\n                        <option value="PAYSTACK">Paystack</option>\n                        <option value="MPESA">M-PESA STK Push</option>\n                      </select>\n                      {(paymentMethodByCourse[course.id] ?? "PAYSTACK") === "MPESA" && (\n                        <input type="tel" inputMode="tel" autoComplete="tel" placeholder="M-PESA number e.g. 0712345678" value={mpesaPhoneByCourse[course.id] ?? ""} onChange={(event) => setMpesaPhoneByCourse((current) => ({ ...current, [course.id]: event.target.value }))} className="mt-3 w-full rounded-xl border border-white/15 bg-slate-900 px-3 py-3 text-white" />\n                      )}
                     </label>
                   )}
 
