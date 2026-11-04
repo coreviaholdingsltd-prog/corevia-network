@@ -381,19 +381,13 @@ export async function POST(request: Request) {
           reference: paystackReference!,
           reason: `Corevia Network withdrawal ${reference}`,
         });
-        if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed") {
-          await settlePaystackWithdrawal({
-            reference: paystackReference!,
-            status: transfer.status,
-            amountSubunits: transfer.amount,
-            currency: transfer.currency,
-            transferCode: transfer.transfer_code,
-          });
-        }
+        // The initiation response is an acknowledgement, not our settlement
+        // authority. Only a signed terminal webhook or an independent verify
+        // request in the reconciliation worker may mark this withdrawal terminal.
         return NextResponse.json({
           status: true,
-          message: transfer.status === "success"
-            ? "Paystack confirmed the M-PESA payout."
+          message: transfer.status === "otp"
+            ? "Paystack requires an approval step. Your withdrawal remains processing and will not be sent through Daraja automatically."
             : "Paystack received the M-PESA transfer request. Your withdrawal remains processing until a verified terminal result is received.",
           withdrawal: created.withdrawal,
           remainingBalance: created.remainingBalance,
