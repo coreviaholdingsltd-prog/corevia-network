@@ -540,7 +540,12 @@ export async function POST(request: Request) {
         where: { withdrawalId: created.withdrawal.id, attemptNumber: 1 },
         data: {
           status: "AMBIGUOUS",
-          responsePayload: acknowledgement as object,
+          responsePayload: {
+            responseCode: acknowledgement.ResponseCode ?? null,
+            responseDescription: acknowledgement.ResponseDescription ?? null,
+            conversationId: acknowledgement.ConversationID ?? null,
+            originatorConversationId: acknowledgement.OriginatorConversationID ?? null,
+          },
           errorDescription: "Malformed or missing Safaricom response code",
         },
       });
