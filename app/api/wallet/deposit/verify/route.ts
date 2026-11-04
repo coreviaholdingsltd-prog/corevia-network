@@ -18,7 +18,22 @@ export async function POST(request: Request) {
     const data = await response.json();
     if (!response.ok || !data.status || !data.data) return NextResponse.json({ error: data.message || "Unable to verify wallet deposit." }, { status: 502 });
     if (data.data.reference !== reference) return NextResponse.json({ error: "Paystack reference did not match." }, { status: 400 });
-    if (data.data.status !== "success") return NextResponse.json({ error: "Payment has not completed yet.", paymentStatus: data.data.status }, { status: 409 });
+    if (data.data.status !== "success") {
+      const terminalFailure = data.data.status === "failed" || data.data.status === "abandoned";
+      if (terminalFailure) {
+        await (await import("@/lib/prisma")).prisma.paymentRecord.updateMany({
+          where: { providerReference: reference, userId: session.userId, provider: "PAYSTACK", destination: "OTHER", status: "PENDING" },
+          data: { status: "FAILED" },
+        });
+      }
+      return NextResponse.json({
+        error: terminalFailure
+          ? "Paystack confirms this deposit did not complete. You can start a fresh STK push."
+          : "Payment has not completed yet. Complete the M-PESA prompt on your phone.",
+        paymentStatus: data.data.status,
+        terminal: terminalFailure,
+      }, { status: 409 });
+    }
     const result = await processWalletDeposit({ reference: String(data.data.reference), amount: Number(data.data.amount), currency: String(data.data.currency), status: String(data.data.status), paid_at: data.data.paid_at ?? null, metadata: data.data.metadata ?? null }, session.userId);
     return NextResponse.json({ status: true, ...result, message: "Wallet deposit confirmed." });
   } catch (error) {
