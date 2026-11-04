@@ -1,0 +1,6 @@
+ALTER TABLE "AcademyEnrollment"
+  ADD COLUMN "qualificationLevel" TEXT NOT NULL DEFAULT 'CERTIFICATE',
+  ADD COLUMN "qualificationFeeKsh" DECIMAL(14,2) NOT NULL DEFAULT 1500;
+
+ALTER TABLE "AcademyPayment"
+  ADD COLUMN "qualificationLevel" TEXT NOT NULL DEFAULT 'CERTIFICATE';
