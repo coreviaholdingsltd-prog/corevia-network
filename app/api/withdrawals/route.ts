@@ -136,6 +136,8 @@ export async function POST(request: Request) {
     let accessToken: string | null = null;
     let paystackRecipientCode: string | null = null;
     let paystackKesBalanceSubunits: number | null = null;
+    let paystackAvailableKsh: number | null = null;
+    const paystackFeeBufferKsh = Number(process.env.COREVIA_PAYSTACK_TRANSFER_FEE_BUFFER_KES || "NaN");
     const providerOrder = requestedProvider === "auto"
       ? (process.env.COREVIA_WITHDRAWAL_PROVIDER_ORDER || "paystack,daraja")
           .split(",").map((value) => value.trim().toLowerCase()).filter(Boolean)
@@ -160,6 +162,9 @@ export async function POST(request: Request) {
           )) {
             throw new Error("Paystack live transfer approval or funded KES float is not confirmed.");
           }
+          if (!Number.isFinite(paystackFeeBufferKsh) || paystackFeeBufferKsh <= 0) {
+            throw new Error("A positive Paystack transfer-fee reserve must be configured before using this payout rail.");
+          }
           const recipient = await createKenyaMpesaRecipient({ name: user.name, phone });
           if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money") {
             throw new Error("Paystack did not return an active Kenyan M-PESA recipient.");
@@ -167,6 +172,17 @@ export async function POST(request: Request) {
           payoutProvider = "paystack";
           paystackRecipientCode = recipient.recipient_code;
           paystackKesBalanceSubunits = await getPaystackKesBalanceSubunits();
+          paystackAvailableKsh = await prisma.$transaction(async (tx) => {
+            await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('corevia-paystack-float'))::text AS lock_acquired`;
+            const account = await tx.payoutFloatAccount.findUnique({ where: { provider: "PAYSTACK" } });
+            if (!account) throw new Error("Paystack payout float account is not initialized. Apply the provider-float migration first.");
+            const available = Math.max(paystackKesBalanceSubunits! / 100 - Number(account.reservedBalance), 0);
+            await tx.payoutFloatAccount.update({
+              where: { id: account.id },
+              data: { availableBalance: available },
+            });
+            return available;
+          });
           break;
         }
 
@@ -189,6 +205,7 @@ export async function POST(request: Request) {
         accessToken = null;
         paystackRecipientCode = null;
         paystackKesBalanceSubunits = null;
+        paystackAvailableKsh = null;
       }
     }
 
@@ -226,7 +243,7 @@ export async function POST(request: Request) {
     if (
       payoutProvider === "paystack" &&
       paystackKesBalanceSubunits !== null &&
-      paystackKesBalanceSubunits < Math.round(netAmount * 100)
+      (paystackAvailableKsh ?? 0) < netAmount + paystackFeeBufferKsh
     ) {
       if (requestedProvider !== "auto") {
         return NextResponse.json({ error: "Paystack's available KES balance is below this payout. Your wallet has not been debited." }, { status: 503 });
@@ -326,6 +343,35 @@ export async function POST(request: Request) {
           },
         },
       });
+
+      if (payoutProvider === "paystack") {
+        await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('corevia-paystack-float'))::text AS lock_acquired`;
+        const reserveAmount = Math.round((netAmount + paystackFeeBufferKsh) * 100) / 100;
+        const floatReserved = await tx.payoutFloatAccount.updateMany({
+          where: { provider: "PAYSTACK", availableBalance: { gte: reserveAmount } },
+          data: {
+            availableBalance: { decrement: reserveAmount },
+            reservedBalance: { increment: reserveAmount },
+          },
+        });
+        if (floatReserved.count !== 1) {
+          throw new Error("Insufficient reserved Paystack KES float including the configured transfer-fee buffer. Your wallet has not been debited.");
+        }
+        const account = await tx.payoutFloatAccount.findUnique({ where: { provider: "PAYSTACK" }, select: { id: true } });
+        if (!account) throw new Error("Paystack payout float account is not initialized.");
+        await tx.payoutFloatReservation.create({
+          data: { accountId: account.id, withdrawalId: withdrawal.id, amount: reserveAmount, status: "RESERVED" },
+        });
+        await tx.payoutFloatEntry.create({
+          data: {
+            accountId: account.id,
+            reference: `${reference}-PAYSTACK-FLOAT-RESERVE`,
+            type: "RESERVATION",
+            amount: reserveAmount,
+            description: `Reserved Paystack KES payout principal and fee buffer for ${reference}`,
+          },
+        });
+      }
 
       // Production B2C payouts must be backed by a separately funded Utility-account float.
       // Sandbox can exercise the Daraja callback flow without real-money float reservations.
