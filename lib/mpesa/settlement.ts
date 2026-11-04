@@ -26,9 +26,33 @@ export async function settleWithdrawalFailure(
     });
     if (changed.count !== 1) return { updated: false };
 
+    await tx.payoutProviderAttempt.updateMany({
+      where: { withdrawalId: withdrawal.id, providerReference: withdrawal.originatorConversationId ?? undefined },
+      data: {
+        status: "FAILED",
+        errorCode: String(resultCode),
+        errorDescription: resultDescription.slice(0, 500),
+        completedAt: new Date(),
+      },
+    });
+
     await tx.wallet.update({
       where: { userId: withdrawal.userId },
       data: { balance: { increment: withdrawal.amount } },
+    });
+
+    await tx.payoutProviderAttempt.updateMany({
+      where: { withdrawalId: withdrawal.id, provider: "DARAJA" },
+      data: {
+        status: "SUCCEEDED",
+        completedAt: new Date(),
+        responsePayload: {
+          resultCode: details.resultCode,
+          resultDescription: details.resultDescription.slice(0, 500),
+          receiptNumber: details.receiptNumber,
+          conversationId: details.conversationId ?? null,
+        },
+      },
     });
 
     const reservation = await tx.payoutFloatReservation.findUnique({

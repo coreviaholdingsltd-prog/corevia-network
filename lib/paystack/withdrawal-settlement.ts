@@ -60,6 +60,83 @@ export async function settlePaystackWithdrawal(args: {
     });
     if (changed.count !== 1) return { updated: false, reason: "raced" as const };
 
+    await tx.payoutProviderAttempt.updateMany({
+      where: { withdrawalId: withdrawal.id, providerReference: args.reference },
+      data: {
+        status: success ? "SUCCEEDED" : args.status === "reversed" ? "REVERSED" : "FAILED",
+        providerTransferId: args.transferCode ?? undefined,
+        completedAt: now,
+        responsePayload: {
+          status: args.status,
+          amount: args.amountSubunits,
+          currency: args.currency,
+          transferCode: args.transferCode ?? null,
+        },
+      },
+    });
+
+    const reservation = await tx.payoutFloatReservation.findUnique({
+      where: { withdrawalId: withdrawal.id },
+    });
+    if (reservation && (reservation.status === "RESERVED" || (args.status === "reversed" && reservation.status === "SETTLED"))) {
+      const released = await tx.payoutFloatReservation.updateMany({
+        where: {
+          id: reservation.id,
+          status: reservation.status,
+        },
+        data: { status: "RELEASED" },
+      });
+      if (released.count === 1) {
+        const accountUpdated = reservation.status === "RESERVED"
+          ? await tx.payoutFloatAccount.updateMany({
+              where: { id: reservation.accountId, reservedBalance: { gte: reservation.amount } },
+              data: {
+                reservedBalance: { decrement: reservation.amount },
+                availableBalance: { increment: reservation.amount },
+              },
+            })
+          : await tx.payoutFloatAccount.updateMany({
+              where: { id: reservation.accountId },
+              data: { availableBalance: { increment: reservation.amount } },
+            });
+        if (accountUpdated.count !== 1) {
+          throw new Error("Paystack float reservation could not be released safely; transaction rolled back.");
+        }
+        await tx.payoutFloatEntry.create({
+          data: {
+            accountId: reservation.accountId,
+            reference: `${withdrawal.reference}-PAYSTACK-FLOAT-RELEASE`,
+            type: "RELEASE",
+            amount: reservation.amount,
+            description: `Released Paystack payout float after terminal ${args.status} for ${withdrawal.reference}`,
+          },
+        });
+      }
+    } else if (reservation?.status === "RESERVED" && success) {
+      const settled = await tx.payoutFloatReservation.updateMany({
+        where: { id: reservation.id, status: "RESERVED" },
+        data: { status: "SETTLED" },
+      });
+      if (settled.count === 1) {
+        const accountUpdated = await tx.payoutFloatAccount.updateMany({
+          where: { id: reservation.accountId, reservedBalance: { gte: reservation.amount } },
+          data: { reservedBalance: { decrement: reservation.amount } },
+        });
+        if (accountUpdated.count !== 1) {
+          throw new Error("Paystack float reservation could not be settled safely; transaction rolled back.");
+        }
+        await tx.payoutFloatEntry.create({
+          data: {
+            accountId: reservation.accountId,
+            reference: `${withdrawal.reference}-PAYSTACK-FLOAT-SETTLED`,
+            type: "SETTLEMENT",
+            amount: reservation.amount,
+            description: `Consumed reserved Paystack payout float after confirmed success of ${withdrawal.reference}`,
+          },
+        });
+      }
+    }
+
     if (!success) {
       // A failed or reversed Paystack transfer is terminal. Restore the single
       // wallet debit and reverse the Corevia fee accrual exactly once.

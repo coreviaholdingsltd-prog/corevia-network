@@ -22,6 +22,8 @@ import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
 const WITHDRAWAL_FEE_RATE = 0.005;
 const MAX_NET_PAYOUT = 150000;
 const COREVIA_TILL_NUMBER = "6959300";
+// Hard fail-closed until an idempotent, reconciled Till fee-transfer rail is implemented.
+const COREVIA_TILL_FEE_TRANSFER_IMPLEMENTED = false;
 
 async function getSessionUser() {
   const cookieStore = await cookies();
@@ -47,7 +49,12 @@ export async function GET() {
         select: {
           id: true, amount: true, fee: true, netAmount: true, status: true,
           reference: true, paymentReference: true, mpesaReceiptNumber: true,
-          resultCode: true, resultDescription: true,
+          resultCode: true, resultDescription: true, payoutProvider: true,
+          providerAttempts: {
+            orderBy: { attemptNumber: "desc" },
+            take: 1,
+            select: { provider: true, status: true, errorDescription: true },
+          },
           createdAt: true, processedAt: true,
         },
       }),
@@ -77,11 +84,12 @@ export async function POST(request: Request) {
       (isProductionDeployment || mpesaEnvironment === "production") &&
       (
         process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED !== "true" ||
-        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true"
+        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true" ||
+        !COREVIA_TILL_FEE_TRANSFER_IMPLEMENTED
       )
     ) {
       return NextResponse.json({
-        error: "Live withdrawals are locked until company live-payout approval and the separate Corevia Till fee-transfer route are confirmed.",
+        error: "Live withdrawals are locked until company approval and the separate Corevia Till fee-transfer route is implemented and confirmed.",
       }, { status: 503 });
     }
     const user = await getSessionUser();
@@ -136,6 +144,8 @@ export async function POST(request: Request) {
     let accessToken: string | null = null;
     let paystackRecipientCode: string | null = null;
     let paystackKesBalanceSubunits: number | null = null;
+    let paystackAvailableKsh: number | null = null;
+    const paystackFeeBufferKsh = Number(process.env.COREVIA_PAYSTACK_TRANSFER_FEE_BUFFER_KES || "NaN");
     const providerOrder = requestedProvider === "auto"
       ? (process.env.COREVIA_WITHDRAWAL_PROVIDER_ORDER || "paystack,daraja")
           .split(",").map((value) => value.trim().toLowerCase()).filter(Boolean)
@@ -160,6 +170,9 @@ export async function POST(request: Request) {
           )) {
             throw new Error("Paystack live transfer approval or funded KES float is not confirmed.");
           }
+          if (!Number.isFinite(paystackFeeBufferKsh) || paystackFeeBufferKsh <= 0) {
+            throw new Error("A positive Paystack transfer-fee reserve must be configured before using this payout rail.");
+          }
           const recipient = await createKenyaMpesaRecipient({ name: user.name, phone });
           if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money") {
             throw new Error("Paystack did not return an active Kenyan M-PESA recipient.");
@@ -167,6 +180,17 @@ export async function POST(request: Request) {
           payoutProvider = "paystack";
           paystackRecipientCode = recipient.recipient_code;
           paystackKesBalanceSubunits = await getPaystackKesBalanceSubunits();
+          paystackAvailableKsh = await prisma.$transaction(async (tx) => {
+            await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('corevia-paystack-float'))::text AS lock_acquired`;
+            const account = await tx.payoutFloatAccount.findUnique({ where: { provider: "PAYSTACK" } });
+            if (!account) throw new Error("Paystack payout float account is not initialized. Apply the provider-float migration first.");
+            const available = Math.max(paystackKesBalanceSubunits! / 100 - Number(account.reservedBalance), 0);
+            await tx.payoutFloatAccount.update({
+              where: { id: account.id },
+              data: { availableBalance: available },
+            });
+            return available;
+          });
           break;
         }
 
@@ -189,6 +213,7 @@ export async function POST(request: Request) {
         accessToken = null;
         paystackRecipientCode = null;
         paystackKesBalanceSubunits = null;
+        paystackAvailableKsh = null;
       }
     }
 
@@ -226,7 +251,7 @@ export async function POST(request: Request) {
     if (
       payoutProvider === "paystack" &&
       paystackKesBalanceSubunits !== null &&
-      paystackKesBalanceSubunits < Math.round(netAmount * 100)
+      (paystackAvailableKsh ?? 0) < netAmount + paystackFeeBufferKsh
     ) {
       if (requestedProvider !== "auto") {
         return NextResponse.json({ error: "Paystack's available KES balance is below this payout. Your wallet has not been debited." }, { status: 503 });
@@ -252,9 +277,9 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Neither Paystack nor Daraja has sufficient verified payout readiness. Your wallet has not been debited." }, { status: 503 });
       }
     }
-    if (payoutProvider === "daraja" && netAmountCents % 100 !== 0) {
+    if (netAmountCents % 100 !== 0) {
       return NextResponse.json({
-        error: "Daraja B2C pays whole shillings only. Adjust the withdrawal amount so the payout after the 0.50% fee is a whole KES amount.",
+        error: "M-PESA payouts must be whole shillings. Adjust the withdrawal amount so the payout after the 0.50% fee is a whole KES amount.",
       }, { status: 400 });
     }
 
@@ -306,9 +331,55 @@ export async function POST(request: Request) {
           phoneNumber: phone,
           originatorConversationId,
           paymentReference: paystackReference,
+          payoutProvider: payoutProvider === "paystack" ? "PAYSTACK" : "DARAJA",
         },
         select: { id: true, amount: true, fee: true, netAmount: true, status: true, reference: true, createdAt: true },
       });
+
+      await tx.payoutProviderAttempt.create({
+        data: {
+          withdrawalId: withdrawal.id,
+          provider: payoutProvider === "paystack" ? "PAYSTACK" : "DARAJA",
+          attemptNumber: 1,
+          providerReference: paystackReference ?? originatorConversationId!,
+          status: "PREFLIGHT",
+          requestPayload: {
+            amountKsh: netAmount,
+            currency: "KES",
+            phone,
+            provider: payoutProvider,
+          },
+        },
+      });
+
+      if (payoutProvider === "paystack") {
+        await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('corevia-paystack-float'))::text AS lock_acquired`;
+        const reserveAmount = Math.round((netAmount + paystackFeeBufferKsh) * 100) / 100;
+        const floatReserved = await tx.payoutFloatAccount.updateMany({
+          where: { provider: "PAYSTACK", availableBalance: { gte: reserveAmount } },
+          data: {
+            availableBalance: { decrement: reserveAmount },
+            reservedBalance: { increment: reserveAmount },
+          },
+        });
+        if (floatReserved.count !== 1) {
+          throw new Error("Insufficient reserved Paystack KES float including the configured transfer-fee buffer. Your wallet has not been debited.");
+        }
+        const account = await tx.payoutFloatAccount.findUnique({ where: { provider: "PAYSTACK" }, select: { id: true } });
+        if (!account) throw new Error("Paystack payout float account is not initialized.");
+        await tx.payoutFloatReservation.create({
+          data: { accountId: account.id, withdrawalId: withdrawal.id, amount: reserveAmount, status: "RESERVED" },
+        });
+        await tx.payoutFloatEntry.create({
+          data: {
+            accountId: account.id,
+            reference: `${reference}-PAYSTACK-FLOAT-RESERVE`,
+            type: "RESERVATION",
+            amount: reserveAmount,
+            description: `Reserved Paystack KES payout principal and fee buffer for ${reference}`,
+          },
+        });
+      }
 
       // Production B2C payouts must be backed by a separately funded Utility-account float.
       // Sandbox can exercise the Daraja callback flow without real-money float reservations.
@@ -375,11 +446,33 @@ export async function POST(request: Request) {
 
     if (payoutProvider === "paystack") {
       try {
+        await prisma.payoutProviderAttempt.updateMany({
+          where: { withdrawalId: created.withdrawal.id, attemptNumber: 1, status: "PREFLIGHT" },
+          data: { status: "SUBMITTED" },
+        });
         const transfer = await initiateKenyaMpesaTransfer({
           recipientCode: paystackRecipientCode!,
           amountKsh: netAmount,
           reference: paystackReference!,
           reason: `Corevia Network withdrawal ${reference}`,
+        });
+        await prisma.payoutProviderAttempt.updateMany({
+          where: { withdrawalId: created.withdrawal.id, attemptNumber: 1 },
+          data: {
+            status: transfer.status === "success" ? "SUCCEEDED"
+              : transfer.status === "failed" ? "FAILED"
+              : transfer.status === "reversed" ? "REVERSED"
+              : ["pending", "otp", "processing"].includes(transfer.status) ? "ACCEPTED" : "AMBIGUOUS",
+            providerTransferId: transfer.transfer_code,
+            acceptedAt: new Date(),
+            responsePayload: {
+              status: transfer.status,
+              transferCode: transfer.transfer_code,
+              amount: transfer.amount,
+              currency: transfer.currency,
+            },
+            completedAt: ["success", "failed", "reversed"].includes(transfer.status) ? new Date() : null,
+          },
         });
         if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed") {
           await settlePaystackWithdrawal({
@@ -401,6 +494,13 @@ export async function POST(request: Request) {
       } catch (error) {
         // A network timeout or provider error after transfer submission is ambiguous.
         // Keep the wallet debit and provider lock; never send the same withdrawal to Daraja.
+        await prisma.payoutProviderAttempt.updateMany({
+          where: { withdrawalId: created.withdrawal.id, attemptNumber: 1, status: { in: ["PREFLIGHT", "SUBMITTED"] } },
+          data: {
+            status: "AMBIGUOUS",
+            errorDescription: error instanceof Error ? error.message.slice(0, 500) : "Unknown transfer submission outcome",
+          },
+        });
         console.error("Paystack transfer submission outcome is uncertain:", error);
         return NextResponse.json({
           status: true,
@@ -416,11 +516,22 @@ export async function POST(request: Request) {
     }
     let acknowledgement;
     try {
+      await prisma.payoutProviderAttempt.updateMany({
+        where: { withdrawalId: created.withdrawal.id, attemptNumber: 1, status: "PREFLIGHT" },
+        data: { status: "SUBMITTED" },
+      });
       acknowledgement = await submitB2CPayment({
         config, accessToken, amount: netAmount, phone, reference, originatorConversationId,
       });
     } catch (error) {
       // Do not refund on an ambiguous network/HTTP failure: Safaricom may have accepted the payout.
+      await prisma.payoutProviderAttempt.updateMany({
+        where: { withdrawalId: created.withdrawal.id, attemptNumber: 1, status: { in: ["PREFLIGHT", "SUBMITTED"] } },
+        data: {
+          status: "AMBIGUOUS",
+          errorDescription: error instanceof Error ? error.message.slice(0, 500) : "Unknown Daraja submission outcome",
+        },
+      });
       console.error("Daraja B2C submission outcome is uncertain:", error);
       return NextResponse.json({
         status: true,
@@ -433,6 +544,19 @@ export async function POST(request: Request) {
     const responseCode = acknowledgement?.ResponseCode;
     if (typeof responseCode !== "string" || !/^\d+$/.test(responseCode)) {
       // An invalid acknowledgement is ambiguous. Never refund or retry automatically.
+      await prisma.payoutProviderAttempt.updateMany({
+        where: { withdrawalId: created.withdrawal.id, attemptNumber: 1 },
+        data: {
+          status: "AMBIGUOUS",
+          responsePayload: {
+            responseCode: acknowledgement.ResponseCode ?? null,
+            responseDescription: acknowledgement.ResponseDescription ?? null,
+            conversationId: acknowledgement.ConversationID ?? null,
+            originatorConversationId: acknowledgement.OriginatorConversationID ?? null,
+          },
+          errorDescription: "Malformed or missing Safaricom response code",
+        },
+      });
       console.error("Daraja returned a malformed B2C acknowledgement; leaving withdrawal processing.", {
         reference,
         responseCode,
@@ -450,12 +574,30 @@ export async function POST(request: Request) {
       const rejectionDescription = typeof acknowledgement.ResponseDescription === "string" && acknowledgement.ResponseDescription.trim()
         ? acknowledgement.ResponseDescription
         : "Safaricom rejected the B2C request.";
+      await prisma.payoutProviderAttempt.updateMany({
+        where: { withdrawalId: created.withdrawal.id, attemptNumber: 1 },
+        data: {
+          status: "FAILED",
+          responsePayload: acknowledgement as object,
+          errorCode: String(rejectionCode),
+          errorDescription: rejectionDescription.slice(0, 500),
+          completedAt: new Date(),
+        },
+      });
       await settleWithdrawalFailure(reference, rejectionCode, rejectionDescription);
       return NextResponse.json({
         error: `${rejectionDescription} Your wallet will be refunded only after the rejection is recorded.`,
       }, { status: 502 });
     }
 
+    await prisma.payoutProviderAttempt.updateMany({
+      where: { withdrawalId: created.withdrawal.id, attemptNumber: 1 },
+      data: {
+        status: "ACCEPTED",
+        acceptedAt: new Date(),
+        responsePayload: acknowledgement as object,
+      },
+    });
     await prisma.withdrawal.updateMany({
       where: { id: created.withdrawal.id, status: "PROCESSING" },
       data: {

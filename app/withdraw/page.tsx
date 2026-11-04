@@ -38,6 +38,12 @@ type Withdrawal = {
   mpesaReceiptNumber?: string | null;
   resultCode?: number | null;
   resultDescription?: string | null;
+  payoutProvider?: "DARAJA" | "PAYSTACK" | null;
+  providerAttempts?: Array<{
+    provider: "DARAJA" | "PAYSTACK";
+    status: string;
+    errorDescription?: string | null;
+  }>;
 };
 
 export default function Withdraw() {
@@ -214,7 +220,7 @@ export default function Withdraw() {
 
             <div role="note" className="mt-5 rounded-xl border border-[#b99a58]/30 bg-[#f7f5ef] px-4 py-3">
               <p className="text-sm font-semibold text-[#12352c]">Withdrawal Notice</p>
-              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Your withdrawal is sent automatically to your registered M-PESA number. Processing may take up to 24 hours. A request is marked PAID only after Safaricom confirms the payout. Do not submit the same withdrawal again while it is PROCESSING.</p>
+              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Your withdrawal is sent automatically to your registered M-PESA number. Processing may take up to 24 hours. A request is marked PAID only after the selected payout provider confirms the transfer. Do not submit the same withdrawal again while it is PROCESSING.</p>
             </div>
             <button
               type="submit"
@@ -280,6 +286,17 @@ export default function Withdraw() {
                   {withdrawal.mpesaReceiptNumber && (
                     <p className="mt-2 text-xs font-semibold text-[#12352c]">
                       M-PESA receipt: {withdrawal.mpesaReceiptNumber}
+                    </p>
+                  )}
+                  {withdrawal.payoutProvider && (
+                    <p className="mt-2 text-xs font-semibold text-[#12352c]/70">
+                      Payout engine: {withdrawal.payoutProvider === "PAYSTACK" ? "Paystack M-PESA" : "Safaricom Daraja B2C"}
+                    </p>
+                  )}
+                  {withdrawal.providerAttempts?.[0] && (
+                    <p className="mt-1 text-xs text-[#12352c]/55">
+                      Engine status: {withdrawal.providerAttempts[0].status}
+                      {withdrawal.providerAttempts[0].errorDescription ? ` — ${withdrawal.providerAttempts[0].errorDescription}` : ""}
                     </p>
                   )}
                   {withdrawal.paymentReference && (
