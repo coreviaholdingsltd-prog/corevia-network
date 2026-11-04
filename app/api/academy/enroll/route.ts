@@ -241,6 +241,13 @@ export async function POST(request: Request) {
       }
     }
 
+    if (existing && existing.status === "PENDING_PAYMENT" && !pendingPayment) {
+      await prisma.academyEnrollment.update({
+        where: { id: existing.id },
+        data: { qualificationLevel, qualificationFeeKsh: qualification.feeKsh },
+      });
+    }
+
     const candidateReference = `CV-ACADEMY-${Date.now()}-${crypto
       .randomBytes(4)
       .toString("hex")
