@@ -40,7 +40,7 @@ export async function settlePaystackWithdrawal(args: {
 
     const now = new Date();
     const success = args.status === "success";
-    const allowedStatuses = args.status === "reversed"
+    const allowedStatuses: ("PENDING" | "PROCESSING" | "PAID")[] = args.status === "reversed"
       ? ["PENDING", "PROCESSING", "PAID"]
       : ["PENDING", "PROCESSING"];
     const changed = await tx.withdrawal.updateMany({
