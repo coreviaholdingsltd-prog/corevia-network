@@ -22,9 +22,9 @@ export async function POST(request: Request) {
     const raw = String(body.amount ?? "").trim();
     const amount = Number(raw), cents = Math.round(amount * 100);
     if (!/^\d+(?:\.\d{1,2})?$/.test(raw) || !Number.isSafeInteger(cents) || cents < 10000 || cents > 15000000) return NextResponse.json({ error: "Enter an amount between KES 100 and KES 150,000." }, { status: 400 });
-    const pending = await prisma.paymentRecord.findFirst({ where: { userId: user.id, provider: "PAYSTACK", destination: "OTHER", status: "PENDING" }, orderBy: { createdAt: "desc" }, select: { providerReference: true } });
+    const pending = await prisma.paymentRecord.findFirst({ where: { userId: user.id, provider: "PAYSTACK", destination: "OTHER", status: "PENDING", providerReference: { startsWith: "CV-MPESA-" } }, orderBy: { createdAt: "desc" }, select: { providerReference: true } });
     if (pending) return NextResponse.json({ error: "A wallet deposit is already awaiting confirmation. Verify it before starting another.", reference: pending.providerReference }, { status: 409 });
-    const reference = "CV-WALLET-" + Date.now() + "-" + crypto.randomBytes(4).toString("hex").toUpperCase();
+    const reference = "CV-MPESA-" + Date.now() + "-" + crypto.randomBytes(4).toString("hex").toUpperCase();
     await prisma.paymentRecord.create({ data: { userId: user.id, amount: cents / 100, provider: "PAYSTACK", providerReference: reference, destination: "OTHER", status: "PENDING" } });
     let response: Response;
     let data: { status?: boolean; message?: string; data?: { reference?: string; status?: string; display_text?: string } };
