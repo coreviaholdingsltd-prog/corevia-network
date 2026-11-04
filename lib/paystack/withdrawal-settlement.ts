@@ -22,6 +22,16 @@ export async function settlePaystackWithdrawal(args: {
   return prisma.$transaction(async (tx) => {
     const withdrawal = await tx.withdrawal.findFirst({
       where: { paymentReference: args.reference },
+      select: {
+        id: true,
+        userId: true,
+        amount: true,
+        fee: true,
+        netAmount: true,
+        status: true,
+        reference: true,
+        paymentReference: true,
+      },
     });
     if (!withdrawal) return { updated: false, reason: "unmatched" as const };
 
@@ -51,10 +61,6 @@ export async function settlePaystackWithdrawal(args: {
       },
       data: {
         status: success ? "PAID" : "FAILED",
-        resultCode: success ? 0 : args.status === "reversed" ? 2 : 1,
-        resultDescription: success
-          ? "Paystack confirmed the M-PESA transfer as successful."
-          : "Paystack confirmed the M-PESA transfer as " + args.status + ".",
         processedAt: now,
       },
     });
