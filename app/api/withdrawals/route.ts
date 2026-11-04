@@ -115,7 +115,7 @@ export async function POST(request: Request) {
       }, { status: 409 });
     }
 
-    const digits = user.phone.replace(/\\D/g, "");
+    const digits = user.phone.replace(/\D/g, "");
     const phone = digits.startsWith("0") && digits.length === 10 ? `254${digits.slice(1)}`
       : digits.startsWith("254") && digits.length === 12 ? digits
       : digits.length === 9 && /^[17]/.test(digits) ? `254${digits}` : null;
