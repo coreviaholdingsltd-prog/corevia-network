@@ -88,6 +88,20 @@ export async function GET(request: Request) {
   const databaseReady = Array.isArray(floatAccounts) &&
     floatAccounts.some((row) => row.provider === "DARAJA") &&
     floatAccounts.some((row) => row.provider === "PAYSTACK");
+  const technicalReady = databaseReady &&
+    paystack.apiReachable &&
+    paystack.withdrawalsEnabled &&
+    paystack.noOtpAttested &&
+    paystack.feeBufferConfigured &&
+    daraja.apiReachable;
+  const liveReady = technicalReady &&
+    globalLiveApproval &&
+    tillFeeReady &&
+    paystack.liveApproval &&
+    paystack.floatAttested &&
+    daraja.environment === "production" &&
+    daraja.liveApproval &&
+    daraja.floatAttested;
 
   return NextResponse.json({
     liveDeployment,
@@ -99,23 +113,7 @@ export async function GET(request: Request) {
       accounts: floatAccounts,
     },
     providers: { paystack, daraja },
-    activationAllowed: withdrawalsEnabled && (
-      !liveDeployment || (
-        globalLiveApproval &&
-        tillFeeReady &&
-        paystack.apiReachable &&
-        paystack.withdrawalsEnabled &&
-        paystack.noOtpAttested &&
-        paystack.liveApproval &&
-        paystack.floatAttested &&
-        paystack.feeBufferConfigured &&
-        daraja.apiReachable &&
-        daraja.environment === "production" &&
-        daraja.liveApproval &&
-        daraja.floatAttested &&
-        databaseReady
-      )
-    ),
+    activationAllowed: withdrawalsEnabled && (liveDeployment ? liveReady : technicalReady),
     note: "API authentication and environment flags are readiness signals only. They do not prove Safaricom/Paystack payout approval, provider float funding, Till fee settlement, or successful end-to-end callbacks.",
   });
 }
