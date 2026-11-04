@@ -159,6 +159,11 @@ export async function POST(request: Request) {
         error: "The maximum Paystack M-PESA withdrawal payout is KES 150,000. The maximum wallet deduction is KES 150,753.77 including the 0.50% fee.",
       }, { status: 400 });
     }
+    if (netAmountCents % 100 !== 0) {
+      return NextResponse.json({
+        error: "The M-PESA payout must be a whole KES amount. Adjust the withdrawal amount; your wallet has not been debited.",
+      }, { status: 400 });
+    }
 
     if (paystackKesBalanceSubunits < netAmountCents) {
       return NextResponse.json({ error: "Paystack's available KES balance is below this payout. Your wallet has not been debited." }, { status: 503 });
