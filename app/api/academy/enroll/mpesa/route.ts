@@ -40,30 +40,35 @@ export async function POST(request: Request) {
       where: { id: existing.id }, data: { qualificationLevel, qualificationFeeKsh: qualification.feeKsh },
     });
 
-    const pending = await prisma.academyPayment.findFirst({
-      where: { enrollmentId: enrollment.id, status: "PENDING" },
-      orderBy: { createdAt: "desc" },
+    const reference = `CVA${Date.now().toString().slice(-9)}${crypto.randomBytes(2).toString("hex").toUpperCase()}`.slice(0, 12);
+    const reservation = await prisma.$transaction(async (tx) => {
+      await tx.$queryRaw<Array<{ id: string }>>`SELECT "id" FROM "AcademyEnrollment" WHERE "id" = ${enrollment.id} FOR UPDATE`;
+      const pending = await tx.academyPayment.findFirst({
+        where: { enrollmentId: enrollment.id, status: "PENDING" },
+        orderBy: { createdAt: "desc" },
+      });
+      if (pending) return { pending, payment: null };
+      const payment = await tx.academyPayment.create({
+        data: {
+          userId: user.id,
+          enrollmentId: enrollment.id,
+          courseId: course.id,
+          amount: qualification.feeKsh,
+          qualificationLevel,
+          provider: "MPESA",
+          providerReference: reference,
+          status: "PENDING",
+        },
+      });
+      return { pending: null, payment };
     });
-    if (pending) {
+    if (reservation.pending || !reservation.payment) {
       return NextResponse.json({
         error: "An earlier payment is still awaiting confirmation. Do not pay again; retry verification using its reference.",
-        reference: pending.providerReference,
+        reference: reservation.pending?.providerReference,
       }, { status: 409 });
     }
-
-    const reference = `CVA${Date.now().toString().slice(-9)}${crypto.randomBytes(2).toString("hex").toUpperCase()}`.slice(0, 12);
-    const payment = await prisma.academyPayment.create({
-      data: {
-        userId: user.id,
-        enrollmentId: enrollment.id,
-        courseId: course.id,
-        amount: qualification.feeKsh,
-        qualificationLevel,
-        provider: "MPESA",
-        providerReference: reference,
-        status: "PENDING",
-      },
-    });
+    const payment = reservation.payment;
 
     try {
       const push = await initiateAcademyMpesaPush({
