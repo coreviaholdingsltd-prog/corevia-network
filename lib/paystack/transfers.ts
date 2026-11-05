@@ -12,6 +12,7 @@ async function paystackRequest<T>(path: string, init: RequestInit = {}): Promise
   const response = await fetch(`${PAYSTACK_API}${path}`, {
     ...init,
     cache: "no-store",
+    signal: init.signal ?? AbortSignal.timeout(12000),
     headers: {
       Authorization: `Bearer ${secretKey()}`,
       "Content-Type": "application/json",
