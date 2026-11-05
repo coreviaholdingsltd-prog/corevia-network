@@ -483,22 +483,12 @@ export async function reconcileCoreviaRevenueTransfers() {
       const providerStatus = error instanceof Error
         ? (error as Error & { statusCode?: number }).statusCode
         : undefined;
+      // A verification 404 can be eventual-consistency or a transfer whose
+      // initiation timed out after provider acceptance. Do not release the
+      // reserved revenue batch or retry until a terminal provider status exists.
       if (providerStatus === 404) {
-        const batch = await prisma.ledgerEntry.findFirst({
-          where: { ownerType: "COREVIA", description: { startsWith: `COREVIA_TILL_ATTEMPT|${reference}|` } },
-          select: { description: true },
-        });
-        const parsed = parseAttempt(batch?.description);
-        if (parsed) {
-          const result = await settleCoreviaRevenueTransfer({
-            reference,
-            status: "failed",
-            amountSubunits: Math.round(parsed.batchTotalKsh * 100),
-            currency: "KES",
-          });
-          if (result.updated) settled += 1;
-          continue;
-        }
+        inconclusive += 1;
+        continue;
       }
       errors += 1;
       console.error("Corevia Till revenue reconciliation failed:", {
