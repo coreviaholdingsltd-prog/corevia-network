@@ -209,19 +209,34 @@ export async function POST(request: Request) {
       // balance. Protect every member's balance before authorizing this payout.
       // Existing PROCESSING withdrawals are counted as reserved client claims
       // until a terminal Paystack result is confirmed (conservative on timeouts).
-      const [walletTotals, processingTotals, paystackBalanceSubunits] = await Promise.all([
+      const [walletTotals, processingTotals, pendingDepositTotals, paystackBalanceSubunits] = await Promise.all([
         tx.wallet.aggregate({ _sum: { balance: true } }),
         tx.withdrawal.aggregate({
           where: { status: "PROCESSING" },
           _sum: { netAmount: true },
         }),
+        tx.paymentRecord.aggregate({
+          where: {
+            provider: "PAYSTACK",
+            destination: "OTHER",
+            status: "PENDING",
+            providerReference: { startsWith: "CV-WALLET-" },
+          },
+          _sum: { amount: true },
+        }),
         getPaystackKesBalanceSubunits(),
       ]);
       const allMemberWalletLiabilities = Number(walletTotals._sum.balance ?? 0);
       const existingProcessingPayouts = Number(processingTotals._sum.netAmount ?? 0);
+      // A Paystack-successful wallet charge can reach the pooled balance before
+      // its webhook/verification credits the member wallet. Reserve every
+      // unresolved CV-WALLET payment so revenue or another withdrawal cannot
+      // spend that unallocated client principal.
+      const pendingWalletDepositClaims = Number(pendingDepositTotals._sum.amount ?? 0);
       const postRequestClientClaims =
         Math.max(0, allMemberWalletLiabilities - normalizedAmount) +
         existingProcessingPayouts +
+        pendingWalletDepositClaims +
         netAmount;
       // Paystack's Kenya M-PESA transfer fee can reach KES 180 in the
       // applicable amount band; retain a KES 200 company-revenue buffer.
