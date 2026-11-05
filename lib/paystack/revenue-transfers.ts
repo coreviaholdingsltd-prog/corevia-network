@@ -206,33 +206,36 @@ export async function dispatchCoreviaRevenueTransfers() {
     const currentSources = await tx.ledgerEntry.findMany({
       where: { id: { in: sources.map((source) => source.id) }, ownerType: "COREVIA", amount: { gt: 0 } },
       select: { id: true, reference: true, amount: true, type: true },
-    });
+    }) as RevenueSource[];
+    const withdrawalReferences = currentSources
+      .filter((source) => source.type === "WITHDRAWAL_FEE")
+      .map((source) => source.reference.replace(/-FEE-COREVIA$/, ""));
+    const [withdrawals, markerRows] = await Promise.all([
+      withdrawalReferences.length
+        ? tx.withdrawal.findMany({
+            where: { reference: { in: withdrawalReferences } },
+            select: { reference: true, status: true },
+          })
+        : Promise.resolve([]),
+      tx.ledgerEntry.findMany({
+        where: { ownerType: "COREVIA", reference: { contains: "-TILL-" } },
+        select: { reference: true, description: true },
+      }),
+    ]);
+    const withdrawalByReference = new Map(withdrawals.map((item) => [item.reference, item.status]));
+    const groupedMarkers = markersBySource(currentSources, markerRows);
     const toReserve: Array<{ source: RevenueSource; attempt: number }> = [];
     let batchTotalKsh = 0;
 
-    for (const source of currentSources as RevenueSource[]) {
+    for (const source of currentSources) {
       if (source.type === "WITHDRAWAL_FEE") {
         const withdrawalReference = source.reference.replace(/-FEE-COREVIA$/, "");
-        const withdrawal = await tx.withdrawal.findUnique({
-          where: { reference: withdrawalReference },
-          select: { status: true },
-        });
-        if (withdrawal?.status !== "PAID") continue;
+        if (withdrawalByReference.get(withdrawalReference) !== "PAID") continue;
       }
 
-      const markers = await tx.ledgerEntry.findMany({
-        where: { ownerType: "COREVIA", reference: { startsWith: `${source.reference}-TILL-` } },
-        select: { reference: true, description: true },
-      });
+      const markers = groupedMarkers.get(source.reference) ?? [];
       if (markers.some((entry) => entry.reference === `${source.reference}-TILL-PAID`)) continue;
-
-      const parsedAttempts = markers
-        .map((entry) => ({ entry, parsed: parseAttempt(entry.description) }))
-        .filter((item): item is { entry: typeof markers[number]; parsed: NonNullable<ReturnType<typeof parseAttempt>> } => item.parsed !== null);
-      const activeAttempt = parsedAttempts.some(({ parsed }) =>
-        !markers.some((entry) => entry.reference === `${source.reference}-TILL-FAILED-A${parsed.attemptNumber}`),
-      );
-      if (activeAttempt) continue;
+      if (hasActiveAttempt(source.reference, markers)) continue;
 
       const previousNumbers = markers
         .map((entry) => Number(entry.reference.match(/-TILL-FAILED-A(\d+)$/)?.[1] ?? 0))
