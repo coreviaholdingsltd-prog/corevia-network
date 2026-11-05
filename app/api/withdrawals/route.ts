@@ -262,7 +262,7 @@ export async function POST(request: Request) {
           },
           _sum: { amount: true },
         }),
-        payoutEngine === "PAYSTACK" ? getPaystackKesBalanceSubunits() : Promise.resolve(0),
+        getPaystackKesBalanceSubunits(),
       ]);
       const allMemberWalletLiabilities = Number(walletTotals._sum.balance ?? 0);
       const existingProcessingPayouts = Number(processingTotals._sum.netAmount ?? 0);
@@ -347,7 +347,10 @@ export async function POST(request: Request) {
       const providerFeeBufferSubunits = 20000;
       const protectedPoolRequiredSubunits =
         Math.round(postRequestClientClaims * 100) + providerFeeBufferSubunits;
-      if (payoutEngine === "PAYSTACK" && paystackBalanceSubunits < protectedPoolRequiredSubunits) {
+      // Paystack remains the custodian of client wallet funds for BOTH payout
+      // rails. Safaricom float funds the B2C execution, but never substitutes
+      // for the protected client balance held at Paystack.
+      if (paystackBalanceSubunits < protectedPoolRequiredSubunits) {
         throw new Error("INSUFFICIENT_CLIENT_FUNDS_POOL");
       }
       if (payoutEngine === "DARAJA") {
