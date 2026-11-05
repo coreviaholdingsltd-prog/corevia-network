@@ -181,6 +181,7 @@ export async function dispatchCoreviaRevenueTransfers() {
       reference: providerReference,
       reason: "Corevia earned transaction and Academy fees to Till 6959300",
       accountReference: `COREVIA-${Date.now()}`,
+      businessTill: true,
     });
     return { dispatched: 1, reference: providerReference, amountKsh: reserved.amountKsh, sourceCount: reserved.sourceCount };
   } catch (error) {
