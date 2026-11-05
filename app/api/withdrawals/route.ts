@@ -315,14 +315,14 @@ export async function POST(request: Request) {
     const message = rawMessage === "INSUFFICIENT_CLIENT_FUNDS_POOL"
       ? "The available Paystack funds do not currently cover all members' wallet balances and this withdrawal, plus the transfer-fee reserve. No wallet debit was made."
       : rawMessage;
-    const status = message.startsWith("Missing server environment variable") || message.includes("callback URLs")
+    const status = rawMessage.startsWith("Missing server environment variable") || rawMessage.includes("callback URLs")
       ? 503
-      : message === "INSUFFICIENT_CLIENT_FUNDS_POOL"
+      : rawMessage === "INSUFFICIENT_CLIENT_FUNDS_POOL"
         ? 503
-        : message.includes("authentication failed")
+        : rawMessage.includes("authentication failed")
           ? 502
-          : message.startsWith("An existing withdrawal") ||
-            message.startsWith("Insufficient available M-PESA payout float")
+          : rawMessage.startsWith("An existing withdrawal") ||
+            rawMessage.startsWith("Insufficient available M-PESA payout float")
             ? 409
             : 400;
     return NextResponse.json({ error: message }, { status });
