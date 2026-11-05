@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { Prisma } from "@/app/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
+import { dispatchCoreviaRevenueTransfers } from "@/lib/paystack/revenue-transfers";
 
 const TRANSFER_FEE_RATE = 0.005;
 const MIN_TRANSFER_CENTS = 100;
@@ -373,6 +374,16 @@ export async function POST(request: Request) {
       maxWait: 30000,
       timeout: 60000,
     });
+
+    if (!result.alreadyProcessed) {
+      try {
+        await dispatchCoreviaRevenueTransfers();
+      } catch (error) {
+        // The fee is already safely recorded as Corevia revenue. Dispatch is
+        // retried automatically by the Paystack reconciliation cron.
+        console.error("Corevia wallet-transfer fee settlement deferred:", error);
+      }
+    }
 
     return NextResponse.json({
       status: true,
