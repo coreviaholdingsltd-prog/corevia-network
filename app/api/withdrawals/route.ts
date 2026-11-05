@@ -238,7 +238,7 @@ export async function POST(request: Request) {
       // M-PESA payouts and company M-PESA Till settlements.
       const hourlyCutoff = new Date(Date.now() - 60 * 60 * 1000);
       const dailyCutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
-      const [hourlyMemberTotals, dailyMemberTotals, recentRevenueAttempts] = await Promise.all([
+      const [hourlyMemberTotals, dailyMemberTotals, recentRevenueAttempts, allRevenueAttempts, revenueOutcomes] = await Promise.all([
         tx.withdrawal.aggregate({
           where: { status: { in: ["PROCESSING", "PAID"] }, createdAt: { gte: hourlyCutoff } },
           _sum: { netAmount: true },
@@ -255,7 +255,29 @@ export async function POST(request: Request) {
           },
           select: { description: true, createdAt: true },
         }),
+        tx.ledgerEntry.findMany({
+          where: { ownerType: "COREVIA", description: { startsWith: "COREVIA_TILL_ATTEMPT|" } },
+          select: { description: true },
+        }),
+        tx.ledgerEntry.findMany({
+          where: { ownerType: "COREVIA", description: { contains: "Paystack reference cvrev_" } },
+          select: { description: true },
+        }),
       ]);
+      // A Till batch reserves company revenue from the same Paystack pool.
+      // Block member payouts until its provider result is terminal; otherwise
+      // a concurrent withdrawal could spend cash already reserved for the Till.
+      const terminalRevenueReferences = new Set(
+        revenueOutcomes
+          .map((entry) => entry.description?.match(/Paystack reference (cvrev_[a-f0-9]{32})/)?.[1])
+          .filter((value): value is string => Boolean(value)),
+      );
+      const hasUnresolvedTillTransfer = allRevenueAttempts.some((entry) => {
+        const reference = entry.description?.split("|")[1];
+        return Boolean(reference && /^cvrev_[a-f0-9]{32}$/.test(reference) && !terminalRevenueReferences.has(reference));
+      });
+      if (hasUnresolvedTillTransfer) throw new Error("COREVIA_REVENUE_TRANSFER_PROCESSING");
+
       const seenRevenueReferences = new Set<string>();
       let hourlyRevenueCommitted = 0;
       let dailyRevenueCommitted = 0;
@@ -408,14 +430,18 @@ export async function POST(request: Request) {
       ? "The available Paystack funds do not currently cover all members' wallet balances, unresolved deposits and this withdrawal, plus the transfer-fee reserve. No wallet debit was made."
       : rawMessage === "PAYSTACK_TRANSFER_LIMIT"
         ? "Paystack's current Kenya transfer limit has been reached. Your wallet has not been debited; the system will accept the request when the limit resets."
-        : rawMessage;
+        : rawMessage === "COREVIA_REVENUE_TRANSFER_PROCESSING"
+          ? "A Corevia Till revenue transfer is being verified. Your wallet has not been debited; the system will reopen withdrawals automatically after Paystack confirms its result."
+          : rawMessage;
     const status = rawMessage.startsWith("Missing server environment variable") || rawMessage.includes("callback URLs")
       ? 503
       : rawMessage === "INSUFFICIENT_CLIENT_FUNDS_POOL"
         ? 503
         : rawMessage === "PAYSTACK_TRANSFER_LIMIT"
           ? 429
-          : rawMessage.includes("authentication failed")
+          : rawMessage === "COREVIA_REVENUE_TRANSFER_PROCESSING"
+            ? 409
+            : rawMessage.includes("authentication failed")
           ? 502
           : rawMessage.startsWith("An existing withdrawal") ||
             rawMessage.startsWith("Insufficient available M-PESA payout float")
