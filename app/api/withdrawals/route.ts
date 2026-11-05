@@ -233,6 +233,50 @@ export async function POST(request: Request) {
       // unresolved CV-WALLET payment so revenue or another withdrawal cannot
       // spend that unallocated client principal.
       const pendingWalletDepositClaims = Number(pendingDepositTotals._sum.amount ?? 0);
+
+      // Apply Paystack Kenya Tier 1 integration-wide limits across both member
+      // M-PESA payouts and company M-PESA Till settlements.
+      const hourlyCutoff = new Date(Date.now() - 60 * 60 * 1000);
+      const dailyCutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
+      const [hourlyMemberTotals, dailyMemberTotals, recentRevenueAttempts] = await Promise.all([
+        tx.withdrawal.aggregate({
+          where: { status: { in: ["PROCESSING", "PAID"] }, createdAt: { gte: hourlyCutoff } },
+          _sum: { netAmount: true },
+        }),
+        tx.withdrawal.aggregate({
+          where: { status: { in: ["PROCESSING", "PAID"] }, createdAt: { gte: dailyCutoff } },
+          _sum: { netAmount: true },
+        }),
+        tx.ledgerEntry.findMany({
+          where: {
+            ownerType: "COREVIA",
+            description: { startsWith: "COREVIA_TILL_ATTEMPT|" },
+            createdAt: { gte: dailyCutoff },
+          },
+          select: { description: true, createdAt: true },
+        }),
+      ]);
+      const seenRevenueReferences = new Set<string>();
+      let hourlyRevenueCommitted = 0;
+      let dailyRevenueCommitted = 0;
+      for (const attempt of recentRevenueAttempts) {
+        const parts = attempt.description?.split("|") ?? [];
+        const reference = parts[1];
+        const amount = Number(parts[2]);
+        if (!reference || !/^cvrev_[a-f0-9]{32}$/.test(reference) ||
+            !Number.isFinite(amount) || amount <= 0 || seenRevenueReferences.has(reference)) continue;
+        seenRevenueReferences.add(reference);
+        dailyRevenueCommitted += amount;
+        if (attempt.createdAt >= hourlyCutoff) hourlyRevenueCommitted += amount;
+      }
+      const hourlyCommitted =
+        Number(hourlyMemberTotals._sum.netAmount ?? 0) + hourlyRevenueCommitted;
+      const dailyCommitted =
+        Number(dailyMemberTotals._sum.netAmount ?? 0) + dailyRevenueCommitted;
+      if (hourlyCommitted + netAmount > 2_500_000 || dailyCommitted + netAmount > 5_000_000) {
+        throw new Error("PAYSTACK_TRANSFER_LIMIT");
+      }
+
       const postRequestClientClaims =
         Math.max(0, allMemberWalletLiabilities - normalizedAmount) +
         existingProcessingPayouts +
@@ -361,13 +405,17 @@ export async function POST(request: Request) {
     console.error("Withdrawal request error:", error);
     const rawMessage = error instanceof Error ? error.message : "Unable to submit withdrawal request.";
     const message = rawMessage === "INSUFFICIENT_CLIENT_FUNDS_POOL"
-      ? "The available Paystack funds do not currently cover all members' wallet balances and this withdrawal, plus the transfer-fee reserve. No wallet debit was made."
-      : rawMessage;
+      ? "The available Paystack funds do not currently cover all members' wallet balances, unresolved deposits and this withdrawal, plus the transfer-fee reserve. No wallet debit was made."
+      : rawMessage === "PAYSTACK_TRANSFER_LIMIT"
+        ? "Paystack's current Kenya transfer limit has been reached. Your wallet has not been debited; the system will accept the request when the limit resets."
+        : rawMessage;
     const status = rawMessage.startsWith("Missing server environment variable") || rawMessage.includes("callback URLs")
       ? 503
       : rawMessage === "INSUFFICIENT_CLIENT_FUNDS_POOL"
         ? 503
-        : rawMessage.includes("authentication failed")
+        : rawMessage === "PAYSTACK_TRANSFER_LIMIT"
+          ? 429
+          : rawMessage.includes("authentication failed")
           ? 502
           : rawMessage.startsWith("An existing withdrawal") ||
             rawMessage.startsWith("Insufficient available M-PESA payout float")
