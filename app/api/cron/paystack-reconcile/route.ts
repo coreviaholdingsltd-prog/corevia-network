@@ -149,7 +149,7 @@ export async function GET(request: Request) {
         throw new Error("Paystack verification returned mismatched transfer details.");
       }
 
-      if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed" || transfer.status === "otp") {
+      if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed") {
         const result = await settlePaystackWithdrawal({
           reference: withdrawal.paymentReference,
           status: transfer.status === "success" ? "success" : "failed",
@@ -159,6 +159,9 @@ export async function GET(request: Request) {
         });
         if (result.updated) settled += 1;
       } else {
+        // OTP is not a terminal provider outcome. Keep the wallet reservation
+        // intact rather than refunding or releasing client funds based on an
+        // intermediate/manual-action state. Reconcile again on the next run.
         inconclusive += 1;
       }
     } catch (error) {
