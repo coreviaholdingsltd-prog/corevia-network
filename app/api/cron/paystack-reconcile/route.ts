@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import { verifyPaystackTransfer } from "@/lib/paystack/transfers";
 import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
+import { dispatchCoreviaRevenueTransfers, reconcileCoreviaRevenueTransfers } from "@/lib/paystack/revenue-transfers";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -72,5 +73,15 @@ export async function GET(request: Request) {
     }
   }
 
-  return NextResponse.json({ checked, settled, inconclusive, errors });
+  const revenueReconciliation = await reconcileCoreviaRevenueTransfers();
+  const revenueDispatch = await dispatchCoreviaRevenueTransfers();
+
+  return NextResponse.json({
+    checked,
+    settled,
+    inconclusive,
+    errors,
+    revenueReconciliation,
+    revenueDispatch,
+  });
 }
