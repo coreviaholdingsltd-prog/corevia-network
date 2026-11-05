@@ -161,12 +161,7 @@ async function getOrCreateTillRecipient() {
     });
     const concurrentCode = concurrent?.description?.match(/recipient_code=(RCP_[A-Za-z0-9]+)/)?.[1];
     if (!concurrentCode) throw error;
-    return {
-      recipient_code: concurrentCode,
-      active: true,
-      type: "mobile_money_business",
-      currency: "KES",
-    };
+    return fetchKenyaMpesaTillRecipient(concurrentCode);
   }
 }
 
