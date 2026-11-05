@@ -295,6 +295,18 @@ export async function dispatchCoreviaRevenueTransfers() {
       if (createdAt >= dailyCutoff) dailyCommittedKsh += parsed.batchTotalKsh;
       if (createdAt >= hourlyCutoff) hourlyCommittedKsh += parsed.batchTotalKsh;
     }
+    const [hourlyMemberTotals, dailyMemberTotals] = await Promise.all([
+      tx.withdrawal.aggregate({
+        where: { status: { in: ["PROCESSING", "PAID"] }, createdAt: { gte: new Date(hourlyCutoff) } },
+        _sum: { netAmount: true },
+      }),
+      tx.withdrawal.aggregate({
+        where: { status: { in: ["PROCESSING", "PAID"] }, createdAt: { gte: new Date(dailyCutoff) } },
+        _sum: { netAmount: true },
+      }),
+    ]);
+    hourlyCommittedKsh += Number(hourlyMemberTotals._sum.netAmount ?? 0);
+    dailyCommittedKsh += Number(dailyMemberTotals._sum.netAmount ?? 0);
     if (
       hourlyCommittedKsh + batchTotalKsh > MAX_TILL_HOURLY_KSH ||
       dailyCommittedKsh + batchTotalKsh > MAX_TILL_DAILY_KSH
