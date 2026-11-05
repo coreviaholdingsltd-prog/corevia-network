@@ -165,26 +165,22 @@ export async function POST(request: Request) {
     }
 
     let recipientCode: string;
-    let paystackKesBalanceSubunits: number;
     try {
       const recipient = await createKenyaMpesaRecipient({ name: user.name, phone });
       if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money") throw new Error("Paystack did not return an active Kenyan M-PESA recipient.");
       recipientCode = recipient.recipient_code;
-      paystackKesBalanceSubunits = await getPaystackKesBalanceSubunits();
     } catch (error) {
-      console.error("Paystack withdrawal preflight failed:", error);
-      return NextResponse.json({ error: "Paystack is not ready. Your wallet has not been debited." }, { status: 503 });
-    }
-
-    if (paystackKesBalanceSubunits < netAmountCents) {
-      return NextResponse.json({ error: "Paystack's available KES balance is below this payout. Your wallet has not been debited." }, { status: 503 });
+      console.error("Paystack withdrawal recipient preflight failed:", error);
+      return NextResponse.json({ error: "Paystack could not validate the M-PESA recipient. Your wallet has not been debited." }, { status: 503 });
     }
 
     const reference = `CV-WD-${Date.now()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
     const paystackReference = `cvps_${crypto.randomBytes(16).toString("hex")}`;
 
     const created = await prisma.$transaction(async (tx) => {
-      // Serialize withdrawal creation per member so parallel requests cannot queue two payouts.
+      // Serialize the entire shared Paystack client-funds pool, not only one member.
+      // This prevents simultaneous withdrawals from spending the same pooled balance.
+      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('corevia-paystack-client-funds-pool'))::text AS lock_acquired`;
       await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${user.id}))::text AS lock_acquired`;
       const pending = await tx.withdrawal.findFirst({
         where: { userId: user.id, status: { in: ["PENDING", "PROCESSING"] } },
@@ -203,6 +199,33 @@ export async function POST(request: Request) {
       const available = Number(wallet.balance);
       if (normalizedAmount > available) {
         throw new Error(`Insufficient wallet balance. Available balance is KES ${available.toFixed(2)}.`);
+      }
+
+      // Wallet balances are client liabilities held against one pooled Paystack
+      // balance. Protect every member's balance before authorizing this payout.
+      // Existing PROCESSING withdrawals are counted as reserved client claims
+      // until a terminal Paystack result is confirmed (conservative on timeouts).
+      const [walletTotals, processingTotals, paystackBalanceSubunits] = await Promise.all([
+        tx.wallet.aggregate({ _sum: { balance: true } }),
+        tx.withdrawal.aggregate({
+          where: { status: "PROCESSING" },
+          _sum: { netAmount: true },
+        }),
+        getPaystackKesBalanceSubunits(),
+      ]);
+      const allMemberWalletLiabilities = Number(walletTotals._sum.balance ?? 0);
+      const existingProcessingPayouts = Number(processingTotals._sum.netAmount ?? 0);
+      const postRequestClientClaims =
+        Math.max(0, allMemberWalletLiabilities - normalizedAmount) +
+        existingProcessingPayouts +
+        netAmount;
+      // Paystack's Kenya M-PESA transfer fee can reach KES 180 in the
+      // applicable amount band; retain a KES 200 company-revenue buffer.
+      const providerFeeBufferSubunits = 20000;
+      const protectedPoolRequiredSubunits =
+        Math.round(postRequestClientClaims * 100) + providerFeeBufferSubunits;
+      if (paystackBalanceSubunits < protectedPoolRequiredSubunits) {
+        throw new Error("INSUFFICIENT_CLIENT_FUNDS_POOL");
       }
 
       const changed = await tx.wallet.updateMany({
@@ -288,15 +311,20 @@ export async function POST(request: Request) {
 
   } catch (error) {
     console.error("Withdrawal request error:", error);
-    const message = error instanceof Error ? error.message : "Unable to submit withdrawal request.";
+    const rawMessage = error instanceof Error ? error.message : "Unable to submit withdrawal request.";
+    const message = rawMessage === "INSUFFICIENT_CLIENT_FUNDS_POOL"
+      ? "The available Paystack funds do not currently cover all members' wallet balances and this withdrawal, plus the transfer-fee reserve. No wallet debit was made."
+      : rawMessage;
     const status = message.startsWith("Missing server environment variable") || message.includes("callback URLs")
       ? 503
-      : message.includes("authentication failed")
-        ? 502
-        : message.startsWith("An existing withdrawal") ||
-          message.startsWith("Insufficient available M-PESA payout float")
-          ? 409
-          : 400;
+      : message === "INSUFFICIENT_CLIENT_FUNDS_POOL"
+        ? 503
+        : message.includes("authentication failed")
+          ? 502
+          : message.startsWith("An existing withdrawal") ||
+            message.startsWith("Insufficient available M-PESA payout float")
+            ? 409
+            : 400;
     return NextResponse.json({ error: message }, { status });
   }
 }
