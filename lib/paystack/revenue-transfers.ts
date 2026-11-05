@@ -196,14 +196,28 @@ export async function dispatchCoreviaRevenueTransfers() {
   const reserved = await prisma.$transaction(async (tx) => {
     await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${POOL_LOCK}))::text AS lock_acquired`;
 
-    const walletTotals = await tx.wallet.aggregate({ _sum: { balance: true } });
-    const processingTotals = await tx.withdrawal.aggregate({
-      where: { status: "PROCESSING" },
-      _sum: { netAmount: true },
-    });
+    const [walletTotals, processingTotals, pendingDepositTotals] = await Promise.all([
+      tx.wallet.aggregate({ _sum: { balance: true } }),
+      tx.withdrawal.aggregate({
+        where: { status: "PROCESSING" },
+        _sum: { netAmount: true },
+      }),
+      tx.paymentRecord.aggregate({
+        where: {
+          provider: "PAYSTACK",
+          destination: "OTHER",
+          status: "PENDING",
+          providerReference: { startsWith: "CV-WALLET-" },
+        },
+        _sum: { amount: true },
+      }),
+    ]);
+    // Reserve client deposits that have reached Paystack but are not yet
+    // allocated to a wallet because their webhook/verification is unresolved.
     const clientLiabilitiesKsh =
       Number(walletTotals._sum.balance ?? 0) +
-      Number(processingTotals._sum.netAmount ?? 0);
+      Number(processingTotals._sum.netAmount ?? 0) +
+      Number(pendingDepositTotals._sum.amount ?? 0);
 
     const balanceSubunits = await getPaystackKesBalanceSubunits();
 
