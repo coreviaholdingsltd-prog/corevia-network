@@ -6,6 +6,7 @@ import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
 import { dispatchCoreviaRevenueTransfers, reconcileCoreviaRevenueTransfers } from "@/lib/paystack/revenue-transfers";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
 function authorized(request: Request) {
