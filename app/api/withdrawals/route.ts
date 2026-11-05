@@ -10,6 +10,8 @@ import {
 } from "@/lib/paystack/transfers";
 import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
 
+export const maxDuration = 60;
+
 const WITHDRAWAL_FEE_RATE = 0.005;
 const MAX_NET_PAYOUT = 150000;
 const COREVIA_TILL_NUMBER = "6959300";
