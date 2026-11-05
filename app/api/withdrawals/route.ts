@@ -275,7 +275,7 @@ export async function POST(request: Request) {
       });
 
       return { withdrawal, remainingBalance: available - normalizedAmount };
-    });
+    }, { maxWait: 30000, timeout: 60000 });
 
     {
       try {
@@ -288,11 +288,26 @@ export async function POST(request: Request) {
         // The initiation response is an acknowledgement, not our settlement
         // authority. Only a signed terminal webhook or an independent verify
         // request in the reconciliation worker may mark this withdrawal terminal.
+        if (transfer.status === "otp") {
+          // Corevia never routes member withdrawals to a manual approval queue.
+          // An OTP-gated transfer is rejected and the member's full debit is
+          // restored through the same idempotent settlement path.
+          await import("@/lib/paystack/withdrawal-settlement").then(({ settlePaystackWithdrawal }) =>
+            settlePaystackWithdrawal({
+              reference: paystackReference,
+              status: "failed",
+              amountSubunits: transfer.amount,
+              currency: transfer.currency,
+              transferCode: transfer.transfer_code,
+            }),
+          );
+          return NextResponse.json({
+            error: "Paystack did not accept this as an automated no-OTP payout. Your wallet has been restored; no manual approval is required.",
+          }, { status: 503 });
+        }
         return NextResponse.json({
           status: true,
-          message: transfer.status === "otp"
-            ? "Paystack requires an approval step. Your withdrawal remains processing until Paystack confirms the transfer."
-            : "Paystack received the M-PESA transfer request. Your withdrawal remains processing until a verified terminal result is received.",
+          message: "Paystack received the automated M-PESA transfer request. Your withdrawal remains processing until a verified terminal result is received.",
           withdrawal: created.withdrawal,
           remainingBalance: created.remainingBalance,
         }, { status: 202 });
