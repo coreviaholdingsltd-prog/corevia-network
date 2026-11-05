@@ -7,6 +7,7 @@ import { dispatchCoreviaRevenueTransfers, settleCoreviaRevenueTransfer } from "@
 import { processWalletDeposit } from "@/lib/wallet-deposits";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 
 export async function POST(request: Request) {
   try {
