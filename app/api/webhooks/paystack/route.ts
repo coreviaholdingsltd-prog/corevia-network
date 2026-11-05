@@ -53,6 +53,14 @@ export async function POST(request: Request) {
           metadata: asRecord(payment?.metadata),
         });
         console.log("Corevia membership webhook processed:", result);
+        // The Corevia membership share is company revenue; referrer/upline
+        // allocations remain client wallet liabilities. Dispatch only after
+        // the verified allocation has committed.
+        try {
+          await dispatchCoreviaRevenueTransfers();
+        } catch (dispatchError) {
+          console.error("Corevia membership revenue settlement deferred:", dispatchError);
+        }
       } else if (purpose === "COREVIA_ACADEMY_COURSE") {
         const result = await processAcademyCoursePayment({
           reference: String(payment?.reference ?? ""),
