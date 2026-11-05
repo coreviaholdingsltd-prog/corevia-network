@@ -8,6 +8,7 @@ import {
   initiateKenyaMpesaTransfer,
   getPaystackKesBalanceSubunits,
 } from "@/lib/paystack/transfers";
+import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const MAX_NET_PAYOUT = 150000;
@@ -288,21 +289,21 @@ export async function POST(request: Request) {
         // The initiation response is an acknowledgement, not our settlement
         // authority. Only a signed terminal webhook or an independent verify
         // request in the reconciliation worker may mark this withdrawal terminal.
-        if (transfer.status === "otp") {
+        if (transfer.status === "otp" || transfer.status === "failed" || transfer.status === "reversed") {
           // Corevia never routes member withdrawals to a manual approval queue.
           // An OTP-gated transfer is rejected and the member's full debit is
           // restored through the same idempotent settlement path.
-          await import("@/lib/paystack/withdrawal-settlement").then(({ settlePaystackWithdrawal }) =>
-            settlePaystackWithdrawal({
+          await settlePaystackWithdrawal({
               reference: paystackReference,
               status: "failed",
               amountSubunits: transfer.amount,
               currency: transfer.currency,
               transferCode: transfer.transfer_code,
-            }),
-          );
+          });
           return NextResponse.json({
-            error: "Paystack did not accept this as an automated no-OTP payout. Your wallet has been restored; no manual approval is required.",
+            error: transfer.status === "otp"
+              ? "Paystack did not accept this as an automated no-OTP payout. Your wallet has been restored; no manual approval is required."
+              : "Paystack rejected the transfer. Your wallet has been restored; you may retry when the payout channel is ready.",
           }, { status: 503 });
         }
         return NextResponse.json({
@@ -312,8 +313,22 @@ export async function POST(request: Request) {
           remainingBalance: created.remainingBalance,
         }, { status: 202 });
       } catch (error) {
-        // A network timeout or provider error after transfer submission is ambiguous.
-        // Keep the wallet debit and provider lock; never submit a second payout while the provider outcome is uncertain.
+        // A network timeout or provider 5xx after transfer submission is ambiguous.
+        // Keep the wallet debit and provider lock; never resubmit an uncertain payout.
+        const providerStatus = error instanceof Error
+          ? (error as Error & { statusCode?: number }).statusCode
+          : undefined;
+        if (providerStatus && providerStatus >= 400 && providerStatus < 500) {
+          await settlePaystackWithdrawal({
+            reference: paystackReference,
+            status: "failed",
+            amountSubunits: netAmountCents,
+            currency: "KES",
+          });
+          return NextResponse.json({
+            error: "Paystack rejected the payout request. Your wallet has been restored; no manual payout is queued.",
+          }, { status: 502 });
+        }
         console.error("Paystack transfer submission outcome is uncertain:", error);
         return NextResponse.json({
           status: true,
