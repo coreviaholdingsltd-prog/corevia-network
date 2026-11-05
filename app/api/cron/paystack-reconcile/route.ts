@@ -116,6 +116,7 @@ export async function GET(request: Request) {
         reference: deposit.providerReference,
         error: error instanceof Error ? error.message : "Unknown error",
       });
+    }
     }));
   }
 
