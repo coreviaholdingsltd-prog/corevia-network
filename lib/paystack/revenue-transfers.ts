@@ -175,7 +175,7 @@ export async function dispatchCoreviaRevenueTransfers() {
   if (!reserved) return { dispatched: 0, reason: "client_funds_protected_or_below_minimum" as const };
 
   try {
-    await initiateKenyaMpesaTransfer({
+    const transfer = await initiateKenyaMpesaTransfer({
       recipientCode: recipient.recipient_code,
       amountKsh: reserved.amountKsh,
       reference: providerReference,
@@ -183,10 +183,31 @@ export async function dispatchCoreviaRevenueTransfers() {
       accountReference: `COREVIA-${Date.now()}`,
       businessTill: true,
     });
+    if (transfer.status === "otp" || transfer.status === "failed" || transfer.status === "reversed") {
+      await settleCoreviaRevenueTransfer({
+        reference: providerReference,
+        status: "failed",
+        amountSubunits: transfer.amount,
+        currency: transfer.currency,
+      });
+      return { dispatched: 1, reference: providerReference, outcome: "rejected_no_manual_approval" as const };
+    }
     return { dispatched: 1, reference: providerReference, amountKsh: reserved.amountKsh, sourceCount: reserved.sourceCount };
   } catch (error) {
-    // Keep the attempt reserved: the request may have reached Paystack even if
-    // our connection timed out. Reconciliation verifies before any retry.
+    const providerStatus = error instanceof Error
+      ? (error as Error & { statusCode?: number }).statusCode
+      : undefined;
+    if (providerStatus && providerStatus >= 400 && providerStatus < 500) {
+      await settleCoreviaRevenueTransfer({
+        reference: providerReference,
+        status: "failed",
+        amountSubunits: Math.round(reserved.amountKsh * 100),
+        currency: "KES",
+      });
+      return { dispatched: 1, reference: providerReference, outcome: "provider_rejected_retry_queued" as const };
+    }
+    // Keep the attempt reserved: a timeout or 5xx may occur after Paystack
+    // accepted the transfer. Reconciliation verifies before any retry.
     console.error("Corevia Till revenue transfer outcome is uncertain:", error);
     return { dispatched: 1, reference: providerReference, amountKsh: reserved.amountKsh, outcome: "reconciling" as const };
   }
