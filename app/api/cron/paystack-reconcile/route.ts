@@ -3,8 +3,10 @@ import crypto from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import { verifyPaystackTransfer } from "@/lib/paystack/transfers";
 import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
+import { dispatchCoreviaRevenueTransfers, reconcileCoreviaRevenueTransfers } from "@/lib/paystack/revenue-transfers";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
 function authorized(request: Request) {
@@ -28,7 +30,7 @@ export async function GET(request: Request) {
     },
     orderBy: { createdAt: "asc" },
     take: 50,
-    select: { id: true, reference: true, paymentReference: true },
+    select: { id: true, reference: true, paymentReference: true, netAmount: true },
   });
 
   let checked = 0;
@@ -50,10 +52,10 @@ export async function GET(request: Request) {
         throw new Error("Paystack verification returned mismatched transfer details.");
       }
 
-      if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed") {
+      if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed" || transfer.status === "otp") {
         const result = await settlePaystackWithdrawal({
           reference: withdrawal.paymentReference,
-          status: transfer.status,
+          status: transfer.status === "success" ? "success" : "failed",
           amountSubunits: transfer.amount,
           currency: transfer.currency,
           transferCode: transfer.transfer_code,
@@ -63,6 +65,19 @@ export async function GET(request: Request) {
         inconclusive += 1;
       }
     } catch (error) {
+      const providerStatus = error instanceof Error
+        ? (error as Error & { statusCode?: number }).statusCode
+        : undefined;
+      if (providerStatus === 404 && withdrawal.paymentReference) {
+        const result = await settlePaystackWithdrawal({
+          reference: withdrawal.paymentReference,
+          status: "failed",
+          amountSubunits: Math.round(Number(withdrawal.netAmount) * 100),
+          currency: "KES",
+        });
+        if (result.updated) settled += 1;
+        continue;
+      }
       errors += 1;
       console.error("Paystack withdrawal reconciliation failed:", {
         withdrawalId: withdrawal.id,
@@ -72,5 +87,15 @@ export async function GET(request: Request) {
     }
   }
 
-  return NextResponse.json({ checked, settled, inconclusive, errors });
+  const revenueReconciliation = await reconcileCoreviaRevenueTransfers();
+  const revenueDispatch = await dispatchCoreviaRevenueTransfers();
+
+  return NextResponse.json({
+    checked,
+    settled,
+    inconclusive,
+    errors,
+    revenueReconciliation,
+    revenueDispatch,
+  });
 }

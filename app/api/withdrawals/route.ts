@@ -8,6 +8,9 @@ import {
   initiateKenyaMpesaTransfer,
   getPaystackKesBalanceSubunits,
 } from "@/lib/paystack/transfers";
+import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
+
+export const maxDuration = 60;
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const MAX_NET_PAYOUT = 150000;
@@ -65,11 +68,12 @@ export async function POST(request: Request) {
       isProductionDeployment &&
       (
         process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED !== "true" ||
-        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true"
+        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true" ||
+        process.env.COREVIA_PAYSTACK_MANUAL_PAYOUTS_CONFIRMED !== "true"
       )
     ) {
       return NextResponse.json({
-        error: "Live withdrawals are locked until company live-payout approval and the separate Corevia Till fee-transfer route are confirmed.",
+        error: "Live withdrawals are locked until Paystack Settled-to-Balance, available payout float, and the automated Corevia Till revenue route are confirmed. Member payouts remain fully automated.",
       }, { status: 503 });
     }
     const user = await getSessionUser();
@@ -123,7 +127,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Paystack Transfers and automated no-OTP approval must be confirmed before withdrawals. Your wallet has not been debited." }, { status: 503 });
     }
     if (isProductionDeployment && (process.env.COREVIA_PAYSTACK_LIVE_READY !== "true" || process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true")) {
-      return NextResponse.json({ error: "Paystack live transfer approval and funded KES float must be confirmed. Your wallet has not been debited." }, { status: 503 });
+      return NextResponse.json({ error: "The automated Paystack payout channel is not currently confirmed ready. Your wallet has not been debited." }, { status: 503 });
     }
     const amount = Number(body.amount);
     if (!Number.isFinite(amount) || amount <= 0) {
@@ -165,26 +169,22 @@ export async function POST(request: Request) {
     }
 
     let recipientCode: string;
-    let paystackKesBalanceSubunits: number;
     try {
       const recipient = await createKenyaMpesaRecipient({ name: user.name, phone });
       if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money") throw new Error("Paystack did not return an active Kenyan M-PESA recipient.");
       recipientCode = recipient.recipient_code;
-      paystackKesBalanceSubunits = await getPaystackKesBalanceSubunits();
     } catch (error) {
-      console.error("Paystack withdrawal preflight failed:", error);
-      return NextResponse.json({ error: "Paystack is not ready. Your wallet has not been debited." }, { status: 503 });
-    }
-
-    if (paystackKesBalanceSubunits < netAmountCents) {
-      return NextResponse.json({ error: "Paystack's available KES balance is below this payout. Your wallet has not been debited." }, { status: 503 });
+      console.error("Paystack withdrawal recipient preflight failed:", error);
+      return NextResponse.json({ error: "Paystack could not validate the M-PESA recipient. Your wallet has not been debited." }, { status: 503 });
     }
 
     const reference = `CV-WD-${Date.now()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
     const paystackReference = `cvps_${crypto.randomBytes(16).toString("hex")}`;
 
     const created = await prisma.$transaction(async (tx) => {
-      // Serialize withdrawal creation per member so parallel requests cannot queue two payouts.
+      // Serialize the entire shared Paystack client-funds pool, not only one member.
+      // This prevents simultaneous withdrawals from spending the same pooled balance.
+      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('corevia-paystack-client-funds-pool'))::text AS lock_acquired`;
       await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${user.id}))::text AS lock_acquired`;
       const pending = await tx.withdrawal.findFirst({
         where: { userId: user.id, status: { in: ["PENDING", "PROCESSING"] } },
@@ -203,6 +203,33 @@ export async function POST(request: Request) {
       const available = Number(wallet.balance);
       if (normalizedAmount > available) {
         throw new Error(`Insufficient wallet balance. Available balance is KES ${available.toFixed(2)}.`);
+      }
+
+      // Wallet balances are client liabilities held against one pooled Paystack
+      // balance. Protect every member's balance before authorizing this payout.
+      // Existing PROCESSING withdrawals are counted as reserved client claims
+      // until a terminal Paystack result is confirmed (conservative on timeouts).
+      const [walletTotals, processingTotals, paystackBalanceSubunits] = await Promise.all([
+        tx.wallet.aggregate({ _sum: { balance: true } }),
+        tx.withdrawal.aggregate({
+          where: { status: "PROCESSING" },
+          _sum: { netAmount: true },
+        }),
+        getPaystackKesBalanceSubunits(),
+      ]);
+      const allMemberWalletLiabilities = Number(walletTotals._sum.balance ?? 0);
+      const existingProcessingPayouts = Number(processingTotals._sum.netAmount ?? 0);
+      const postRequestClientClaims =
+        Math.max(0, allMemberWalletLiabilities - normalizedAmount) +
+        existingProcessingPayouts +
+        netAmount;
+      // Paystack's Kenya M-PESA transfer fee can reach KES 180 in the
+      // applicable amount band; retain a KES 200 company-revenue buffer.
+      const providerFeeBufferSubunits = 20000;
+      const protectedPoolRequiredSubunits =
+        Math.round(postRequestClientClaims * 100) + providerFeeBufferSubunits;
+      if (paystackBalanceSubunits < protectedPoolRequiredSubunits) {
+        throw new Error("INSUFFICIENT_CLIENT_FUNDS_POOL");
       }
 
       const changed = await tx.wallet.updateMany({
@@ -252,7 +279,7 @@ export async function POST(request: Request) {
       });
 
       return { withdrawal, remainingBalance: available - normalizedAmount };
-    });
+    }, { maxWait: 30000, timeout: 60000 });
 
     {
       try {
@@ -265,17 +292,46 @@ export async function POST(request: Request) {
         // The initiation response is an acknowledgement, not our settlement
         // authority. Only a signed terminal webhook or an independent verify
         // request in the reconciliation worker may mark this withdrawal terminal.
+        if (transfer.status === "otp" || transfer.status === "failed" || transfer.status === "reversed") {
+          // Corevia never routes member withdrawals to a manual approval queue.
+          // An OTP-gated transfer is rejected and the member's full debit is
+          // restored through the same idempotent settlement path.
+          await settlePaystackWithdrawal({
+              reference: paystackReference,
+              status: "failed",
+              amountSubunits: transfer.amount,
+              currency: transfer.currency,
+              transferCode: transfer.transfer_code,
+          });
+          return NextResponse.json({
+            error: transfer.status === "otp"
+              ? "Paystack did not accept this as an automated no-OTP payout. Your wallet has been restored; no manual approval is required."
+              : "Paystack rejected the transfer. Your wallet has been restored; you may retry when the payout channel is ready.",
+          }, { status: 503 });
+        }
         return NextResponse.json({
           status: true,
-          message: transfer.status === "otp"
-            ? "Paystack requires an approval step. Your withdrawal remains processing until Paystack confirms the transfer."
-            : "Paystack received the M-PESA transfer request. Your withdrawal remains processing until a verified terminal result is received.",
+          message: "Paystack received the automated M-PESA transfer request. Your withdrawal remains processing until a verified terminal result is received.",
           withdrawal: created.withdrawal,
           remainingBalance: created.remainingBalance,
         }, { status: 202 });
       } catch (error) {
-        // A network timeout or provider error after transfer submission is ambiguous.
-        // Keep the wallet debit and provider lock; never submit a second payout while the provider outcome is uncertain.
+        // A network timeout or provider 5xx after transfer submission is ambiguous.
+        // Keep the wallet debit and provider lock; never resubmit an uncertain payout.
+        const providerStatus = error instanceof Error
+          ? (error as Error & { statusCode?: number }).statusCode
+          : undefined;
+        if (providerStatus && providerStatus >= 400 && providerStatus < 500) {
+          await settlePaystackWithdrawal({
+            reference: paystackReference,
+            status: "failed",
+            amountSubunits: netAmountCents,
+            currency: "KES",
+          });
+          return NextResponse.json({
+            error: "Paystack rejected the payout request. Your wallet has been restored; no manual payout is queued.",
+          }, { status: 502 });
+        }
         console.error("Paystack transfer submission outcome is uncertain:", error);
         return NextResponse.json({
           status: true,
@@ -288,15 +344,20 @@ export async function POST(request: Request) {
 
   } catch (error) {
     console.error("Withdrawal request error:", error);
-    const message = error instanceof Error ? error.message : "Unable to submit withdrawal request.";
-    const status = message.startsWith("Missing server environment variable") || message.includes("callback URLs")
+    const rawMessage = error instanceof Error ? error.message : "Unable to submit withdrawal request.";
+    const message = rawMessage === "INSUFFICIENT_CLIENT_FUNDS_POOL"
+      ? "The available Paystack funds do not currently cover all members' wallet balances and this withdrawal, plus the transfer-fee reserve. No wallet debit was made."
+      : rawMessage;
+    const status = rawMessage.startsWith("Missing server environment variable") || rawMessage.includes("callback URLs")
       ? 503
-      : message.includes("authentication failed")
-        ? 502
-        : message.startsWith("An existing withdrawal") ||
-          message.startsWith("Insufficient available M-PESA payout float")
-          ? 409
-          : 400;
+      : rawMessage === "INSUFFICIENT_CLIENT_FUNDS_POOL"
+        ? 503
+        : rawMessage.includes("authentication failed")
+          ? 502
+          : rawMessage.startsWith("An existing withdrawal") ||
+            rawMessage.startsWith("Insufficient available M-PESA payout float")
+            ? 409
+            : 400;
     return NextResponse.json({ error: message }, { status });
   }
 }

@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { dispatchCoreviaRevenueTransfers } from "@/lib/paystack/revenue-transfers";
 
 export async function processAcademyCoursePayment(
   payment: {
@@ -39,7 +40,7 @@ export async function processAcademyCoursePayment(
     ? new Date(payment.paid_at)
     : new Date();
 
-  return prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx) => {
     const current = await tx.academyPayment.findUnique({
       where: { providerReference: reference },
       include: { enrollment: true },
@@ -49,10 +50,23 @@ export async function processAcademyCoursePayment(
       return { alreadyProcessed: true, courseId: current.courseId, enrollmentId: current.enrollmentId };
     }
 
-    await tx.academyPayment.update({
-      where: { id: current.id },
+    const claimed = await tx.academyPayment.updateMany({
+      where: { id: current.id, status: "PENDING" },
       data: { status: "COMPLETED", verifiedAt: paidAt },
     });
+    if (claimed.count !== 1) {
+      return { alreadyProcessed: true, courseId: current.courseId, enrollmentId: current.enrollmentId };
+    }
+    await tx.ledgerEntry.create({
+      data: {
+        ownerType: "COREVIA",
+        amount: current.amount,
+        type: "ADJUSTMENT",
+        reference: `ACADEMY-${reference}-COREVIA`,
+        description: `Corevia Academy course fee revenue for course ${current.courseId}`,
+      },
+    });
+
     await tx.academyEnrollment.update({
       where: { id: current.enrollmentId },
       data: {
@@ -63,4 +77,15 @@ export async function processAcademyCoursePayment(
 
     return { alreadyProcessed: false, courseId: current.courseId, enrollmentId: current.enrollmentId };
   });
+
+  if (!result.alreadyProcessed) {
+    try {
+      await dispatchCoreviaRevenueTransfers();
+    } catch (error) {
+      // Revenue remains in the Corevia ledger and is retried by the Paystack
+      // reconciliation cron; a course activation must not be rolled back.
+      console.error("Corevia Academy revenue transfer dispatch deferred:", error);
+    }
+  }
+  return result;
 }

@@ -12,6 +12,7 @@ async function paystackRequest<T>(path: string, init: RequestInit = {}): Promise
   const response = await fetch(`${PAYSTACK_API}${path}`, {
     ...init,
     cache: "no-store",
+    signal: init.signal ?? AbortSignal.timeout(12000),
     headers: {
       Authorization: `Bearer ${secretKey()}`,
       "Content-Type": "application/json",
@@ -22,11 +23,13 @@ async function paystackRequest<T>(path: string, init: RequestInit = {}): Promise
     | { status?: boolean; message?: string; data?: T }
     | null;
   if (!response.ok || payload?.status !== true || payload.data == null) {
-    throw new Error(
+    const error = new Error(
       typeof payload?.message === "string"
         ? `Paystack request failed: ${payload.message}`
         : `Paystack request failed with HTTP ${response.status}.`,
-    );
+    ) as Error & { statusCode?: number };
+    error.statusCode = response.status;
+    throw error;
   }
   return payload.data;
 }
@@ -87,15 +90,41 @@ export async function createKenyaMpesaRecipient(args: {
   });
 }
 
+export async function createKenyaMpesaTillRecipient() {
+  const tillNumber = process.env.COREVIA_TILL_NUMBER || "6959300";
+  const recipient = await paystackRequest<RecipientResponse>("/transferrecipient", {
+    method: "POST",
+    body: JSON.stringify({
+      type: "mobile_money_business",
+      name: "COREVIA HOLDINGS LTD",
+      account_number: tillNumber,
+      bank_code: "MPTILL",
+      currency: "KES",
+    }),
+  });
+  if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money_business") {
+    throw new Error("Paystack did not return an active Corevia M-PESA Till recipient.");
+  }
+  return recipient;
+}
+
 export async function initiateKenyaMpesaTransfer(args: {
   recipientCode: string;
   amountKsh: number;
   reference: string;
   reason: string;
+  accountReference?: string;
+  businessTill?: boolean;
 }) {
   const amountSubunits = Math.round(args.amountKsh * 100);
-  if (!Number.isSafeInteger(amountSubunits) || amountSubunits < 1000 || amountSubunits > 25000000) {
-    throw new Error("Paystack Kenya M-PESA customer transfers must be between KES 10 and KES 250,000.");
+  const maximumSubunits = args.businessTill ? 5000000000 : 25000000;
+  if (!Number.isSafeInteger(amountSubunits) || amountSubunits < 1000 || amountSubunits > maximumSubunits) {
+    throw new Error(args.businessTill
+      ? "Paystack M-PESA Till transfers must be between KES 10 and KES 50,000,000."
+      : "Paystack Kenya M-PESA customer transfers must be between KES 10 and KES 250,000.");
+  }
+  if (args.businessTill && !args.accountReference?.trim()) {
+    throw new Error("A unique account reference is required for Kenyan M-PESA Till transfers.");
   }
   if (!/^[a-z0-9_-]{16,50}$/.test(args.reference)) {
     throw new Error("Paystack transfer reference must be 16–50 lowercase letters, digits, hyphens or underscores.");
@@ -114,6 +143,7 @@ export async function initiateKenyaMpesaTransfer(args: {
       reference: args.reference,
       reason: args.reason.slice(0, 100),
       currency: "KES",
+      ...(args.accountReference ? { account_reference: args.accountReference } : {}),
     }),
   });
 }

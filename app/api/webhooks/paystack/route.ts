@@ -3,9 +3,11 @@ import crypto from "node:crypto";
 import { processMembershipPayment } from "@/lib/membership-payment";
 import { processAcademyCoursePayment } from "@/lib/academy-payments";
 import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
+import { dispatchCoreviaRevenueTransfers, settleCoreviaRevenueTransfer } from "@/lib/paystack/revenue-transfers";
 import { processWalletDeposit } from "@/lib/wallet-deposits";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 
 export async function POST(request: Request) {
   try {
@@ -85,18 +87,34 @@ export async function POST(request: Request) {
         : event.event === "transfer.failed"
           ? "failed"
           : "reversed";
-      const result = await settlePaystackWithdrawal({
+      const settlement = {
         reference,
-        status,
+        status: status as "success" | "failed" | "reversed",
         amountSubunits: Number(data?.amount),
         currency: String(data?.currency ?? ""),
-        transferCode: typeof data?.transfer_code === "string" ? data.transfer_code : null,
-      });
-      console.log("Corevia Paystack withdrawal webhook processed:", {
+      };
+      const withdrawalResult = reference.startsWith("cvps_")
+        ? await settlePaystackWithdrawal({
+            ...settlement,
+            transferCode: typeof data?.transfer_code === "string" ? data.transfer_code : null,
+          })
+        : null;
+      const revenueResult = reference.startsWith("cvrev_")
+        ? await settleCoreviaRevenueTransfer(settlement)
+        : null;
+      console.log("Corevia Paystack transfer webhook processed:", {
         reference,
         event: event.event,
-        result,
+        withdrawalResult,
+        revenueResult,
       });
+      // A failed company-fee transfer is retried automatically from the
+      // outstanding Corevia revenue ledger after its terminal webhook.
+      try {
+        await dispatchCoreviaRevenueTransfers();
+      } catch (dispatchError) {
+        console.error("Corevia Till revenue retry deferred:", dispatchError);
+      }
     }
 
     return NextResponse.json({ received: true });
