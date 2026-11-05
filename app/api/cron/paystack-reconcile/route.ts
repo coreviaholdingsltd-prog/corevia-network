@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { verifyPaystackTransfer } from "@/lib/paystack/transfers";
 import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
 import { processWalletDeposit } from "@/lib/wallet-deposits";
-import { dispatchCoreviaRevenueTransfers, reconcileCoreviaRevenueTransfers } from "@/lib/paystack/revenue-transfers";
+import { dispatchCoreviaRevenueTransfers, preflightCoreviaTillRecipient, reconcileCoreviaRevenueTransfers } from "@/lib/paystack/revenue-transfers";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -181,6 +181,9 @@ export async function GET(request: Request) {
     }
   }
 
+  // Verify or create the production Till beneficiary even while revenue
+  // transfers remain disabled. This preflight never moves funds.
+  const tillRecipientPreflight = await preflightCoreviaTillRecipient();
   const revenueReconciliation = await reconcileCoreviaRevenueTransfers();
   const revenueDispatch = await dispatchCoreviaRevenueTransfers();
 
@@ -193,6 +196,7 @@ export async function GET(request: Request) {
       errors: depositErrors,
     },
     withdrawals: { checked, settled, inconclusive, errors },
+    tillRecipientPreflight,
     revenueReconciliation,
     revenueDispatch,
   });
