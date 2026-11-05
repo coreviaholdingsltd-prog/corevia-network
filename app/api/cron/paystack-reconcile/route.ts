@@ -44,11 +44,15 @@ export async function GET(request: Request) {
       providerReference: { startsWith: "CV-WALLET-" },
     },
     orderBy: { createdAt: "asc" },
-    take: 40,
+    take: 12,
     select: { id: true, userId: true, providerReference: true },
   });
 
-  for (const deposit of pendingDeposits) {
+  // Process at most four provider verifications concurrently. With 12 records
+  // and a 10-second per-request timeout, this bounds deposit recovery to three
+  // batches rather than allowing 40 serial requests to exceed maxDuration.
+  for (let offset = 0; offset < pendingDeposits.length; offset += 4) {
+    await Promise.all(pendingDeposits.slice(offset, offset + 4).map(async (deposit) => {
     depositChecked += 1;
     try {
       const response = await fetch(
@@ -112,7 +116,7 @@ export async function GET(request: Request) {
         reference: deposit.providerReference,
         error: error instanceof Error ? error.message : "Unknown error",
       });
-    }
+    }));
   }
 
   const pending = await prisma.withdrawal.findMany({
