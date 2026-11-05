@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import {
   createKenyaMpesaTillRecipient,
+  fetchKenyaMpesaTillRecipient,
   getPaystackKesBalanceSubunits,
   initiateKenyaMpesaTransfer,
   verifyPaystackTransfer,
@@ -128,12 +129,7 @@ async function pendingSources() {
 async function getOrCreateTillRecipient() {
   const configured = process.env.COREVIA_TILL_RECIPIENT_CODE?.trim();
   if (configured?.startsWith("RCP_")) {
-    return {
-      recipient_code: configured,
-      active: true,
-      type: "mobile_money_business",
-      currency: "KES",
-    };
+    return fetchKenyaMpesaTillRecipient(configured);
   }
 
   const markerReference = "COREVIA-TILL-RECIPIENT";
@@ -143,12 +139,7 @@ async function getOrCreateTillRecipient() {
   });
   const savedCode = existing?.description?.match(/recipient_code=(RCP_[A-Za-z0-9]+)/)?.[1];
   if (savedCode) {
-    return {
-      recipient_code: savedCode,
-      active: true,
-      type: "mobile_money_business",
-      currency: "KES",
-    };
+    return fetchKenyaMpesaTillRecipient(savedCode);
   }
 
   const recipient = await createKenyaMpesaTillRecipient();
