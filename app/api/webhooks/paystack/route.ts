@@ -63,6 +63,14 @@ export async function POST(request: Request) {
           metadata: asRecord(payment?.metadata),
         });
         console.log("Corevia Academy payment processed:", result);
+        // Academy fees are Corevia revenue. Dispatch only after the verified
+        // payment processor has committed its ledger entry; failures are retried
+        // by the scheduled reconciliation worker.
+        try {
+          await dispatchCoreviaRevenueTransfers();
+        } catch (dispatchError) {
+          console.error("Corevia Academy revenue settlement deferred:", dispatchError);
+        }
       } else if (purpose === "COREVIA_WALLET_DEPOSIT") {
         const result = await processWalletDeposit({
           reference: String(payment?.reference ?? ""),
