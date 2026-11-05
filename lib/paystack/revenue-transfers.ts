@@ -166,6 +166,34 @@ async function getOrCreateTillRecipient() {
 }
 
 /**
+ * Readiness-only preflight. It may create and persist the Paystack Till
+ * beneficiary, but it never initiates a transfer or changes the readiness flag.
+ * The recipient is validated as active, KES, M-PESA business Till 6959300,
+ * and live-domain in production before this reports ready.
+ */
+export async function preflightCoreviaTillRecipient() {
+  if (process.env.VERCEL_ENV !== "production") {
+    return { ready: false, reason: "production_only" as const };
+  }
+  try {
+    const recipient = await getOrCreateTillRecipient();
+    return {
+      ready: true,
+      active: recipient.active,
+      type: recipient.type,
+      currency: recipient.currency,
+      domain: recipient.domain ?? null,
+    };
+  } catch (error) {
+    console.error("Corevia Paystack Till recipient preflight failed:", error);
+    return {
+      ready: false,
+      reason: error instanceof Error ? error.message : "recipient_preflight_failed",
+    };
+  }
+}
+
+/**
  * Transfers only earned Corevia revenue to Till 6959300. The same database
  * advisory lock used by member withdrawals protects the shared Paystack pool.
  * Member wallet balances and outstanding member payouts are reserved first.
