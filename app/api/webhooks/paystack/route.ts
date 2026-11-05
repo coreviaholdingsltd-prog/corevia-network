@@ -92,10 +92,12 @@ export async function POST(request: Request) {
         amountSubunits: Number(data?.amount),
         currency: String(data?.currency ?? ""),
       };
-      const withdrawalResult = await settlePaystackWithdrawal({
-        ...settlement,
-        transferCode: typeof data?.transfer_code === "string" ? data.transfer_code : null,
-      });
+      const withdrawalResult = reference.startsWith("cvps_")
+        ? await settlePaystackWithdrawal({
+            ...settlement,
+            transferCode: typeof data?.transfer_code === "string" ? data.transfer_code : null,
+          })
+        : null;
       const revenueResult = reference.startsWith("cvrev_")
         ? await settleCoreviaRevenueTransfer(settlement)
         : null;
