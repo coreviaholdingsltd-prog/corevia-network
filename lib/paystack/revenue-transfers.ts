@@ -191,8 +191,7 @@ export async function dispatchCoreviaRevenueTransfers() {
     process.env.COREVIA_PAYSTACK_NO_OTP_CONFIRMED !== "true" ||
     (production && (
       process.env.COREVIA_PAYSTACK_MANUAL_PAYOUTS_CONFIRMED !== "true" ||
-      process.env.COREVIA_PAYSTACK_LIVE_READY !== "true" ||
-      process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true"
+      process.env.COREVIA_PAYSTACK_LIVE_READY !== "true"
     ))
   ) {
     return { dispatched: 0, reason: "revenue_transfer_not_enabled" as const };
