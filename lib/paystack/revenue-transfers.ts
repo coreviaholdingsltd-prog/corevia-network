@@ -62,8 +62,21 @@ function hasActiveAttempt(sourceReference: string, markers: RevenueMarker[]) {
     .map((entry) => parseAttempt(entry.description))
     .filter((attempt): attempt is NonNullable<ReturnType<typeof parseAttempt>> => attempt !== null);
   return attempts.some(({ attemptNumber }) =>
-    !markers.some((entry) => entry.reference === `${sourceReference}-TILL-FAILED-A${attemptNumber}`),
+    !markers.some((entry) =>
+      entry.reference === `${sourceReference}-TILL-FAILED-A${attemptNumber}` ||
+      entry.reference === `${sourceReference}-TILL-PAID-A${attemptNumber}`,
+    ),
   );
+}
+
+function hasSuccessfulAttempt(sourceReference: string, markers: RevenueMarker[]) {
+  return markers.some((entry) => {
+    const prefix = `${sourceReference}-TILL-PAID-A`;
+    if (!entry.reference.startsWith(prefix)) return false;
+    const attemptNumber = Number(entry.reference.slice(prefix.length));
+    return Number.isInteger(attemptNumber) &&
+      !markers.some((candidate) => candidate.reference === `${sourceReference}-TILL-FAILED-A${attemptNumber}`);
+  });
 }
 
 async function pendingSources() {
@@ -106,7 +119,7 @@ async function pendingSources() {
       if (withdrawalByReference.get(withdrawalReference) !== "PAID") return false;
     }
     const markers = grouped.get(source.reference) ?? [];
-    if (markers.some((entry) => entry.reference === `${source.reference}-TILL-PAID`)) return false;
+    if (hasSuccessfulAttempt(source.reference, markers)) return false;
     return !hasActiveAttempt(source.reference, markers);
   });
 }
@@ -253,7 +266,7 @@ export async function dispatchCoreviaRevenueTransfers() {
       }
 
       const markers = groupedMarkers.get(source.reference) ?? [];
-      if (markers.some((entry) => entry.reference === `${source.reference}-TILL-PAID`)) continue;
+      if (hasSuccessfulAttempt(source.reference, markers)) continue;
       if (hasActiveAttempt(source.reference, markers)) continue;
 
       const previousNumbers = markers
@@ -410,7 +423,7 @@ export async function settleCoreviaRevenueTransfer(args: {
         ownerType: "COREVIA" as const,
         amount: 0,
         type: "ADJUSTMENT" as const,
-        reference: success ? `${sourceReference}-TILL-PAID` : `${sourceReference}-TILL-FAILED-A${attempt}`,
+        reference: success ? `${sourceReference}-TILL-PAID-A${attempt}` : `${sourceReference}-TILL-FAILED-A${attempt}`,
         description: success
           ? `Corevia revenue successfully transferred to Till 6959300; Paystack reference ${args.reference}`
           : `Paystack revenue transfer ${args.status}; eligible for automated retry; Paystack reference ${args.reference}`,
