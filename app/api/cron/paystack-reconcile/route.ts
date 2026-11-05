@@ -126,7 +126,7 @@ export async function GET(request: Request) {
       paymentReference: { startsWith: "cvps_" },
     },
     orderBy: { createdAt: "asc" },
-    take: 50,
+    take: 12,
     select: { id: true, reference: true, paymentReference: true, netAmount: true },
   });
 
@@ -135,53 +135,56 @@ export async function GET(request: Request) {
   let inconclusive = 0;
   let errors = 0;
 
-  for (const withdrawal of pending) {
-    if (!withdrawal.paymentReference) continue;
-    checked += 1;
-    try {
-      const transfer = await verifyPaystackTransfer(withdrawal.paymentReference);
-      if (
-        transfer.reference !== withdrawal.paymentReference ||
-        transfer.currency !== "KES" ||
-        !Number.isSafeInteger(transfer.amount) ||
-        transfer.amount <= 0
-      ) {
-        throw new Error("Paystack verification returned mismatched transfer details.");
-      }
+  // Bound provider verification time just like deposit recovery: at most four
+  // requests concurrently and twelve withdrawals per run. This prevents a
+  // long serial queue from exhausting the function's 60-second execution limit.
+  for (let offset = 0; offset < pending.length; offset += 4) {
+    await Promise.all(pending.slice(offset, offset + 4).map(async (withdrawal) => {
+      if (!withdrawal.paymentReference) return;
+      checked += 1;
+      try {
+        const transfer = await verifyPaystackTransfer(withdrawal.paymentReference);
+        if (
+          transfer.reference !== withdrawal.paymentReference ||
+          transfer.currency !== "KES" ||
+          !Number.isSafeInteger(transfer.amount) ||
+          transfer.amount <= 0
+        ) {
+          throw new Error("Paystack verification returned mismatched transfer details.");
+        }
 
-      if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed") {
-        const result = await settlePaystackWithdrawal({
-          reference: withdrawal.paymentReference,
-          status: transfer.status === "success" ? "success" : "failed",
-          amountSubunits: transfer.amount,
-          currency: transfer.currency,
-          transferCode: transfer.transfer_code,
+        if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed") {
+          const result = await settlePaystackWithdrawal({
+            reference: withdrawal.paymentReference,
+            status: transfer.status === "success" ? "success" : "failed",
+            amountSubunits: transfer.amount,
+            currency: transfer.currency,
+            transferCode: transfer.transfer_code,
+          });
+          if (result.updated) settled += 1;
+        } else {
+          // OTP and other non-terminal states retain the wallet reservation.
+          // Never refund or release customer funds on an intermediate outcome.
+          inconclusive += 1;
+        }
+      } catch (error) {
+        const providerStatus = error instanceof Error
+          ? (error as Error & { statusCode?: number }).statusCode
+          : undefined;
+        // A verification 404 is not proof that a timed-out transfer was rejected.
+        // Keep the wallet debit and PROCESSING reservation intact.
+        if (providerStatus === 404) {
+          inconclusive += 1;
+          return;
+        }
+        errors += 1;
+        console.error("Paystack withdrawal reconciliation failed:", {
+          withdrawalId: withdrawal.id,
+          reference: withdrawal.reference,
+          error: error instanceof Error ? error.message : "Unknown error",
         });
-        if (result.updated) settled += 1;
-      } else {
-        // OTP is not a terminal provider outcome. Keep the wallet reservation
-        // intact rather than refunding or releasing client funds based on an
-        // intermediate/manual-action state. Reconcile again on the next run.
-        inconclusive += 1;
       }
-    } catch (error) {
-      const providerStatus = error instanceof Error
-        ? (error as Error & { statusCode?: number }).statusCode
-        : undefined;
-      // A verification 404 is not proof that a timed-out transfer was rejected.
-      // Keep the wallet debit and PROCESSING reservation intact to prevent a
-      // duplicate payout; retry verification on the next reconciliation cycle.
-      if (providerStatus === 404) {
-        inconclusive += 1;
-        continue;
-      }
-      errors += 1;
-      console.error("Paystack withdrawal reconciliation failed:", {
-        withdrawalId: withdrawal.id,
-        reference: withdrawal.reference,
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
-    }
+    }));
   }
 
   // Verify or create the production Till beneficiary even while revenue
