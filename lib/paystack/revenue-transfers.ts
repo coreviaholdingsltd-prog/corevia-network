@@ -20,7 +20,7 @@ type RevenueSource = {
   id: string;
   reference: string;
   amount: unknown;
-  type: "WALLET_TRANSFER_FEE" | "WITHDRAWAL_FEE" | "ADJUSTMENT";
+  type: "WALLET_TRANSFER_FEE" | "WITHDRAWAL_FEE" | "MEMBERSHIP_PAYMENT" | "ADJUSTMENT";
 };
 
 function parseAttempt(description: string | null | undefined) {
@@ -87,6 +87,7 @@ async function pendingSources() {
       OR: [
         { type: "WALLET_TRANSFER_FEE" },
         { type: "WITHDRAWAL_FEE", reference: { endsWith: "-FEE-COREVIA" } },
+        { type: "MEMBERSHIP_PAYMENT", reference: { endsWith: "-COREVIA" } },
         { type: "ADJUSTMENT", reference: { startsWith: "ACADEMY-" } },
       ],
     },
