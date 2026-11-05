@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import {
   createKenyaMpesaTillRecipient,
+  fetchKenyaMpesaTillRecipient,
   getPaystackKesBalanceSubunits,
   initiateKenyaMpesaTransfer,
   verifyPaystackTransfer,
@@ -128,12 +129,7 @@ async function pendingSources() {
 async function getOrCreateTillRecipient() {
   const configured = process.env.COREVIA_TILL_RECIPIENT_CODE?.trim();
   if (configured?.startsWith("RCP_")) {
-    return {
-      recipient_code: configured,
-      active: true,
-      type: "mobile_money_business",
-      currency: "KES",
-    };
+    return fetchKenyaMpesaTillRecipient(configured);
   }
 
   const markerReference = "COREVIA-TILL-RECIPIENT";
@@ -143,12 +139,7 @@ async function getOrCreateTillRecipient() {
   });
   const savedCode = existing?.description?.match(/recipient_code=(RCP_[A-Za-z0-9]+)/)?.[1];
   if (savedCode) {
-    return {
-      recipient_code: savedCode,
-      active: true,
-      type: "mobile_money_business",
-      currency: "KES",
-    };
+    return fetchKenyaMpesaTillRecipient(savedCode);
   }
 
   const recipient = await createKenyaMpesaTillRecipient();
@@ -170,12 +161,7 @@ async function getOrCreateTillRecipient() {
     });
     const concurrentCode = concurrent?.description?.match(/recipient_code=(RCP_[A-Za-z0-9]+)/)?.[1];
     if (!concurrentCode) throw error;
-    return {
-      recipient_code: concurrentCode,
-      active: true,
-      type: "mobile_money_business",
-      currency: "KES",
-    };
+    return fetchKenyaMpesaTillRecipient(concurrentCode);
   }
 }
 
@@ -191,8 +177,7 @@ export async function dispatchCoreviaRevenueTransfers() {
     process.env.COREVIA_PAYSTACK_NO_OTP_CONFIRMED !== "true" ||
     (production && (
       process.env.COREVIA_PAYSTACK_MANUAL_PAYOUTS_CONFIRMED !== "true" ||
-      process.env.COREVIA_PAYSTACK_LIVE_READY !== "true" ||
-      process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true"
+      process.env.COREVIA_PAYSTACK_LIVE_READY !== "true"
     ))
   ) {
     return { dispatched: 0, reason: "revenue_transfer_not_enabled" as const };
@@ -484,22 +469,12 @@ export async function reconcileCoreviaRevenueTransfers() {
       const providerStatus = error instanceof Error
         ? (error as Error & { statusCode?: number }).statusCode
         : undefined;
+      // A verification 404 can be eventual-consistency or a transfer whose
+      // initiation timed out after provider acceptance. Do not release the
+      // reserved revenue batch or retry until a terminal provider status exists.
       if (providerStatus === 404) {
-        const batch = await prisma.ledgerEntry.findFirst({
-          where: { ownerType: "COREVIA", description: { startsWith: `COREVIA_TILL_ATTEMPT|${reference}|` } },
-          select: { description: true },
-        });
-        const parsed = parseAttempt(batch?.description);
-        if (parsed) {
-          const result = await settleCoreviaRevenueTransfer({
-            reference,
-            status: "failed",
-            amountSubunits: Math.round(parsed.batchTotalKsh * 100),
-            currency: "KES",
-          });
-          if (result.updated) settled += 1;
-          continue;
-        }
+        inconclusive += 1;
+        continue;
       }
       errors += 1;
       console.error("Corevia Till revenue reconciliation failed:", {
