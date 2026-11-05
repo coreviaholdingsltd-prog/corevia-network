@@ -21,12 +21,15 @@ type RevenueSource = {
 
 function parseAttempt(description: string | null | undefined) {
   if (!description?.startsWith("COREVIA_TILL_ATTEMPT|")) return null;
-  const [, reference, amount, attempt] = description.split("|");
+  const [, reference, batchTotal, attempt, sourceAmount] = description.split("|");
   if (!reference || !/^cvrev_[a-f0-9]{32}$/.test(reference)) return null;
-  const amountKsh = Number(amount);
+  const batchTotalKsh = Number(batchTotal);
+  const amountKsh = Number(sourceAmount);
   const attemptNumber = Number(attempt);
-  if (!Number.isFinite(amountKsh) || amountKsh <= 0 || !Number.isInteger(attemptNumber)) return null;
-  return { reference, amountKsh, attemptNumber };
+  if (!Number.isFinite(batchTotalKsh) || batchTotalKsh <= 0 ||
+      !Number.isFinite(amountKsh) || amountKsh <= 0 ||
+      !Number.isInteger(attemptNumber)) return null;
+  return { reference, batchTotalKsh, amountKsh, attemptNumber };
 }
 
 function randomReference() {
@@ -164,7 +167,7 @@ export async function dispatchCoreviaRevenueTransfers() {
         amount: 0,
         type: "ADJUSTMENT",
         reference: `${source.reference}-TILL-A${attempt}`,
-        description: `COREVIA_TILL_ATTEMPT|${providerReference}|${batchTotalKsh.toFixed(2)}|${attempt}`,
+        description: `COREVIA_TILL_ATTEMPT|${providerReference}|${batchTotalKsh.toFixed(2)}|${attempt}|${Number(source.amount).toFixed(2)}`,
       })),
       skipDuplicates: true,
     });
@@ -235,10 +238,11 @@ export async function settleCoreviaRevenueTransfer(args: {
     });
     if (attempts.length === 0) return { updated: false, reason: "unmatched" as const };
 
-    const totalSubunits = Math.round(attempts.reduce((sum, entry) => sum + Number(entry.amount), 0) * 100);
-    const firstAttempt = parseAttempt(attempts[0].description);
+    const parsedBatch = attempts.map((entry) => parseAttempt(entry.description));
+    const totalSubunits = Math.round(parsedBatch.reduce((sum, attempt) => sum + (attempt?.amountKsh ?? 0), 0) * 100);
+    const firstAttempt = parsedBatch[0];
     if (!firstAttempt || totalSubunits !== args.amountSubunits ||
-        Math.round(firstAttempt.amountKsh * 100) !== args.amountSubunits) {
+        Math.round(firstAttempt.batchTotalKsh * 100) !== args.amountSubunits) {
       throw new Error("Paystack transfer amount does not match its reserved Corevia revenue batch.");
     }
 
