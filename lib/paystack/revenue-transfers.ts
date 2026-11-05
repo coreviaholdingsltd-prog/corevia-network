@@ -81,6 +81,60 @@ async function pendingSources() {
   return result;
 }
 
+async function getOrCreateTillRecipient() {
+  const configured = process.env.COREVIA_TILL_RECIPIENT_CODE?.trim();
+  if (configured?.startsWith("RCP_")) {
+    return {
+      recipient_code: configured,
+      active: true,
+      type: "mobile_money_business",
+      currency: "KES",
+    };
+  }
+
+  const markerReference = "COREVIA-TILL-RECIPIENT";
+  const existing = await prisma.ledgerEntry.findUnique({
+    where: { reference: markerReference },
+    select: { description: true },
+  });
+  const savedCode = existing?.description?.match(/recipient_code=(RCP_[A-Za-z0-9]+)/)?.[1];
+  if (savedCode) {
+    return {
+      recipient_code: savedCode,
+      active: true,
+      type: "mobile_money_business",
+      currency: "KES",
+    };
+  }
+
+  const recipient = await createKenyaMpesaTillRecipient();
+  try {
+    await prisma.ledgerEntry.create({
+      data: {
+        ownerType: "COREVIA",
+        amount: 0,
+        type: "ADJUSTMENT",
+        reference: markerReference,
+        description: `Saved Paystack Corevia M-PESA Till recipient_code=${recipient.recipient_code}`,
+      },
+    });
+    return recipient;
+  } catch (error) {
+    const concurrent = await prisma.ledgerEntry.findUnique({
+      where: { reference: markerReference },
+      select: { description: true },
+    });
+    const concurrentCode = concurrent?.description?.match(/recipient_code=(RCP_[A-Za-z0-9]+)/)?.[1];
+    if (!concurrentCode) throw error;
+    return {
+      recipient_code: concurrentCode,
+      active: true,
+      type: "mobile_money_business",
+      currency: "KES",
+    };
+  }
+}
+
 /**
  * Transfers only earned Corevia revenue to Till 6959300. The same database
  * advisory lock used by member withdrawals protects the shared Paystack pool.
@@ -103,7 +157,11 @@ export async function dispatchCoreviaRevenueTransfers() {
   const sources = await pendingSources();
   if (sources.length === 0) return { dispatched: 0, reason: "no_pending_revenue" as const };
 
-  const recipient = await createKenyaMpesaTillRecipient();
+  const estimatedTotalKsh = Number(sources.reduce((sum, source) => sum + Number(source.amount), 0).toFixed(2));
+  if (estimatedTotalKsh < MIN_TILL_TRANSFER_KSH) {
+    return { dispatched: 0, reason: "below_minimum_till_transfer" as const };
+  }
+  const recipient = await getOrCreateTillRecipient();
   const providerReference = randomReference();
   const reserved = await prisma.$transaction(async (tx) => {
     await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${POOL_LOCK}))::text AS lock_acquired`;
