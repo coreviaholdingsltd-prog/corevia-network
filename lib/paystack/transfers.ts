@@ -87,11 +87,30 @@ export async function createKenyaMpesaRecipient(args: {
   });
 }
 
+export async function createKenyaMpesaTillRecipient() {
+  const tillNumber = process.env.COREVIA_TILL_NUMBER || "6959300";
+  const recipient = await paystackRequest<RecipientResponse>("/transferrecipient", {
+    method: "POST",
+    body: JSON.stringify({
+      type: "mobile_money_business",
+      name: "COREVIA HOLDINGS LTD",
+      account_number: tillNumber,
+      bank_code: "MPTILL",
+      currency: "KES",
+    }),
+  });
+  if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money_business") {
+    throw new Error("Paystack did not return an active Corevia M-PESA Till recipient.");
+  }
+  return recipient;
+}
+
 export async function initiateKenyaMpesaTransfer(args: {
   recipientCode: string;
   amountKsh: number;
   reference: string;
   reason: string;
+  accountReference?: string;
 }) {
   const amountSubunits = Math.round(args.amountKsh * 100);
   if (!Number.isSafeInteger(amountSubunits) || amountSubunits < 1000 || amountSubunits > 25000000) {
@@ -114,6 +133,7 @@ export async function initiateKenyaMpesaTransfer(args: {
       reference: args.reference,
       reason: args.reason.slice(0, 100),
       currency: "KES",
+      ...(args.accountReference ? { account_reference: args.accountReference } : {}),
     }),
   });
 }
