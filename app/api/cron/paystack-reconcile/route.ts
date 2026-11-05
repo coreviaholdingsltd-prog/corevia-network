@@ -80,7 +80,7 @@ export async function GET(request: Request) {
         const statusCode = response.status;
         if (statusCode === 404 || statusCode === 408 || statusCode === 429 || statusCode >= 500) {
           depositInconclusive += 1;
-          continue;
+          return;
         }
         throw new Error(payload?.message || `Paystack verification failed (HTTP ${statusCode}).`);
       }
