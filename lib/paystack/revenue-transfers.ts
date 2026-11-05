@@ -8,7 +8,7 @@ import {
 } from "@/lib/paystack/transfers";
 
 const POOL_LOCK = "corevia-paystack-client-funds-pool";
-const FEE_AND_SAFETY_RESERVE_SUBUNITS = 20000;
+const FEE_AND_SAFETY_RESERVE_SUBUNITS = 40000;
 const MIN_TILL_TRANSFER_KSH = 10;
 const MAX_BATCH_SOURCES = 100;
 
@@ -142,7 +142,7 @@ export async function dispatchCoreviaRevenueTransfers() {
       if (activeAttempt) continue;
 
       const previousNumbers = markers
-        .map((entry) => Number(entry.reference.match(/-TILL-FAILED-A(\\d+)$/)?.[1] ?? 0))
+        .map((entry) => Number(entry.reference.match(/-TILL-FAILED-A(\d+)$/)?.[1] ?? 0))
         .filter((value) => Number.isInteger(value) && value >= 0);
       const attempt = Math.max(0, ...previousNumbers) + 1;
       toReserve.push({ source, attempt });
@@ -223,7 +223,7 @@ export async function settleCoreviaRevenueTransfer(args: {
 
     const success = args.status === "success";
     const markerRows = attempts.map((entry) => {
-      const sourceReference = entry.reference.replace(/-TILL-A\\d+$/, "");
+      const sourceReference = entry.reference.replace(/-TILL-A\d+$/, "");
       const attempt = parseAttempt(entry.description)?.attemptNumber ?? 1;
       return {
         ownerType: "COREVIA" as const,
