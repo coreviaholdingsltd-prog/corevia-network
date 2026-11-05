@@ -111,10 +111,17 @@ export async function initiateKenyaMpesaTransfer(args: {
   reference: string;
   reason: string;
   accountReference?: string;
+  businessTill?: boolean;
 }) {
   const amountSubunits = Math.round(args.amountKsh * 100);
-  if (!Number.isSafeInteger(amountSubunits) || amountSubunits < 1000 || amountSubunits > 25000000) {
-    throw new Error("Paystack Kenya M-PESA customer transfers must be between KES 10 and KES 250,000.");
+  const maximumSubunits = args.businessTill ? 5000000000 : 25000000;
+  if (!Number.isSafeInteger(amountSubunits) || amountSubunits < 1000 || amountSubunits > maximumSubunits) {
+    throw new Error(args.businessTill
+      ? "Paystack M-PESA Till transfers must be between KES 10 and KES 50,000,000."
+      : "Paystack Kenya M-PESA customer transfers must be between KES 10 and KES 250,000.");
+  }
+  if (args.businessTill && !args.accountReference?.trim()) {
+    throw new Error("A unique account reference is required for Kenyan M-PESA Till transfers.");
   }
   if (!/^[a-z0-9_-]{16,50}$/.test(args.reference)) {
     throw new Error("Paystack transfer reference must be 16–50 lowercase letters, digits, hyphens or underscores.");
