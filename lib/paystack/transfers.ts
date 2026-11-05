@@ -23,11 +23,13 @@ async function paystackRequest<T>(path: string, init: RequestInit = {}): Promise
     | { status?: boolean; message?: string; data?: T }
     | null;
   if (!response.ok || payload?.status !== true || payload.data == null) {
-    throw new Error(
+    const error = new Error(
       typeof payload?.message === "string"
         ? `Paystack request failed: ${payload.message}`
         : `Paystack request failed with HTTP ${response.status}.`,
-    );
+    ) as Error & { statusCode?: number };
+    error.statusCode = response.status;
+    throw error;
   }
   return payload.data;
 }
