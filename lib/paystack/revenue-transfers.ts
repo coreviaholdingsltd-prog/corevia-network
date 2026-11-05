@@ -10,6 +10,10 @@ import {
 const POOL_LOCK = "corevia-paystack-client-funds-pool";
 const FEE_AND_SAFETY_RESERVE_SUBUNITS = 40000;
 const MIN_TILL_TRANSFER_KSH = 10;
+// Paystack Kenya Tier 1 limits: KES 1M single, KES 2.5M/hour, KES 5M/day.
+const MAX_TILL_BATCH_KSH = 1_000_000;
+const MAX_TILL_HOURLY_KSH = 2_500_000;
+const MAX_TILL_DAILY_KSH = 5_000_000;
 const MAX_BATCH_SOURCES = 5000;
 
 type RevenueSource = {
@@ -36,7 +40,7 @@ function randomReference() {
   return `cvrev_${crypto.randomBytes(16).toString("hex")}`;
 }
 
-type RevenueMarker = { reference: string; description: string | null };
+type RevenueMarker = { reference: string; description: string | null; createdAt: Date };
 
 function markersBySource(sources: RevenueSource[], markers: RevenueMarker[]) {
   const sourceRefs = new Set(sources.map((source) => source.reference));
@@ -90,7 +94,7 @@ async function pendingSources() {
       : Promise.resolve([]),
     prisma.ledgerEntry.findMany({
       where: { ownerType: "COREVIA", reference: { contains: "-TILL-" } },
-      select: { reference: true, description: true },
+      select: { reference: true, description: true, createdAt: true },
     }),
   ]);
   const withdrawalByReference = new Map(withdrawals.map((item) => [item.reference, item.status]));
@@ -205,6 +209,7 @@ export async function dispatchCoreviaRevenueTransfers() {
 
     const currentSources = await tx.ledgerEntry.findMany({
       where: { id: { in: sources.map((source) => source.id) }, ownerType: "COREVIA", amount: { gt: 0 } },
+      orderBy: { createdAt: "asc" },
       select: { id: true, reference: true, amount: true, type: true },
     }) as RevenueSource[];
     const withdrawalReferences = currentSources
@@ -219,7 +224,7 @@ export async function dispatchCoreviaRevenueTransfers() {
         : Promise.resolve([]),
       tx.ledgerEntry.findMany({
         where: { ownerType: "COREVIA", reference: { contains: "-TILL-" } },
-        select: { reference: true, description: true },
+        select: { reference: true, description: true, createdAt: true },
       }),
     ]);
     const withdrawalByReference = new Map(withdrawals.map((item) => [item.reference, item.status]));
@@ -241,13 +246,45 @@ export async function dispatchCoreviaRevenueTransfers() {
         .map((entry) => Number(entry.reference.match(/-TILL-FAILED-A(\d+)$/)?.[1] ?? 0))
         .filter((value) => Number.isInteger(value) && value >= 0);
       const attempt = Math.max(0, ...previousNumbers) + 1;
+      const sourceAmount = Number(source.amount);
+      if (batchTotalKsh + sourceAmount > MAX_TILL_BATCH_KSH) continue;
       toReserve.push({ source, attempt });
-      batchTotalKsh += Number(source.amount);
+      batchTotalKsh += sourceAmount;
     }
 
     batchTotalKsh = Number(batchTotalKsh.toFixed(2));
     if (toReserve.length === 0 || batchTotalKsh < MIN_TILL_TRANSFER_KSH) return null;
-    if (batchTotalKsh > 50000000) return null;
+
+    // Only one unresolved Corevia Till transfer may exist at a time. Also
+    // respect Paystack Kenya Tier 1 hourly and daily transfer caps.
+    const attemptRows = markerRows
+      .map((entry) => ({ entry, parsed: parseAttempt(entry.description) }))
+      .filter((item): item is { entry: typeof markerRows[number]; parsed: NonNullable<ReturnType<typeof parseAttempt>> } => item.parsed !== null);
+    const settledReferences = new Set(
+      markerRows
+        .map((entry) => entry.description?.match(/Paystack reference (cvrev_[a-f0-9]{32})/)?.[1])
+        .filter((value): value is string => Boolean(value)),
+    );
+    const unresolved = attemptRows.some(({ parsed }) => !settledReferences.has(parsed.reference));
+    if (unresolved) return null;
+
+    const now = Date.now();
+    const hourlyCutoff = now - 60 * 60 * 1000;
+    const dailyCutoff = now - 24 * 60 * 60 * 1000;
+    const seenRecentReferences = new Set<string>();
+    let hourlyCommittedKsh = 0;
+    let dailyCommittedKsh = 0;
+    for (const { entry, parsed } of attemptRows) {
+      if (seenRecentReferences.has(parsed.reference)) continue;
+      seenRecentReferences.add(parsed.reference);
+      const createdAt = entry.createdAt.getTime();
+      if (createdAt >= dailyCutoff) dailyCommittedKsh += parsed.batchTotalKsh;
+      if (createdAt >= hourlyCutoff) hourlyCommittedKsh += parsed.batchTotalKsh;
+    }
+    if (
+      hourlyCommittedKsh + batchTotalKsh > MAX_TILL_HOURLY_KSH ||
+      dailyCommittedKsh + batchTotalKsh > MAX_TILL_DAILY_KSH
+    ) return null;
 
     const requiredSubunits =
       Math.round((clientLiabilitiesKsh + batchTotalKsh) * 100) +
