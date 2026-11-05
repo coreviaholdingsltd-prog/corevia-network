@@ -56,14 +56,14 @@ type RecipientResponse = {
 };
 
 function validateKenyaTillRecipient(recipient: RecipientResponse) {
-  const expectedTill = (process.env.COREVIA_TILL_NUMBER || "6959300").replace(/\\D/g, "");
+  const expectedTill = (process.env.COREVIA_TILL_NUMBER || "6959300").replace(/\D/g, "");
   if (
     !/^RCP_[A-Za-z0-9]+$/.test(recipient.recipient_code) ||
     recipient.active !== true ||
     recipient.currency !== "KES" ||
     recipient.type !== "mobile_money_business" ||
     recipient.details?.bank_code !== "MPTILL" ||
-    (recipient.details.account_number || "").replace(/\\D/g, "") !== expectedTill ||
+    (recipient.details.account_number || "").replace(/\D/g, "") !== expectedTill ||
     (process.env.VERCEL_ENV === "production" && recipient.domain !== "live")
   ) {
     throw new Error("Paystack recipient is not the active production M-PESA Till 6959300 beneficiary.");
