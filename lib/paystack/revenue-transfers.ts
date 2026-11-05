@@ -87,9 +87,15 @@ async function pendingSources() {
  * Member wallet balances and outstanding member payouts are reserved first.
  */
 export async function dispatchCoreviaRevenueTransfers() {
+  const production = process.env.VERCEL_ENV === "production";
   if (
     process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true" ||
-    process.env.COREVIA_PAYSTACK_NO_OTP_CONFIRMED !== "true"
+    process.env.COREVIA_PAYSTACK_NO_OTP_CONFIRMED !== "true" ||
+    (production && (
+      process.env.COREVIA_PAYSTACK_MANUAL_PAYOUTS_CONFIRMED !== "true" ||
+      process.env.COREVIA_PAYSTACK_LIVE_READY !== "true" ||
+      process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true"
+    ))
   ) {
     return { dispatched: 0, reason: "revenue_transfer_not_enabled" as const };
   }
