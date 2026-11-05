@@ -10,7 +10,7 @@ import {
 const POOL_LOCK = "corevia-paystack-client-funds-pool";
 const FEE_AND_SAFETY_RESERVE_SUBUNITS = 40000;
 const MIN_TILL_TRANSFER_KSH = 10;
-const MAX_BATCH_SOURCES = 100;
+const MAX_BATCH_SOURCES = 5000;
 
 type RevenueSource = {
   id: string;
@@ -36,6 +36,32 @@ function randomReference() {
   return `cvrev_${crypto.randomBytes(16).toString("hex")}`;
 }
 
+type RevenueMarker = { reference: string; description: string | null };
+
+function markersBySource(sources: RevenueSource[], markers: RevenueMarker[]) {
+  const sourceRefs = new Set(sources.map((source) => source.reference));
+  const grouped = new Map<string, RevenueMarker[]>();
+  for (const marker of markers) {
+    const markerIndex = marker.reference.lastIndexOf("-TILL-");
+    if (markerIndex <= 0) continue;
+    const sourceReference = marker.reference.slice(0, markerIndex);
+    if (!sourceRefs.has(sourceReference)) continue;
+    const existing = grouped.get(sourceReference) ?? [];
+    existing.push(marker);
+    grouped.set(sourceReference, existing);
+  }
+  return grouped;
+}
+
+function hasActiveAttempt(sourceReference: string, markers: RevenueMarker[]) {
+  const attempts = markers
+    .map((entry) => parseAttempt(entry.description))
+    .filter((attempt): attempt is NonNullable<ReturnType<typeof parseAttempt>> => attempt !== null);
+  return attempts.some(({ attemptNumber }) =>
+    !markers.some((entry) => entry.reference === `${sourceReference}-TILL-FAILED-A${attemptNumber}`),
+  );
+}
+
 async function pendingSources() {
   const sources = await prisma.ledgerEntry.findMany({
     where: {
@@ -50,35 +76,35 @@ async function pendingSources() {
     orderBy: { createdAt: "asc" },
     take: MAX_BATCH_SOURCES,
     select: { id: true, reference: true, amount: true, type: true },
-  });
+  }) as RevenueSource[];
 
-  const result: RevenueSource[] = [];
-  for (const source of sources as RevenueSource[]) {
+  const withdrawalReferences = sources
+    .filter((source) => source.type === "WITHDRAWAL_FEE")
+    .map((source) => source.reference.replace(/-FEE-COREVIA$/, ""));
+  const [withdrawals, markerRows] = await Promise.all([
+    withdrawalReferences.length
+      ? prisma.withdrawal.findMany({
+          where: { reference: { in: withdrawalReferences } },
+          select: { reference: true, status: true },
+        })
+      : Promise.resolve([]),
+    prisma.ledgerEntry.findMany({
+      where: { ownerType: "COREVIA", reference: { contains: "-TILL-" } },
+      select: { reference: true, description: true },
+    }),
+  ]);
+  const withdrawalByReference = new Map(withdrawals.map((item) => [item.reference, item.status]));
+  const grouped = markersBySource(sources, markerRows);
+
+  return sources.filter((source) => {
     if (source.type === "WITHDRAWAL_FEE") {
       const withdrawalReference = source.reference.replace(/-FEE-COREVIA$/, "");
-      const withdrawal = await prisma.withdrawal.findUnique({
-        where: { reference: withdrawalReference },
-        select: { status: true },
-      });
-      if (withdrawal?.status !== "PAID") continue;
+      if (withdrawalByReference.get(withdrawalReference) !== "PAID") return false;
     }
-
-    const markers = await prisma.ledgerEntry.findMany({
-      where: { ownerType: "COREVIA", reference: { startsWith: `${source.reference}-TILL-` } },
-      select: { reference: true, description: true },
-    });
-    if (markers.some((entry) => entry.reference === `${source.reference}-TILL-PAID`)) continue;
-
-    const attempts = markers
-      .map((entry) => ({ entry, parsed: parseAttempt(entry.description) }))
-      .filter((item): item is { entry: typeof markers[number]; parsed: NonNullable<ReturnType<typeof parseAttempt>> } => item.parsed !== null);
-    const activeAttempt = attempts.some(({ parsed }) =>
-      !markers.some((entry) => entry.reference === `${source.reference}-TILL-FAILED-A${parsed.attemptNumber}`),
-    );
-    if (activeAttempt) continue;
-    result.push(source);
-  }
-  return result;
+    const markers = grouped.get(source.reference) ?? [];
+    if (markers.some((entry) => entry.reference === `${source.reference}-TILL-PAID`)) return false;
+    return !hasActiveAttempt(source.reference, markers);
+  });
 }
 
 async function getOrCreateTillRecipient() {
