@@ -69,8 +69,7 @@ export async function POST(request: Request) {
     if (
       isProductionDeployment &&
       (
-        process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED !== "true" ||
-        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true"
+        process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED !== "true"
       )
     ) {
       return NextResponse.json({
