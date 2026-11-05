@@ -66,11 +66,12 @@ export async function POST(request: Request) {
       isProductionDeployment &&
       (
         process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED !== "true" ||
-        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true"
+        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true" ||
+        process.env.COREVIA_PAYSTACK_MANUAL_PAYOUTS_CONFIRMED !== "true"
       )
     ) {
       return NextResponse.json({
-        error: "Live withdrawals are locked until company live-payout approval and the separate Corevia Till fee-transfer route are confirmed.",
+        error: "Live withdrawals are locked until Paystack Settled-to-Balance, available payout float, and the automated Corevia Till revenue route are confirmed. Member payouts remain fully automated.",
       }, { status: 503 });
     }
     const user = await getSessionUser();
