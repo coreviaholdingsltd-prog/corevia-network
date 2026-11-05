@@ -299,10 +299,10 @@ export async function reconcileCoreviaRevenueTransfers() {
           !Number.isSafeInteger(transfer.amount) || transfer.amount <= 0) {
         throw new Error("Paystack returned mismatched Corevia revenue transfer details.");
       }
-      if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed") {
+      if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed" || transfer.status === "otp") {
         const result = await settleCoreviaRevenueTransfer({
           reference,
-          status: transfer.status,
+          status: transfer.status === "success" ? "success" : "failed",
           amountSubunits: transfer.amount,
           currency: transfer.currency,
         });
@@ -311,6 +311,26 @@ export async function reconcileCoreviaRevenueTransfers() {
         inconclusive += 1;
       }
     } catch (error) {
+      const providerStatus = error instanceof Error
+        ? (error as Error & { statusCode?: number }).statusCode
+        : undefined;
+      if (providerStatus === 404) {
+        const batch = await prisma.ledgerEntry.findFirst({
+          where: { ownerType: "COREVIA", description: { startsWith: `COREVIA_TILL_ATTEMPT|${reference}|` } },
+          select: { description: true },
+        });
+        const parsed = parseAttempt(batch?.description);
+        if (parsed) {
+          const result = await settleCoreviaRevenueTransfer({
+            reference,
+            status: "failed",
+            amountSubunits: Math.round(parsed.batchTotalKsh * 100),
+            currency: "KES",
+          });
+          if (result.updated) settled += 1;
+          continue;
+        }
+      }
       errors += 1;
       console.error("Corevia Till revenue reconciliation failed:", {
         reference,
