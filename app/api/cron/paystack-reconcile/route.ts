@@ -68,14 +68,11 @@ export async function GET(request: Request) {
       const providerStatus = error instanceof Error
         ? (error as Error & { statusCode?: number }).statusCode
         : undefined;
-      if (providerStatus === 404 && withdrawal.paymentReference) {
-        const result = await settlePaystackWithdrawal({
-          reference: withdrawal.paymentReference,
-          status: "failed",
-          amountSubunits: Math.round(Number(withdrawal.netAmount) * 100),
-          currency: "KES",
-        });
-        if (result.updated) settled += 1;
+      // A verification 404 is not proof that a timed-out transfer was rejected.
+      // Keep the wallet debit and PROCESSING reservation intact to prevent a
+      // duplicate payout; retry verification on the next reconciliation cycle.
+      if (providerStatus === 404) {
+        inconclusive += 1;
         continue;
       }
       errors += 1;
