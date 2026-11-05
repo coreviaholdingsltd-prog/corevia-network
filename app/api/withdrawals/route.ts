@@ -484,7 +484,7 @@ export async function POST(request: Request) {
 
       try {
         const transfer = await initiateKenyaMpesaTransfer({
-          recipientCode,
+          recipientCode: recipientCode!,
           amountKsh: netAmount,
           reference: paystackReference,
           reason: `Corevia Network withdrawal ${reference}`,
