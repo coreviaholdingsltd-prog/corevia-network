@@ -122,17 +122,8 @@ export async function POST(request: Request) {
     if (process.env.COREVIA_PAYSTACK_WITHDRAWALS_ENABLED !== "true" || process.env.COREVIA_PAYSTACK_NO_OTP_CONFIRMED !== "true") {
       return NextResponse.json({ error: "Paystack Transfers and automated no-OTP approval must be confirmed before withdrawals. Your wallet has not been debited." }, { status: 503 });
     }
-    if (
-      isProductionDeployment &&
-      (
-        process.env.COREVIA_PAYSTACK_LIVE_READY !== "true" ||
-        process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true" ||
-        process.env.COREVIA_PAYSTACK_MANUAL_PAYOUTS_CONFIRMED !== "true"
-      )
-    ) {
-      return NextResponse.json({
-        error: "Paystack Manual Payouts must be enabled so collected client funds remain in the Paystack Balance for member withdrawals. Your wallet has not been debited.",
-      }, { status: 503 });
+    if (isProductionDeployment && (process.env.COREVIA_PAYSTACK_LIVE_READY !== "true" || process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true")) {
+      return NextResponse.json({ error: "The automated Paystack payout channel is not currently confirmed ready. Your wallet has not been debited." }, { status: 503 });
     }
     const amount = Number(body.amount);
     if (!Number.isFinite(amount) || amount <= 0) {
