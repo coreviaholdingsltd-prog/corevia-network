@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import { verifyPaystackTransfer } from "@/lib/paystack/transfers";
 import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
+import { processWalletDeposit } from "@/lib/wallet-deposits";
 import { dispatchCoreviaRevenueTransfers, reconcileCoreviaRevenueTransfers } from "@/lib/paystack/revenue-transfers";
 
 export const runtime = "nodejs";
@@ -21,6 +22,97 @@ function authorized(request: Request) {
 export async function GET(request: Request) {
   if (!authorized(request)) {
     return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  }
+
+  const secret = process.env.PAYSTACK_SECRET_KEY;
+  if (!secret) return NextResponse.json({ error: "Paystack is not configured." }, { status: 503 });
+
+  let depositChecked = 0;
+  let depositCredited = 0;
+  let depositFailed = 0;
+  let depositInconclusive = 0;
+  let depositErrors = 0;
+
+  // Recover successful deposits even when a webhook was delayed or missed.
+  // The processor rechecks reference, amount, currency, metadata and ownership,
+  // and atomically claims the payment before crediting the member ledger.
+  const pendingDeposits = await prisma.paymentRecord.findMany({
+    where: {
+      provider: "PAYSTACK",
+      destination: "OTHER",
+      status: "PENDING",
+      providerReference: { startsWith: "CV-WALLET-" },
+    },
+    orderBy: { createdAt: "asc" },
+    take: 40,
+    select: { id: true, userId: true, providerReference: true },
+  });
+
+  for (const deposit of pendingDeposits) {
+    depositChecked += 1;
+    try {
+      const response = await fetch(
+        `https://api.paystack.co/transaction/verify/${encodeURIComponent(deposit.providerReference)}`,
+        {
+          headers: { Authorization: `Bearer ${secret}` },
+          cache: "no-store",
+          signal: AbortSignal.timeout(10000),
+        },
+      );
+      const payload = await response.json().catch(() => null) as {
+        status?: boolean;
+        message?: string;
+        data?: {
+          reference?: string;
+          status?: string;
+          amount?: number;
+          currency?: string;
+          paid_at?: string | null;
+          metadata?: Record<string, unknown> | null;
+        };
+      } | null;
+
+      if (!response.ok || payload?.status !== true || !payload.data) {
+        const statusCode = response.status;
+        if (statusCode === 404 || statusCode === 408 || statusCode === 429 || statusCode >= 500) {
+          depositInconclusive += 1;
+          continue;
+        }
+        throw new Error(payload?.message || `Paystack verification failed (HTTP ${statusCode}).`);
+      }
+
+      const payment = payload.data;
+      if (payment.reference !== deposit.providerReference) {
+        throw new Error("Paystack deposit reference did not match the pending record.");
+      }
+
+      if (payment.status === "success") {
+        const result = await processWalletDeposit({
+          reference: String(payment.reference),
+          amount: Number(payment.amount),
+          currency: String(payment.currency ?? ""),
+          status: String(payment.status),
+          paid_at: payment.paid_at ?? null,
+          metadata: payment.metadata ?? null,
+        }, deposit.userId);
+        if (!result.alreadyProcessed) depositCredited += 1;
+      } else if (payment.status === "failed" || payment.status === "abandoned") {
+        const changed = await prisma.paymentRecord.updateMany({
+          where: { id: deposit.id, userId: deposit.userId, status: "PENDING", allocationReference: null },
+          data: { status: "FAILED" },
+        });
+        if (changed.count === 1) depositFailed += 1;
+      } else {
+        depositInconclusive += 1;
+      }
+    } catch (error) {
+      depositErrors += 1;
+      console.error("Paystack wallet deposit reconciliation failed:", {
+        paymentRecordId: deposit.id,
+        reference: deposit.providerReference,
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
   }
 
   const pending = await prisma.withdrawal.findMany({
@@ -88,10 +180,14 @@ export async function GET(request: Request) {
   const revenueDispatch = await dispatchCoreviaRevenueTransfers();
 
   return NextResponse.json({
-    checked,
-    settled,
-    inconclusive,
-    errors,
+    deposits: {
+      checked: depositChecked,
+      credited: depositCredited,
+      failed: depositFailed,
+      inconclusive: depositInconclusive,
+      errors: depositErrors,
+    },
+    withdrawals: { checked, settled, inconclusive, errors },
     revenueReconciliation,
     revenueDispatch,
   });
