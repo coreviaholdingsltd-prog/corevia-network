@@ -369,14 +369,25 @@ export async function dispatchCoreviaRevenueTransfers() {
       accountReference: `COREVIA-${Date.now()}`,
       businessTill: true,
     });
-    if (transfer.status === "otp" || transfer.status === "failed" || transfer.status === "reversed") {
+    if (transfer.status === "otp") {
+      // OTP is non-terminal. Keep the revenue reservation active until
+      // Paystack reports success, failed, or reversed; never retry blindly.
+      return {
+        dispatched: 1,
+        reference: providerReference,
+        amountKsh: reserved.amountKsh,
+        sourceCount: reserved.sourceCount,
+        outcome: "awaiting_terminal_provider_status" as const,
+      };
+    }
+    if (transfer.status === "failed" || transfer.status === "reversed") {
       await settleCoreviaRevenueTransfer({
         reference: providerReference,
         status: "failed",
         amountSubunits: transfer.amount,
         currency: transfer.currency,
       });
-      return { dispatched: 1, reference: providerReference, outcome: "rejected_no_manual_approval" as const };
+      return { dispatched: 1, reference: providerReference, outcome: "provider_rejected_retry_queued" as const };
     }
     return { dispatched: 1, reference: providerReference, amountKsh: reserved.amountKsh, sourceCount: reserved.sourceCount };
   } catch (error) {
@@ -482,7 +493,7 @@ export async function reconcileCoreviaRevenueTransfers() {
           !Number.isSafeInteger(transfer.amount) || transfer.amount <= 0) {
         throw new Error("Paystack returned mismatched Corevia revenue transfer details.");
       }
-      if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed" || transfer.status === "otp") {
+      if (transfer.status === "success" || transfer.status === "failed" || transfer.status === "reversed") {
         const result = await settleCoreviaRevenueTransfer({
           reference,
           status: transfer.status === "success" ? "success" : "failed",
@@ -491,6 +502,8 @@ export async function reconcileCoreviaRevenueTransfers() {
         });
         if (result.updated) settled += 1;
       } else {
+        // OTP and every other non-terminal status retain the reservation.
+        // Only a terminal provider result may settle or release this attempt.
         inconclusive += 1;
       }
     } catch (error) {
