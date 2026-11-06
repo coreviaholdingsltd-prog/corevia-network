@@ -1,24 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useEffect, useState } from "react";
+import type { FormEvent } from "react";
+import { useState, useSyncExternalStore } from "react";
+
+function subscribeToLocation(callback: () => void) {
+  window.addEventListener("popstate", callback);
+  return () => window.removeEventListener("popstate", callback);
+}
+
+function getReferralCodeFromLocation() {
+  return new URLSearchParams(window.location.search).get("ref")?.toUpperCase() ?? "";
+}
+
+function getServerReferralCode() {
+  return "";
+}
 
 export default function Register() {
+  const referralCodeFromUrl = useSyncExternalStore(
+    subscribeToLocation,
+    getReferralCodeFromLocation,
+    getServerReferralCode,
+  );
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-  const [referralCode, setReferralCode] = useState("");
-
-  useEffect(() => {
-    const ref = new URLSearchParams(window.location.search).get("ref");
-
-    if (ref) {
-      setReferralCode(ref.toUpperCase());
-    }
-  }, []);
+  const [referralCodeOverride, setReferralCodeOverride] = useState<string | null>(null);
+  const referralCode = referralCodeOverride ?? referralCodeFromUrl;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -215,7 +227,7 @@ export default function Register() {
                   name="referralCode"
                   value={referralCode}
                   onChange={(event) =>
-                    setReferralCode(event.target.value.toUpperCase())
+                    setReferralCodeOverride(event.target.value.toUpperCase())
                   }
                   placeholder="Optional"
                   className="w-full rounded-xl border border-[#12352c]/15 bg-[#f7f5ef]/50 px-4 py-3 uppercase outline-none focus:border-[#b99a58]"
