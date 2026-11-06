@@ -64,15 +64,6 @@ const officialChannels = [
   },
 ];
 
-const filters = [
-  { label: "All pathways", value: "all" },
-  { label: "Jobs in Kenya", value: "Jobs in Kenya" },
-  { label: "Digital work", value: "Digital work" },
-  { label: "Youth programmes", value: "Youth programmes" },
-  { label: "Business support", value: "Business support" },
-  { label: "Career guidance", value: "Career guidance" },
-];
-
 function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
   return (
     <a
@@ -190,7 +181,7 @@ export default async function OpportunitiesPage() {
         {coreviaOpportunities.length === 0 ? (
           <div className="mt-5 rounded-2xl border border-dashed border-[#12352c]/20 bg-white p-6">
             <h3 className="font-extrabold">No Corevia-posted listings are available right now.</h3>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#12352c]/70">We won't invent vacancies or pretend an opportunity is open. Use the official resources below while Corevia builds its own vetted listing pipeline.</p>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#12352c]/70">We won&apos;t invent vacancies or pretend an opportunity is open. Use the official resources below while Corevia builds its own vetted listing pipeline.</p>
           </div>
         ) : (
           <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
