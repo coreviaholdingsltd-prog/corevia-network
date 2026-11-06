@@ -9,8 +9,6 @@ import {
   getPaystackKesBalanceSubunits,
 } from "@/lib/paystack/transfers";
 import { settlePaystackWithdrawal } from "@/lib/paystack/withdrawal-settlement";
-import { getDarajaConfig, getDarajaAccessToken, submitB2CPayment, normalizeMpesaPhone, assertB2CRecipientAllowed, makeOriginatorConversationId } from "@/lib/mpesa/b2c";
-import { settleWithdrawalFailure } from "@/lib/mpesa/settlement";
 
 export const maxDuration = 60;
 
@@ -131,14 +129,10 @@ export async function POST(request: Request) {
         process.env.COREVIA_PAYSTACK_FLOAT_READY === "true" &&
         process.env.COREVIA_PAYSTACK_MANUAL_PAYOUTS_CONFIRMED === "true"
       ));
-    const darajaEnabled =
-      process.env.COREVIA_MPESA_B2C_ENABLED === "true" &&
-      (!isProductionDeployment || (
-        process.env.MPESA_ENV === "production" &&
-        process.env.COREVIA_MPESA_B2C_LIVE_READY === "true"
-      ));
-    if (!paystackEnabled && !darajaEnabled) {
-      return NextResponse.json({ error: "Neither automated payout channel is currently cleared. Your wallet has not been debited." }, { status: 503 });
+    if (!paystackEnabled) {
+      return NextResponse.json({
+        error: "Paystack automated M-PESA payouts are not cleared. Your wallet has not been debited.",
+      }, { status: 503 });
     }
     const amount = Number(body.amount);
     if (!Number.isFinite(amount) || amount <= 0) {
@@ -179,40 +173,18 @@ export async function POST(request: Request) {
       }, { status: 400 });
     }
 
-    let payoutEngine: "PAYSTACK" | "DARAJA" = "PAYSTACK";
-    let recipientCode: string | null = null;
-    let darajaConfig: ReturnType<typeof getDarajaConfig> | null = null;
-    let darajaAccessToken: string | null = null;
-    let originatorConversationId: string | null = null;
-
-    if (paystackEnabled) {
-      try {
-        const recipient = await createKenyaMpesaRecipient({ name: user.name, phone });
-        if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money") {
-          throw new Error("Paystack did not return an active Kenyan M-PESA recipient.");
-        }
-        recipientCode = recipient.recipient_code;
-      } catch (error) {
-        console.error("Paystack recipient preflight failed; checking Safaricom B2C fallback:", error);
-        if (!darajaEnabled) {
-          return NextResponse.json({ error: "Paystack could not validate the M-PESA recipient and Safaricom B2C fallback is not enabled. Your wallet has not been debited." }, { status: 503 });
-        }
-        payoutEngine = "DARAJA";
+    let recipientCode: string;
+    try {
+      const recipient = await createKenyaMpesaRecipient({ name: user.name, phone });
+      if (recipient.active !== true || recipient.currency !== "KES" || recipient.type !== "mobile_money") {
+        throw new Error("Paystack did not return an active Kenyan M-PESA recipient.");
       }
-    } else {
-      payoutEngine = "DARAJA";
-    }
-
-    if (payoutEngine === "DARAJA") {
-      try {
-        darajaConfig = getDarajaConfig();
-        assertB2CRecipientAllowed(darajaConfig.environment, normalizeMpesaPhone(phone));
-        darajaAccessToken = await getDarajaAccessToken(darajaConfig);
-        originatorConversationId = makeOriginatorConversationId();
-      } catch (error) {
-        console.error("Safaricom B2C preflight failed:", error);
-        return NextResponse.json({ error: error instanceof Error ? error.message : "Safaricom B2C is not ready. Your wallet has not been debited." }, { status: 503 });
-      }
+      recipientCode = recipient.recipient_code;
+    } catch (error) {
+      console.error("Paystack recipient preflight failed; no alternate payout provider is configured:", error);
+      return NextResponse.json({
+        error: "Paystack could not validate the M-PESA recipient. Your wallet has not been debited; please try again after Paystack confirms the recipient service is available.",
+      }, { status: 503 });
     }
 
     const reference = `CV-WD-${Date.now()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
@@ -346,34 +318,11 @@ export async function POST(request: Request) {
       const providerFeeBufferSubunits = 20000;
       const protectedPoolRequiredSubunits =
         Math.round(postRequestClientClaims * 100) + providerFeeBufferSubunits;
-      // Paystack remains the custodian of client wallet funds for BOTH payout
-      // rails. Safaricom float funds the B2C execution, but never substitutes
-      // for the protected client balance held at Paystack.
+      // Paystack is the sole custodian of member wallet funds and the sole
+      // payout rail. Protect all client claims before authorizing a transfer.
       if (paystackBalanceSubunits < protectedPoolRequiredSubunits) {
         throw new Error("INSUFFICIENT_CLIENT_FUNDS_POOL");
       }
-      if (payoutEngine === "DARAJA") {
-        // Safaricom is a separate payout rail. Reserve its independently funded
-        // float atomically; never treat Paystack's pooled client funds as Daraja float.
-        const floatAccount = await tx.payoutFloatAccount.upsert({
-          where: { id: "primary" },
-          create: { id: "primary", availableBalance: 0, reservedBalance: 0 },
-          update: {},
-          select: { id: true, availableBalance: true },
-        });
-        if (Number(floatAccount.availableBalance) < netAmount) {
-          throw new Error("INSUFFICIENT_SAFARICOM_FLOAT");
-        }
-        const floatChanged = await tx.payoutFloatAccount.updateMany({
-          where: { id: floatAccount.id, availableBalance: { gte: netAmount } },
-          data: {
-            availableBalance: { decrement: netAmount },
-            reservedBalance: { increment: netAmount },
-          },
-        });
-        if (floatChanged.count !== 1) throw new Error("INSUFFICIENT_SAFARICOM_FLOAT");
-      }
-
       const changed = await tx.wallet.updateMany({
         where: { userId: user.id, balance: { gte: normalizedAmount } },
         data: { balance: { decrement: normalizedAmount } },
@@ -392,26 +341,10 @@ export async function POST(request: Request) {
           reference,
           requestKey,
           phoneNumber: phone,
-          paymentReference: payoutEngine === "PAYSTACK" ? paystackReference : null,
-          originatorConversationId: payoutEngine === "DARAJA" ? originatorConversationId : null,
+          paymentReference: paystackReference,
         },
         select: { id: true, amount: true, fee: true, netAmount: true, status: true, reference: true, createdAt: true },
       });
-
-      if (payoutEngine === "DARAJA") {
-        await tx.payoutFloatReservation.create({
-          data: { withdrawalId: withdrawal.id, accountId: "primary", amount: netAmount, status: "RESERVED" },
-        });
-        await tx.payoutFloatEntry.create({
-          data: {
-            accountId: "primary",
-            reference: `${reference}-FLOAT-RESERVE`,
-            type: "RESERVATION",
-            amount: netAmount,
-            description: `Reserved Safaricom B2C payout float for withdrawal ${reference}`,
-          },
-        });
-      }
 
       await tx.ledgerEntry.createMany({
         data: [
@@ -432,57 +365,14 @@ export async function POST(request: Request) {
         data: {
           userId: user.id, type: "WITHDRAWAL", status: "PENDING",
           amount: normalizedAmount, reference: `${reference}-WALLET`,
-          description: `${payoutEngine === "PAYSTACK" ? "Paystack" : "Safaricom B2C"} M-PESA transfer to ${phone}; reference ${reference}`,
+          description: `Paystack M-PESA transfer to ${phone}; reference ${reference}`,
         },
       });
 
       return { withdrawal, remainingBalance: available - normalizedAmount };
     }, { maxWait: 30000, timeout: 60000 });
 
-    {
-      if (payoutEngine === "DARAJA") {
-        try {
-          const response = await submitB2CPayment({
-            config: darajaConfig!,
-            accessToken: darajaAccessToken!,
-            amount: netAmount,
-            phone: normalizeMpesaPhone(phone),
-            reference,
-            originatorConversationId: originatorConversationId!,
-          });
-          if (String(response.ResponseCode) !== "0") {
-            const code = Number(response.ResponseCode);
-            await settleWithdrawalFailure(reference, Number.isSafeInteger(code) && code > 0 ? code : 1, response.ResponseDescription || "Safaricom rejected the B2C request.");
-            return NextResponse.json({ error: "Safaricom rejected the payout request. The wallet has been restored automatically." }, { status: 502 });
-          }
-          if (response.ConversationID) {
-            await prisma.withdrawal.updateMany({
-              where: { reference, status: "PROCESSING", originatorConversationId },
-              data: { conversationId: response.ConversationID },
-            });
-          }
-          return NextResponse.json({
-            status: true,
-            message: "Safaricom accepted the automated B2C payout request. The withdrawal will complete when its signed result callback arrives.",
-            withdrawal: created.withdrawal,
-            remainingBalance: created.remainingBalance,
-            payoutChannel: "SAFARICOM_B2C",
-          }, { status: 202 });
-        } catch (error) {
-          // A timeout may mean Safaricom accepted the request. Never fail over
-          // again or refund until the callback/reconciliation proves its outcome.
-          console.error("Safaricom B2C submission outcome is uncertain:", error);
-          return NextResponse.json({
-            status: true,
-            message: "Safaricom's B2C outcome is being reconciled. Do not submit the withdrawal again.",
-            withdrawal: created.withdrawal,
-            remainingBalance: created.remainingBalance,
-            payoutChannel: "SAFARICOM_B2C",
-          }, { status: 202 });
-        }
-      }
-
-      try {
+    try {
         const transfer = await initiateKenyaMpesaTransfer({
           recipientCode: recipientCode!,
           amountKsh: netAmount,
@@ -541,21 +431,18 @@ export async function POST(request: Request) {
           remainingBalance: created.remainingBalance,
         }, { status: 202 });
       }
-    }
 
   } catch (error) {
     console.error("Withdrawal request error:", error);
     const rawMessage = error instanceof Error ? error.message : "Unable to submit withdrawal request.";
     const message = rawMessage === "INSUFFICIENT_CLIENT_FUNDS_POOL"
       ? "The available Paystack funds do not currently cover all members' wallet balances, unresolved deposits and this withdrawal, plus the transfer-fee reserve. No wallet debit was made."
-      : rawMessage === "INSUFFICIENT_SAFARICOM_FLOAT"
-        ? "Safaricom B2C has insufficient independently funded payout float. The Paystack client funds remain protected and no wallet debit was made."
       : rawMessage === "PAYSTACK_TRANSFER_LIMIT"
         ? "Paystack's current Kenya transfer limit has been reached. Your wallet has not been debited; the system will accept the request when the limit resets."
         : rawMessage === "COREVIA_REVENUE_TRANSFER_PROCESSING"
           ? "A Corevia Till revenue transfer is being verified. Your wallet has not been debited; the system will reopen withdrawals automatically after Paystack confirms its result."
           : rawMessage;
-    const status = rawMessage.startsWith("Missing server environment variable") || rawMessage.includes("callback URLs") || rawMessage === "INSUFFICIENT_SAFARICOM_FLOAT"
+    const status = rawMessage.startsWith("Missing server environment variable") || rawMessage.includes("callback URLs")
       ? 503
       : rawMessage === "INSUFFICIENT_CLIENT_FUNDS_POOL"
         ? 503
