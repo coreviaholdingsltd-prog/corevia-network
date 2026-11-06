@@ -1,40 +1,9 @@
-# Daraja B2C withdrawals (sandbox first)
+# Archived: Safaricom Daraja B2C payout engine retired
 
-The member withdrawal API now submits the net payout through Safaricom Daraja B2C. The wallet is debited once, the 0.50% fee is recorded for Corevia, and the withdrawal remains PROCESSING until the ResultURL callback confirms success. A confirmed failure refunds the full wallet deduction and reverses the fee ledger entries. Queue timeouts and ambiguous network outcomes are deliberately not refunded automatically because Safaricom may already have accepted the request.
+As of 6 November 2026, Corevia Network no longer initiates new member withdrawals through Safaricom Daraja B2C. Paystack Transfers is the sole payout engine.
 
-## Required server environment variables
+The old Daraja submission client has been removed from the application. Legacy B2C result and timeout callback routes and the settlement helper remain temporarily available only to settle historical withdrawals that may have been in flight when the engine was retired. They cannot initiate new payments.
 
-Set these in Vercel for Preview first. The callback URLs below use the Vercel branch alias generated for the current preview. If Vercel changes that alias, update both URLs to the current public preview alias:
+Do not restore Daraja routing, fallback, credentials, or B2C environment flags. Do not delete the legacy callback token, callback routes, settlement helper, or historical database fields until the database has been checked and every pre-retirement Daraja withdrawal is confirmed terminal. Once that verification is complete, remove the callback compatibility code and schema in a separately reviewed migration.
 
-- `MPESA_ENV=sandbox`
-- `COREVIA_WITHDRAWALS_ENABLED=true` — set to `true` only for isolated Preview sandbox testing after confirming Preview uses a separate Neon database; keep `false` otherwise.
-- `MPESA_CONSUMER_KEY` — Daraja sandbox app consumer key
-- `MPESA_CONSUMER_SECRET` — Daraja sandbox app consumer secret
-- `MPESA_B2C_INITIATOR_NAME=testapi`
-- `MPESA_B2C_SECURITY_CREDENTIAL` — sandbox-generated encrypted security credential
-- `MPESA_B2C_PARTY_A=600990` — Daraja B2C sandbox test party A; do not use 174379 here
-- `MPESA_B2C_CALLBACK_TOKEN` — generate a long random secret (at least 32 bytes)
-- `MPESA_B2C_RESULT_URL=https://corevia-network-git-feat-daraja-b2c-w-7cc8c3-okerimaxwell8-2828.vercel.app/api/mpesa/b2c/result`
-- `MPESA_B2C_TIMEOUT_URL=https://corevia-network-git-feat-daraja-b2c-w-7cc8c3-okerimaxwell8-2828.vercel.app/api/mpesa/b2c/timeout`
-
-Never commit credentials or paste them into source control/chat. The STK Passkey is not used by B2C.
-
-## Database migration
-
-Apply the migration before deploying the feature:
-
-```bash
-npx prisma migrate deploy --config prisma7.config.ts
-npx prisma generate --config prisma7.config.ts
-```
-
-## Sandbox validation
-
-1. Set the variables on the Vercel Preview environment, not Production.
-2. Deploy the feature branch as a Preview.
-3. Confirm the callback URLs are publicly reachable over HTTPS and retain the callback token query parameter added by the server.
-4. Use a sandbox member account with an active membership, wallet balance, and the Daraja test phone number.
-5. Submit a withdrawal whose net payout after the 0.50% fee is a whole KES amount (Daraja B2C Amount is an integer).
-6. Confirm the withdrawal changes to PAID and stores the M-PESA receipt, or changes to FAILED with a full wallet/fee refund after a definitive failure callback.
-
-Do not switch to production until Safaricom has enabled B2C on Corevia's business shortcode/account and issued production credentials. Never use the sandbox Party A in production.
+All new withdrawals must pass the Paystack readiness gates and the client-funds reconciliation described in `dual-engine-withdrawals.md` (the file now documents the Paystack-only policy).
