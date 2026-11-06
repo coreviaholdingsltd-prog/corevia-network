@@ -1,9 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 
 const STORAGE_KEY = "corevia-rise-skill-missions-v1";
+const MISSIONS_STORAGE_EVENT = "corevia-rise-missions-updated";
+
+function subscribeToMissions(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener(MISSIONS_STORAGE_EVENT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(MISSIONS_STORAGE_EVENT, callback);
+  };
+}
+
+function getMissionsSnapshot() {
+  try {
+    return window.localStorage.getItem(STORAGE_KEY) ?? "[]";
+  } catch {
+    return "[]";
+  }
+}
+
+function getServerMissionsSnapshot() {
+  return "[]";
+}
+
+function parseCompletedMissions(raw: string) {
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    return Array.isArray(parsed)
+      ? parsed.filter(
+          (id): id is string =>
+            typeof id === "string" && missions.some((mission) => mission.id === id),
+        )
+      : [];
+  } catch {
+    return [];
+  }
+}
 
 const missions = [
   {
@@ -88,51 +124,32 @@ function escapeHtml(value: string) {
 }
 
 export default function SkillMissionsPage() {
-  const [completed, setCompleted] = useState<string[]>([]);
-  const [loaded, setLoaded] = useState(false);
+  const storedCompleted = useSyncExternalStore(
+    subscribeToMissions,
+    getMissionsSnapshot,
+    getServerMissionsSnapshot,
+  );
+  const completed = useMemo(
+    () => parseCompletedMissions(storedCompleted),
+    [storedCompleted],
+  );
   const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      const parsed: unknown = raw ? JSON.parse(raw) : [];
-      if (Array.isArray(parsed)) {
-        setCompleted(
-          parsed.filter(
-            (id): id is string =>
-              typeof id === "string" && missions.some((mission) => mission.id === id),
-          ),
-        );
-      }
-    } catch {
-      setCompleted([]);
-    }
-    setLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (!loaded) return;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(completed));
-    } catch {
-      setMessage("Progress could not be saved on this browser. You can still download your portfolio.");
-    }
-  }, [completed, loaded]);
 
   const completedCount = completed.length;
   const progress = Math.round((completedCount / missions.length) * 100);
-  const completedMissions = useMemo(
-    () => missions.filter((mission) => completed.includes(mission.id)),
-    [completed],
-  );
 
   function toggleMission(id: string) {
     setMessage("");
-    setCompleted((current) =>
-      current.includes(id)
-        ? current.filter((item) => item !== id)
-        : [...current, id],
-    );
+    const next = completed.includes(id)
+      ? completed.filter((item) => item !== id)
+      : [...completed, id];
+
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      window.dispatchEvent(new Event(MISSIONS_STORAGE_EVENT));
+    } catch {
+      setMessage("Progress could not be saved on this browser. You can still download your portfolio.");
+    }
   }
 
   function downloadPortfolio() {
