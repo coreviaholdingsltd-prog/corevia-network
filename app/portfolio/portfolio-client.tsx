@@ -41,7 +41,6 @@ const emptyItem: ItemForm = { title: "", category: "", description: "", projectU
 const dateLabel = (value: string) => new Date(value).toLocaleDateString("en-KE", { year: "numeric", month: "short", day: "numeric" });
 
 export default function PortfolioClient() {
-  const [profile, setProfile] = useState<Profile | null>(null);
   const [form, setForm] = useState<ProfileForm>(emptyProfile);
   const [itemForm, setItemForm] = useState<ItemForm>(emptyItem);
   const [items, setItems] = useState<PortfolioItem[]>([]);
@@ -54,14 +53,14 @@ export default function PortfolioClient() {
   const [notice, setNotice] = useState("");
 
   const load = useCallback(async () => {
-    setLoading(true); setError(""); setSignedOut(false);
     try {
       const response = await fetch("/api/portfolio", { cache: "no-store" });
       const result = await response.json();
+      setError("");
+      setSignedOut(false);
       if (response.status === 401) { setSignedOut(true); return; }
       if (!response.ok || result.status !== true) throw new Error(result.error || "Unable to load your portfolio.");
       const current = result.profile as Profile | null;
-      setProfile(current);
       setItems(current?.items || []);
       setPublicUrl(result.publicUrl || "");
       if (current) setForm({
@@ -74,7 +73,45 @@ export default function PortfolioClient() {
     } finally { setLoading(false); }
   }, []);
 
-  useEffect(() => { void load(); }, [load]);
+  useEffect(() => {
+    let active = true;
+    fetch("/api/portfolio", { cache: "no-store" })
+      .then(async (response) => {
+        const result = await response.json();
+        if (response.status === 401) return { signedOut: true, profile: null as Profile | null, publicUrl: "" };
+        if (!response.ok || result.status !== true) throw new Error(result.error || "Unable to load your portfolio.");
+        return { signedOut: false, profile: result.profile as Profile | null, publicUrl: result.publicUrl || "" };
+      })
+      .then((result) => {
+        if (!active) return;
+        setError("");
+        setSignedOut(result.signedOut);
+        setPublicUrl(result.publicUrl);
+        const current = result.profile;
+        setItems(current?.items || []);
+        if (current) {
+          setForm({
+            headline: current.headline || "",
+            bio: current.bio || "",
+            location: current.location || "",
+            skills: current.skills || "",
+            websiteUrl: current.websiteUrl || "",
+            linkedinUrl: current.linkedinUrl || "",
+            githubUrl: current.githubUrl || "",
+            isPublic: current.isPublic,
+          });
+        } else {
+          setForm(emptyProfile);
+        }
+      })
+      .catch((issue) => {
+        if (active) setError(issue instanceof Error ? issue.message : "Unable to load your portfolio.");
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => { active = false; };
+  }, []);
 
   async function saveProfile(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setBusy(true); setError(""); setNotice("");
@@ -84,7 +121,7 @@ export default function PortfolioClient() {
       });
       const result = await response.json();
       if (!response.ok || result.status !== true) throw new Error(result.error || "Unable to save your profile.");
-      setProfile(result.profile as Profile); setItems(result.profile.items || items); setPublicUrl(result.publicUrl || "");
+      setItems(result.profile.items || items); setPublicUrl(result.publicUrl || "");
       setNotice(result.message || "Portfolio profile saved.");
     } catch (issue) { setError(issue instanceof Error ? issue.message : "Unable to save your profile."); }
     finally { setBusy(false); }
@@ -99,7 +136,6 @@ export default function PortfolioClient() {
       const result = await response.json();
       if (!response.ok || result.status !== true) throw new Error(result.error || "Unable to add project.");
       setItems((current) => [result.item as PortfolioItem, ...current]);
-      setProfile((current) => current ? { ...current, items: [result.item as PortfolioItem, ...current.items] } : current);
       setItemForm(emptyItem); setNotice(result.message || "Project added.");
       await load();
     } catch (issue) { setError(issue instanceof Error ? issue.message : "Unable to add project."); }
@@ -114,7 +150,6 @@ export default function PortfolioClient() {
       const result = await response.json();
       if (!response.ok || result.status !== true) throw new Error(result.error || "Unable to remove project.");
       setItems((current) => current.filter((item) => item.id !== itemId));
-      setProfile((current) => current ? { ...current, items: current.items.filter((item) => item.id !== itemId) } : current);
       setNotice(result.message || "Project removed.");
     } catch (issue) { setError(issue instanceof Error ? issue.message : "Unable to remove project."); }
     finally { setBusyItem(""); }

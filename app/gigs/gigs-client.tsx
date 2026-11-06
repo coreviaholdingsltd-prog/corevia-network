@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import type { FormEvent } from "react";
 
@@ -18,6 +19,7 @@ const money = (value: number | null, type: string) => value === null ? "Budget n
 const modeLabel = (mode: string) => mode === "ONSITE" ? "On-site" : mode === "HYBRID" ? "Hybrid" : "Remote";
 
 export default function GigsClient() {
+  const router = useRouter();
   const [gigs, setGigs] = useState<Gig[]>([]);
   const [member, setMember] = useState<Member | null>(null);
   const [memberPortfolioUrl, setMemberPortfolioUrl] = useState("");
@@ -35,8 +37,6 @@ export default function GigsClient() {
   const [busy, setBusy] = useState(false);
 
   const loadGigs = useCallback(async () => {
-    setLoading(true);
-    setError("");
     try {
       const params = new URLSearchParams();
       if (query.trim()) params.set("q", query.trim());
@@ -44,6 +44,7 @@ export default function GigsClient() {
       if (workMode !== "all") params.set("workMode", workMode);
       const response = await fetch("/api/gigs?" + params.toString(), { cache: "no-store" });
       const data = await response.json();
+      setError("");
       if (!response.ok || data.status !== true || !Array.isArray(data.gigs)) throw new Error(data.error || "Unable to load gigs.");
       setGigs(data.gigs as Gig[]);
     } catch (err) {
@@ -51,7 +52,31 @@ export default function GigsClient() {
     } finally { setLoading(false); }
   }, [query, category, workMode]);
 
-  useEffect(() => { void loadGigs(); }, [loadGigs]);
+  useEffect(() => {
+    let active = true;
+    const params = new URLSearchParams();
+    if (query.trim()) params.set("q", query.trim());
+    if (category !== "all") params.set("category", category);
+    if (workMode !== "all") params.set("workMode", workMode);
+    fetch("/api/gigs?" + params.toString(), { cache: "no-store" })
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok || data.status !== true || !Array.isArray(data.gigs)) throw new Error(data.error || "Unable to load gigs.");
+        return data.gigs as Gig[];
+      })
+      .then((loadedGigs) => {
+        if (!active) return;
+        setError("");
+        setGigs(loadedGigs);
+      })
+      .catch((err) => {
+        if (active) setError(err instanceof Error ? err.message : "Unable to load gigs.");
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => { active = false; };
+  }, [query, category, workMode]);
   useEffect(() => {
     let alive = true;
     fetch("/api/auth/me", { cache: "no-store" }).then(async (response) => {
@@ -124,7 +149,7 @@ export default function GigsClient() {
           <p className="mt-5 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">Find small projects, show what you can do and connect with clients. Businesses can post work for review. Applying is free—Corevia Rise does not charge workers an application fee.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#available-gigs" className="rounded-full bg-[#d6bb7e] px-6 py-3 font-bold text-[#12352c]">Browse gigs</a>
-            <button type="button" onClick={() => member ? setShowPost((value) => !value) : window.location.assign("/login")} className="rounded-full border border-white/30 px-6 py-3 font-bold text-white hover:bg-white/10">Post a gig</button>
+            <button type="button" onClick={() => member ? setShowPost((value) => !value) : router.push("/login")} className="rounded-full border border-white/30 px-6 py-3 font-bold text-white hover:bg-white/10">Post a gig</button>
           </div>
           <p className="mt-5 text-xs leading-5 text-white/65">Corevia Rise currently connects people; it does not hold funds or process client payments. Agree scope, deliverables and payment terms clearly before starting work.</p>
         </div>
@@ -158,7 +183,7 @@ export default function GigsClient() {
             <label className="grid gap-1 text-xs font-bold uppercase tracking-wide text-[#12352c]/60">Category<select value={category} onChange={(e) => setCategory(e.target.value)} className="rounded-xl border border-[#12352c]/15 bg-white p-3 text-sm font-normal normal-case tracking-normal text-[#12352c]"><option value="all">All categories</option>{categories.map((item) => <option key={item}>{item}</option>)}</select></label>
             <label className="grid gap-1 text-xs font-bold uppercase tracking-wide text-[#12352c]/60">Work mode<select value={workMode} onChange={(e) => setWorkMode(e.target.value)} className="rounded-xl border border-[#12352c]/15 bg-white p-3 text-sm font-normal normal-case tracking-normal text-[#12352c]"><option value="all">Any mode</option><option value="REMOTE">Remote</option><option value="HYBRID">Hybrid</option><option value="ONSITE">On-site</option></select></label>
           </div>
-          {loading ? <div className="mt-5 rounded-2xl bg-white p-8 text-center">Loading open gigs…</div> : gigs.length === 0 ? <div className="mt-5 rounded-2xl border border-dashed border-[#12352c]/20 bg-white p-8 text-center"><h3 className="text-lg font-black">No approved gigs match yet.</h3><p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-[#12352c]/65">Check again later or browse the public opportunity directory and build a sample project while Corevia reviews incoming listings.</p><Link href="/opportunities" className="mt-4 inline-flex rounded-full bg-[#12352c] px-5 py-3 text-sm font-bold text-white">Explore public opportunities</Link></div> : <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">{gigs.map((gig) => <article key={gig.id} className="flex flex-col rounded-3xl border border-[#12352c]/10 bg-white p-5 shadow-sm"><div className="flex flex-wrap items-center justify-between gap-2"><span className="rounded-full bg-[#f7f5ef] px-3 py-1.5 text-xs font-bold">{gig.category}</span><span className="text-xs text-[#12352c]/55">{modeLabel(gig.workMode)}</span></div><h3 className="mt-4 text-xl font-black">{gig.title}</h3><p className="mt-2 whitespace-pre-line text-sm leading-6 text-[#12352c]/70">{gig.description}</p><div className="mt-4 space-y-1 text-sm"><p className="font-bold">{money(gig.budgetKsh, gig.budgetType)}</p>{gig.location && <p className="text-[#12352c]/60">Location: {gig.location}</p>}<p className="text-xs text-[#12352c]/55">Posted by {gig.ownerName} · {gig.applicationsCount} application{gig.applicationsCount === 1 ? "" : "s"}</p>{gig.deadline && <p className="text-xs text-[#12352c]/55">Deadline: {new Date(gig.deadline).toLocaleDateString("en-KE")}</p>}</div><div className="mt-auto pt-5"><button type="button" onClick={() => { if (!member) { window.location.assign("/login"); return; } setApplyGig(applyGig?.id === gig.id ? null : gig); setProposal(""); setPortfolioUrl(applyGig?.id === gig.id ? "" : memberPortfolioUrl); }} className="w-full rounded-xl bg-[#12352c] px-5 py-3 font-bold text-white">{member ? (applyGig?.id === gig.id ? "Cancel application" : "Apply for free") : "Sign in to apply"}</button>{applyGig?.id === gig.id && member && <form onSubmit={submitApplication} className="mt-4 grid gap-3 rounded-xl bg-[#f7f5ef] p-4"><label className="grid gap-1 text-xs font-bold">Why are you a good fit?<textarea required minLength={30} maxLength={2500} rows={5} value={proposal} onChange={(e) => setProposal(e.target.value)} placeholder="Describe your relevant skills, approach and what you would deliver." className="rounded-lg border border-[#12352c]/15 bg-white p-3 text-sm font-normal" /></label><label className="grid gap-1 text-xs font-bold">Portfolio link (optional)<input type="url" value={portfolioUrl} onChange={(e) => setPortfolioUrl(e.target.value)} placeholder="https://…" className="rounded-lg border border-[#12352c]/15 bg-white p-3 text-sm font-normal" /></label><button disabled={busy} className="rounded-lg bg-[#b99a58] px-4 py-3 text-sm font-black text-[#12352c] disabled:opacity-60">{busy ? "Submitting…" : "Submit application"}</button><p className="text-xs leading-5 text-[#12352c]/60">Applying is free. Never send money to secure an interview or a job.</p></form>}</div></article>)}</div>}
+          {loading ? <div className="mt-5 rounded-2xl bg-white p-8 text-center">Loading open gigs…</div> : gigs.length === 0 ? <div className="mt-5 rounded-2xl border border-dashed border-[#12352c]/20 bg-white p-8 text-center"><h3 className="text-lg font-black">No approved gigs match yet.</h3><p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-[#12352c]/65">Check again later or browse the public opportunity directory and build a sample project while Corevia reviews incoming listings.</p><Link href="/opportunities" className="mt-4 inline-flex rounded-full bg-[#12352c] px-5 py-3 text-sm font-bold text-white">Explore public opportunities</Link></div> : <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">{gigs.map((gig) => <article key={gig.id} className="flex flex-col rounded-3xl border border-[#12352c]/10 bg-white p-5 shadow-sm"><div className="flex flex-wrap items-center justify-between gap-2"><span className="rounded-full bg-[#f7f5ef] px-3 py-1.5 text-xs font-bold">{gig.category}</span><span className="text-xs text-[#12352c]/55">{modeLabel(gig.workMode)}</span></div><h3 className="mt-4 text-xl font-black">{gig.title}</h3><p className="mt-2 whitespace-pre-line text-sm leading-6 text-[#12352c]/70">{gig.description}</p><div className="mt-4 space-y-1 text-sm"><p className="font-bold">{money(gig.budgetKsh, gig.budgetType)}</p>{gig.location && <p className="text-[#12352c]/60">Location: {gig.location}</p>}<p className="text-xs text-[#12352c]/55">Posted by {gig.ownerName} · {gig.applicationsCount} application{gig.applicationsCount === 1 ? "" : "s"}</p>{gig.deadline && <p className="text-xs text-[#12352c]/55">Deadline: {new Date(gig.deadline).toLocaleDateString("en-KE")}</p>}</div><div className="mt-auto pt-5"><button type="button" onClick={() => { if (!member) { router.push("/login"); return; } setApplyGig(applyGig?.id === gig.id ? null : gig); setProposal(""); setPortfolioUrl(applyGig?.id === gig.id ? "" : memberPortfolioUrl); }} className="w-full rounded-xl bg-[#12352c] px-5 py-3 font-bold text-white">{member ? (applyGig?.id === gig.id ? "Cancel application" : "Apply for free") : "Sign in to apply"}</button>{applyGig?.id === gig.id && member && <form onSubmit={submitApplication} className="mt-4 grid gap-3 rounded-xl bg-[#f7f5ef] p-4"><label className="grid gap-1 text-xs font-bold">Why are you a good fit?<textarea required minLength={30} maxLength={2500} rows={5} value={proposal} onChange={(e) => setProposal(e.target.value)} placeholder="Describe your relevant skills, approach and what you would deliver." className="rounded-lg border border-[#12352c]/15 bg-white p-3 text-sm font-normal" /></label><label className="grid gap-1 text-xs font-bold">Portfolio link (optional)<input type="url" value={portfolioUrl} onChange={(e) => setPortfolioUrl(e.target.value)} placeholder="https://…" className="rounded-lg border border-[#12352c]/15 bg-white p-3 text-sm font-normal" /></label><button disabled={busy} className="rounded-lg bg-[#b99a58] px-4 py-3 text-sm font-black text-[#12352c] disabled:opacity-60">{busy ? "Submitting…" : "Submit application"}</button><p className="text-xs leading-5 text-[#12352c]/60">Applying is free. Never send money to secure an interview or a job.</p></form>}</div></article>)}</div>}
         </section>
       </div>
       <footer className="border-t border-[#12352c]/10 bg-white px-5 py-7 text-center text-xs text-[#12352c]/55"><p className="font-bold">COREVIA HOLDINGS LTD</p><p className="mt-1">Building Trust Through Excellence · Corevia Rise Gigs</p></footer>

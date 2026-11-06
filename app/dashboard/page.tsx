@@ -1,6 +1,8 @@
 
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 type User = {
@@ -79,6 +81,7 @@ async function copyText(text: string) {
 }
 
 export default function Dashboard() {
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [referrals, setReferrals] = useState<ReferralData | null>(null);
   const [error, setError] = useState("");
@@ -88,14 +91,12 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   const loadDashboard = useCallback(async () => {
-    setLoading(true);
-    setError("");
-    setReferralError("");
-
     try {
       const response = await fetch("/api/auth/me", {
         cache: "no-store",
       });
+      setError("");
+      setReferralError("");
 
       if (!response.ok) {
         setError("Please sign in to access your dashboard.");
@@ -156,8 +157,47 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    void loadDashboard();
-  }, [loadDashboard]);
+    let active = true;
+    fetch("/api/auth/me", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Please sign in to access your dashboard.");
+        const result = await response.json();
+        const account = result.user as User | undefined;
+        if (!account?.id || !account?.referralCode) throw new Error("Your account information could not be loaded. Please sign in again.");
+        return account;
+      })
+      .then(async (account) => {
+        if (!active) return;
+        setError("");
+        setReferralError("");
+        setUser(account);
+        try {
+          const response = await fetch("/api/my-referrals", { cache: "no-store" });
+          const result = await response.json();
+          if (!active) return;
+          if (!response.ok || result.status !== true || !Array.isArray(result.clients)) {
+            setReferralError(result.error || "Unable to load your referrals. Please try again.");
+            return;
+          }
+          setReferrals({
+            status: true,
+            total: Number(result.total) || 0,
+            active: Number(result.active) || 0,
+            pending: Number(result.pending) || 0,
+            clients: result.clients.map((client: Referral) => ({ ...client, rewardEarned: Number(client.rewardEarned) || 0 })),
+          });
+        } catch {
+          if (active) setReferralError("Unable to load referral information. Please try again.");
+        }
+      })
+      .catch((issue) => {
+        if (active) setError(issue instanceof Error ? issue.message : "Unable to connect to Corevia Rise. Please try again.");
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => { active = false; };
+  }, []);
 
   const referralLink = user
     ? `${COREVIA_NETWORK_URL}/register?ref=${encodeURIComponent(
@@ -198,7 +238,7 @@ export default function Dashboard() {
         throw new Error("Sign out failed.");
       }
 
-      window.location.assign("/login");
+      router.replace("/login");
     } catch {
       window.alert("Unable to sign out. Please try again.");
     }
@@ -306,22 +346,22 @@ export default function Dashboard() {
             href="/opportunities"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
           >Opportunities</a>
-          <a
+          <Link
             href="/missions"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
-          >Skill Missions</a>
-          <a
+          >Skill Missions</Link>
+          <Link
             href="/gigs"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
-          >Rise Gigs</a>
-          <a
+          >Rise Gigs</Link>
+          <Link
             href="/gigs/manage"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
-          >My Gigs & Applications</a>
-          <a
+          >My Gigs & Applications</Link>
+          <Link
             href="/portfolio"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
-          >My Portfolio</a>
+          >My Portfolio</Link>
           <button
             type="button"
             onClick={handleSignOut}

@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import { randomInt } from "crypto";
 import { cookies } from "next/headers";
+import type { Prisma } from "@/app/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
 
@@ -65,7 +66,7 @@ function getSpinSession(now = new Date()) {
   };
 }
 
-async function getAvailablePool(tx: any) {
+async function getAvailablePool(tx: Prisma.TransactionClient) {
   const fees = await tx.ledgerEntry.aggregate({
     where: {
       ownerType: "COREVIA",
@@ -91,7 +92,7 @@ async function getAvailablePool(tx: any) {
   );
 }
 
-async function getOrCreateEvent(tx: any, scheduledFor: Date) {
+async function getOrCreateEvent(tx: Prisma.TransactionClient, scheduledFor: Date) {
   let event = await tx.spinEvent.findFirst({
     where: { scheduledFor },
   });

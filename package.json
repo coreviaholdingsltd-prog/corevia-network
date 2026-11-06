@@ -9,9 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.10.0",
-    "@prisma/client": "^7.10.0",
-    "next": "16.3.8",
+    "@prisma/adapter-pg": "7.10.1",
+    "@prisma/client": "7.10.1",
+    "next": "16.4.5",
     "pdf-lib": "^1.17.1",
     "pg": "^8.23.1",
     "react": "19.2.8",
@@ -22,15 +22,25 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.3.8",
-    "prisma": "^7.10.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.5",
+    "prisma": "7.10.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
   "allowScripts": {
-    "@prisma/engines@7.10.0": true,
-    "prisma@7.10.0": true,
-    "unrs-resolver@1.12.2": true
+    "unrs-resolver@1.12.2": true,
+    "prisma@7.10.1": true,
+    "@prisma/engines@7.10.1": true
+  },
+  "overrides": {
+    "@eslint/config-array": {
+      "minimatch": "11.0.1"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.1"
+    },
+    "fast-uri": "3.1.9",
+    "zod": "4.6.7"
   }
 }

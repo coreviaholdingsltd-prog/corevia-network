@@ -20,17 +20,40 @@ export default function ManageGigsClient() {
   const [busyKey, setBusyKey] = useState("");
 
   const load = useCallback(async () => {
-    setLoading(true); setError(""); setSignedOut(false);
     try {
       const response = await fetch("/api/gigs/manage", { cache: "no-store" });
       const result = await response.json();
+      setError("");
+      setSignedOut(false);
       if (response.status === 401) { setSignedOut(true); setData(null); return; }
       if (!response.ok || result.status !== true) throw new Error(result.error || "Unable to load Gigs management.");
       setData(result as PageData);
     } catch (err) { setError(err instanceof Error ? err.message : "Unable to load Gigs management."); }
     finally { setLoading(false); }
   }, []);
-  useEffect(() => { void load(); }, [load]);
+  useEffect(() => {
+    let active = true;
+    fetch("/api/gigs/manage", { cache: "no-store" })
+      .then(async (response) => {
+        const result = await response.json();
+        if (response.status === 401) return { signedOut: true, data: null as PageData | null };
+        if (!response.ok || result.status !== true) throw new Error(result.error || "Unable to load Gigs management.");
+        return { signedOut: false, data: result as PageData };
+      })
+      .then((result) => {
+        if (!active) return;
+        setError("");
+        setSignedOut(result.signedOut);
+        setData(result.data);
+      })
+      .catch((err) => {
+        if (active) setError(err instanceof Error ? err.message : "Unable to load Gigs management.");
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => { active = false; };
+  }, []);
 
   async function action(key: string, body: Record<string, string>) {
     setBusyKey(key); setError(""); setNotice("");

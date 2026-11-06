@@ -152,7 +152,7 @@ export default function Home() {
             </p>
             <h2 className="mt-3 text-2xl font-bold">Opportunities</h2>
             <p className="mt-3 leading-7 text-[#12352c]/70">
-              Discover the platform's opportunity features and learn more
+              Discover the platform&apos;s opportunity features and learn more
               about participating in relevant commercial activities.
             </p>
             <Link
