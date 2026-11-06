@@ -1,9 +1,9 @@
 name: Temporary Corevia dependency and lint cleanup
 
 on:
-  push:
+  pull_request:
     branches:
-      - fix/secure-build-and-lint-20261106
+      - fix/wallet-page-effects-20261104
 
 permissions:
   contents: write
@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24.20.0
@@ -401,10 +403,12 @@ jobs:
           npm run build
 
       - name: Commit validated files and remove temporary workflow
+        env:
+          HEAD_REF: ${{ github.head_ref }}
         run: |
           rm .github/workflows/temporary-corevia-build-cleanup.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "Harden dependencies and clear production lint"
-          git push origin "HEAD:$GITHUB_REF_NAME"
+          git push origin "HEAD:$HEAD_REF"
