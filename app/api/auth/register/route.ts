@@ -109,7 +109,6 @@ export async function POST(request: Request) {
       );
     }
 
-    let referrerId: string | undefined;
     const effectiveReferralCode = referralCode || DEFAULT_REFERRAL_CODE;
 
     const referrer = await prisma.user.findUnique({
@@ -128,7 +127,7 @@ export async function POST(request: Request) {
       );
     }
 
-    referrerId = referrer.id;
+    const referrerId = referrer.id;
 
     const passwordHash = hashPassword(password);
 
