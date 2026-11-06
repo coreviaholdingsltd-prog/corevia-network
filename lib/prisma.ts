@@ -12,8 +12,13 @@ if (!connectionString) {
   throw new Error("DATABASE_URL is not configured for Prisma.");
 }
 
+// Make the current certificate-verification behavior explicit. This avoids
+// relying on legacy pg-connection-string aliases such as "require" or "prefer".
+const secureDatabaseUrl = new URL(connectionString);
+secureDatabaseUrl.searchParams.set("sslmode", "verify-full");
+
 const adapter = new PrismaPg({
-  connectionString,
+  connectionString: secureDatabaseUrl.toString(),
   connectionTimeoutMillis: 30_000,
   idleTimeoutMillis: 10_000,
   max: 10,
