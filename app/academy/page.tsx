@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type Lesson = {
   id: string;
@@ -83,6 +83,7 @@ const readableDate = (value: string) =>
 
 export default function AcademyPage() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const routeCourseId = pathname.startsWith("/academy/study/")
     ? decodeURIComponent(
@@ -139,18 +140,7 @@ export default function AcademyPage() {
     }
   }, []);
 
-  useEffect(() => {
-    if (routeCourseId) {
-      setExpandedCourse(routeCourseId);
-    }
-  }, [routeCourseId]);
-
   const verifyAcademyPayment = useCallback(async (reference: string) => {
-    setPendingPaymentReference(reference);
-    setVerifyingPayment(true);
-    setNotice("Confirming your Academy course payment...");
-    setError("");
-
     try {
       const response = await fetch("/api/academy/payments/verify", {
         method: "POST",
@@ -159,6 +149,7 @@ export default function AcademyPage() {
         cache: "no-store",
       });
       const result = await response.json();
+      setPendingPaymentReference(reference);
 
       if (!response.ok) {
         throw new Error(result.error || "Course payment verification failed.");
@@ -183,13 +174,68 @@ export default function AcademyPage() {
   }, [loadCourses]);
 
   useEffect(() => {
+    let active = true;
     const reference = new URLSearchParams(window.location.search).get("payment");
-    if (reference) {
-      void verifyAcademyPayment(reference);
-    } else {
-      void loadCourses();
-    }
-  }, [loadCourses, verifyAcademyPayment]);
+    const request = reference
+      ? fetch("/api/academy/payments/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ reference }),
+          cache: "no-store",
+        })
+      : fetch("/api/academy/courses", { cache: "no-store" });
+
+    request
+      .then(async (response) => {
+        const result = await response.json();
+        if (!reference && response.status === 401) return { kind: "unauthorized" as const, result };
+        if (!response.ok) throw new Error(result.error || (reference ? "Course payment verification failed." : "Unable to load Academy courses."));
+        return { kind: reference ? "payment" as const : "courses" as const, result };
+      })
+      .then(async ({ kind, result }) => {
+        if (!active) return;
+        if (kind === "unauthorized") {
+          setAuthRequired(true);
+          setCourses([]);
+          return;
+        }
+        if (kind === "payment") {
+          setNotice(result.message || "Payment confirmed. Your course is now available.");
+          setError("");
+          setPendingPaymentReference("");
+          window.history.replaceState({}, "", "/academy");
+          await loadCourses();
+          return;
+        }
+        setAuthRequired(false);
+        setMemberName(result.user?.name || "Corevia member");
+        setCourses(result.courses || []);
+      })
+      .catch((issue) => {
+        if (!active) return;
+        setError(
+          issue instanceof Error
+            ? reference
+              ? issue.message + " Your payment reference has been kept so you can retry verification. Do not pay again until the status is confirmed."
+              : issue.message
+            : "Unable to load Academy information.",
+        );
+        if (reference) {
+          setNotice("");
+          setPendingPaymentReference(reference);
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+          setVerifyingPayment(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [loadCourses]);
 
   async function enroll(course: Course) {
     setWorking(course.id);
@@ -217,7 +263,7 @@ export default function AcademyPage() {
       }
 
       if (result.authorization_url) {
-        window.location.href = result.authorization_url;
+        window.location.assign(result.authorization_url);
         return;
       }
 
@@ -228,7 +274,7 @@ export default function AcademyPage() {
 
       await loadCourses();
 
-      window.location.href = `/academy/study/${encodeURIComponent(course.id)}`;
+      router.push("/academy/study/" + encodeURIComponent(course.id));
     } catch (issue) {
       setError(
         issue instanceof Error ? issue.message : "Enrollment failed.",
@@ -434,7 +480,10 @@ export default function AcademyPage() {
             </p>
             <button
               type="button"
-              onClick={() => void verifyAcademyPayment(pendingPaymentReference)}
+              onClick={() => {
+                setVerifyingPayment(true);
+                void verifyAcademyPayment(pendingPaymentReference);
+              }}
               disabled={verifyingPayment}
               className="mt-3 rounded-lg bg-amber-200 px-4 py-2 font-bold text-slate-950 disabled:opacity-60"
             >
@@ -593,7 +642,7 @@ export default function AcademyPage() {
                     disabled={working === course.id || authRequired}
                     onClick={() => {
                       if (course.enrolled) {
-                        window.location.href = `/academy/study/${encodeURIComponent(course.id)}`;
+                        router.push("/academy/study/" + encodeURIComponent(course.id));
                       } else {
                         void enroll(course);
                       }
