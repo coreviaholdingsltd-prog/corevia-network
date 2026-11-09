@@ -16,7 +16,7 @@ export default async function VerifyPage({ searchParams }: Props) {
   const code = typeof raw === "string" ? raw.trim().toUpperCase() : "";
   const validFormat = /^CVA-\d{4}-[A-F0-9]{8}$/.test(code);
 
-  let record: { name:string; course:string; code:string; issued:Date } | null = null;
+  let record: { name:string; course:string; level:string; code:string; issued:Date } | null = null;
 
   if (validFormat) {
     const completion = await prisma.academyCompletion.findUnique({
@@ -26,7 +26,7 @@ export default async function VerifyPage({ searchParams }: Props) {
     if (completion && completion.enrollment.status === "COMPLETED") {
       const course = findAcademyCourse(completion.enrollment.courseId);
       if (course?.published) {
-        record = { name:completion.enrollment.user.name, course:course.title, code:completion.certificateCode, issued:completion.issuedAt };
+        record = { name:completion.enrollment.user.name, course:course.title, level:course.programmeLevel ?? course.level, code:completion.certificateCode, issued:completion.issuedAt };
       }
     }
   }
@@ -58,7 +58,8 @@ export default async function VerifyPage({ searchParams }: Props) {
             <p className="mt-2 leading-7">The certificate number matches a completed course record.</p>
             <dl className="mt-6 grid gap-4 border-t pt-5 sm:grid-cols-2">
               <div><dt className="text-xs uppercase text-slate-500">Learner name</dt><dd className="mt-1 font-semibold">{record.name}</dd></div>
-              <div><dt className="text-xs uppercase text-slate-500">Course title</dt><dd className="mt-1 font-semibold">{record.course}</dd></div>
+              <div><dt className="text-xs uppercase text-slate-500">Course / programme</dt><dd className="mt-1 font-semibold">{record.course}</dd></div>
+              <div><dt className="text-xs uppercase text-slate-500">Programme level</dt><dd className="mt-1 font-semibold">{record.level}</dd></div>
               <div><dt className="text-xs uppercase text-slate-500">Certificate number</dt><dd className="mt-1 break-words font-semibold">{record.code}</dd></div>
               <div><dt className="text-xs uppercase text-slate-500">Issue date</dt><dd className="mt-1 font-semibold">{issued}</dd></div>
               <div className="sm:col-span-2"><dt className="text-xs uppercase text-slate-500">Issuing company</dt><dd className="mt-1 font-semibold">COREVIA HOLDINGS LTD | COREVIA RISE ACADEMY</dd></div>
