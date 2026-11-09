@@ -3,10 +3,12 @@ name: Corevia Academy source audit
 on:
   pull_request:
     paths:
-      - "lib/academy-catalog.ts"
-      - "lib/academy-pathways.ts"
-      - "prisma/schema.prisma"
-      - "scripts/academy-quality-audit.mjs"
+      - "lib/academy-*.ts"
+      - "app/academy/**"
+      - "app/api/academy/**"
+      - "prisma/**"
+      - "scripts/academy-*.mjs"
+      - "docs/academy-*"
       - ".github/workflows/academy-quality-audit.yml"
   push:
     branches:
@@ -31,8 +33,14 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+      - name: Validate Prisma schema
+        run: npx prisma validate
+      - name: Lint Academy implementation
+        run: npm run lint:academy
       - name: Run source-structure audit
         run: npm run academy:audit
+      - name: Build application
+        run: npm run build
       - name: Upload audit evidence
         if: always()
         uses: actions/upload-artifact@v4
