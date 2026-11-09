@@ -24,7 +24,10 @@ export async function POST(request: Request) {
     if (!title || !authors || !publication || !allowedTypes.includes(sourceType) || verificationNotes.length < 40) {
       return NextResponse.json({ error: "Provide complete bibliographic details, a supported source type and verification notes explaining the source's authority and relevance." }, { status: 400 });
     }
-    if ((!url || !/^https:\/\//i.test(url)) && (!doi || !/^10\.\d{4,9}\//.test(doi))) {
+    if (url && !/^https:\/\//i.test(url)) {
+      return NextResponse.json({ error: "Source URLs must use HTTPS." }, { status: 400 });
+    }
+    if (!url && (!doi || !/^10\.\d{4,9}\//.test(doi))) {
       return NextResponse.json({ error: "A valid HTTPS source URL or DOI is required." }, { status: 400 });
     }
     if (publicationYear !== null && (publicationYear < 1450 || publicationYear > new Date().getFullYear() + 1)) {
