@@ -126,7 +126,6 @@ export async function POST(request: Request) {
       process.env.COREVIA_PAYSTACK_NO_OTP_CONFIRMED === "true" &&
       (!isProductionDeployment || (
         process.env.COREVIA_PAYSTACK_LIVE_READY === "true" &&
-        process.env.COREVIA_PAYSTACK_FLOAT_READY === "true" &&
         process.env.COREVIA_PAYSTACK_MANUAL_PAYOUTS_CONFIRMED === "true"
       ));
     if (!paystackEnabled) {
@@ -216,12 +215,13 @@ export async function POST(request: Request) {
 
       // Wallet balances are client liabilities held against one pooled Paystack
       // balance. Protect every member's balance before authorizing this payout.
-      // Existing PROCESSING withdrawals are counted as reserved client claims
-      // until a terminal Paystack result is confirmed (conservative on timeouts).
+      // Existing PENDING and PROCESSING withdrawals are counted as reserved
+      // client claims until a terminal Paystack result is confirmed. This makes
+      // readiness depend on the live pooled balance, never a manually toggled flag.
       const [walletTotals, processingTotals, pendingDepositTotals, paystackBalanceSubunits] = await Promise.all([
         tx.wallet.aggregate({ _sum: { balance: true } }),
         tx.withdrawal.aggregate({
-          where: { status: "PROCESSING" },
+          where: { status: { in: ["PENDING", "PROCESSING"] } },
           _sum: { netAmount: true },
         }),
         tx.paymentRecord.aggregate({
@@ -313,9 +313,9 @@ export async function POST(request: Request) {
         existingProcessingPayouts +
         pendingWalletDepositClaims +
         netAmount;
-      // Paystack's Kenya M-PESA transfer fee can reach KES 180 in the
-      // applicable amount band; retain a KES 200 company-revenue buffer.
-      const providerFeeBufferSubunits = 20000;
+      // Keep the full KES 400 Corevia safety reserve untouched, in addition
+      // to client liabilities and the possible provider transfer fee.
+      const providerFeeBufferSubunits = 40000;
       const protectedPoolRequiredSubunits =
         Math.round(postRequestClientClaims * 100) + providerFeeBufferSubunits;
       // Paystack is the sole custodian of member wallet funds and the sole
