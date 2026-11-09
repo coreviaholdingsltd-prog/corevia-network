@@ -84,19 +84,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Pass the course knowledge assessment before submitting the practical project." }, { status: 400 });
     }
 
-    const submission = await prisma.academyProjectSubmission.create({
-      data: {
-        enrollmentId: enrollment.id,
-        courseId,
-        projectTitle,
-        objective,
-        methodology,
-        workDescription,
-        reflection,
-        evidenceUrls,
-        originalityConfirmed,
-      },
+    const revision = await prisma.academyProjectSubmission.findFirst({
+      where: { enrollmentId: enrollment.id, status: "REVISION_REQUIRED" },
+      orderBy: { submittedAt: "desc" },
     });
+    const submission = revision
+      ? await prisma.academyProjectSubmission.update({
+          where: { id: revision.id },
+          data: {
+            projectTitle, objective, methodology, workDescription, reflection,
+            evidenceUrls, originalityConfirmed, status: "SUBMITTED", submittedAt: new Date(),
+          },
+        })
+      : await prisma.academyProjectSubmission.create({
+          data: {
+            enrollmentId: enrollment.id, courseId, projectTitle, objective,
+            methodology, workDescription, reflection, evidenceUrls, originalityConfirmed,
+          },
+        });
 
     return NextResponse.json({ status: true, submission: { id: submission.id, status: submission.status, submittedAt: submission.submittedAt }, message: "Your practical project has been submitted for academic review." }, { status: 201 });
   } catch (error) {
