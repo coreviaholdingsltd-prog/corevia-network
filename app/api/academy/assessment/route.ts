@@ -50,19 +50,10 @@ export async function POST(request: Request) {
 
     const result = await prisma.$transaction(async (tx) => {
       await tx.academyAssessmentAttempt.create({ data: { enrollmentId: enrollment.id, score, totalQuestions: course.questions.length, passed } });
-      let completion = enrollment.completion;
-      if (passed && !completion) {
-        completion = await tx.academyCompletion.create({
-          data: {
-            enrollmentId: enrollment.id,
-            certificateCode: `CVA-${new Date().getFullYear()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`,
-          },
-        });
-      }
-      if (passed) {
-        await tx.academyEnrollment.update({ where: { id: enrollment.id }, data: { status: "COMPLETED", completedAt: completion?.issuedAt ?? new Date() } });
-      }
-      return completion;
+      // A knowledge-test pass is necessary but no longer sufficient for a new
+      // completion record. Practical work must also pass independent review.
+      // Existing completion records remain untouched for historical learners.
+      return enrollment.completion;
     });
 
     return NextResponse.json({
@@ -71,7 +62,7 @@ export async function POST(request: Request) {
       score,
       totalQuestions: course.questions.length,
       threshold: 75,
-      message: passed ? "Assessment passed. Your Academy completion record is ready." : "Not passed yet. Review the explanations and try again.",
+      message: passed ? (result ? "Assessment passed. Your existing completion record is preserved." : "Knowledge assessment passed. Submit your practical project for academic review to complete this course.") : "Not passed yet. Review the explanations and try again.",
       review,
       completion: result ? { certificateCode: result.certificateCode, issuedAt: result.issuedAt } : null,
     });
