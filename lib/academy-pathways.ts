@@ -101,7 +101,7 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
     ][stageIndex];
 
     const content = [
-      "LEARNING OUTCOME — At " + stage.label + " level, " + stage.verb + " " + topic + " in " + subject.title + ". You must demonstrate " + stage.depth + ".",
+      "LEARNING OUTCOME — At " + stage.learnerLabel + " level, " + stage.verb + " " + topic + " in " + subject.title + ". You must demonstrate " + stage.depth + ".",
       "SUBJECT FOUNDATION — " + subject.description + " This unit builds directly on the subject's existing lesson material: " + relatedSource,
       "CORE STUDY MATERIAL — Revisit and master this course topic: " + topic + ". Explain its central terms, principles, assumptions and relationship to the wider discipline. Use the original course material as the starting point, then extend it with authoritative books, standards, peer-reviewed research or professional guidance appropriate to this level.",
       "CONCEPTUAL DEVELOPMENT — Connect the topic to this related course material: " + supportingSource + ". Identify where the ideas reinforce one another, where they differ and what conditions affect their application. Do not treat a definition as sufficient evidence of understanding.",
@@ -112,7 +112,7 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
       "MODEL RESPONSE AND SELF-CHECK — Write a complete response to the worked case: (1) define the problem, (2) explain the relevant subject concepts, (3) show each reasoning or practical step, (4) justify the decision with evidence, and (5) evaluate the result and its limitations. Compare your response with the unit outcome and revise any unsupported or unclear reasoning.",
       "PRACTICAL ASSIGNMENT — " + practical + " Your submission must include the objective, process, output, supporting evidence, quality checks and a reflection on what should be improved.",
       "ACADEMIC AND PROFESSIONAL STANDARDS — Apply relevant disciplinary standards, ethical duties, safety requirements, privacy protections and intellectual-property rules. Cite sources consistently. Never invent data, references, experiments or claims of originality.",
-      "EVIDENCE AND READING — Start with the original lesson material, then consult current authoritative sources appropriate to the subject and level. At Certificate level, prioritise reliable introductory texts and official guidance; at Diploma and Degree levels, add technical manuals, scholarly texts and research; at Masters and PhD levels, critically engage with specialist peer-reviewed literature and primary sources. Record author, title, publication date and the exact claim supported.",
+      "EVIDENCE AND READING — Start with the original lesson material, then consult current authoritative sources appropriate to the subject and level. At Certificate level, prioritise reliable introductory texts and official guidance; at Diploma and Degree levels, add technical manuals, scholarly texts and research; at Masters and doctoral research-preparation levels, critically engage with specialist peer-reviewed literature and primary sources. Record author, title, publication date and the exact claim supported.",
       "QUALITY REVIEW — Check accuracy, completeness, internal consistency, relevance, reproducibility and alignment with the stated learning outcome. Identify uncertainty, limitations and possible sources of bias. Explain what additional evidence would change your conclusion.",
       "REFLECTION AND TRANSFER — Summarise the principle learned, justify one important decision, identify a plausible failure mode and explain how the knowledge transfers to a new " + subject.title + " situation.",
       "PROJECT EXPECTATION — " + stage.project + " The final submission must be your own work, scoped to a feasible question or task, supported by traceable sources and accompanied by evidence of the process. Clearly label any simulated data and never present it as real-world observation.",
@@ -141,7 +141,7 @@ function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage, stageInde
   const inherited = sourceQuestions.slice(0, 8).map((question, index) => ({
     ...question,
     id: subject.id + "-" + stage.label.toLowerCase() + "-core-" + (index + 1),
-    prompt: levelFraming + question.prompt + " Explain why the selected answer is appropriate at " + stage.label + " level.",
+    prompt: levelFraming + question.prompt + " Explain why the selected answer is appropriate at " + stage.learnerLabel + " level.",
     explanation: (question.explanation?.trim() || "Review the relevant course lesson and explain the subject principle that supports the selected answer.") + " Extend your reasoning to demonstrate: " + stage.outcome + ".",
   }));
   const advanced = ASSESSMENT_TEMPLATES.map((item, index) => {
@@ -158,7 +158,7 @@ function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage, stageInde
       prompt,
       options,
       answerIndex: correctIndex,
-      explanation: item.correct + " At " + stage.label + " level, learners are expected to demonstrate " + stage.outcome + ".",
+      explanation: item.correct + " At " + stage.learnerLabel + " level, learners are expected to demonstrate " + stage.outcome + ".",
     };
   });
   return [...inherited, ...advanced];
@@ -173,7 +173,7 @@ export function buildAcademyPathwayCourses(subjects: AcademyCourse[]): AcademyCo
         : subject.id + "-" + STAGES[stageIndex - 1].label.toLowerCase();
       return {
         id,
-        title: subject.title + " — " + stage.label + " Learning Programme",
+        title: subject.title + " — " + stage.learnerLabel + " Learning Programme",
         category: subject.category,
         description: stage.learnerLabel + "-level learning pathway in " + subject.title + ", designed for " + stage.focus + ". Expected outcome: " + stage.outcome + ". Capstone: " + stage.project + ". Learners complete six subject-linked study units, a level-appropriate project and a subject-specific assessment. Corevia Academy issues a certificate of completion for this learning programme only; it is not an accredited university award, professional licence or authority to use a protected academic title. PhD-level content is a doctoral research-preparation pathway and does not confer a PhD degree.",
         level: stage.learnerLabel,
