@@ -391,9 +391,9 @@ export default function AcademyPage() {
             </h1>
 
             <p className="mt-5 max-w-3xl leading-7 text-slate-300">
-              Use your existing Corevia Rise account to enroll, work
-              through lessons, complete assessments, and access your course
-              completion record.
+              Enrol in a course, study the lessons, pass the knowledge
+              assessment, and demonstrate practical competence through an
+              independently reviewed project before course completion.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
@@ -411,6 +411,13 @@ export default function AcademyPage() {
                 className="rounded-xl border border-white/20 px-5 py-3 font-bold hover:bg-white/10"
               >
                 Return to Network
+              </Link>
+
+              <Link
+                href="/academy/projects"
+                className="rounded-xl border border-cyan-300/50 px-5 py-3 font-bold text-cyan-200 hover:bg-cyan-300/10"
+              >
+                Practical project workspace
               </Link>
             </div>
           </div>
