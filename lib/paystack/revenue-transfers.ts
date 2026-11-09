@@ -226,7 +226,7 @@ export async function dispatchCoreviaRevenueTransfers() {
     const [walletTotals, processingTotals, pendingDepositTotals] = await Promise.all([
       tx.wallet.aggregate({ _sum: { balance: true } }),
       tx.withdrawal.aggregate({
-        where: { status: "PROCESSING" },
+        where: { status: { in: ["PENDING", "PROCESSING"] } },
         _sum: { netAmount: true },
       }),
       tx.paymentRecord.aggregate({
@@ -239,8 +239,8 @@ export async function dispatchCoreviaRevenueTransfers() {
         _sum: { amount: true },
       }),
     ]);
-    // Reserve client deposits that have reached Paystack but are not yet
-    // allocated to a wallet because their webhook/verification is unresolved.
+    // Reserve all non-terminal member withdrawals and client deposits that
+    // have reached Paystack but are not yet allocated to a wallet.
     const clientLiabilitiesKsh =
       Number(walletTotals._sum.balance ?? 0) +
       Number(processingTotals._sum.netAmount ?? 0) +
