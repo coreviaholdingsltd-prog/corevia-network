@@ -119,6 +119,9 @@ const pathwayText = read(pathwaysPath);
 const schemaText = read(schemaPath);
 const sharedTemplateAssessment = /ASSESSMENT_TEMPLATES/.test(pathwayText);
 const subjectAuthoredAssessment = /subject\.questions/.test(pathwayText);
+const sharedStageUnitTitles = /const UNIT_TITLES\s*=\s*\[/.test(pathwayText);
+const inheritedStageAssessmentBank = /const sourceQuestions\s*=\s*Array\.isArray\(subject\.questions\)/.test(pathwayText);
+const stageSpecificAssessmentAuthoring = /stageQuestions|stageSpecificQuestions|programmeQuestions/.test(pathwayText);
 const persistedProjectWorkflow = /model\s+AcademyProjectSubmission\s*\{/.test(schemaText) && /model\s+AcademyProjectReview\s*\{/.test(schemaText);
 const reviewerGovernance = /model\s+AcademyAcademicReviewer\s*\{/.test(schemaText) && /model\s+AcademyAcademicSignoff\s*\{/.test(schemaText);
 const hasStructuredBibliography = /model\s+AcademyAcademicReference\s*\{/.test(schemaText);
@@ -135,6 +138,8 @@ if (!reviewerSignoffApi.includes("criteriaKeys") || !reviewerSignoffApi.includes
 if (assessmentApi.includes("tx.academyCompletion.create")) errors.push("Knowledge assessment must not independently issue a new course completion record.");
 if (sharedTemplateAssessment) blockers.push("Generated programme assessments still use a shared generic template bank; remove it and use subject-authored assessment items.");
 if (!subjectAuthoredAssessment) blockers.push("Generated programme assessments are not sourced from each subject-authored question bank.");
+if (sharedStageUnitTitles) blockers.push("All programme stages are generated from one shared six-unit title scaffold; subject-linked notes do not prove six independently developed stage-specific units.");
+if (inheritedStageAssessmentBank && !stageSpecificAssessmentAuthoring) blockers.push("Programme-stage assessments inherit the base subject question bank with framing only; create and validate genuinely stage-specific questions, worked solutions and marking guidance.");
 if (!persistedProjectWorkflow) blockers.push("No persisted project-submission and assessor-review workflow exists in the Prisma schema.");
 if (!reviewerGovernance) blockers.push("No structured academic reviewer registry and stage sign-off record exists in the Prisma schema.");
 if (!hasStructuredBibliography) blockers.push("No structured, verifiable subject bibliography/reference model exists.");
@@ -145,7 +150,7 @@ const report = {
   generatedAt: new Date().toISOString(),
   repository: "coreviaholdingsltd-prog/corevia-network",
   auditType: "source-structure-and-academic-readiness",
-  counts: { publishedBaseSubjects: courses.length, programmeStages: stages, subjectStageCombinations: courses.length * stages, generatedUnitsPerStage: units, genericAssessmentTemplates: templates, sourceLessons: totalLessons, sourceQuestions: totalQuestions, sourceWords: totalWords, subjectsWithSourceMarkers: coursesWithTraceableSources },
+  counts: { publishedBaseSubjects: courses.length, programmeStages: stages, subjectStageCombinations: courses.length * stages, generatedUnitsPerStage: units, genericAssessmentTemplates: templates, sharedStageUnitTitleScaffold: sharedStageUnitTitles, inheritedStageAssessmentBank, stageSpecificAssessmentAuthoring, sourceLessons: totalLessons, sourceQuestions: totalQuestions, sourceWords: totalWords, subjectsWithSourceMarkers: coursesWithTraceableSources },
   structuralStatus: errors.length ? "FAILED" : "PASSED",
   academicApprovalStatus: "BLOCKED",
   errors,
@@ -166,6 +171,9 @@ const markdown = [
   `- Subject-stage combinations: **${courses.length * stages}**`,
   `- Source lessons/questions: **${totalLessons}/${totalQuestions}**`,
   `- Source words: **${totalWords.toLocaleString("en-US")}**`,
+  `- Shared stage unit-title scaffold detected: **${sharedStageUnitTitles ? "Yes — requires stage-specific development" : "No"}**`,
+  `- Stage assessments inherit base question bank: **${inheritedStageAssessmentBank ? "Yes — requires level-specific assessment authoring" : "No"}**`,
+  `- Independent stage-specific question bank detected: **${stageSpecificAssessmentAuthoring ? "Yes — inspect validity" : "No"}**`,
   `- Subjects with source markers: **${coursesWithTraceableSources}/${courses.length}**`,
   `- Structural checks: **${report.structuralStatus}**`,
   "- Academic approval: **BLOCKED — not an accreditation or expert-review certificate**",
