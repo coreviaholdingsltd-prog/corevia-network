@@ -32,6 +32,15 @@ export async function GET() {
         priceKsh: course.priceKsh,
         enrolled: unlocked,
         enrollmentStatus: enrollment?.status ?? null,
+        isProgrammeStage: course.isProgrammeStage ?? false,
+        pathwayId: course.pathwayId ?? null,
+        programmeLevel: course.programmeLevel ?? null,
+        programmeOrder: course.programmeOrder ?? null,
+        prerequisiteCourseId: course.prerequisiteCourseId ?? null,
+        prerequisiteTitle: course.prerequisiteCourseId ? ACADEMY_COURSES.find((item) => item.id === course.prerequisiteCourseId)?.title ?? null : null,
+        locked: course.prerequisiteCourseId
+          ? !enrollments.some((item) => item.courseId === course.prerequisiteCourseId && item.status === "COMPLETED")
+          : false,
         lessonsCount: course.lessons.length,
         questionsCount: course.questions.length,
         completedLessons,
