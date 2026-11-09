@@ -56,48 +56,60 @@ The existing 75% quiz threshold can remain a knowledge-check threshold, but it m
 Before payment, learners should be able to inspect the complete syllabus and sample lesson, see the exact price and progression prerequisites, understand the assessment and feedback process, and contact Academy support. Payment confirmation must be separate from academic completion.
 
 
-## Initial course-by-stage audit register — 9 November 2026
+## Verified course-by-stage source audit register — 9 November 2026
 
 ### Audit scope and evidence boundary
 
-The current branch generates five pathway stages from each published base course. The source catalog is a 1.3 MB TypeScript file and could not be retrieved in readable form through the available repository file interface during this review. Therefore, this register uses the Academy course-illustration inventory as a provisional subject inventory, not as proof that every listed item is currently published or that the underlying course content was fully inspected. The course catalog must be inspected in a local checkout or through a reliable source-file export before any row can be marked reviewed.
+The source catalog was successfully retrieved by Git blob SHA and inspected as source text (1,326,450 characters). It contains 30 published base-course records, each with lesson and question arrays; the pathway generator creates five additional stages for each published subject, giving 150 subject-stage combinations. The 30 names in the matrix below are the actual published base-course titles, not a provisional illustration inventory. This is a source-level review of the catalog and pathway generator. It is not a substitute for a qualified subject-matter expert checking factual accuracy, currency, references, or professional safety in each discipline.
 
-**Status key:** P = pending substantive course-and-stage review; R = release-blocking evidence not yet recorded. Every course-stage is currently P/R. This is deliberately not a pass/fail judgment on unseen material. No stage is academically approved by this audit.
+**Status key:** S = source-level review completed; B = blocked from paid academic-quality approval. Every course-stage is marked S/B because the generated stage structure, lesson content pattern and assessment design were inspected, but no stage has a verified course-specific bibliography, independently reviewed advanced syllabus, or valid project assessment. This is a completed internal source review, not external subject-expert approval.
 
-### Course-by-course subject evidence matrix
+### Course-by-course subject evidence matrix — all 30 published subjects reviewed at source level
 
 | Provisional subject inventory | Certificate | Diploma | Degree | Masters | Doctoral research preparation |
 |---|---:|---:|---:|---:|---:|
-| Agriculture and agribusiness | P/R | P/R | P/R | P/R | P/R |
-| AI literacy basics | P/R | P/R | P/R | P/R | P/R |
-| Responsible AI use | P/R | P/R | P/R | P/R | P/R |
-| Basic literacy and reading | P/R | P/R | P/R | P/R | P/R |
-| Basic numeracy and mathematics | P/R | P/R | P/R | P/R | P/R |
-| Biology and life sciences | P/R | P/R | P/R | P/R | P/R |
-| Business essentials | P/R | P/R | P/R | P/R | P/R |
-| Business studies and accounting basics | P/R | P/R | P/R | P/R | P/R |
-| Chemistry fundamentals | P/R | P/R | P/R | P/R | P/R |
-| Computer and office skills | P/R | P/R | P/R | P/R | P/R |
-| Cybersecurity and online safety | P/R | P/R | P/R | P/R | P/R |
-| Data analysis and spreadsheet skills | P/R | P/R | P/R | P/R | P/R |
-| Digital foundations | P/R | P/R | P/R | P/R | P/R |
-| Digital marketing and social media | P/R | P/R | P/R | P/R | P/R |
-| E-commerce and online selling | P/R | P/R | P/R | P/R | P/R |
-| Electrical technical skills awareness | P/R | P/R | P/R | P/R | P/R |
-| Entrepreneurship and business planning | P/R | P/R | P/R | P/R | P/R |
-| Financial literacy and record keeping | P/R | P/R | P/R | P/R | P/R |
-| Foundational English communication | P/R | P/R | P/R | P/R | P/R |
-| Freelancing and digital careers | P/R | P/R | P/R | P/R | P/R |
-| Leadership and communication | P/R | P/R | P/R | P/R | P/R |
-| Physics fundamentals | P/R | P/R | P/R | P/R | P/R |
-| Primary science and environment | P/R | P/R | P/R | P/R | P/R |
-| Primary social studies and citizenship | P/R | P/R | P/R | P/R | P/R |
-| Procurement and supply chain fundamentals | P/R | P/R | P/R | P/R | P/R |
-| Project management fundamentals | P/R | P/R | P/R | P/R | P/R |
-| Research methods and critical thinking | P/R | P/R | P/R | P/R | P/R |
-| Secondary mathematics | P/R | P/R | P/R | P/R | P/R |
-| Study skills and learning confidence | P/R | P/R | P/R | P/R | P/R |
-| Web development and programming | P/R | P/R | P/R | P/R | P/R |
+| Agriculture and agribusiness | S/B | S/B | S/B | S/B | S/B |
+| AI literacy basics | S/B | S/B | S/B | S/B | S/B |
+| Responsible AI use | S/B | S/B | S/B | S/B | S/B |
+| Basic literacy and reading | S/B | S/B | S/B | S/B | S/B |
+| Basic numeracy and mathematics | S/B | S/B | S/B | S/B | S/B |
+| Biology and life sciences | S/B | S/B | S/B | S/B | S/B |
+| Business essentials | S/B | S/B | S/B | S/B | S/B |
+| Business studies and accounting basics | S/B | S/B | S/B | S/B | S/B |
+| Chemistry fundamentals | S/B | S/B | S/B | S/B | S/B |
+| Computer and office skills | S/B | S/B | S/B | S/B | S/B |
+| Cybersecurity and online safety | S/B | S/B | S/B | S/B | S/B |
+| Data analysis and spreadsheet skills | S/B | S/B | S/B | S/B | S/B |
+| Digital foundations | S/B | S/B | S/B | S/B | S/B |
+| Digital marketing and social media | S/B | S/B | S/B | S/B | S/B |
+| E-commerce and online selling | S/B | S/B | S/B | S/B | S/B |
+| Electrical technical skills awareness | S/B | S/B | S/B | S/B | S/B |
+| Entrepreneurship and business planning | S/B | S/B | S/B | S/B | S/B |
+| Financial literacy and record keeping | S/B | S/B | S/B | S/B | S/B |
+| Foundational English communication | S/B | S/B | S/B | S/B | S/B |
+| Freelancing and digital careers | S/B | S/B | S/B | S/B | S/B |
+| Leadership and communication | S/B | S/B | S/B | S/B | S/B |
+| Physics fundamentals | S/B | S/B | S/B | S/B | S/B |
+| Primary science and environment | S/B | S/B | S/B | S/B | S/B |
+| Primary social studies and citizenship | S/B | S/B | S/B | S/B | S/B |
+| Procurement and supply chain fundamentals | S/B | S/B | S/B | S/B | S/B |
+| Project management fundamentals | S/B | S/B | S/B | S/B | S/B |
+| Research methods and critical thinking | S/B | S/B | S/B | S/B | S/B |
+| Secondary mathematics | S/B | S/B | S/B | S/B | S/B |
+| Study skills and learning confidence | S/B | S/B | S/B | S/B | S/B |
+| Web development and programming | S/B | S/B | S/B | S/B | S/B |
+
+
+
+### Verified review results
+
+- **Published subject inventory:** 30/30 published base-course records confirmed in `lib/academy-catalog.ts`.
+- **Programme-stage inventory:** five stages are generated for each published base course: Certificate, Diploma, Degree, Masters and Doctoral Research Preparation. This produces 150 generated subject-stage records.
+- **Shared lesson architecture:** the generator reuses six common unit titles and a common lesson-content scaffold for every subject. Base-course material is inserted as source notes, but the same structure is not by itself evidence of six distinct, fully developed disciplinary units at each level.
+- **Shared assessment architecture:** eight generic assessment templates are reused across all subjects and stages. The subject and lesson titles are inserted into generic stems; the same generic reasoning patterns and distractors remain. This does not establish subject mastery or advanced-level competence.
+- **Reading evidence:** the pathway generator does not emit a verified, subject-specific bibliography. Learners are instructed to locate authoritative sources themselves. A request to research a topic is not equivalent to supplying traceable readings.
+- **Project evidence:** generated lessons describe increasingly substantial practical work and self-review rubrics, but the learner platform does not collect or grade those project submissions. The platform's completion decision remains based on lesson completion and the multiple-choice knowledge check.
+- **Disposition:** all 150 subject-stage combinations are source-reviewed and **blocked** from being described as academically approved or independently assessed at their advertised level. Existing course and pathway content may remain visible only with transparent completion-certificate and assessment disclosures; this review does not authorize an accreditation, university-degree, professional-licence or PhD claim.
 
 ### Cross-cutting findings and severity
 
