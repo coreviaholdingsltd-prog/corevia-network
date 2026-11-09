@@ -134,7 +134,7 @@ The source catalog was successfully retrieved by Git blob SHA and inspected as s
 
 ### Verified review results
 
-- **Published subject inventory:** 30/61 published base-course records confirmed in `lib/academy-catalog.ts`.
+- **Published subject inventory:** 61/61 published base-course records confirmed in `lib/academy-catalog.ts`.
 - **Programme-stage inventory:** five stages are generated for each published base course: Certificate, Diploma, Degree, Masters and Doctoral Research Preparation. This produces 305 generated subject-stage records.
 - **Shared lesson architecture:** the generator reuses six common unit titles and a common lesson-content scaffold for every subject. Base-course material is inserted as source notes, but the same structure is not by itself evidence of six distinct, fully developed disciplinary units at each level.
 - **Shared assessment architecture:** eight generic assessment templates are reused across all subjects and stages. The subject and lesson titles are inserted into generic stems; the same generic reasoning patterns and distractors remain. This does not establish subject mastery or advanced-level competence.
