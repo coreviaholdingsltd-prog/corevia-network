@@ -60,7 +60,7 @@ function sourceMaterial(subject: AcademyCourse): string[] {
       lesson.title,
       ...(Array.isArray(lesson.content) ? lesson.content : []),
     ]),
-    36,
+    120,
   );
 }
 
@@ -78,8 +78,12 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
 
   return UNIT_TITLES.map((unit, index) => {
     const topic = topics[index % topics.length];
-    const relatedSource = sourceNote(index * 3);
-    const supportingSource = sourceNote(index * 3 + 1);
+    const unitEvidence = [0, 1, 2, 3, 4].map((offset) =>
+      sourceNote(index * 5 + offset),
+    );
+    const relatedSource = unitEvidence[0];
+    const supportingSource = unitEvidence[1];
+    const additionalSource = unitEvidence.slice(2);
     const task = [
       "Work through a guided example, reproduce the method accurately and explain the purpose of each step.",
       "Plan and complete the task independently; document decisions, troubleshoot a realistic obstacle and verify the output.",
@@ -100,8 +104,11 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
       "SUBJECT FOUNDATION — " + subject.description + " This unit builds directly on the subject's existing lesson material: " + relatedSource,
       "CORE STUDY MATERIAL — Revisit and master this course topic: " + topic + ". Explain its central terms, principles, assumptions and relationship to the wider discipline. Use the original course material as the starting point, then extend it with authoritative books, standards, peer-reviewed research or professional guidance appropriate to this level.",
       "CONCEPTUAL DEVELOPMENT — Connect the topic to this related course material: " + supportingSource + ". Identify where the ideas reinforce one another, where they differ and what conditions affect their application. Do not treat a definition as sufficient evidence of understanding.",
+      "SUBJECT KNOWLEDGE READING — Study these additional items from the original " + subject.title + " course: " + additionalSource.join(" | ") + ". For each item, write a clear explanation in your own words, define unfamiliar terms, give a relevant example and explain how it connects to this unit. If an item is unfamiliar, pause and research it before moving on.",
+      "FOUNDATION CHECK — Before attempting advanced work, explain the key terms in this unit without copying the notes. Identify what prior knowledge the task assumes. If you cannot explain the basics, revisit the relevant earlier lesson and complete a short practice example first.",
       "METHOD AND REASONING — " + task + " State the problem or research question, define scope and constraints, select a justified approach, preserve working evidence and explain why the method is suitable.",
       "WORKED SUBJECT APPLICATION — Construct a realistic " + subject.title + " case involving " + topic + ". Identify the relevant facts, distinguish facts from assumptions, explain the governing principles, compare possible responses and state what evidence would confirm whether the chosen response worked.",
+      "MODEL RESPONSE AND SELF-CHECK — Write a complete response to the worked case: (1) define the problem, (2) explain the relevant subject concepts, (3) show each reasoning or practical step, (4) justify the decision with evidence, and (5) evaluate the result and its limitations. Compare your response with the unit outcome and revise any unsupported or unclear reasoning.",
       "PRACTICAL ASSIGNMENT — " + practical + " Your submission must include the objective, process, output, supporting evidence, quality checks and a reflection on what should be improved.",
       "ACADEMIC AND PROFESSIONAL STANDARDS — Apply relevant disciplinary standards, ethical duties, safety requirements, privacy protections and intellectual-property rules. Cite sources consistently. Never invent data, references, experiments or claims of originality.",
       "EVIDENCE AND READING — Start with the original lesson material, then consult current authoritative sources appropriate to the subject and level. At Certificate level, prioritise reliable introductory texts and official guidance; at Diploma and Degree levels, add technical manuals, scholarly texts and research; at Masters and PhD levels, critically engage with specialist peer-reviewed literature and primary sources. Record author, title, publication date and the exact claim supported.",
