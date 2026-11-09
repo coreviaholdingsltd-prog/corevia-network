@@ -93,6 +93,9 @@ export async function POST(request: Request) {
     if (submission.status === "APPROVED" || submission.status === "REJECTED") {
       return NextResponse.json({ error: "This submission has a final decision. A new learner submission is required for further review." }, { status: 409 });
     }
+    if (decision === "APPROVED" && !submission.enrollment.attempts[0]?.passed) {
+      return NextResponse.json({ error: "The learner's latest knowledge assessment is not passed. Ask the learner to pass it again and resubmit before project approval." }, { status: 409 });
+    }
 
     const result = await prisma.$transaction(async (tx) => {
       const review = await tx.academyProjectReview.create({
