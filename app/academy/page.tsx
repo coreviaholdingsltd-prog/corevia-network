@@ -487,7 +487,7 @@ export default function AcademyPage() {
                 <p className="mt-2 text-slate-300">
                   Course and programme fees are shown in Kenyan shillings and are paid
                   separately from the one-time KES 1,000 Corevia Network membership activation.
-                  Each programme stage has its own enrolment, assessment and completion certificate.
+                  Each programme stage has its own enrolment, knowledge check and certificate of completion. These are Corevia learning programmes, not accredited university awards or professional licences. The doctoral research-preparation pathway does not award a PhD.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Course catalogue filter">
                   {([
@@ -510,7 +510,7 @@ export default function AcademyPage() {
                 </div>
                 {catalogFilter !== "short" && (
                   <p className="mt-4 max-w-4xl rounded-xl border border-cyan-300/20 bg-cyan-300/5 p-4 text-sm leading-6 text-slate-200">
-                    Progression: Certificate (KES 1,500) → Diploma (KES 3,500) → Degree (KES 7,500) → Masters (KES 12,500) → PhD (KES 20,000).
+                    Progression: Certificate (KES 1,500) → Diploma (KES 3,500) → Degree (KES 7,500) → Masters (KES 12,500) → Doctoral Research Preparation (KES 20,000).
                     Each stage unlocks only after the previous stage is completed and its assessment is passed.
                   </p>
                 )}
@@ -809,8 +809,7 @@ export default function AcademyPage() {
                 </h3>
 
                 <p className="mt-2 text-sm leading-6 text-slate-300">
-                  You need at least 75% to pass. Complete all lessons first.
-                  You can retry after reviewing the feedback.
+                  This multiple-choice knowledge check requires at least 75%. Complete all lessons first. You can retry after reviewing the answer explanations. The project activities in the lessons are currently for learner practice and self-review; the platform does not yet collect or grade project submissions.
                 </p>
 
                 {selected.completedLessons < selected.lessonsCount ? (
