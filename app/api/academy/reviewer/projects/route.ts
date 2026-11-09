@@ -80,7 +80,14 @@ export async function POST(request: Request) {
 
     const submission = await prisma.academyProjectSubmission.findUnique({
       where: { id: submissionId },
-      include: { enrollment: { include: { attempts: { where: { passed: true }, orderBy: { createdAt: "desc" }, take: 1 }, completion: true } },
+      include: {
+        enrollment: {
+          include: {
+            attempts: { where: { passed: true }, orderBy: { createdAt: "desc" }, take: 1 },
+            completion: true,
+          },
+        },
+      },
     });
     if (!submission) return NextResponse.json({ error: "Project submission not found." }, { status: 404 });
     if (submission.status === "APPROVED" || submission.status === "REJECTED") {
