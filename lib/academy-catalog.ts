@@ -21,6 +21,11 @@ export type AcademyCourse = {
   level: string;
   priceKsh: number;
   published: boolean;
+  pathwayId?: string;
+  programmeLevel?: "Certificate" | "Diploma" | "Degree" | "Masters" | "PhD";
+  programmeOrder?: number;
+  prerequisiteCourseId?: string;
+  isProgrammeStage?: boolean;
   lessons: AcademyLesson[];
   questions: AcademyQuestion[];
 };
@@ -12409,6 +12414,13 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
       ]
     }
 ];
+import { buildAcademyPathwayCourses } from "@/lib/academy-pathways";
+
+// Keep the original 30 short courses available and add five separately priced
+// progression stages for every subject. Each stage is a distinct enrolment,
+// assessment and completion record.
+ACADEMY_COURSES.push(...buildAcademyPathwayCourses([...ACADEMY_COURSES]));
+
 export function findAcademyCourse(courseId: string) {
   return ACADEMY_COURSES.find((course) => course.id === courseId && course.published) ?? null;
 }
