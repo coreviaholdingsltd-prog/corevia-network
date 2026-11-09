@@ -59,7 +59,7 @@ export default function AcademyReviewPage() {
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">
-      <header className="border-b border-white/10"><div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5"><span className="font-bold">COREVIA ACADEMY · REVIEW DESK</span><Link href="/academy" className="rounded-lg border border-white/20 px-4 py-2 text-sm">Academy</Link></div></header>
+      <header className="border-b border-white/10"><div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5"><span className="font-bold">COREVIA ACADEMY · REVIEW DESK</span><div className="flex gap-2"><Link href="/academy/review/standards" className="rounded-lg border border-cyan-300/40 px-4 py-2 text-sm text-cyan-200">References & sign-off</Link><Link href="/academy" className="rounded-lg border border-white/20 px-4 py-2 text-sm">Academy</Link></div></div></header>
       <div className="mx-auto max-w-6xl space-y-6 px-5 py-10">
         <section><p className="text-sm font-bold uppercase tracking-widest text-cyan-300">Academic governance</p><h1 className="mt-2 text-3xl font-black">Practical project review queue</h1><p className="mt-3 max-w-3xl leading-7 text-slate-300">Review the learner's submitted work against the five Corevia criteria. Each criterion is scored from 0 to 20. Approval requires at least 75/100 and detailed written feedback. Review access is restricted to configured reviewer accounts.</p></section>
         {error && <p role="alert" className="rounded-xl border border-red-400/40 bg-red-950/40 p-4 text-red-200">{error}</p>}
