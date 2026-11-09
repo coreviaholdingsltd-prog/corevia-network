@@ -113,7 +113,10 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
       "ACADEMIC AND PROFESSIONAL STANDARDS — Apply relevant disciplinary standards, ethical duties, safety requirements, privacy protections and intellectual-property rules. Cite sources consistently. Never invent data, references, experiments or claims of originality.",
       "EVIDENCE AND READING — Start with the original lesson material, then consult current authoritative sources appropriate to the subject and level. At Certificate level, prioritise reliable introductory texts and official guidance; at Diploma and Degree levels, add technical manuals, scholarly texts and research; at Masters and PhD levels, critically engage with specialist peer-reviewed literature and primary sources. Record author, title, publication date and the exact claim supported.",
       "QUALITY REVIEW — Check accuracy, completeness, internal consistency, relevance, reproducibility and alignment with the stated learning outcome. Identify uncertainty, limitations and possible sources of bias. Explain what additional evidence would change your conclusion.",
-      "REFLECTION AND TRANSFER — Summarise the principle learned, justify one important decision, identify a plausible failure mode and explain how the knowledge transfers to a new " + subject.title + " situation."
+      "REFLECTION AND TRANSFER — Summarise the principle learned, justify one important decision, identify a plausible failure mode and explain how the knowledge transfers to a new " + subject.title + " situation.",
+      "PROJECT EXPECTATION — " + stage.project + " The final submission must be your own work, scoped to a feasible question or task, supported by traceable sources and accompanied by evidence of the process. Clearly label any simulated data and never present it as real-world observation.",
+      "ASSESSMENT RUBRIC — Score the work out of 100: subject knowledge and accuracy (25); application, method and reasoning (25); evidence, source quality and referencing (20); practical output or analysis (20); ethics, clarity and reflection (10). A pass requires at least 75/100 and no critical breach of safety, research ethics, academic integrity or assessment rules. Feedback must identify strengths, gaps and a specific improvement action.",
+      "ACADEMIC INTEGRITY — Submit original work, cite every borrowed idea or source, disclose permitted assistance and retain notes or working files that demonstrate how the work was produced. Fabricated references, copied submissions, invented research data and plagiarism invalidate the affected work."
     ];
     return {
       id: subject.id + "-" + stage.label.toLowerCase() + "-unit-" + (index + 1),
@@ -124,9 +127,23 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
   });
 }
 
-function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage) {
+function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage, stageIndex: number) {
   const topics = compactUnique(subject.lessons.map((lesson) => lesson.title), 8);
-  return ASSESSMENT_TEMPLATES.map((item, index) => {
+  const sourceQuestions = Array.isArray(subject.questions) ? subject.questions : [];
+  const levelFraming = [
+    "FOUNDATION CHECK — ",
+    "APPLIED WORKPLACE CASE — ",
+    "ANALYTICAL CASE — ",
+    "ADVANCED CRITICAL CASE — ",
+    "RESEARCH DEFENCE SCENARIO — ",
+  ][stageIndex];
+  const inherited = sourceQuestions.slice(0, 8).map((question, index) => ({
+    ...question,
+    id: subject.id + "-" + stage.label.toLowerCase() + "-core-" + (index + 1),
+    prompt: levelFraming + question.prompt + " Explain why the selected answer is appropriate at " + stage.label + " level.",
+    explanation: question.explanation + " Extend your reasoning to demonstrate: " + stage.outcome + ".",
+  }));
+  const advanced = ASSESSMENT_TEMPLATES.map((item, index) => {
     const topic = topics[index % Math.max(topics.length, 1)] || subject.title;
     const prompt = item.stem
       .replaceAll("{topic}", topic)
@@ -143,6 +160,7 @@ function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage) {
       explanation: item.correct + " At " + stage.label + " level, learners are expected to demonstrate " + stage.outcome + ".",
     };
   });
+  return [...inherited, ...advanced];
 }
 
 export function buildAcademyPathwayCourses(subjects: AcademyCourse[]): AcademyCourse[] {
@@ -154,14 +172,14 @@ export function buildAcademyPathwayCourses(subjects: AcademyCourse[]): AcademyCo
         : subject.id + "-" + STAGES[stageIndex - 1].label.toLowerCase();
       return {
         id,
-        title: subject.title + " — " + stage.label + " Programme",
+        title: subject.title + " — " + stage.label + " Learning Programme",
         category: subject.category,
-        description: stage.label + "-level study in " + subject.title + ", designed for " + stage.focus + ". Learners complete six subject-linked study units, a level-appropriate project and an assessment before receiving a separate Corevia Academy certificate of completion.",
+        description: stage.label + "-level learning pathway in " + subject.title + ", designed for " + stage.focus + ". Expected outcome: " + stage.outcome + ". Capstone: " + stage.project + ". Learners complete six subject-linked study units, a level-appropriate project and a subject-specific assessment. Corevia Academy issues a certificate of completion for this learning programme only; it is not an accredited university award, professional licence or authority to use a protected academic title. PhD-level content is a doctoral research-preparation pathway and does not confer a PhD degree.",
         level: stage.label,
         priceKsh: stage.priceKsh,
         published: true,
         lessons: buildLessons(subject, stage, stageIndex),
-        questions: buildQuestions(subject, stage),
+        questions: buildQuestions(subject, stage, stageIndex),
         pathwayId: subject.id,
         programmeLevel: stage.label,
         programmeOrder: stageIndex + 1,
