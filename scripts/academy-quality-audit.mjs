@@ -123,10 +123,12 @@ const persistedProjectWorkflow = /model\s+AcademyProjectSubmission\s*\{/.test(sc
 const reviewerGovernance = /model\s+AcademyAcademicReviewer\s*\{/.test(schemaText) && /model\s+AcademyAcademicSignoff\s*\{/.test(schemaText);
 const hasStructuredBibliography = /model\s+AcademyAcademicReference\s*\{/.test(schemaText);
 const blockers = [];
+const coursesApi = read(path.join(root, "app/api/academy/courses/route.ts"));
 const projectApi = read(path.join(root, "app/api/academy/projects/route.ts"));
 const reviewerProjectApi = read(path.join(root, "app/api/academy/reviewer/projects/route.ts"));
 const reviewerSignoffApi = read(path.join(root, "app/api/academy/reviewer/signoffs/route.ts"));
 const assessmentApi = read(path.join(root, "app/api/academy/assessment/route.ts"));
+if (!coursesApi.includes("buildAcademyPathwayCourses")) errors.push("The learner catalogue API does not expose all five generated programme stages.");
 if (!projectApi.includes("originalityConfirmed") || !projectApi.includes("evidenceUrls")) errors.push("Practical project submission is missing originality or evidence validation.");
 if (!reviewerProjectApi.includes("subjectKnowledge") || !reviewerProjectApi.includes("totalScore < 75")) errors.push("Practical project rubric or 75-point approval threshold is missing.");
 if (!reviewerSignoffApi.includes("criteriaKeys") || !reviewerSignoffApi.includes("verifiedSources < 3")) errors.push("Academic sign-off is missing mandatory criteria or verified-source threshold.");
