@@ -41,6 +41,9 @@ jobs:
         run: npm run academy:audit
       - name: Build application
         run: npm run build
+        env:
+          # Compile-only database URL; CI must never connect to production data.
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/corevia_ci?sslmode=disable
       - name: Upload audit evidence
         if: always()
         uses: actions/upload-artifact@v4
