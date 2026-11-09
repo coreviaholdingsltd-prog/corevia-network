@@ -12,7 +12,7 @@ This standard governs the quality of every paid Corevia Academy programme. A sta
 | Diploma | Independent multi-step application, troubleshooting, technical documentation, quality assurance, and a case-based project. |
 | Degree | Substantial disciplinary theory, critical use of frameworks, research literacy, evaluation of alternatives, and an evidence-supported applied project. |
 | Masters | Specialist literature synthesis, critical comparison of competing approaches, justified advanced methods, independent design, evaluation, and a substantial capstone. |
-| PhD | A defensible research gap, original research question, critical engagement with primary literature, rigorous and ethical methodology, reproducible evidence, limitations, an original contribution, thesis-style report, and oral defence. |
+| Doctoral Research Preparation | A defensible research gap, original research question, critical engagement with primary literature, rigorous and ethical methodology, reproducible evidence, limitations, an original contribution, thesis-style report, and oral defence. |
 
 ## Mandatory content requirements for every subject and stage
 
@@ -66,7 +66,7 @@ The source catalog was successfully retrieved by Git blob SHA and inspected as s
 
 ### Course-by-course subject evidence matrix — all 30 published subjects reviewed at source level
 
-| Provisional subject inventory | Certificate | Diploma | Degree | Masters | Doctoral research preparation |
+| Published subject inventory | Certificate | Diploma | Degree | Masters | Doctoral Research Preparation |
 |---|---:|---:|---:|---:|---:|
 | Agriculture and agribusiness | S/B | S/B | S/B | S/B | S/B |
 | AI literacy basics | S/B | S/B | S/B | S/B | S/B |
