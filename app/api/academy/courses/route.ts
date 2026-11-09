@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
 import { ACADEMY_COURSES } from "@/lib/academy-catalog";
+import { buildAcademyPathwayCourses } from "@/lib/academy-pathways";
 
 export async function GET() {
   try {
@@ -17,7 +18,11 @@ export async function GET() {
       },
     });
 
-    const publishedCourses = ACADEMY_COURSES.filter((course) => course.published);
+    const baseCourses = ACADEMY_COURSES.filter((course) => course.published && !course.isProgrammeStage);
+    const publishedCourses = [
+      ...baseCourses,
+      ...buildAcademyPathwayCourses(baseCourses),
+    ];
     const verifiedReferences = await prisma.academyAcademicReference.findMany({
       where: { courseId: { in: publishedCourses.map((course) => course.id) }, verified: true },
       select: { id: true, courseId: true, stageKey: true, title: true, authors: true, publication: true, publicationYear: true, url: true, doi: true, sourceType: true },
