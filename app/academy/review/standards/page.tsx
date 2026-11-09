@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import type { FormEvent } from "react";
 
 type Course = { id: string; title: string; enrolled: boolean; isProgrammeStage?: boolean; programmeLevel?: string | null };
 const criteriaLabels = [
@@ -46,7 +47,7 @@ export default function AcademyStandardsReviewPage() {
 
   useEffect(() => { void refresh().catch((issue) => setError(issue.message)); }, [refresh]);
 
-  async function addReference(event: React.FormEvent<HTMLFormElement>) {
+  async function addReference(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setBusy(true); setError(""); setNotice("");
     try {
       const response = await fetch("/api/academy/reviewer/references", {
