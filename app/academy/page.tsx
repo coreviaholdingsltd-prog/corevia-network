@@ -147,12 +147,6 @@ export default function AcademyPage() {
     }
   }, []);
 
-  useEffect(() => {
-    if (routeCourseId) {
-      setExpandedCourse(routeCourseId);
-    }
-  }, [routeCourseId]);
-
   const verifyAcademyPayment = useCallback(async (reference: string) => {
     setPendingPaymentReference(reference);
     setVerifyingPayment(true);
@@ -192,11 +186,14 @@ export default function AcademyPage() {
 
   useEffect(() => {
     const reference = new URLSearchParams(window.location.search).get("payment");
-    if (reference) {
-      void verifyAcademyPayment(reference);
-    } else {
-      void loadCourses();
-    }
+    const task = window.setTimeout(() => {
+      if (reference) {
+        void verifyAcademyPayment(reference);
+      } else {
+        void loadCourses();
+      }
+    }, 0);
+    return () => window.clearTimeout(task);
   }, [loadCourses, verifyAcademyPayment]);
 
   async function enroll(course: Course) {
@@ -225,7 +222,7 @@ export default function AcademyPage() {
       }
 
       if (result.authorization_url) {
-        window.location.href = result.authorization_url;
+        window.location.assign(result.authorization_url);
         return;
       }
 
@@ -236,7 +233,7 @@ export default function AcademyPage() {
 
       await loadCourses();
 
-      window.location.href = `/academy/study/${encodeURIComponent(course.id)}`;
+      window.location.assign(`/academy/study/${encodeURIComponent(course.id)}`);
     } catch (issue) {
       setError(
         issue instanceof Error ? issue.message : "Enrollment failed.",
@@ -346,13 +343,11 @@ export default function AcademyPage() {
     (catalogFilter === "programmes" ? course.isProgrammeStage : !course.isProgrammeStage),
   );
 
-  const selected = courses.find(
-    (course) => course.id === expandedCourse,
-  );
+  const activeCourseId = routeCourseId ?? expandedCourse;
+  const selected = courses.find((course) => course.id === activeCourseId);
 
   const resultForSelected =
-    assessmentResult &&
-    assessmentResult.courseId === expandedCourse
+    assessmentResult && assessmentResult.courseId === activeCourseId
       ? assessmentResult
       : null;
 
@@ -641,7 +636,7 @@ export default function AcademyPage() {
                     disabled={working === course.id || authRequired}
                     onClick={() => {
                       if (course.locked && course.prerequisiteCourseId) {
-                        window.location.href = `/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`;
+                        window.location.assign(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
                       } else if (course.enrolled) {
                         window.location.href = `/academy/study/${encodeURIComponent(course.id)}`;
                       } else {
