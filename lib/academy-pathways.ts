@@ -29,16 +29,7 @@ const UNIT_TITLES = [
   "Critical synthesis, communication and progression",
 ];
 
-const ASSESSMENT_TEMPLATES = [
-  { stem: "Which explanation most accurately connects {topic} to the wider discipline of {subject}?", correct: "A reasoned explanation that defines the concept, applies it to the case and supports the conclusion with relevant evidence.", distractors: ["A list of terms without explaining their relationship.", "An unsupported opinion based only on personal preference.", "A conclusion selected before the problem and evidence are examined."] },
-  { stem: "When using {topic} to address a real {subject} problem, what should determine the method?", correct: "The stated objective, disciplinary principles, evidence, context, constraints, risks and criteria for evaluating the result.", distractors: ["The easiest method regardless of suitability.", "A familiar method without checking the task requirements.", "The appearance of success rather than a measurable outcome."] },
-  { stem: "What is the strongest way to evaluate a proposed {topic} solution in {subject}?", correct: "Compare alternatives against explicit disciplinary criteria, evidence, feasibility, risks and likely consequences.", distractors: ["Choose the first solution suggested.", "Rely on confidence or presentation alone.", "Ignore limitations once a preferred solution is selected."] },
-  { stem: "Which evidence best supports a conclusion about {topic} in {subject}?", correct: "Traceable evidence with a stated source, context, method, interpretation and limitations.", distractors: ["An unverified claim repeated from an unknown source.", "A personal belief presented as a measured finding.", "A result with no explanation of how it was obtained."] },
-  { stem: "How should a learner respond when work on {topic} fails a {subject} quality criterion?", correct: "Diagnose the cause, revise the method or output, retest against the criterion and record the change.", distractors: ["Hide the failure and report completion.", "Change the criterion after seeing the result.", "Repeat the same steps without examining the cause."] },
-  { stem: "Which practice demonstrates responsible professional or scholarly work on {topic}?", correct: "Respect ethical duties, safety, privacy, intellectual property, relevant standards and affected stakeholders.", distractors: ["Ignore foreseeable harm if the task is technically possible.", "Use protected information without permission.", "Present another person's work as original."] },
-  { stem: "What makes a {subject} project involving {topic} academically credible?", correct: "A clear question or objective, justified method, relevant evidence, transparent analysis and honest limitations.", distractors: ["A polished report without supporting evidence.", "A copied template with no original analysis.", "A strong claim that exceeds what the evidence can support."] },
-  { stem: "How should uncertainty in findings about {topic} be communicated?", correct: "State what the evidence supports, identify assumptions and limitations, and explain what further evidence is needed.", distractors: ["Remove uncertainty to make the conclusion sound stronger.", "Treat missing information as proof of the preferred answer.", "Avoid reporting limitations that could affect interpretation."] },
-];
+
 
 function compactUnique(values: string[], limit: number): string[] {
   const seen = new Set<string>();
@@ -115,8 +106,8 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
       "EVIDENCE AND READING — Start with the original lesson material, then consult current authoritative sources appropriate to the subject and level. At Certificate level, prioritise reliable introductory texts and official guidance; at Diploma and Degree levels, add technical manuals, scholarly texts and research; at Masters and doctoral research-preparation levels, critically engage with specialist peer-reviewed literature and primary sources. Record author, title, publication date and the exact claim supported.",
       "QUALITY REVIEW — Check accuracy, completeness, internal consistency, relevance, reproducibility and alignment with the stated learning outcome. Identify uncertainty, limitations and possible sources of bias. Explain what additional evidence would change your conclusion.",
       "REFLECTION AND TRANSFER — Summarise the principle learned, justify one important decision, identify a plausible failure mode and explain how the knowledge transfers to a new " + subject.title + " situation.",
-      "PROJECT EXPECTATION — " + stage.project + " The final submission must be your own work, scoped to a feasible question or task, supported by traceable sources and accompanied by evidence of the process. Clearly label any simulated data and never present it as real-world observation.",
-      "SELF-REVIEW RUBRIC — For your own practice only; the platform does not collect or grade this project submission. Score your draft out of 100: subject knowledge and accuracy (25); application, method and reasoning (25); evidence, source quality and referencing (20); practical output or analysis (20); ethics, clarity and reflection (10). Use the score to identify strengths and gaps, then revise your work. This self-review score is not part of the platform assessment or certificate decision. Obtain qualified feedback where the task requires specialist judgement.",
+      "PROJECT EXPECTATION — " + stage.project + " Submit your objective, methodology, completed work, findings, reflection and supporting evidence through the Corevia Academy practical assessment workspace. An authorised reviewer records a rubric score and written decision. Clearly label any simulated data and never present it as real-world observation.",
+      "PRACTICAL ASSESSMENT RUBRIC — Your submitted project is reviewed by an authorised academic reviewer against five equally weighted dimensions: subject knowledge and accuracy (20); application and method (20); evidence and source quality (20); ethics and safety (20); communication and reflection (20). The pass threshold is 75/100. Reviewer feedback may require revision. A knowledge-test pass alone does not complete the course.",
       "ACADEMIC INTEGRITY — Submit original work, cite every borrowed idea or source, disclose permitted assistance and retain notes or working files that demonstrate how the work was produced. Fabricated references, copied submissions, invented research data and plagiarism invalidate the affected work."
     ];
     return {
@@ -129,39 +120,24 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
 }
 
 function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage, stageIndex: number) {
-  const topics = compactUnique(subject.lessons.map((lesson) => lesson.title), 8);
+  // Assessments inherit the actual subject's authored question bank. The
+  // stage framing and feedback raise the expected reasoning level without
+  // inventing unsupported facts or recycling a cross-subject question bank.
   const sourceQuestions = Array.isArray(subject.questions) ? subject.questions : [];
   const levelFraming = [
-    "FOUNDATION CHECK — ",
-    "APPLIED WORKPLACE CASE — ",
-    "ANALYTICAL CASE — ",
-    "ADVANCED CRITICAL CASE — ",
-    "RESEARCH DEFENCE SCENARIO — ",
+    "CERTIFICATE FOUNDATION CHECK — Define and recognise the subject principle. ",
+    "DIPLOMA APPLICATION CHECK — Apply the subject principle to a practical task. ",
+    "DEGREE ANALYSIS CHECK — Analyse the subject principle and evaluate its implications. ",
+    "MASTERS CRITICAL EVALUATION — Critically evaluate the subject principle, assumptions and alternatives. ",
+    "DOCTORAL RESEARCH PREPARATION — Critique the evidence and identify what further inquiry is required. ",
   ][stageIndex];
-  const inherited = sourceQuestions.slice(0, 8).map((question, index) => ({
+
+  return sourceQuestions.map((question, index) => ({
     ...question,
-    id: subject.id + "-" + stage.label.toLowerCase() + "-core-" + (index + 1),
-    prompt: levelFraming + question.prompt + " Explain why the selected answer is appropriate at " + stage.learnerLabel + " level.",
-    explanation: (question.explanation?.trim() || "Review the relevant course lesson and explain the subject principle that supports the selected answer.") + " Extend your reasoning to demonstrate: " + stage.outcome + ".",
+    id: subject.id + "-" + stage.label.toLowerCase() + "-subject-assessment-" + (index + 1),
+    prompt: levelFraming + question.prompt + " Select the best-supported answer.",
+    explanation: (question.explanation?.trim() || "Review the relevant subject lesson and identify the evidence supporting the answer.") + " At " + stage.learnerLabel + " level, demonstrate: " + stage.outcome + ".",
   }));
-  const advanced = ASSESSMENT_TEMPLATES.map((item, index) => {
-    const topic = topics[index % Math.max(topics.length, 1)] || subject.title;
-    const prompt = item.stem
-      .replaceAll("{topic}", topic)
-      .replaceAll("{subject}", subject.title)
-      + " Select the strongest answer.";
-    const correctIndex = (index * 3 + 1) % 4;
-    const options = [...item.distractors];
-    options.splice(correctIndex, 0, item.correct);
-    return {
-      id: subject.id + "-" + stage.label.toLowerCase() + "-assessment-" + (index + 1),
-      prompt,
-      options,
-      answerIndex: correctIndex,
-      explanation: item.correct + " At " + stage.learnerLabel + " level, learners are expected to demonstrate " + stage.outcome + ".",
-    };
-  });
-  return [...inherited, ...advanced];
 }
 
 export function buildAcademyPathwayCourses(subjects: AcademyCourse[]): AcademyCourse[] {
