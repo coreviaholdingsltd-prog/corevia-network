@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type Lesson = {
   id: string;
@@ -40,6 +40,13 @@ type Course = {
   description: string;
   level: string;
   priceKsh: number;
+  isProgrammeStage: boolean;
+  pathwayId: string | null;
+  programmeLevel: string | null;
+  programmeOrder: number | null;
+  prerequisiteCourseId: string | null;
+  prerequisiteTitle: string | null;
+  locked: boolean;
   enrolled: boolean;
   enrollmentStatus: string | null;
   lessonsCount: number;
@@ -83,6 +90,7 @@ const readableDate = (value: string) =>
 
 export default function AcademyPage() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const routeCourseId = pathname.startsWith("/academy/study/")
     ? decodeURIComponent(
@@ -91,6 +99,7 @@ export default function AcademyPage() {
     : "";
 
   const [courses, setCourses] = useState<Course[]>([]);
+  const [catalogFilter, setCatalogFilter] = useState<"programmes" | "short" | "all">("programmes");
   const [memberName, setMemberName] = useState("Corevia member");
   const [loading, setLoading] = useState(true);
   const [authRequired, setAuthRequired] = useState(false);
@@ -139,12 +148,6 @@ export default function AcademyPage() {
     }
   }, []);
 
-  useEffect(() => {
-    if (routeCourseId) {
-      setExpandedCourse(routeCourseId);
-    }
-  }, [routeCourseId]);
-
   const verifyAcademyPayment = useCallback(async (reference: string) => {
     setPendingPaymentReference(reference);
     setVerifyingPayment(true);
@@ -184,11 +187,14 @@ export default function AcademyPage() {
 
   useEffect(() => {
     const reference = new URLSearchParams(window.location.search).get("payment");
-    if (reference) {
-      void verifyAcademyPayment(reference);
-    } else {
-      void loadCourses();
-    }
+    const task = window.setTimeout(() => {
+      if (reference) {
+        void verifyAcademyPayment(reference);
+      } else {
+        void loadCourses();
+      }
+    }, 0);
+    return () => window.clearTimeout(task);
   }, [loadCourses, verifyAcademyPayment]);
 
   async function enroll(course: Course) {
@@ -217,7 +223,7 @@ export default function AcademyPage() {
       }
 
       if (result.authorization_url) {
-        window.location.href = result.authorization_url;
+        window.location.assign(result.authorization_url);
         return;
       }
 
@@ -228,7 +234,7 @@ export default function AcademyPage() {
 
       await loadCourses();
 
-      window.location.href = `/academy/study/${encodeURIComponent(course.id)}`;
+      router.push(`/academy/study/${encodeURIComponent(course.id)}`);
     } catch (issue) {
       setError(
         issue instanceof Error ? issue.message : "Enrollment failed.",
@@ -333,13 +339,16 @@ export default function AcademyPage() {
     }
   }
 
-  const selected = courses.find(
-    (course) => course.id === expandedCourse,
+  const visibleCourses = courses.filter((course) =>
+    catalogFilter === "all" ||
+    (catalogFilter === "programmes" ? course.isProgrammeStage : !course.isProgrammeStage),
   );
 
+  const activeCourseId = routeCourseId ?? expandedCourse;
+  const selected = courses.find((course) => course.id === activeCourseId);
+
   const resultForSelected =
-    assessmentResult &&
-    assessmentResult.courseId === expandedCourse
+    assessmentResult && assessmentResult.courseId === activeCourseId
       ? assessmentResult
       : null;
 
@@ -476,10 +485,35 @@ export default function AcademyPage() {
                 </h2>
 
                 <p className="mt-2 text-slate-300">
-                  Course fees are shown in Kenyan shillings and are paid
-                  separately from the one-time Corevia Rise membership
-                  activation.
+                  Course and programme fees are shown in Kenyan shillings and are paid
+                  separately from the one-time KES 1,000 Corevia Network membership activation.
+                  Each programme stage has its own enrolment, assessment and completion certificate.
                 </p>
+                <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Course catalogue filter">
+                  {([
+                    ["programmes", "Five-level programmes"],
+                    ["short", "Short courses"],
+                    ["all", "All learning"],
+                  ] as const).map(([value, label]) => (
+                    <button
+                      key={value}
+                      type="button"
+                      aria-pressed={catalogFilter === value}
+                      onClick={() => setCatalogFilter(value)}
+                      className={catalogFilter === value
+                        ? "rounded-xl bg-cyan-400 px-4 py-2 text-sm font-bold text-slate-950"
+                        : "rounded-xl border border-white/20 px-4 py-2 text-sm font-semibold text-slate-200 hover:bg-white/10"}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                {catalogFilter !== "short" && (
+                  <p className="mt-4 max-w-4xl rounded-xl border border-cyan-300/20 bg-cyan-300/5 p-4 text-sm leading-6 text-slate-200">
+                    Progression: Certificate (KES 1,500) → Diploma (KES 3,500) → Degree (KES 7,500) → Masters (KES 12,500) → PhD (KES 20,000).
+                    Each stage unlocks only after the previous stage is completed and its assessment is passed.
+                  </p>
+                )}
               </div>
 
               <p className="text-sm text-slate-400">
@@ -508,7 +542,7 @@ export default function AcademyPage() {
             )}
 
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {courses.map((course) => (
+              {visibleCourses.map((course) => (
                 <article
                   key={course.id}
                   className={`rounded-2xl border p-6 ${
@@ -530,6 +564,16 @@ export default function AcademyPage() {
                   <h3 className="mt-5 text-2xl font-bold">
                     {course.title}
                   </h3>
+                  {course.isProgrammeStage && (
+                    <p className="mt-2 text-xs font-bold uppercase tracking-[0.15em] text-cyan-200">
+                      {course.programmeLevel} pathway stage {course.programmeOrder} of 5
+                    </p>
+                  )}
+                  {course.locked && course.prerequisiteTitle && (
+                    <p className="mt-3 rounded-lg border border-amber-300/20 bg-amber-300/10 p-3 text-xs leading-5 text-amber-100">
+                      Locked until you complete: {course.prerequisiteTitle}
+                    </p>
+                  )}
 
                   <p className="mt-3 min-h-20 leading-7 text-slate-300">
                     {course.description}
@@ -592,8 +636,10 @@ export default function AcademyPage() {
                     type="button"
                     disabled={working === course.id || authRequired}
                     onClick={() => {
-                      if (course.enrolled) {
-                        window.location.href = `/academy/study/${encodeURIComponent(course.id)}`;
+                      if (course.locked && course.prerequisiteCourseId) {
+                        router.push(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
+                      } else if (course.enrolled) {
+                        router.push(`/academy/study/${encodeURIComponent(course.id)}`);
                       } else {
                         void enroll(course);
                       }
@@ -602,13 +648,15 @@ export default function AcademyPage() {
                   >
                     {working === course.id
                       ? "Please wait..."
-                      : course.enrolled
-                        ? course.completion
-                          ? "View completion record"
-                          : "Open course"
-                        : course.priceKsh > 0
-                          ? `Enroll & Pay ${money(course.priceKsh)}`
-                          : "Enroll"}
+                      : course.locked
+                        ? "Open prerequisite stage"
+                        : course.enrolled
+                          ? course.completion
+                            ? "View completion record"
+                            : "Open course"
+                          : course.priceKsh > 0
+                            ? `Enroll & Pay ${money(course.priceKsh)}`
+                            : "Enroll"}
                   </button>
                 </article>
               ))}
