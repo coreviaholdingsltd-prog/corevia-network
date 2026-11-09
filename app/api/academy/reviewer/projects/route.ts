@@ -15,7 +15,7 @@ export async function GET() {
       where: { status: { in: ["SUBMITTED", "UNDER_REVIEW", "REVISION_REQUIRED"] } },
       orderBy: { submittedAt: "asc" },
       include: {
-        enrollment: { include: { user: { select: { name: true, email: true } }, attempts: { where: { passed: true }, orderBy: { createdAt: "desc" }, take: 1 } } },
+        enrollment: { include: { user: { select: { name: true, email: true } }, attempts: { orderBy: { createdAt: "desc" }, take: 1 } } },
         reviews: { orderBy: { createdAt: "desc" }, take: 1 },
       },
     });
@@ -112,7 +112,7 @@ export async function POST(request: Request) {
       });
 
       let completion = submission.enrollment.completion;
-      if (decision === "APPROVED" && submission.enrollment.attempts.length && !completion) {
+      if (decision === "APPROVED" && submission.enrollment.attempts[0]?.passed && !completion) {
         completion = await tx.academyCompletion.create({
           data: {
             enrollmentId: submission.enrollmentId,
