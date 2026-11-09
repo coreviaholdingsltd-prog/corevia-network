@@ -88,6 +88,9 @@ for (const course of courses) {
     return promptWords.some((term) => term.length > 4 && prompt.includes(term));
   }).length;
   const issues = [];
+  if (questions.length && covered / questions.length < 0.4) {
+    warnings.push(`${label}: less than 40% of assessment prompts contain exact subject-title terms; human subject review is required.`);
+  }
   if (lessons.length < 3) issues.push(`only ${lessons.length} lessons (minimum 3)`);
   if (lessonTitles.length !== lessons.length) issues.push("missing or duplicate lesson titles");
   if (lessonText.some((item) => String(item).trim().length < 20)) issues.push("one or more lesson content items are too short");
@@ -120,6 +123,14 @@ const persistedProjectWorkflow = /model\s+AcademyProjectSubmission\s*\{/.test(sc
 const reviewerGovernance = /model\s+AcademyAcademicReviewer\s*\{/.test(schemaText) && /model\s+AcademyAcademicSignoff\s*\{/.test(schemaText);
 const hasStructuredBibliography = /model\s+AcademyAcademicReference\s*\{/.test(schemaText);
 const blockers = [];
+const projectApi = read(path.join(root, "app/api/academy/projects/route.ts"));
+const reviewerProjectApi = read(path.join(root, "app/api/academy/reviewer/projects/route.ts"));
+const reviewerSignoffApi = read(path.join(root, "app/api/academy/reviewer/signoffs/route.ts"));
+const assessmentApi = read(path.join(root, "app/api/academy/assessment/route.ts"));
+if (!projectApi.includes("originalityConfirmed") || !projectApi.includes("evidenceUrls")) errors.push("Practical project submission is missing originality or evidence validation.");
+if (!reviewerProjectApi.includes("subjectKnowledge") || !reviewerProjectApi.includes("totalScore < 75")) errors.push("Practical project rubric or 75-point approval threshold is missing.");
+if (!reviewerSignoffApi.includes("criteriaKeys") || !reviewerSignoffApi.includes("verifiedSources < 3")) errors.push("Academic sign-off is missing mandatory criteria or verified-source threshold.");
+if (assessmentApi.includes("tx.academyCompletion.create")) errors.push("Knowledge assessment must not independently issue a new course completion record.");
 if (sharedTemplateAssessment) blockers.push("Generated programme assessments still use a shared generic template bank; remove it and use subject-authored assessment items.");
 if (!subjectAuthoredAssessment) blockers.push("Generated programme assessments are not sourced from each subject-authored question bank.");
 if (!persistedProjectWorkflow) blockers.push("No persisted project-submission and assessor-review workflow exists in the Prisma schema.");
