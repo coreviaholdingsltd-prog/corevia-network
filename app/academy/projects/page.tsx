@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import type { FormEvent } from "react";
 
-type Course = { id: string; title: string; enrolled: boolean; enrollmentStatus: string | null; lessonsCount: number; completedLessons: number; latestAttempt: { passed: boolean } | null };
+type Course = { id: string; title: string; description: string; enrolled: boolean; enrollmentStatus: string | null; lessonsCount: number; completedLessons: number; latestAttempt: { passed: boolean } | null };
 type Submission = { id: string; courseId: string; courseTitle: string; projectTitle: string; status: string; submittedAt: string; latestReview: { totalScore: number; feedback: string; decision: string; createdAt: string } | null };
 
 const field = "w-full rounded-xl border border-white/15 bg-slate-900 px-4 py-3 text-white placeholder:text-slate-500 focus:border-cyan-400 focus:outline-none";
@@ -99,6 +99,10 @@ export default function AcademyProjectsPage() {
                   {eligible.map((course) => <option key={course.id} value={course.id}>{course.title}</option>)}
                 </select>
               </label>
+              <div className="rounded-xl border border-cyan-300/20 bg-cyan-300/5 p-4 text-sm leading-6 text-slate-300">
+                <p className="font-bold text-cyan-200">Course brief</p>
+                <p className="mt-2">{courses.find((course) => course.id === courseId)?.description || "Use the practical assignment in your course lessons as the project brief."}</p>
+              </div>
               <label className="grid gap-2 text-sm font-semibold">Project title<input className={field} value={projectTitle} onChange={(event) => setProjectTitle(event.target.value)} minLength={4} maxLength={180} required /></label>
               <label className="grid gap-2 text-sm font-semibold">Objective<textarea className={field} value={objective} onChange={(event) => setObjective(event.target.value)} minLength={40} rows={3} required placeholder="What problem, question or outcome does the project address?" /></label>
               <label className="grid gap-2 text-sm font-semibold">Methodology<textarea className={field} value={methodology} onChange={(event) => setMethodology(event.target.value)} minLength={60} rows={4} required placeholder="Explain your approach, tools, steps and why they are suitable." /></label>
