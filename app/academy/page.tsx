@@ -639,7 +639,7 @@ export default function AcademyPage() {
                       if (course.locked && course.prerequisiteCourseId) {
                         router.push(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
                       } else if (course.enrolled) {
-                        window.location.href = `/academy/study/${encodeURIComponent(course.id)}`;
+                        router.push(`/academy/study/${encodeURIComponent(course.id)}`);
                       } else {
                         void enroll(course);
                       }
