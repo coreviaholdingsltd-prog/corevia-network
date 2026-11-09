@@ -115,10 +115,10 @@ if (templates !== 0) errors.push(`Shared generic assessment templates must not b
 const pathwayText = read(pathwaysPath);
 const schemaText = read(schemaPath);
 const sharedTemplateAssessment = /ASSESSMENT_TEMPLATES/.test(pathwayText);
-const subjectAuthoredAssessment = /subject\\.questions/.test(pathwayText);
+const subjectAuthoredAssessment = /subject\.questions/.test(pathwayText);
 const persistedProjectWorkflow = /model\s+AcademyProjectSubmission\s*\{/.test(schemaText) && /model\s+AcademyProjectReview\s*\{/.test(schemaText);
-const reviewerGovernance = /model\s+AcademyAcademicReviewer\s*\{/.test(schemaText);
-const hasStructuredBibliography = /references\??\s*:\s*AcademyReference\[\]/.test(read(catalogPath));
+const reviewerGovernance = /model\s+AcademyAcademicReviewer\s*\{/.test(schemaText) && /model\s+AcademyAcademicSignoff\s*\{/.test(schemaText);
+const hasStructuredBibliography = /model\s+AcademyAcademicReference\s*\{/.test(schemaText);
 const blockers = [];
 if (sharedTemplateAssessment) blockers.push("Generated programme assessments still use a shared generic template bank; remove it and use subject-authored assessment items.");
 if (!subjectAuthoredAssessment) blockers.push("Generated programme assessments are not sourced from each subject-authored question bank.");
