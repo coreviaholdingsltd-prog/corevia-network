@@ -1,3 +1,5 @@
+import { buildAcademyPathwayCourses } from "@/lib/academy-pathways";
+
 export type AcademyLesson = {
   id: string;
   title: string;
@@ -12414,8 +12416,6 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
       ]
     }
 ];
-import { buildAcademyPathwayCourses } from "@/lib/academy-pathways";
-
 // Keep the original 30 short courses available and add five separately priced
 // progression stages for every subject. Each stage is a distinct enrolment,
 // assessment and completion record.
