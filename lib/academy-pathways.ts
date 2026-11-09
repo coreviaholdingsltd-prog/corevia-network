@@ -174,7 +174,7 @@ export function buildAcademyPathwayCourses(subjects: AcademyCourse[]): AcademyCo
         id,
         title: subject.title + " — " + stage.label + " Programme",
         category: subject.category,
-        description: stage.label + "-level study in " + subject.title + ", covering " + stage.focus + ". Complete the lessons, submit the applied project and pass the assessment to earn a separate Corevia Rise Academy certificate of completion.",
+        description: stage.label + "-level study in " + subject.title + ", covering " + stage.focus + ". Complete the lessons, submit the applied project and pass the assessment to earn a separate Corevia Academy certificate of completion.",
         level: stage.label,
         priceKsh: stage.priceKsh,
         published: true,
