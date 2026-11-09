@@ -1,0 +1,43 @@
+name: Refresh Academy dependency lockfile
+
+on:
+  push:
+    branches:
+      - feat/academy-five-level-pathways
+    paths:
+      - package.json
+      - .github/workflows/refresh-dependency-lock.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the Academy branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Resolve patched dependency versions
+        run: |
+          npm install --package-lock-only --ignore-scripts
+          npm audit fix --package-lock-only --ignore-scripts
+          npm audit
+      - name: Commit the updated lockfile
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- package-lock.json; then
+            echo "Lockfile already current."
+            exit 0
+          fi
+          git add package-lock.json
+          git commit -m "Update dependency lockfile for security fixes"
+          git push
