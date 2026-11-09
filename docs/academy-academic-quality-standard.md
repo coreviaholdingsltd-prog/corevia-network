@@ -142,6 +142,6 @@ The following are the minimum discipline-specific checks to complete before assi
 
 ### Release decision
 
-**No course-stage is cleared for a paid academic-quality claim by this initial audit.** This is an evidence-status decision, not a finding that every lesson is factually wrong. The actual 1.3 MB course catalog and each of the 150 generated subject-stage combinations still require readable inspection, course-specific scoring, reference verification and qualified subject review. Software deployment success is not academic validation.
+**No course-stage is cleared for a paid academic-quality claim by this source review.** This is an evidence-status decision, not a finding that every lesson is factually wrong. The 30 published base-course records and the shared generator have now been inspected at source level, and all 150 generated subject-stage combinations are recorded as reviewed-but-blocked in the matrix. The next review gate is course-specific scoring of factual accuracy, references, level depth, worked solutions, assessment validity and safety by qualified subject reviewers. Software deployment success is not academic validation.
 
 The five-level model must be described as Corevia learning programmes that issue certificates of completion. The final pathway is doctoral research preparation only and must not be represented as a PhD award, university degree or accredited qualification.
