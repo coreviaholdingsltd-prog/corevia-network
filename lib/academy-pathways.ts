@@ -4,161 +4,136 @@ type ProgrammeStage = {
   label: "Certificate" | "Diploma" | "Degree" | "Masters" | "PhD";
   priceKsh: number;
   focus: string;
-  standard: string;
+  outcome: string;
   project: string;
   research: string;
+  verb: string;
+  depth: string;
 };
 
 const STAGES: ProgrammeStage[] = [
-  {
-    label: "Certificate",
-    priceKsh: 1500,
-    focus: "core concepts, essential vocabulary, safe procedures and reliable practical performance",
-    standard: "complete a clearly defined task correctly, explain the main decisions and check the result against a checklist",
-    project: "a guided practical demonstration and a short evidence portfolio",
-    research: "locate trustworthy introductory sources and distinguish evidence from assumption",
-  },
-  {
-    label: "Diploma",
-    priceKsh: 3500,
-    focus: "independent application, workflow planning, troubleshooting, documentation and quality control",
-    standard: "plan and deliver a multi-step task independently, justify the method and document quality checks",
-    project: "an independently planned case study with a working output, records and improvement plan",
-    research: "compare methods, assess source quality and support recommendations with relevant evidence",
-  },
-  {
-    label: "Degree",
-    priceKsh: 7500,
-    focus: "theory, analytical frameworks, research methods, evidence-based decisions and integrated practice",
-    standard: "analyse a complex case, apply an appropriate framework, evaluate alternatives and defend a reasoned conclusion",
-    project: "a substantial applied project supported by a structured report and evidence",
-    research: "form a focused research question, evaluate literature and explain a defensible methodology",
-  },
-  {
-    label: "Masters",
-    priceKsh: 12500,
-    focus: "advanced critical analysis, strategic design, complex problem-solving, evaluation and research synthesis",
-    standard: "critically compare competing approaches, design an advanced solution and evaluate its limitations and impact",
-    project: "an advanced capstone with a strategy, implementation plan, evaluation framework and critical reflection",
-    research: "synthesise specialist literature, justify research design and interpret evidence with explicit limitations",
-  },
-  {
-    label: "PhD",
-    priceKsh: 20000,
-    focus: "original inquiry, a defensible contribution, rigorous methodology, independent scholarship and research communication",
-    standard: "develop and defend an original, evidence-led contribution while documenting limitations, ethics and reproducibility",
-    project: "a substantial original research portfolio, thesis-style report and oral defence presentation",
-    research: "identify a research gap, critically map prior work, justify a rigorous method and communicate a contribution that can be scrutinised",
-  },
+  { label: "Certificate", priceKsh: 1500, focus: "foundational concepts, essential terminology, safe procedures and guided practical competence", outcome: "accurately explain key principles and complete a defined task using a supplied procedure", project: "a guided practical demonstration with annotated evidence and a short reflection", research: "use introductory textbooks, authoritative guidance and trustworthy sources; distinguish evidence from assumption", verb: "explain and demonstrate", depth: "accurate foundational understanding and reliable execution" },
+  { label: "Diploma", priceKsh: 3500, focus: "technical application, workflow planning, troubleshooting, documentation and quality control", outcome: "independently plan and deliver a multi-step task, justify choices and document quality checks", project: "an independently planned case study with a working output, records, risk review and improvement plan", research: "compare methods, assess source quality and support recommendations with relevant evidence", verb: "apply, implement and troubleshoot", depth: "independent applied competence and defensible professional decisions" },
+  { label: "Degree", priceKsh: 7500, focus: "disciplinary theory, analytical frameworks, research literacy, evidence-based decisions and integrated practice", outcome: "analyse a complex case, apply a suitable framework, evaluate alternatives and defend a reasoned conclusion", project: "a substantial applied project with a structured report, analysis, evidence and evaluation", research: "form a focused research question, critically evaluate relevant literature and justify a suitable methodology", verb: "analyse, evaluate and justify", depth: "integrated theoretical understanding, critical analysis and research-informed practice" },
+  { label: "Masters", priceKsh: 12500, focus: "advanced critical analysis, specialist literature, strategic design, complex problem-solving and research synthesis", outcome: "critically compare competing approaches, design an advanced solution and evaluate limitations, impact and implementation", project: "an advanced capstone with a strategy, implementation plan, evaluation framework and critical reflection", research: "synthesise specialist literature, justify research design, interpret evidence and acknowledge methodological limitations", verb: "critically synthesise, design and evaluate", depth: "advanced independent judgement, specialist insight and rigorous evaluation" },
+  { label: "PhD", priceKsh: 20000, focus: "original inquiry, research-gap identification, rigorous methodology, independent scholarship and contribution to knowledge", outcome: "develop and defend an original, evidence-led contribution while documenting ethics, limitations and reproducibility", project: "a substantial original research portfolio, thesis-style report, contribution statement and oral defence presentation", research: "map and critique prior scholarship, establish a defensible gap, justify a rigorous method and present a scrutinizable contribution", verb: "investigate, contribute and defend", depth: "doctoral-level originality, methodological rigour and independent scholarly contribution" },
 ];
 
 const UNIT_TITLES = [
-  "Core concepts and disciplinary foundations",
-  "Methods, tools and professional practice",
-  "Applied analysis and problem-solving",
-  "Quality, ethics, risk and responsible decisions",
+  "Disciplinary foundations and key concepts",
+  "Principles, methods and specialist tools",
+  "Application, analysis and problem-solving",
+  "Ethics, standards, risk and quality assurance",
   "Independent project and evidence portfolio",
-  "Critical review, communication and next steps",
+  "Critical synthesis, communication and progression",
 ];
 
-const QUESTION_BANK = [
-  {
-    prompt: "Which approach best demonstrates sound understanding of this subject?",
-    correct: "Explain the key concept, apply it to a relevant example and check the result against evidence.",
-    wrong: ["Repeat terminology without understanding its use.", "Choose the quickest option without checking its suitability.", "Treat an assumption as a verified result."],
-  },
-  {
-    prompt: "What should guide the selection of a method or tool?",
-    correct: "The task requirements, available evidence, risks, context and a clear way to evaluate the outcome.",
-    wrong: ["Personal preference alone, regardless of the task.", "A method chosen before the problem is understood.", "The appearance of a result rather than its accuracy."],
-  },
-  {
-    prompt: "How should a learner respond when a result does not meet the required standard?",
-    correct: "Inspect the process, identify the cause, correct it and record how the revised result was checked.",
-    wrong: ["Hide the result and report success.", "Repeat the same steps without reviewing them.", "Change the acceptance criteria after seeing the result."],
-  },
-  {
-    prompt: "Which evidence is strongest when presenting a practical conclusion?",
-    correct: "Relevant, traceable evidence with its source, context, method and limitations clearly stated.",
-    wrong: ["An unsupported opinion presented confidently.", "A single unverified statement copied from an unknown source.", "A result with no explanation of how it was produced."],
-  },
-  {
-    prompt: "What is the purpose of documenting decisions and revisions?",
-    correct: "To make the work understandable, reviewable, reproducible and easier to improve.",
-    wrong: ["To make the project appear longer.", "To avoid explaining the reasoning behind a decision.", "To conceal earlier errors from reviewers."],
-  },
-  {
-    prompt: "Which practice supports responsible work in this discipline?",
-    correct: "Respect privacy, safety, applicable rules, intellectual work and the people affected by decisions.",
-    wrong: ["Ignore foreseeable harm if a task is technically possible.", "Use private information without permission.", "Present another person's work as original."],
-  },
-  {
-    prompt: "How should competing solutions be evaluated?",
-    correct: "Compare them against explicit criteria, evidence, cost, risk, constraints and likely outcomes.",
-    wrong: ["Select the first available option.", "Choose the option with the most impressive description.", "Ignore trade-offs and implementation constraints."],
-  },
-  {
-    prompt: "What makes a final project or research submission credible?",
-    correct: "A clear question or objective, a justified method, traceable evidence, a checked result and honest limitations.",
-    wrong: ["A conclusion without supporting work.", "A copied template with no subject-specific analysis.", "A claim of certainty where the evidence is incomplete."],
-  },
+const ASSESSMENT_TEMPLATES = [
+  { stem: "Which explanation most accurately connects {topic} to the wider discipline of {subject}?", correct: "A reasoned explanation that defines the concept, applies it to the case and supports the conclusion with relevant evidence.", distractors: ["A list of terms without explaining their relationship.", "An unsupported opinion based only on personal preference.", "A conclusion selected before the problem and evidence are examined."] },
+  { stem: "When using {topic} to address a real {subject} problem, what should determine the method?", correct: "The stated objective, disciplinary principles, evidence, context, constraints, risks and criteria for evaluating the result.", distractors: ["The easiest method regardless of suitability.", "A familiar method without checking the task requirements.", "The appearance of success rather than a measurable outcome."] },
+  { stem: "What is the strongest way to evaluate a proposed {topic} solution in {subject}?", correct: "Compare alternatives against explicit disciplinary criteria, evidence, feasibility, risks and likely consequences.", distractors: ["Choose the first solution suggested.", "Rely on confidence or presentation alone.", "Ignore limitations once a preferred solution is selected."] },
+  { stem: "Which evidence best supports a conclusion about {topic} in {subject}?", correct: "Traceable evidence with a stated source, context, method, interpretation and limitations.", distractors: ["An unverified claim repeated from an unknown source.", "A personal belief presented as a measured finding.", "A result with no explanation of how it was obtained."] },
+  { stem: "How should a learner respond when work on {topic} fails a {subject} quality criterion?", correct: "Diagnose the cause, revise the method or output, retest against the criterion and record the change.", distractors: ["Hide the failure and report completion.", "Change the criterion after seeing the result.", "Repeat the same steps without examining the cause."] },
+  { stem: "Which practice demonstrates responsible professional or scholarly work on {topic}?", correct: "Respect ethical duties, safety, privacy, intellectual property, relevant standards and affected stakeholders.", distractors: ["Ignore foreseeable harm if the task is technically possible.", "Use protected information without permission.", "Present another person's work as original."] },
+  { stem: "What makes a {subject} project involving {topic} academically credible?", correct: "A clear question or objective, justified method, relevant evidence, transparent analysis and honest limitations.", distractors: ["A polished report without supporting evidence.", "A copied template with no original analysis.", "A strong claim that exceeds what the evidence can support."] },
+  { stem: "How should uncertainty in findings about {topic} be communicated?", correct: "State what the evidence supports, identify assumptions and limitations, and explain what further evidence is needed.", distractors: ["Remove uncertainty to make the conclusion sound stronger.", "Treat missing information as proof of the preferred answer.", "Avoid reporting limitations that could affect interpretation."] },
 ];
+
+function compactUnique(values: string[], limit: number): string[] {
+  const seen = new Set<string>();
+  const output: string[] = [];
+  for (const raw of values) {
+    const value = raw.replace(/\s+/g, " ").trim();
+    if (!value || seen.has(value.toLowerCase())) continue;
+    seen.add(value.toLowerCase());
+    output.push(value);
+    if (output.length >= limit) break;
+  }
+  return output;
+}
+
+function sourceMaterial(subject: AcademyCourse): string[] {
+  // Reuse the original course's own lesson material so the advanced pathway
+  // builds on actual subject content rather than only reusing lesson headings.
+  return compactUnique(
+    subject.lessons.flatMap((lesson) => [
+      lesson.title,
+      ...(Array.isArray(lesson.content) ? lesson.content : []),
+    ]),
+    36,
+  );
+}
 
 function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex: number) {
-  const sourceTopics = subject.lessons.slice(0, 4).map((lesson) => lesson.title);
-  const topics = sourceTopics.length ? sourceTopics : [subject.title, "Methods and tools", "Applied practice", "Review"];
+  const originalLessons = subject.lessons;
+  const sourceNotes = sourceMaterial(subject);
+  const topicTitles = compactUnique(
+    originalLessons.map((lesson) => lesson.title),
+    12,
+  );
+  const topics = topicTitles.length ? topicTitles : [subject.title, "Disciplinary methods", "Applied practice", "Evaluation"];
+  const sourceNote = (index: number) => sourceNotes.length
+    ? sourceNotes[index % sourceNotes.length]
+    : subject.description;
+
   return UNIT_TITLES.map((unit, index) => {
     const topic = topics[index % topics.length];
-    const levelTask = stageIndex === 0
-      ? "Follow the model, complete the guided activity and explain each important step in your own words."
-      : stageIndex === 1
-        ? "Plan the workflow, complete it independently, record decisions and check the output against stated requirements."
-        : stageIndex === 2
-          ? "Use an appropriate theoretical or analytical framework, compare alternatives and support your conclusion with evidence."
-          : stageIndex === 3
-            ? "Critically evaluate assumptions, competing approaches, implementation constraints and the wider consequences of the proposed solution."
-            : "Frame an original, answerable inquiry; scrutinise prior evidence; justify a rigorous method; and identify the contribution and its limitations.";
-    const practical = stageIndex === 0
-      ? "Produce a small, correctly completed example and annotate the steps you followed."
-      : stageIndex === 1
-        ? "Produce a complete case file with a plan, working output, quality checks and a short improvement report."
-        : stageIndex === 2
-          ? "Develop an applied project, analyse the evidence and submit a structured report that connects theory to practice."
-          : stageIndex === 3
-            ? "Design and evaluate an advanced intervention or solution, including a strategy, measurable outcomes and critical reflection."
-            : "Prepare a thesis-style research portfolio with a clear gap, literature synthesis, justified methodology, analysis plan and defensible original contribution.";
+    const relatedSource = sourceNote(index * 3);
+    const supportingSource = sourceNote(index * 3 + 1);
+    const task = [
+      "Work through a guided example, reproduce the method accurately and explain the purpose of each step.",
+      "Plan and complete the task independently; document decisions, troubleshoot a realistic obstacle and verify the output.",
+      "Apply a disciplinary framework to a case, compare at least two approaches and defend the selected conclusion with evidence.",
+      "Interrogate assumptions, compare competing interpretations and evaluate consequences, trade-offs and implementation limits.",
+      "Design an original and answerable inquiry, critique prior evidence, justify a rigorous method and specify how the contribution will be tested.",
+    ][stageIndex];
+    const practical = [
+      "Complete a small guided exercise and annotate the steps, result and checks.",
+      "Produce a case file containing a plan, working output, decision log, quality checks and improvement report.",
+      "Develop an applied project and submit a report connecting disciplinary theory, method, evidence and evaluation.",
+      "Design an advanced intervention, justify its strategic choices and evaluate measurable outcomes, risks and limitations.",
+      "Prepare a research portfolio containing a gap statement, critical literature synthesis, methodology, analysis plan, ethics considerations and defensible original contribution.",
+    ][stageIndex];
+
     const content = [
-      "LEARNING OUTCOME — " + unit + " in " + subject.title + " at " + stage.label + " level. By the end of this lesson, you should be able to explain the central ideas, apply them to a new situation and show how you checked your work.",
-      "SUBJECT CONTEXT — " + subject.description + " This programme develops that subject beyond an introductory overview. The level-specific expectation is " + stage.focus + ".",
-      "KEY TOPIC — " + topic + ". Identify the terms, principles, tools and decisions that shape this topic. Define each important term precisely, distinguish similar concepts and connect them to a realistic example from the subject.",
-      "METHOD — " + levelTask + " State the objective first, identify constraints and resources, select a suitable method, carry out the work in a controlled sequence, preserve evidence and evaluate the outcome.",
-      "WORKED APPLICATION — Consider a realistic " + subject.title + " situation involving " + topic.toLowerCase() + ". Describe the problem, identify the information required, compare at least two possible approaches, explain why the selected approach fits the context and state what evidence would show that it worked.",
-      "PRACTICAL TASK — " + practical + " Include a clear objective, the steps taken, the output, the evidence used to check it and a short note on what you would improve.",
-      "PROGRAMME PROJECT EXPECTATION — " + stage.project + " Use a realistic subject-specific scenario, state the scope and constraints, preserve working evidence and explain how the output meets the stated objective.",
-      "QUALITY AND RESPONSIBILITY — Check accuracy, completeness, consistency, safety, privacy, ethical conduct and relevant rules. Record assumptions separately from verified facts. Explain any limitation that could affect the reliability or use of the result.",
-      "RESEARCH AND EVIDENCE STANDARD — " + stage.research + " Cite sources consistently, distinguish established findings from interpretation and identify gaps or uncertainties that remain.",
-      "REFLECTION — Summarise the most important principle, explain one difficult decision, identify a mistake that could occur and describe how you would detect and correct it. Connect this lesson to the next unit."
+      "LEARNING OUTCOME — At " + stage.label + " level, " + stage.verb + " " + topic + " in " + subject.title + ". You must demonstrate " + stage.depth + ".",
+      "SUBJECT FOUNDATION — " + subject.description + " This unit builds directly on the subject's existing lesson material: " + relatedSource,
+      "CORE STUDY MATERIAL — Revisit and master this course topic: " + topic + ". Explain its central terms, principles, assumptions and relationship to the wider discipline. Use the original course material as the starting point, then extend it with authoritative books, standards, peer-reviewed research or professional guidance appropriate to this level.",
+      "CONCEPTUAL DEVELOPMENT — Connect the topic to this related course material: " + supportingSource + ". Identify where the ideas reinforce one another, where they differ and what conditions affect their application. Do not treat a definition as sufficient evidence of understanding.",
+      "METHOD AND REASONING — " + task + " State the problem or research question, define scope and constraints, select a justified approach, preserve working evidence and explain why the method is suitable.",
+      "WORKED SUBJECT APPLICATION — Construct a realistic " + subject.title + " case involving " + topic + ". Identify the relevant facts, distinguish facts from assumptions, explain the governing principles, compare possible responses and state what evidence would confirm whether the chosen response worked.",
+      "PRACTICAL ASSIGNMENT — " + practical + " Your submission must include the objective, process, output, supporting evidence, quality checks and a reflection on what should be improved.",
+      "ACADEMIC AND PROFESSIONAL STANDARDS — Apply relevant disciplinary standards, ethical duties, safety requirements, privacy protections and intellectual-property rules. Cite sources consistently. Never invent data, references, experiments or claims of originality.",
+      "EVIDENCE AND READING — Start with the original lesson material, then consult current authoritative sources appropriate to the subject and level. At Certificate level, prioritise reliable introductory texts and official guidance; at Diploma and Degree levels, add technical manuals, scholarly texts and research; at Masters and PhD levels, critically engage with specialist peer-reviewed literature and primary sources. Record author, title, publication date and the exact claim supported.",
+      "QUALITY REVIEW — Check accuracy, completeness, internal consistency, relevance, reproducibility and alignment with the stated learning outcome. Identify uncertainty, limitations and possible sources of bias. Explain what additional evidence would change your conclusion.",
+      "REFLECTION AND TRANSFER — Summarise the principle learned, justify one important decision, identify a plausible failure mode and explain how the knowledge transfers to a new " + subject.title + " situation."
     ];
     return {
       id: subject.id + "-" + stage.label.toLowerCase() + "-unit-" + (index + 1),
       title: unit + ": " + topic,
-      minutes: stageIndex < 2 ? 25 : stageIndex === 2 ? 35 : 45,
+      minutes: [30, 45, 60, 75, 90][stageIndex],
       content,
     };
   });
 }
 
 function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage) {
-  return QUESTION_BANK.map((item, index) => {
-    const correctIndex = index % 4;
-    const options = [...item.wrong];
+  const topics = compactUnique(subject.lessons.map((lesson) => lesson.title), 8);
+  return ASSESSMENT_TEMPLATES.map((item, index) => {
+    const topic = topics[index % Math.max(topics.length, 1)] || subject.title;
+    const prompt = item.stem
+      .replaceAll("{topic}", topic)
+      .replaceAll("{subject}", subject.title)
+      + " Select the strongest answer.";
+    const correctIndex = (index * 3 + 1) % 4;
+    const options = [...item.distractors];
     options.splice(correctIndex, 0, item.correct);
     return {
       id: subject.id + "-" + stage.label.toLowerCase() + "-assessment-" + (index + 1),
-      prompt: item.prompt.replace("this subject", subject.title + " at " + stage.label + " level"),
+      prompt,
       options,
       answerIndex: correctIndex,
-      explanation: item.correct + " This is important in " + subject.title + " because the " + stage.label + " programme expects learners to demonstrate " + stage.standard + ".",
+      explanation: item.correct + " At " + stage.label + " level, learners are expected to demonstrate " + stage.outcome + ".",
     };
   });
 }
@@ -174,7 +149,7 @@ export function buildAcademyPathwayCourses(subjects: AcademyCourse[]): AcademyCo
         id,
         title: subject.title + " — " + stage.label + " Programme",
         category: subject.category,
-        description: stage.label + "-level study in " + subject.title + ", covering " + stage.focus + ". Complete the lessons, submit the applied project and pass the assessment to earn a separate Corevia Academy certificate of completion.",
+        description: stage.label + "-level study in " + subject.title + ", designed for " + stage.focus + ". Learners complete six subject-linked study units, a level-appropriate project and an assessment before receiving a separate Corevia Academy certificate of completion.",
         level: stage.label,
         priceKsh: stage.priceKsh,
         published: true,
