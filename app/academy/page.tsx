@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type Lesson = {
   id: string;
@@ -90,6 +90,7 @@ const readableDate = (value: string) =>
 
 export default function AcademyPage() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const routeCourseId = pathname.startsWith("/academy/study/")
     ? decodeURIComponent(
@@ -233,7 +234,7 @@ export default function AcademyPage() {
 
       await loadCourses();
 
-      window.location.assign(`/academy/study/${encodeURIComponent(course.id)}`);
+      router.push(`/academy/study/${encodeURIComponent(course.id)}`);
     } catch (issue) {
       setError(
         issue instanceof Error ? issue.message : "Enrollment failed.",
@@ -636,7 +637,7 @@ export default function AcademyPage() {
                     disabled={working === course.id || authRequired}
                     onClick={() => {
                       if (course.locked && course.prerequisiteCourseId) {
-                        window.location.assign(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
+                        router.push(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
                       } else if (course.enrolled) {
                         window.location.href = `/academy/study/${encodeURIComponent(course.id)}`;
                       } else {
