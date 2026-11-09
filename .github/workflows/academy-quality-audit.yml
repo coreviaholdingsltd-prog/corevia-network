@@ -31,7 +31,9 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm install --no-audit --no-fund
-      - name: Run structural and academic release audit
+      - name: Run source-structure audit
+        run: npm run academy:audit
+      - name: Enforce academic release gate
         run: npm run academy:audit:strict
       - name: Upload audit evidence
         if: always()
