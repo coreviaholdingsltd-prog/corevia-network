@@ -486,7 +486,7 @@ export default function AcademyPage() {
 
                 <p className="mt-2 text-slate-300">
                   Course and programme fees are shown in Kenyan shillings and are paid
-                  separately from the one-time KES 1,000 Corevia Rise membership activation.
+                  separately from the one-time KES 1,000 Corevia Network membership activation.
                   Each programme stage has its own enrolment, assessment and completion certificate.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Course catalogue filter">
