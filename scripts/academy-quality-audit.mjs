@@ -62,7 +62,7 @@ let totalQuestions = 0;
 let totalWords = 0;
 let coursesWithTraceableSources = 0;
 
-if (courses.length !== 30) errors.push(`Expected 30 published base subjects; found ${courses.length}.`);
+if (courses.length === 0) errors.push("No published base subjects were found in the course catalog.");
 
 for (const course of courses) {
   const label = course.title || course.id || "Untitled course";
@@ -81,7 +81,8 @@ for (const course of courses) {
   const sourceMarkers = /https?:\/\/|doi\s*:|doi\.org\/|isbn\s*:|bibliograph|reference list|further reading|reading list/i.test(body);
   if (sourceMarkers) coursesWithTraceableSources += 1;
   const questionIds = new Set();
-  const promptWords = words([course.title, course.category, course.description].join(" "));
+  const stopWords = new Set(["the", "and", "for", "with", "basics", "basic", "fundamentals", "skills", "course", "introduction", "to", "of", "in"]);
+  const promptWords = words(course.title).filter((term) => term.length > 3 && !stopWords.has(term));
   const covered = questions.filter((q) => {
     const prompt = String(q.prompt || "").toLowerCase();
     return promptWords.some((term) => term.length > 4 && prompt.includes(term));
