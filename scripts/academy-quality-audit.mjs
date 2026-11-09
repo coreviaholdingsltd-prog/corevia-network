@@ -110,20 +110,22 @@ const units = findConstArray(pathwaysPath, "UNIT_TITLES").length;
 const templates = findConstArray(pathwaysPath, "ASSESSMENT_TEMPLATES").length;
 if (stages !== 5) errors.push(`Expected five programme stages; found ${stages}.`);
 if (units !== 6) errors.push(`Expected six generated units per stage; found ${units}.`);
-if (templates !== 8) errors.push(`Expected eight assessment templates; found ${templates}.`);
+if (templates !== 0) errors.push(`Shared generic assessment templates must not be used; found ${templates}.`);
 
 const pathwayText = read(pathwaysPath);
 const schemaText = read(schemaPath);
 const sharedTemplateAssessment = /ASSESSMENT_TEMPLATES/.test(pathwayText);
+const subjectAuthoredAssessment = /subject\\.questions/.test(pathwayText);
 const persistedProjectWorkflow = /model\s+AcademyProjectSubmission\s*\{/.test(schemaText) && /model\s+AcademyProjectReview\s*\{/.test(schemaText);
 const reviewerGovernance = /model\s+AcademyAcademicReviewer\s*\{/.test(schemaText);
 const hasStructuredBibliography = /references\??\s*:\s*AcademyReference\[\]/.test(read(catalogPath));
 const blockers = [];
-if (sharedTemplateAssessment) blockers.push("Generated programme assessments still use a shared generic template bank; each subject-stage requires validated, subject-specific assessment items.");
+if (sharedTemplateAssessment) blockers.push("Generated programme assessments still use a shared generic template bank; remove it and use subject-authored assessment items.");
+if (!subjectAuthoredAssessment) blockers.push("Generated programme assessments are not sourced from each subject-authored question bank.");
 if (!persistedProjectWorkflow) blockers.push("No persisted project-submission and assessor-review workflow exists in the Prisma schema.");
-if (!reviewerGovernance) blockers.push("No structured academic reviewer and sign-off record exists in the Prisma schema.");
-if (!hasStructuredBibliography) blockers.push("The course model has no structured, verifiable subject bibliography/reference list.");
-if (coursesWithTraceableSources < courses.length) blockers.push(`Only ${coursesWithTraceableSources}/${courses.length} subjects contain an identifiable source/reference marker; every reading list requires manual source verification.`);
+if (!reviewerGovernance) blockers.push("No structured academic reviewer registry and stage sign-off record exists in the Prisma schema.");
+if (!hasStructuredBibliography) blockers.push("No structured, verifiable subject bibliography/reference model exists.");
+if (coursesWithTraceableSources < courses.length) blockers.push(`Only ${coursesWithTraceableSources}/${courses.length} base subjects contain embedded source markers. Populate and independently verify structured references for every subject and programme stage.`);
 blockers.push("The automated audit checks structure and evidence indicators; it cannot certify factual accuracy, pedagogical suitability, professional safety or expert approval.");
 
 const report = {
