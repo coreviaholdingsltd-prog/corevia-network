@@ -141,7 +141,7 @@ function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage, stageInde
     ...question,
     id: subject.id + "-" + stage.label.toLowerCase() + "-core-" + (index + 1),
     prompt: levelFraming + question.prompt + " Explain why the selected answer is appropriate at " + stage.label + " level.",
-    explanation: question.explanation + " Extend your reasoning to demonstrate: " + stage.outcome + ".",
+    explanation: (question.explanation?.trim() || "Review the relevant course lesson and explain the subject principle that supports the selected answer.") + " Extend your reasoning to demonstrate: " + stage.outcome + ".",
   }));
   const advanced = ASSESSMENT_TEMPLATES.map((item, index) => {
     const topic = topics[index % Math.max(topics.length, 1)] || subject.title;
