@@ -60,7 +60,7 @@ function sourceMaterial(subject: AcademyCourse): string[] {
       lesson.title,
       ...(Array.isArray(lesson.content) ? lesson.content : []),
     ]),
-    36,
+    120,
   );
 }
 
@@ -78,8 +78,12 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
 
   return UNIT_TITLES.map((unit, index) => {
     const topic = topics[index % topics.length];
-    const relatedSource = sourceNote(index * 3);
-    const supportingSource = sourceNote(index * 3 + 1);
+    const unitEvidence = [0, 1, 2, 3, 4].map((offset) =>
+      sourceNote(index * 5 + offset),
+    );
+    const relatedSource = unitEvidence[0];
+    const supportingSource = unitEvidence[1];
+    const additionalSource = unitEvidence.slice(2);
     const task = [
       "Work through a guided example, reproduce the method accurately and explain the purpose of each step.",
       "Plan and complete the task independently; document decisions, troubleshoot a realistic obstacle and verify the output.",
@@ -100,13 +104,19 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
       "SUBJECT FOUNDATION — " + subject.description + " This unit builds directly on the subject's existing lesson material: " + relatedSource,
       "CORE STUDY MATERIAL — Revisit and master this course topic: " + topic + ". Explain its central terms, principles, assumptions and relationship to the wider discipline. Use the original course material as the starting point, then extend it with authoritative books, standards, peer-reviewed research or professional guidance appropriate to this level.",
       "CONCEPTUAL DEVELOPMENT — Connect the topic to this related course material: " + supportingSource + ". Identify where the ideas reinforce one another, where they differ and what conditions affect their application. Do not treat a definition as sufficient evidence of understanding.",
+      "SUBJECT KNOWLEDGE READING — Study these additional items from the original " + subject.title + " course: " + additionalSource.join(" | ") + ". For each item, write a clear explanation in your own words, define unfamiliar terms, give a relevant example and explain how it connects to this unit. If an item is unfamiliar, pause and research it before moving on.",
+      "FOUNDATION CHECK — Before attempting advanced work, explain the key terms in this unit without copying the notes. Identify what prior knowledge the task assumes. If you cannot explain the basics, revisit the relevant earlier lesson and complete a short practice example first.",
       "METHOD AND REASONING — " + task + " State the problem or research question, define scope and constraints, select a justified approach, preserve working evidence and explain why the method is suitable.",
       "WORKED SUBJECT APPLICATION — Construct a realistic " + subject.title + " case involving " + topic + ". Identify the relevant facts, distinguish facts from assumptions, explain the governing principles, compare possible responses and state what evidence would confirm whether the chosen response worked.",
+      "MODEL RESPONSE AND SELF-CHECK — Write a complete response to the worked case: (1) define the problem, (2) explain the relevant subject concepts, (3) show each reasoning or practical step, (4) justify the decision with evidence, and (5) evaluate the result and its limitations. Compare your response with the unit outcome and revise any unsupported or unclear reasoning.",
       "PRACTICAL ASSIGNMENT — " + practical + " Your submission must include the objective, process, output, supporting evidence, quality checks and a reflection on what should be improved.",
       "ACADEMIC AND PROFESSIONAL STANDARDS — Apply relevant disciplinary standards, ethical duties, safety requirements, privacy protections and intellectual-property rules. Cite sources consistently. Never invent data, references, experiments or claims of originality.",
       "EVIDENCE AND READING — Start with the original lesson material, then consult current authoritative sources appropriate to the subject and level. At Certificate level, prioritise reliable introductory texts and official guidance; at Diploma and Degree levels, add technical manuals, scholarly texts and research; at Masters and PhD levels, critically engage with specialist peer-reviewed literature and primary sources. Record author, title, publication date and the exact claim supported.",
       "QUALITY REVIEW — Check accuracy, completeness, internal consistency, relevance, reproducibility and alignment with the stated learning outcome. Identify uncertainty, limitations and possible sources of bias. Explain what additional evidence would change your conclusion.",
-      "REFLECTION AND TRANSFER — Summarise the principle learned, justify one important decision, identify a plausible failure mode and explain how the knowledge transfers to a new " + subject.title + " situation."
+      "REFLECTION AND TRANSFER — Summarise the principle learned, justify one important decision, identify a plausible failure mode and explain how the knowledge transfers to a new " + subject.title + " situation.",
+      "PROJECT EXPECTATION — " + stage.project + " The final submission must be your own work, scoped to a feasible question or task, supported by traceable sources and accompanied by evidence of the process. Clearly label any simulated data and never present it as real-world observation.",
+      "ASSESSMENT RUBRIC — Score the work out of 100: subject knowledge and accuracy (25); application, method and reasoning (25); evidence, source quality and referencing (20); practical output or analysis (20); ethics, clarity and reflection (10). A pass requires at least 75/100 and no critical breach of safety, research ethics, academic integrity or assessment rules. Feedback must identify strengths, gaps and a specific improvement action.",
+      "ACADEMIC INTEGRITY — Submit original work, cite every borrowed idea or source, disclose permitted assistance and retain notes or working files that demonstrate how the work was produced. Fabricated references, copied submissions, invented research data and plagiarism invalidate the affected work."
     ];
     return {
       id: subject.id + "-" + stage.label.toLowerCase() + "-unit-" + (index + 1),
@@ -117,9 +127,23 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
   });
 }
 
-function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage) {
+function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage, stageIndex: number) {
   const topics = compactUnique(subject.lessons.map((lesson) => lesson.title), 8);
-  return ASSESSMENT_TEMPLATES.map((item, index) => {
+  const sourceQuestions = Array.isArray(subject.questions) ? subject.questions : [];
+  const levelFraming = [
+    "FOUNDATION CHECK — ",
+    "APPLIED WORKPLACE CASE — ",
+    "ANALYTICAL CASE — ",
+    "ADVANCED CRITICAL CASE — ",
+    "RESEARCH DEFENCE SCENARIO — ",
+  ][stageIndex];
+  const inherited = sourceQuestions.slice(0, 8).map((question, index) => ({
+    ...question,
+    id: subject.id + "-" + stage.label.toLowerCase() + "-core-" + (index + 1),
+    prompt: levelFraming + question.prompt + " Explain why the selected answer is appropriate at " + stage.label + " level.",
+    explanation: question.explanation + " Extend your reasoning to demonstrate: " + stage.outcome + ".",
+  }));
+  const advanced = ASSESSMENT_TEMPLATES.map((item, index) => {
     const topic = topics[index % Math.max(topics.length, 1)] || subject.title;
     const prompt = item.stem
       .replaceAll("{topic}", topic)
@@ -136,6 +160,7 @@ function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage) {
       explanation: item.correct + " At " + stage.label + " level, learners are expected to demonstrate " + stage.outcome + ".",
     };
   });
+  return [...inherited, ...advanced];
 }
 
 export function buildAcademyPathwayCourses(subjects: AcademyCourse[]): AcademyCourse[] {
@@ -147,14 +172,14 @@ export function buildAcademyPathwayCourses(subjects: AcademyCourse[]): AcademyCo
         : subject.id + "-" + STAGES[stageIndex - 1].label.toLowerCase();
       return {
         id,
-        title: subject.title + " — " + stage.label + " Programme",
+        title: subject.title + " — " + stage.label + " Learning Programme",
         category: subject.category,
-        description: stage.label + "-level study in " + subject.title + ", designed for " + stage.focus + ". Learners complete six subject-linked study units, a level-appropriate project and an assessment before receiving a separate Corevia Academy certificate of completion.",
+        description: stage.label + "-level learning pathway in " + subject.title + ", designed for " + stage.focus + ". Expected outcome: " + stage.outcome + ". Capstone: " + stage.project + ". Learners complete six subject-linked study units, a level-appropriate project and a subject-specific assessment. Corevia Academy issues a certificate of completion for this learning programme only; it is not an accredited university award, professional licence or authority to use a protected academic title. PhD-level content is a doctoral research-preparation pathway and does not confer a PhD degree.",
         level: stage.label,
         priceKsh: stage.priceKsh,
         published: true,
         lessons: buildLessons(subject, stage, stageIndex),
-        questions: buildQuestions(subject, stage),
+        questions: buildQuestions(subject, stage, stageIndex),
         pathwayId: subject.id,
         programmeLevel: stage.label,
         programmeOrder: stageIndex + 1,
