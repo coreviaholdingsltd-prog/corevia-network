@@ -49,6 +49,34 @@ export async function POST(request: Request) {
       );
     }
 
+    if (course.prerequisiteCourseId) {
+      const prerequisiteCourse = findAcademyCourse(course.prerequisiteCourseId);
+      const prerequisiteEnrollment = await prisma.academyEnrollment.findUnique({
+        where: {
+          userId_courseId: {
+            userId: user.id,
+            courseId: course.prerequisiteCourseId,
+          },
+        },
+        include: { completion: true },
+      });
+      if (
+        !prerequisiteCourse ||
+        !prerequisiteEnrollment ||
+        prerequisiteEnrollment.status !== "COMPLETED" ||
+        !prerequisiteEnrollment.completion
+      ) {
+        return NextResponse.json(
+          {
+            error: "Complete the " + (prerequisiteCourse?.title ?? "previous programme stage") + " and pass its assessment before enrolling in this stage.",
+            prerequisiteCourseId: course.prerequisiteCourseId,
+            prerequisiteTitle: prerequisiteCourse?.title ?? "Previous programme stage",
+          },
+          { status: 403 },
+        );
+      }
+    }
+
     const existing = await prisma.academyEnrollment.findUnique({
       where: {
         userId_courseId: {
