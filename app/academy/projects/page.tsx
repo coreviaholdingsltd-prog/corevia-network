@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import type { FormEvent } from "react";
 
 type Course = { id: string; title: string; enrolled: boolean; enrollmentStatus: string | null; lessonsCount: number; completedLessons: number; latestAttempt: { passed: boolean } | null };
 type Submission = { id: string; courseId: string; courseTitle: string; projectTitle: string; status: string; submittedAt: string; latestReview: { totalScore: number; feedback: string; decision: string; createdAt: string } | null };
@@ -44,7 +45,7 @@ export default function AcademyProjectsPage() {
 
   useEffect(() => { void refresh().catch((issue) => setError(issue instanceof Error ? issue.message : "Unable to load project workspace.")); }, [refresh]);
 
-  async function submit(event: React.FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setBusy(true); setError(""); setNotice("");
     try {
