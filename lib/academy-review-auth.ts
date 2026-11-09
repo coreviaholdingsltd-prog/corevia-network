@@ -1,4 +1,5 @@
 import { getAcademyUser } from "@/lib/academy-auth";
+import { prisma } from "@/lib/prisma";
 
 /**
  * Reviewer access is fail-closed. Configure a comma-separated allowlist of
@@ -13,8 +14,14 @@ export async function getAcademyReviewer() {
     .map((email) => email.trim().toLowerCase())
     .filter(Boolean);
 
-  if (!allowed.includes(user.email.toLowerCase())) {
+  const email = user.email.toLowerCase();
+  if (!allowed.includes(email)) {
     return { user: null, response: { error: "You are not authorised to review Academy work.", status: 403 } as const };
+  }
+
+  const reviewer = await prisma.academyAcademicReviewer.findUnique({ where: { email } });
+  if (reviewer && !reviewer.active) {
+    return { user: null, response: { error: "Your academic reviewer access has been suspended.", status: 403 } as const };
   }
 
   return { user, response: null };
