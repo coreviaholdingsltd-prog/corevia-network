@@ -498,3 +498,38 @@ model AcademyAcademicReference {
   @@unique([courseId, stageKey, title])
   @@index([courseId, stageKey, verified])
 }
+
+
+enum AcademyAcademicDecision {
+  APPROVED
+  REVISION_REQUIRED
+  REJECTED
+}
+
+model AcademyAcademicReviewer {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  expertise String[] @default([])
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([active, email])
+}
+
+model AcademyAcademicSignoff {
+  id            String                 @id @default(cuid())
+  courseId      String
+  stageKey      String
+  reviewerEmail String
+  reviewerName  String
+  decision      AcademyAcademicDecision
+  criteria      Json
+  notes         String                 @db.Text
+  signedAt      DateTime               @default(now())
+  createdAt     DateTime               @default(now())
+
+  @@index([courseId, stageKey, decision, signedAt])
+  @@index([reviewerEmail, signedAt])
+}
