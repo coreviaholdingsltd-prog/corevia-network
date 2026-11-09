@@ -134,7 +134,9 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
       "METHOD — " + levelTask + " State the objective first, identify constraints and resources, select a suitable method, carry out the work in a controlled sequence, preserve evidence and evaluate the outcome.",
       "WORKED APPLICATION — Consider a realistic " + subject.title + " situation involving " + topic.toLowerCase() + ". Describe the problem, identify the information required, compare at least two possible approaches, explain why the selected approach fits the context and state what evidence would show that it worked.",
       "PRACTICAL TASK — " + practical + " Include a clear objective, the steps taken, the output, the evidence used to check it and a short note on what you would improve.",
+      "PROGRAMME PROJECT EXPECTATION — " + stage.project + " Use a realistic subject-specific scenario, state the scope and constraints, preserve working evidence and explain how the output meets the stated objective.",
       "QUALITY AND RESPONSIBILITY — Check accuracy, completeness, consistency, safety, privacy, ethical conduct and relevant rules. Record assumptions separately from verified facts. Explain any limitation that could affect the reliability or use of the result.",
+      "RESEARCH AND EVIDENCE STANDARD — " + stage.research + " Cite sources consistently, distinguish established findings from interpretation and identify gaps or uncertainties that remain.",
       "REFLECTION — Summarise the most important principle, explain one difficult decision, identify a mistake that could occur and describe how you would detect and correct it. Connect this lesson to the next unit."
     ];
     return {
@@ -162,7 +164,7 @@ function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage) {
 }
 
 export function buildAcademyPathwayCourses(subjects: AcademyCourse[]): AcademyCourse[] {
-  return subjects.flatMap((subject) =>
+  return subjects.filter((subject) => subject.published).flatMap((subject) =>
     STAGES.map((stage, stageIndex) => {
       const id = subject.id + "-" + stage.label.toLowerCase();
       const prerequisiteCourseId = stageIndex === 0
