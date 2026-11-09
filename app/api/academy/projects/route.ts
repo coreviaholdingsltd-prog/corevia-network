@@ -72,7 +72,7 @@ export async function POST(request: Request) {
 
     const enrollment = await prisma.academyEnrollment.findUnique({
       where: { userId_courseId: { userId: user.id, courseId } },
-      include: { lessonProgress: true, attempts: { where: { passed: true }, orderBy: { createdAt: "desc" }, take: 1 } },
+      include: { lessonProgress: true, attempts: { orderBy: { createdAt: "desc" }, take: 1 } },
     });
     if (!enrollment || !["ACTIVE", "COMPLETED"].includes(enrollment.status)) {
       return NextResponse.json({ error: "An active course enrolment is required before project submission." }, { status: 403 });
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
     if (!course.lessons.every((lesson) => enrollment.lessonProgress.some((item) => item.lessonId === lesson.id))) {
       return NextResponse.json({ error: "Complete all course lessons before submitting the practical project." }, { status: 400 });
     }
-    if (!enrollment.attempts.length) {
+    if (!enrollment.attempts[0]?.passed) {
       return NextResponse.json({ error: "Pass the course knowledge assessment before submitting the practical project." }, { status: 400 });
     }
 
