@@ -915,6 +915,12 @@ export default function AcademyPage() {
                       Result: {resultForSelected.score}% -{" "}
                       {resultForSelected.passed ? "PASSED" : "NOT PASSED"}
                     </h4>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">{resultForSelected.message}</p>
+                    {resultForSelected.passed && (
+                      <Link href="/academy/projects" className="mt-3 inline-flex rounded-lg bg-cyan-400 px-4 py-2 text-sm font-bold text-slate-950">
+                        Submit practical project
+                      </Link>
+                    )}
 
                     <div className="mt-4 space-y-3">
                       {resultForSelected.review.map((item) => (
