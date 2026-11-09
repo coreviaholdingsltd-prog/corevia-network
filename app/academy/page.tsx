@@ -55,6 +55,7 @@ completedLessons: number;
   progressPercent: number;
   lessons: Lesson[];
   questions: Question[];
+  references: { id: string; title: string; authors: string; publication: string; publicationYear: number | null; url: string | null; doi: string | null; sourceType: string }[];
   latestAttempt: {
     score: number;
     totalQuestions: number;
@@ -755,6 +756,26 @@ export default function AcademyPage() {
               </Link>
             </div>
 
+            <section className="mt-6 rounded-2xl border border-white/10 bg-slate-950 p-5">
+              <h3 className="text-lg font-bold">Verified subject references</h3>
+              <p className="mt-2 text-sm text-slate-400">These sources have been checked by an authorised Corevia academic reviewer for this course and stage.</p>
+              {selected.references?.length ? (
+                <ul className="mt-4 space-y-3">
+                  {selected.references.map((reference) => (
+                    <li key={reference.id} className="rounded-lg border border-white/10 p-3">
+                      <p className="font-semibold">{reference.title}</p>
+                      <p className="mt-1 text-sm text-slate-300">{reference.authors} · {reference.publication}{reference.publicationYear ? ` · ${reference.publicationYear}` : ""}</p>
+                      <p className="mt-1 text-xs uppercase tracking-wide text-cyan-200">{reference.sourceType.replaceAll("_", " ")}</p>
+                      {reference.url && <a href={reference.url} target="_blank" rel="noreferrer" className="mt-1 inline-block break-all text-sm text-cyan-300 underline">Open source</a>}
+                      {reference.doi && <p className="mt-1 text-xs text-slate-400">DOI: {reference.doi}</p>}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-3 text-sm text-amber-200">No verified references have been published for this course-stage yet. Corevia is building the reviewed reading list; unverified suggestions are not presented as approved sources.</p>
+              )}
+            </section>
+
             {selected.lessons.map((lesson, index) => (
               <article
                 key={lesson.id}
@@ -816,7 +837,7 @@ export default function AcademyPage() {
                 </h3>
 
                 <p className="mt-2 text-sm leading-6 text-slate-300">
-                  This multiple-choice knowledge check requires at least 75%. Complete all lessons first. You can retry after reviewing the answer explanations. The project activities in the lessons are currently for learner practice and self-review; the platform does not yet collect or grade project submissions.
+                  This multiple-choice knowledge check requires at least 75%. Complete all lessons first. You can retry after reviewing the answer explanations. After passing, submit your practical project for independent academic review. Course completion requires both assessments.
                 </p>
 
                 {selected.completedLessons < selected.lessonsCount ? (
