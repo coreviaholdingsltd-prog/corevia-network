@@ -268,6 +268,7 @@ model AcademyEnrollment {
   attempts       AcademyAssessmentAttempt[]
   completion     AcademyCompletion?
   payments       AcademyPayment[]
+  projectSubmissions AcademyProjectSubmission[]
 
   @@unique([userId, courseId])
   @@index([userId, status])
@@ -422,4 +423,113 @@ model PortfolioItem {
   profile     MemberProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   @@index([profileId, createdAt])
+}
+
+
+enum AcademyProjectStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  REVISION_REQUIRED
+  APPROVED
+  REJECTED
+}
+
+enum AcademyProjectDecision {
+  APPROVED
+  REVISION_REQUIRED
+  REJECTED
+}
+
+model AcademyProjectSubmission {
+  id               String              @id @default(cuid())
+  enrollmentId     String
+  courseId         String
+  projectTitle     String
+  objective        String              @db.Text
+  methodology      String              @db.Text
+  workDescription  String              @db.Text
+  reflection       String              @db.Text
+  evidenceUrls     String[]            @default([])
+  originalityConfirmed Boolean        @default(false)
+  status           AcademyProjectStatus @default(SUBMITTED)
+  submittedAt      DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  enrollment       AcademyEnrollment   @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  reviews          AcademyProjectReview[]
+
+  @@index([enrollmentId, submittedAt])
+  @@index([courseId, status, submittedAt])
+}
+
+model AcademyProjectReview {
+  id             String                 @id @default(cuid())
+  submissionId   String
+  reviewerEmail  String
+  reviewerName   String
+  rubricScores   Json
+  totalScore     Int
+  feedback       String                 @db.Text
+  decision       AcademyProjectDecision
+  createdAt      DateTime               @default(now())
+  submission     AcademyProjectSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+
+  @@index([submissionId, createdAt])
+  @@index([reviewerEmail, createdAt])
+}
+
+model AcademyAcademicReference {
+  id             String   @id @default(cuid())
+  courseId       String
+  stageKey       String   @default("FOUNDATION")
+  title          String
+  authors        String
+  publication    String
+  publicationYear Int?
+  url            String?
+  doi            String?
+  sourceType     String
+  verificationNotes String? @db.Text
+  verified       Boolean  @default(false)
+  verifiedBy     String?
+  verifiedAt     DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([courseId, stageKey, title])
+  @@index([courseId, stageKey, verified])
+}
+
+
+enum AcademyAcademicDecision {
+  APPROVED
+  REVISION_REQUIRED
+  REJECTED
+}
+
+model AcademyAcademicReviewer {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  expertise String[] @default([])
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([active, email])
+}
+
+model AcademyAcademicSignoff {
+  id            String                 @id @default(cuid())
+  courseId      String
+  stageKey      String
+  reviewerEmail String
+  reviewerName  String
+  decision      AcademyAcademicDecision
+  criteria      Json
+  notes         String                 @db.Text
+  signedAt      DateTime               @default(now())
+  createdAt     DateTime               @default(now())
+
+  @@index([courseId, stageKey, decision, signedAt])
+  @@index([reviewerEmail, signedAt])
 }

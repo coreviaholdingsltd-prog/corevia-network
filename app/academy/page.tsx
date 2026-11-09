@@ -55,6 +55,7 @@ completedLessons: number;
   progressPercent: number;
   lessons: Lesson[];
   questions: Question[];
+  references: { id: string; title: string; authors: string; publication: string; publicationYear: number | null; url: string | null; doi: string | null; sourceType: string }[];
   latestAttempt: {
     score: number;
     totalQuestions: number;
@@ -391,9 +392,9 @@ export default function AcademyPage() {
             </h1>
 
             <p className="mt-5 max-w-3xl leading-7 text-slate-300">
-              Use your existing Corevia Rise account to enroll, work
-              through lessons, complete assessments, and access your course
-              completion record.
+              Enrol in a course, study the lessons, pass the knowledge
+              assessment, and demonstrate practical competence through an
+              independently reviewed project before course completion.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
@@ -411,6 +412,13 @@ export default function AcademyPage() {
                 className="rounded-xl border border-white/20 px-5 py-3 font-bold hover:bg-white/10"
               >
                 Return to Network
+              </Link>
+
+              <Link
+                href="/academy/projects"
+                className="rounded-xl border border-cyan-300/50 px-5 py-3 font-bold text-cyan-200 hover:bg-cyan-300/10"
+              >
+                Practical project workspace
               </Link>
             </div>
           </div>
@@ -487,7 +495,7 @@ export default function AcademyPage() {
                 <p className="mt-2 text-slate-300">
                   Course and programme fees are shown in Kenyan shillings and are paid
                   separately from the one-time KES 1,000 Corevia Network membership activation.
-                  Each programme stage has its own enrolment, assessment and completion certificate.
+                  Each programme stage has its own enrolment, knowledge check and certificate of completion. These are Corevia learning programmes, not accredited university awards or professional licences. The doctoral research-preparation pathway does not award a PhD.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Course catalogue filter">
                   {([
@@ -510,7 +518,7 @@ export default function AcademyPage() {
                 </div>
                 {catalogFilter !== "short" && (
                   <p className="mt-4 max-w-4xl rounded-xl border border-cyan-300/20 bg-cyan-300/5 p-4 text-sm leading-6 text-slate-200">
-                    Progression: Certificate (KES 1,500) → Diploma (KES 3,500) → Degree (KES 7,500) → Masters (KES 12,500) → PhD (KES 20,000).
+                    Progression: Certificate (KES 1,500) → Diploma (KES 3,500) → Degree (KES 7,500) → Masters (KES 12,500) → Doctoral Research Preparation (KES 20,000).
                     Each stage unlocks only after the previous stage is completed and its assessment is passed.
                   </p>
                 )}
@@ -748,6 +756,26 @@ export default function AcademyPage() {
               </Link>
             </div>
 
+            <section className="mt-6 rounded-2xl border border-white/10 bg-slate-950 p-5">
+              <h3 className="text-lg font-bold">Verified subject references</h3>
+              <p className="mt-2 text-sm text-slate-400">These sources have been checked by an authorised Corevia academic reviewer for this course and stage.</p>
+              {selected.references?.length ? (
+                <ul className="mt-4 space-y-3">
+                  {selected.references.map((reference) => (
+                    <li key={reference.id} className="rounded-lg border border-white/10 p-3">
+                      <p className="font-semibold">{reference.title}</p>
+                      <p className="mt-1 text-sm text-slate-300">{reference.authors} · {reference.publication}{reference.publicationYear ? ` · ${reference.publicationYear}` : ""}</p>
+                      <p className="mt-1 text-xs uppercase tracking-wide text-cyan-200">{reference.sourceType.replaceAll("_", " ")}</p>
+                      {reference.url && <a href={reference.url} target="_blank" rel="noreferrer" className="mt-1 inline-block break-all text-sm text-cyan-300 underline">Open source</a>}
+                      {reference.doi && <p className="mt-1 text-xs text-slate-400">DOI: {reference.doi}</p>}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-3 text-sm text-amber-200">No verified references have been published for this course-stage yet. Corevia is building the reviewed reading list; unverified suggestions are not presented as approved sources.</p>
+              )}
+            </section>
+
             {selected.lessons.map((lesson, index) => (
               <article
                 key={lesson.id}
@@ -809,8 +837,7 @@ export default function AcademyPage() {
                 </h3>
 
                 <p className="mt-2 text-sm leading-6 text-slate-300">
-                  You need at least 75% to pass. Complete all lessons first.
-                  You can retry after reviewing the feedback.
+                  This multiple-choice knowledge check requires at least 75%. Complete all lessons first. You can retry after reviewing the answer explanations. After passing, submit your practical project for independent academic review. Course completion requires both assessments.
                 </p>
 
                 {selected.completedLessons < selected.lessonsCount ? (
@@ -888,6 +915,12 @@ export default function AcademyPage() {
                       Result: {resultForSelected.score}% -{" "}
                       {resultForSelected.passed ? "PASSED" : "NOT PASSED"}
                     </h4>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">{resultForSelected.message}</p>
+                    {resultForSelected.passed && (
+                      <Link href="/academy/projects" className="mt-3 inline-flex rounded-lg bg-cyan-400 px-4 py-2 text-sm font-bold text-slate-950">
+                        Submit practical project
+                      </Link>
+                    )}
 
                     <div className="mt-4 space-y-3">
                       {resultForSelected.review.map((item) => (

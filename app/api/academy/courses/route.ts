@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
 import { ACADEMY_COURSES } from "@/lib/academy-catalog";
+import { buildAcademyPathwayCourses } from "@/lib/academy-pathways";
 
 export async function GET() {
   try {
@@ -17,7 +18,18 @@ export async function GET() {
       },
     });
 
-    const courses = ACADEMY_COURSES.filter((course) => course.published).map((course) => {
+    const baseCourses = ACADEMY_COURSES.filter((course) => course.published && !course.isProgrammeStage);
+    const publishedCourses = [
+      ...baseCourses,
+      ...buildAcademyPathwayCourses(baseCourses),
+    ];
+    const verifiedReferences = await prisma.academyAcademicReference.findMany({
+      where: { courseId: { in: publishedCourses.map((course) => course.id) }, verified: true },
+      select: { id: true, courseId: true, stageKey: true, title: true, authors: true, publication: true, publicationYear: true, url: true, doi: true, sourceType: true },
+      orderBy: [{ publicationYear: "desc" }, { title: "asc" }],
+    });
+
+    const courses = publishedCourses.map((course) => {
       const enrollment = enrollments.find((item) => item.courseId === course.id);
       const unlocked = !!enrollment && (enrollment.status === "ACTIVE" || enrollment.status === "COMPLETED");
       const completedIds = new Set(enrollment?.lessonProgress.map((item) => item.lessonId) ?? []);
@@ -37,7 +49,7 @@ export async function GET() {
         programmeLevel: course.programmeLevel ?? null,
         programmeOrder: course.programmeOrder ?? null,
         prerequisiteCourseId: course.prerequisiteCourseId ?? null,
-        prerequisiteTitle: course.prerequisiteCourseId ? ACADEMY_COURSES.find((item) => item.id === course.prerequisiteCourseId)?.title ?? null : null,
+        prerequisiteTitle: course.prerequisiteCourseId ? publishedCourses.find((item) => item.id === course.prerequisiteCourseId)?.title ?? null : null,
         locked: course.prerequisiteCourseId
           ? !enrollments.some((item) => item.courseId === course.prerequisiteCourseId && item.status === "COMPLETED")
           : false,
@@ -49,6 +61,12 @@ export async function GET() {
         questions: unlocked ? course.questions.map(({ id, prompt, options }) => ({ id, prompt, options })) : [],
         latestAttempt: latest ? { score: latest.score, totalQuestions: latest.totalQuestions, passed: latest.passed, createdAt: latest.createdAt } : null,
         completion: enrollment?.completion ? { certificateCode: enrollment.completion.certificateCode, issuedAt: enrollment.completion.issuedAt } : null,
+        references: verifiedReferences.filter((reference) => {
+          const stageKey = course.isProgrammeStage
+            ? String(course.programmeLevel ?? "FOUNDATION").toUpperCase().replace(/[^A-Z0-9]+/g, "_")
+            : "SHORT_COURSE";
+          return reference.courseId === course.id && reference.stageKey === stageKey;
+        }),
       };
     });
 

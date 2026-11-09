@@ -1,0 +1,71 @@
+name: Corevia Academy source audit
+
+on:
+  pull_request:
+    paths:
+      - "lib/academy-*.ts"
+      - "app/academy/**"
+      - "app/api/academy/**"
+      - "prisma/**"
+      - "scripts/academy-*.mjs"
+      - "docs/academy-*"
+      - ".github/workflows/academy-quality-audit.yml"
+  push:
+    branches:
+      - main
+      - "feat/academy-*"
+      - "audit/academy-*"
+
+permissions:
+  contents: read
+
+jobs:
+  academic-quality-audit:
+    name: Academy source audit and evidence report
+    runs-on: ubuntu-latest
+    env:
+      # Ephemeral CI database. Never points at production.
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/corevia_ci?sslmode=disable
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: corevia_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d corevia_ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Validate Prisma schema
+        run: npx prisma validate
+      - name: Apply migrations to isolated CI database
+        run: npx prisma migrate deploy
+      - name: Lint Academy implementation
+        run: npm run lint:academy
+      - name: Run source-structure audit
+        run: npm run academy:audit
+      - name: Build application
+        run: npm run build
+      - name: Upload audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: corevia-academy-quality-audit
+          path: |
+            artifacts/academy-quality-audit.json
+            artifacts/academy-quality-audit.md
+          if-no-files-found: warn
