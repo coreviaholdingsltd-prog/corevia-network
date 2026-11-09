@@ -49,7 +49,7 @@ export async function GET() {
         programmeLevel: course.programmeLevel ?? null,
         programmeOrder: course.programmeOrder ?? null,
         prerequisiteCourseId: course.prerequisiteCourseId ?? null,
-        prerequisiteTitle: course.prerequisiteCourseId ? ACADEMY_COURSES.find((item) => item.id === course.prerequisiteCourseId)?.title ?? null : null,
+        prerequisiteTitle: course.prerequisiteCourseId ? publishedCourses.find((item) => item.id === course.prerequisiteCourseId)?.title ?? null : null,
         locked: course.prerequisiteCourseId
           ? !enrollments.some((item) => item.courseId === course.prerequisiteCourseId && item.status === "COMPLETED")
           : false,
