@@ -60,3 +60,35 @@ CREATE INDEX "AcademyAcademicReference_courseId_stageKey_verified_idx" ON "Acade
 
 ALTER TABLE "AcademyProjectSubmission" ADD CONSTRAINT "AcademyProjectSubmission_enrollmentId_fkey" FOREIGN KEY ("enrollmentId") REFERENCES "AcademyEnrollment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE "AcademyProjectReview" ADD CONSTRAINT "AcademyProjectReview_submissionId_fkey" FOREIGN KEY ("submissionId") REFERENCES "AcademyProjectSubmission"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TYPE "AcademyAcademicDecision" AS ENUM ('APPROVED', 'REVISION_REQUIRED', 'REJECTED');
+
+CREATE TABLE "AcademyAcademicReviewer" (
+  "id" TEXT NOT NULL,
+  "email" TEXT NOT NULL,
+  "name" TEXT NOT NULL,
+  "expertise" TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[],
+  "active" BOOLEAN NOT NULL DEFAULT true,
+  "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP(3) NOT NULL,
+  CONSTRAINT "AcademyAcademicReviewer_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE "AcademyAcademicSignoff" (
+  "id" TEXT NOT NULL,
+  "courseId" TEXT NOT NULL,
+  "stageKey" TEXT NOT NULL,
+  "reviewerEmail" TEXT NOT NULL,
+  "reviewerName" TEXT NOT NULL,
+  "decision" "AcademyAcademicDecision" NOT NULL,
+  "criteria" JSONB NOT NULL,
+  "notes" TEXT NOT NULL,
+  "signedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT "AcademyAcademicSignoff_pkey" PRIMARY KEY ("id")
+);
+
+CREATE UNIQUE INDEX "AcademyAcademicReviewer_email_key" ON "AcademyAcademicReviewer"("email");
+CREATE INDEX "AcademyAcademicReviewer_active_email_idx" ON "AcademyAcademicReviewer"("active", "email");
+CREATE INDEX "AcademyAcademicSignoff_courseId_stageKey_decision_signedAt_idx" ON "AcademyAcademicSignoff"("courseId", "stageKey", "decision", "signedAt");
+CREATE INDEX "AcademyAcademicSignoff_reviewerEmail_signedAt_idx" ON "AcademyAcademicSignoff"("reviewerEmail", "signedAt");
