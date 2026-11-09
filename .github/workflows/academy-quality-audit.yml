@@ -23,6 +23,23 @@ jobs:
   academic-quality-audit:
     name: Academy source audit and evidence report
     runs-on: ubuntu-latest
+    env:
+      # Ephemeral CI database. Never points at production.
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/corevia_ci?sslmode=disable
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: corevia_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d corevia_ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -35,15 +52,14 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Validate Prisma schema
         run: npx prisma validate
+      - name: Apply migrations to isolated CI database
+        run: npx prisma migrate deploy
       - name: Lint Academy implementation
         run: npm run lint:academy
       - name: Run source-structure audit
         run: npm run academy:audit
       - name: Build application
         run: npm run build
-        env:
-          # Compile-only database URL; CI must never connect to production data.
-          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/corevia_ci?sslmode=disable
       - name: Upload audit evidence
         if: always()
         uses: actions/upload-artifact@v4
