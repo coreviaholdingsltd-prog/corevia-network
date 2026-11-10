@@ -78,7 +78,7 @@ export async function GET(request: Request) {
       centered(value,y,size,font,color);
     };
 
-    centered("COREVIA RISE ACADEMY",520,19,bold,green);
+    centered("COREVIA ACADEMY",520,19,bold,green);
     centered("CERTIFICATE OF COMPLETION",476,26,bold,green);
     centered("This certificate is proudly presented to",437,12,normal,ink);
 
@@ -91,7 +91,7 @@ export async function GET(request: Request) {
     centered("and passing the required course assessment.",267,10,normal,ink);
     centered("Certificate No: "+completion.certificateCode,246,11,bold,green);
     centered("Issued: "+new Intl.DateTimeFormat("en-GB",{day:"2-digit",month:"long",year:"numeric",timeZone:"UTC"}).format(completion.issuedAt),222,10,normal,ink);
-    centered("Issued by COREVIA HOLDINGS LTD | COREVIA RISE ACADEMY",189,10,bold,green);
+    centered("Issued by COREVIA ACADEMY | COREVIA HOLDINGS LTD",189,10,bold,green);
 
     // Drawn institutional seal. It is not a claim of external accreditation.
     page.drawCircle({x:124,y:119,size:42,color:white,borderColor:gold,borderWidth:2.2});
