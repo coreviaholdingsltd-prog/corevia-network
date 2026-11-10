@@ -134,6 +134,8 @@ const assessmentApi = read(path.join(root, "app/api/academy/assessment/route.ts"
 if (!coursesApi.includes("buildAcademyPathwayCourses")) errors.push("The learner catalogue API does not expose all five generated programme stages.");
 if (!projectApi.includes("originalityConfirmed") || !projectApi.includes("evidenceUrls")) errors.push("Practical project submission is missing originality or evidence validation.");
 if (!reviewerProjectApi.includes("subjectKnowledge") || !reviewerProjectApi.includes("totalScore < 75")) errors.push("Practical project rubric or 75-point approval threshold is missing.");
+if (/attempts:\s*\{\s*where:\s*\{\s*passed:\s*true/.test(reviewerProjectApi)) errors.push("Reviewer approval filters out failed attempts and may ignore a newer failed knowledge assessment.");
+if (!/attempts:\s*\{\s*orderBy:\s*\{\s*createdAt:\s*"desc"\s*\},\s*take:\s*1\s*\}/.test(reviewerProjectApi)) errors.push("Reviewer approval must inspect the learner latest assessment attempt, regardless of pass/fail status.");
 if (!reviewerSignoffApi.includes("criteriaKeys") || !reviewerSignoffApi.includes("verifiedSources < 3")) errors.push("Academic sign-off is missing mandatory criteria or verified-source threshold.");
 if (assessmentApi.includes("tx.academyCompletion.create")) errors.push("Knowledge assessment must not independently issue a new course completion record.");
 if (sharedTemplateAssessment) blockers.push("Generated programme assessments still use a shared generic template bank; remove it and use subject-authored assessment items.");
