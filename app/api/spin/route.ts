@@ -2,12 +2,15 @@
 import { NextResponse } from "next/server";
 import { randomInt } from "crypto";
 import { cookies } from "next/headers";
+import type { Prisma } from "@/app/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
 
 const TIME_ZONE = "Africa/Nairobi";
 const SESSION_POOL_LIMIT = 2000;
 const MAX_WIN = 200;
+
+type TransactionClient = Prisma.TransactionClient;
 
 async function getSessionUser() {
   const cookieStore = await cookies();
@@ -65,7 +68,7 @@ function getSpinSession(now = new Date()) {
   };
 }
 
-async function getAvailablePool(tx: any) {
+async function getAvailablePool(tx: TransactionClient) {
   const fees = await tx.ledgerEntry.aggregate({
     where: {
       ownerType: "COREVIA",
@@ -91,7 +94,10 @@ async function getAvailablePool(tx: any) {
   );
 }
 
-async function getOrCreateEvent(tx: any, scheduledFor: Date) {
+async function getOrCreateEvent(
+  tx: TransactionClient,
+  scheduledFor: Date,
+) {
   let event = await tx.spinEvent.findFirst({
     where: { scheduledFor },
   });

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+
 import fs from "node:fs";
 import path from "node:path";
 import ts from "typescript";
@@ -14,12 +14,6 @@ const unwrap = (node) => {
   return node;
 };
 const propName = (node) => node.name && (ts.isIdentifier(node.name) || ts.isStringLiteral(node.name)) ? node.name.text : "";
-const property = (node, name) => {
-  node = unwrap(node);
-  if (!node || !ts.isObjectLiteralExpression(node)) return undefined;
-  const item = node.properties.find((entry) => ts.isPropertyAssignment(entry) && propName(entry) === name);
-  return item ? unwrap(item.initializer) : undefined;
-};
 const literal = (node) => {
   node = unwrap(node);
   if (!node) return undefined;
