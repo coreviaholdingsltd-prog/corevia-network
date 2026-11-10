@@ -101,6 +101,15 @@ export async function POST(request: Request) {
     }
 
     const result = await prisma.$transaction(async (tx) => {
+      // Compare-and-set the reviewable status so concurrent reviewers cannot
+      // record conflicting final decisions for the same submission.
+      const claimed = await tx.academyProjectSubmission.updateMany({
+        where: { id: submissionId, status: { in: ["SUBMITTED", "UNDER_REVIEW", "REVISION_REQUIRED"] } },
+        data: { status: decision },
+      });
+      if (claimed.count !== 1) {
+        throw new Error("This project submission has already been reviewed. Refresh the review queue.");
+      }
       const review = await tx.academyProjectReview.create({
         data: {
           submissionId,
@@ -111,10 +120,6 @@ export async function POST(request: Request) {
           feedback,
           decision,
         },
-      });
-      await tx.academyProjectSubmission.update({
-        where: { id: submissionId },
-        data: { status: decision },
       });
 
       let completion = submission.enrollment.completion;
