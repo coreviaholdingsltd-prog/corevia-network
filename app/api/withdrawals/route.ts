@@ -1,62 +1,52 @@
 import { NextResponse } from "next/server";
-import crypto from "crypto";
+import crypto from "node:crypto";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
+import {
+  getDarajaAccessToken,
+  getDarajaConfig,
+  makeOriginatorConversationId,
+  normalizeMpesaPhone,
+  assertB2CRecipientAllowed,
+  submitB2CPayment,
+} from "@/lib/mpesa/b2c";
+import { settleWithdrawalFailure } from "@/lib/mpesa/settlement";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
+const MAX_NET_PAYOUT = 150000;
 const COREVIA_TILL_NUMBER = "6959300";
 
 async function getSessionUser() {
   const cookieStore = await cookies();
   const token = cookieStore.get(sessionCookieName)?.value;
   const session = verifySession(token);
-
   if (!session) return null;
 
   return prisma.user.findUnique({
     where: { id: session.userId },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      phone: true,
-      membershipStatus: true,
-    },
+    select: { id: true, name: true, email: true, phone: true, membershipStatus: true },
   });
 }
 
 export async function GET() {
   try {
     const user = await getSessionUser();
+    if (!user) return NextResponse.json({ error: "Please sign in first." }, { status: 401 });
 
-    if (!user) {
-      return NextResponse.json(
-        { error: "Please sign in first." },
-        { status: 401 },
-      );
-    }
-
-    const withdrawals = await prisma.withdrawal.findMany({
-      where: { userId: user.id },
-      orderBy: { createdAt: "desc" },
-      select: {
-        id: true,
-        amount: true,
-        fee: true,
-        netAmount: true,
-        status: true,
-        reference: true,
-        paymentReference: true,
-        createdAt: true,
-        processedAt: true,
-      },
-    });
-
-    const wallet = await prisma.wallet.findUnique({
-      where: { userId: user.id },
-      select: { balance: true },
-    });
+    const [withdrawals, wallet] = await Promise.all([
+      prisma.withdrawal.findMany({
+        where: { userId: user.id },
+        orderBy: { createdAt: "desc" },
+        select: {
+          id: true, amount: true, fee: true, netAmount: true, status: true,
+          reference: true, paymentReference: true, mpesaReceiptNumber: true,
+          resultCode: true, resultDescription: true,
+          createdAt: true, processedAt: true,
+        },
+      }),
+      prisma.wallet.findUnique({ where: { userId: user.id }, select: { balance: true } }),
+    ]);
 
     return NextResponse.json({
       status: true,
@@ -65,110 +55,136 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Withdrawal history error:", error);
-
-    return NextResponse.json(
-      { error: "Unable to load withdrawals." },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Unable to load withdrawals." }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
   try {
+    if (process.env.COREVIA_WITHDRAWALS_ENABLED !== "true") {
+      return NextResponse.json({ error: "Withdrawals are temporarily disabled while payout configuration is being verified." }, { status: 503 });
+    }
+
+    const mpesaEnvironment = (process.env.MPESA_ENV || "sandbox").toLowerCase();
+    if (
+      mpesaEnvironment === "production" &&
+      (
+        process.env.COREVIA_LIVE_WITHDRAWALS_APPROVED !== "true" ||
+        process.env.COREVIA_PAYOUT_FLOAT_READY !== "true" ||
+        process.env.COREVIA_TILL_FEE_TRANSFER_READY !== "true"
+      )
+    ) {
+      return NextResponse.json({
+        error: "Live withdrawals are locked until Safaricom production approval, verified client payout float, and the separate Corevia Till fee-transfer route are all confirmed.",
+      }, { status: 503 });
+    }
     const user = await getSessionUser();
-
-    if (!user) {
-      return NextResponse.json(
-        { error: "Please sign in first." },
-        { status: 401 },
-      );
-    }
-
+    if (!user) return NextResponse.json({ error: "Please sign in first." }, { status: 401 });
     if (user.membershipStatus !== "ACTIVE") {
-      return NextResponse.json(
-        { error: "Your membership must be active before you can withdraw." },
-        { status: 403 },
-      );
+      return NextResponse.json({ error: "Your membership must be active before you can withdraw." }, { status: 403 });
     }
-
     if (!user.phone) {
-      return NextResponse.json(
-        {
-          error:
-            "Add and verify a phone number on your member account before requesting a withdrawal.",
-        },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "Add and verify a phone number on your member account before requesting a withdrawal." }, { status: 400 });
     }
 
     const body = await request.json();
+    const requestKey = String(body.requestKey || "");
+    if (requestKey.length < 8 || requestKey.length > 100) {
+      return NextResponse.json({ error: "A valid withdrawal request key is required. Refresh the page and try again." }, { status: 400 });
+    }
+
+    const previous = await prisma.withdrawal.findFirst({
+      where: { userId: user.id, requestKey },
+      select: {
+        id: true, amount: true, fee: true, netAmount: true, status: true,
+        reference: true, createdAt: true,
+      },
+    });
+    if (previous) {
+      const wallet = await prisma.wallet.findUnique({ where: { userId: user.id }, select: { balance: true } });
+      return NextResponse.json({
+        status: true,
+        message: "This withdrawal request was already received. Its existing status is shown; no second M-PESA payment was submitted.",
+        withdrawal: previous,
+        remainingBalance: Number(wallet?.balance ?? 0),
+      }, { status: 202 });
+    }
+
+    const pendingWithdrawal = await prisma.withdrawal.findFirst({
+      where: { userId: user.id, status: { in: ["PENDING", "PROCESSING"] } },
+      select: { reference: true },
+    });
+    if (pendingWithdrawal) {
+      return NextResponse.json({
+        error: `Withdrawal ${pendingWithdrawal.reference} is still processing. Wait for its M-PESA result before submitting another request.`,
+      }, { status: 409 });
+    }
+
+    const config = getDarajaConfig();
+    const phone = normalizeMpesaPhone(user.phone);
+    // Enforce sandbox recipient allowlist before OAuth and, critically, before any wallet debit.
+    assertB2CRecipientAllowed(config.environment, phone);
+    // Authenticate before debiting the member wallet.
+    const accessToken = await getDarajaAccessToken(config);
+
     const amount = Number(body.amount);
-
     if (!Number.isFinite(amount) || amount <= 0) {
-      return NextResponse.json(
-        { error: "Enter a valid withdrawal amount." },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "Enter a valid withdrawal amount." }, { status: 400 });
     }
 
-    const normalizedAmount = Math.round(amount * 100) / 100;
+    const grossAmountCents = Math.round(amount * 100);
+    const normalizedAmount = grossAmountCents / 100;
     if (normalizedAmount < 500) {
-      return NextResponse.json(
-        { error: "The minimum withdrawal amount is KES 500." },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "The minimum withdrawal amount is KES 500." }, { status: 400 });
     }
 
-    const fee = Math.round(normalizedAmount * WITHDRAWAL_FEE_RATE * 100) / 100;
-    const netAmount = Math.round((normalizedAmount - fee) * 100) / 100;
-    // Maximum member payout is KES 150,000 after the 0.50% fee.
-    if (netAmount > 150000) {
-      return NextResponse.json(
-        {
-          error: "The maximum M-PESA withdrawal payout is KES 150,000. The maximum wallet deduction is KES 150,753.77 including the 0.50% fee.",
-        },
-        { status: 400 },
-      );
+    // Calculate in integer cents to avoid floating-point rounding drift.
+    const feeCents = Math.round(grossAmountCents * WITHDRAWAL_FEE_RATE);
+    const netAmountCents = grossAmountCents - feeCents;
+    const fee = feeCents / 100;
+    const netAmount = netAmountCents / 100;
+    if (netAmount > MAX_NET_PAYOUT) {
+      return NextResponse.json({
+        error: "The maximum M-PESA withdrawal payout is KES 150,000. The maximum wallet deduction is KES 150,753.77 including the 0.50% fee.",
+      }, { status: 400 });
     }
-    const reference =
-      `CV-WD-${Date.now()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
+    if (netAmountCents % 100 !== 0) {
+      return NextResponse.json({
+        error: "Daraja B2C pays whole shillings only. Adjust the withdrawal amount so the payout after the 0.50% fee is a whole KES amount.",
+      }, { status: 400 });
+    }
 
-    const result = await prisma.$transaction(async (tx) => {
+    const reference = `CV-WD-${Date.now()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
+    const originatorConversationId = makeOriginatorConversationId();
+
+    const created = await prisma.$transaction(async (tx) => {
+      // Serialize withdrawal creation per member so parallel requests cannot queue two payouts.
+      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${user.id}))::text AS lock_acquired`;
+      const pending = await tx.withdrawal.findFirst({
+        where: { userId: user.id, status: { in: ["PENDING", "PROCESSING"] } },
+        select: { reference: true },
+      });
+      if (pending) {
+        throw new Error(`An existing withdrawal ${pending.reference} is still processing. Wait for its M-PESA result before submitting another request.`);
+      }
+
       const wallet = await tx.wallet.findUnique({
         where: { userId: user.id },
         select: { balance: true },
       });
-
-      if (!wallet) {
-        throw new Error("Wallet not found.");
-      }
+      if (!wallet) throw new Error("Wallet not found.");
 
       const available = Number(wallet.balance);
-
       if (normalizedAmount > available) {
-        throw new Error(
-          `Insufficient wallet balance. Available balance is KES ${available.toFixed(2)}.`,
-        );
+        throw new Error(`Insufficient wallet balance. Available balance is KES ${available.toFixed(2)}.`);
       }
 
       const changed = await tx.wallet.updateMany({
-        where: {
-          userId: user.id,
-          balance: {
-            gte: normalizedAmount,
-          },
-        },
-        data: {
-          balance: {
-            decrement: normalizedAmount,
-          },
-        },
+        where: { userId: user.id, balance: { gte: normalizedAmount } },
+        data: { balance: { decrement: normalizedAmount } },
       });
-
       if (changed.count !== 1) {
-        throw new Error(
-          "Withdrawal could not be completed because the wallet balance changed. Please try again.",
-        );
+        throw new Error("Wallet balance changed. Refresh and try again.");
       }
 
       const withdrawal = await tx.withdrawal.create({
@@ -177,76 +193,143 @@ export async function POST(request: Request) {
           amount: normalizedAmount,
           fee,
           netAmount,
-          status: "PENDING",
+          status: "PROCESSING",
           reference,
+          requestKey,
+          phoneNumber: phone,
+          originatorConversationId,
         },
-        select: {
-          id: true,
-          amount: true,
-          fee: true,
-          netAmount: true,
-          status: true,
-          reference: true,
-          createdAt: true,
-        },
+        select: { id: true, amount: true, fee: true, netAmount: true, status: true, reference: true, createdAt: true },
       });
 
-      await tx.ledgerEntry.create({
-        data: {
-          ownerType: "MEMBER",
-          userId: user.id,
-          amount: -fee,
-          type: "WITHDRAWAL_FEE",
-          reference: `${reference}-FEE-MEMBER`,
-          description: `0.50% Corevia withdrawal fee on ${reference}`,
-        },
-      });
+      // Production B2C payouts must be backed by a separately funded Utility-account float.
+      // Sandbox can exercise the Daraja callback flow without real-money float reservations.
+      const enforcePayoutFloat = mpesaEnvironment === "production" ||
+        process.env.COREVIA_PAYOUT_FLOAT_ENFORCED === "true";
+      if (enforcePayoutFloat) {
+        const floatReserved = await tx.payoutFloatAccount.updateMany({
+          where: { id: "primary", availableBalance: { gte: netAmount } },
+          data: {
+            availableBalance: { decrement: netAmount },
+            reservedBalance: { increment: netAmount },
+          },
+        });
+        if (floatReserved.count !== 1) {
+          throw new Error("Insufficient available M-PESA payout float. Your wallet has not been debited; fund and reconcile the Safaricom Utility account first.");
+        }
 
-      await tx.ledgerEntry.create({
-        data: {
-          ownerType: "COREVIA",
-          amount: fee,
-          type: "WITHDRAWAL_FEE",
-          reference: `${reference}-FEE-COREVIA`,
-          description: `0.50% withdrawal fee earned by Corevia. Till ${COREVIA_TILL_NUMBER}`,
-        },
+        await tx.payoutFloatReservation.create({
+          data: {
+            accountId: "primary",
+            withdrawalId: withdrawal.id,
+            amount: netAmount,
+            status: "RESERVED",
+          },
+        });
+        await tx.payoutFloatEntry.create({
+          data: {
+            accountId: "primary",
+            reference: `${reference}-FLOAT-RESERVE`,
+            type: "RESERVATION",
+            amount: netAmount,
+            description: `Reserved M-PESA Utility payout float for ${reference}`,
+          },
+        });
+      }
+
+      await tx.ledgerEntry.createMany({
+        data: [
+          {
+            ownerType: "MEMBER", userId: user.id, amount: -fee, type: "WITHDRAWAL_FEE",
+            reference: `${reference}-FEE-MEMBER`,
+            description: `0.50% Corevia withdrawal fee on ${reference}`,
+          },
+          {
+            ownerType: "COREVIA", amount: fee, type: "WITHDRAWAL_FEE",
+            reference: `${reference}-FEE-COREVIA`,
+            description: `0.50% withdrawal fee accrued to Corevia; external settlement to Till ${COREVIA_TILL_NUMBER} is separate and not confirmed by this ledger entry.`,
+          },
+        ],
       });
 
       await tx.walletTransaction.create({
         data: {
-          userId: user.id,
-          type: "WITHDRAWAL",
-          status: "PENDING",
-          amount: normalizedAmount,
-          reference: `${reference}-WALLET`,
-          description: `Withdrawal request ${reference}`,
+          userId: user.id, type: "WITHDRAWAL", status: "PENDING",
+          amount: normalizedAmount, reference: `${reference}-WALLET`,
+          description: `Daraja B2C payout to ${phone}; reference ${reference}`,
         },
       });
 
-      return {
-        withdrawal,
-        remainingBalance: available - normalizedAmount,
-      };
+      return { withdrawal, remainingBalance: available - normalizedAmount };
+    });
+
+    let acknowledgement;
+    try {
+      acknowledgement = await submitB2CPayment({
+        config, accessToken, amount: netAmount, phone, reference, originatorConversationId,
+      });
+    } catch (error) {
+      // Do not refund on an ambiguous network/HTTP failure: Safaricom may have accepted the payout.
+      console.error("Daraja B2C submission outcome is uncertain:", error);
+      return NextResponse.json({
+        status: true,
+        message: "Your withdrawal was submitted and is being reconciled with M-PESA. Do not submit it again.",
+        withdrawal: created.withdrawal,
+        remainingBalance: created.remainingBalance,
+      }, { status: 202 });
+    }
+
+    const responseCode = acknowledgement?.ResponseCode;
+    if (typeof responseCode !== "string" || !/^\d+$/.test(responseCode)) {
+      // An invalid acknowledgement is ambiguous. Never refund or retry automatically.
+      console.error("Daraja returned a malformed B2C acknowledgement; leaving withdrawal processing.", {
+        reference,
+        responseCode,
+      });
+      return NextResponse.json({
+        status: true,
+        message: "M-PESA returned an unclear acknowledgement. Your withdrawal remains processing for reconciliation. Do not submit it again.",
+        withdrawal: created.withdrawal,
+        remainingBalance: created.remainingBalance,
+      }, { status: 202 });
+    }
+
+    if (responseCode !== "0") {
+      const rejectionCode = Number(responseCode);
+      const rejectionDescription = typeof acknowledgement.ResponseDescription === "string" && acknowledgement.ResponseDescription.trim()
+        ? acknowledgement.ResponseDescription
+        : "Safaricom rejected the B2C request.";
+      await settleWithdrawalFailure(reference, rejectionCode, rejectionDescription);
+      return NextResponse.json({
+        error: `${rejectionDescription} Your wallet will be refunded only after the rejection is recorded.`,
+      }, { status: 502 });
+    }
+
+    await prisma.withdrawal.updateMany({
+      where: { id: created.withdrawal.id, status: "PROCESSING" },
+      data: {
+        conversationId: acknowledgement.ConversationID || null,
+        paymentReference: acknowledgement.OriginatorConversationID || originatorConversationId,
+      },
     });
 
     return NextResponse.json({
       status: true,
-      message: "Withdrawal request submitted successfully.",
-      withdrawal: result.withdrawal,
-      remainingBalance: result.remainingBalance,
-    });
+      message: "M-PESA payout request accepted by Safaricom. Your withdrawal will show as PAID only after Safaricom confirms the result.",
+      withdrawal: created.withdrawal,
+      remainingBalance: created.remainingBalance,
+    }, { status: 202 });
   } catch (error) {
     console.error("Withdrawal request error:", error);
-
-    const message =
-      error instanceof Error
-        ? error.message
-        : "Unable to submit withdrawal request.";
-
-    return NextResponse.json(
-      { error: message },
-      { status: 400 },
-    );
+    const message = error instanceof Error ? error.message : "Unable to submit withdrawal request.";
+    const status = message.startsWith("Missing server environment variable") || message.includes("callback URLs")
+      ? 503
+      : message.includes("authentication failed")
+        ? 502
+        : message.startsWith("An existing withdrawal") ||
+          message.startsWith("Insufficient available M-PESA payout float")
+          ? 409
+          : 400;
+    return NextResponse.json({ error: message }, { status });
   }
 }
-
