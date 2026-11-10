@@ -47,6 +47,9 @@ type Course = {
   prerequisiteCourseId: string | null;
   prerequisiteTitle: string | null;
   locked: boolean;
+  academicApprovalStatus: string | null;
+  academicReviewLocked: boolean;
+  verifiedReferenceCount: number;
   enrolled: boolean;
   enrollmentStatus: string | null;
   lessonsCount: number;
@@ -660,6 +663,11 @@ export default function AcademyPage() {
                       {course.programmeLevel} pathway stage {course.programmeOrder} of 5
                     </p>
                   )}
+                  {course.academicReviewLocked && (
+                    <p className="mt-3 rounded-lg border border-amber-300/20 bg-amber-300/10 p-3 text-xs leading-5 text-amber-100">
+                      Enrolment is temporarily closed while this programme stage completes academic approval and reference checks.
+                    </p>
+                  )}
                   {course.locked && course.prerequisiteTitle && (
                     <p className="mt-3 rounded-lg border border-amber-300/20 bg-amber-300/10 p-3 text-xs leading-5 text-amber-100">
                       Locked until you complete: {course.prerequisiteTitle}
@@ -726,8 +734,9 @@ export default function AcademyPage() {
 
                   <button
                     type="button"
-                    disabled={working === course.id || authRequired}
+                    disabled={working === course.id || authRequired || course.academicReviewLocked}
                     onClick={() => {
+                      if (course.academicReviewLocked) return;
                       if (course.locked && course.prerequisiteCourseId) {
                         router.push(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
                       } else if (course.enrolled) {
@@ -740,8 +749,10 @@ export default function AcademyPage() {
                   >
                     {working === course.id
                       ? "Please wait..."
-                      : course.locked
-                        ? "Go to required earlier stage"
+                      : course.academicReviewLocked
+                        ? "Under academic review"
+                        : course.locked
+                          ? "Go to required earlier stage"
                         : course.enrolled
                           ? course.completion
                             ? "View completion record"
