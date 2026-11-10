@@ -70,54 +70,65 @@ export async function POST(request: Request) {
     }
     if (!originalityConfirmed) return NextResponse.json({ error: "Confirm that the submission is your own work and that all external material is acknowledged." }, { status: 400 });
 
-    const enrollment = await prisma.academyEnrollment.findUnique({
-      where: { userId_courseId: { userId: user.id, courseId } },
-      include: {
-        lessonProgress: true,
-        attempts: { orderBy: { createdAt: "desc" }, take: 1 },
-        completion: true,
-      },
-    });
-    if (!enrollment || enrollment.status !== "ACTIVE" || enrollment.completion) {
-      return NextResponse.json({ error: "An active, unfinished course enrolment is required before project submission." }, { status: 403 });
-    }
-    if (!course.lessons.every((lesson) => enrollment.lessonProgress.some((item) => item.lessonId === lesson.id))) {
-      return NextResponse.json({ error: "Complete all course lessons before submitting the practical project." }, { status: 400 });
-    }
-    if (!enrollment.attempts[0]?.passed) {
-      return NextResponse.json({ error: "Pass the course knowledge assessment before submitting the practical project." }, { status: 400 });
-    }
+    const submission = await prisma.$transaction(async (tx) => {
+      // Serialize submissions for the same learner/course by locking the
+      // enrolment row before checking pending work or creating a submission.
+      const locked = await tx.$queryRaw<Array<{ id: string }>>`SELECT "id" FROM "AcademyEnrollment" WHERE "userId" = ${user.id} AND "courseId" = ${courseId} FOR UPDATE`;
+      if (locked.length !== 1) throw new Error("CONFLICT: An active, unfinished course enrolment is required before project submission.");
 
-    const pending = await prisma.academyProjectSubmission.findFirst({
-      where: { enrollmentId: enrollment.id, status: { in: ["SUBMITTED", "UNDER_REVIEW"] } },
-      select: { id: true },
-    });
-    if (pending) {
-      return NextResponse.json({ error: "Your project is already awaiting academic review. Wait for feedback before submitting again." }, { status: 409 });
-    }
+      const enrollment = await tx.academyEnrollment.findUnique({
+        where: { userId_courseId: { userId: user.id, courseId } },
+        include: {
+          lessonProgress: true,
+          attempts: { orderBy: { createdAt: "desc" }, take: 1 },
+          completion: true,
+        },
+      });
+      if (!enrollment || enrollment.status !== "ACTIVE" || enrollment.completion) {
+        throw new Error("CONFLICT: An active, unfinished course enrolment is required before project submission.");
+      }
+      if (!course.lessons.every((lesson) => enrollment.lessonProgress.some((item) => item.lessonId === lesson.id))) {
+        throw new Error("CONFLICT: Complete all course lessons before submitting the practical project.");
+      }
+      if (!enrollment.attempts[0]?.passed) {
+        throw new Error("CONFLICT: Pass the course knowledge assessment before submitting the practical project.");
+      }
 
-    const revision = await prisma.academyProjectSubmission.findFirst({
-      where: { enrollmentId: enrollment.id, status: "REVISION_REQUIRED" },
-      orderBy: { submittedAt: "desc" },
+      const pending = await tx.academyProjectSubmission.findFirst({
+        where: { enrollmentId: enrollment.id, status: { in: ["SUBMITTED", "UNDER_REVIEW"] } },
+        select: { id: true },
+      });
+      if (pending) {
+        throw new Error("CONFLICT: Your project is already awaiting academic review. Wait for feedback before submitting again.");
+      }
+
+      const revision = await tx.academyProjectSubmission.findFirst({
+        where: { enrollmentId: enrollment.id, status: "REVISION_REQUIRED" },
+        orderBy: { submittedAt: "desc" },
+      });
+      return revision
+        ? await tx.academyProjectSubmission.update({
+            where: { id: revision.id },
+            data: {
+              projectTitle, objective, methodology, workDescription, reflection,
+              evidenceUrls, originalityConfirmed, status: "SUBMITTED", submittedAt: new Date(),
+            },
+          })
+        : await tx.academyProjectSubmission.create({
+            data: {
+              enrollmentId: enrollment.id, courseId, projectTitle, objective,
+              methodology, workDescription, reflection, evidenceUrls, originalityConfirmed,
+            },
+          });
     });
-    const submission = revision
-      ? await prisma.academyProjectSubmission.update({
-          where: { id: revision.id },
-          data: {
-            projectTitle, objective, methodology, workDescription, reflection,
-            evidenceUrls, originalityConfirmed, status: "SUBMITTED", submittedAt: new Date(),
-          },
-        })
-      : await prisma.academyProjectSubmission.create({
-          data: {
-            enrollmentId: enrollment.id, courseId, projectTitle, objective,
-            methodology, workDescription, reflection, evidenceUrls, originalityConfirmed,
-          },
-        });
 
     return NextResponse.json({ status: true, submission: { id: submission.id, status: submission.status, submittedAt: submission.submittedAt }, message: "Your practical project has been submitted for academic review." }, { status: 201 });
   } catch (error) {
     console.error("Academy project submission error:", error);
+    const message = error instanceof Error ? error.message : "";
+    if (message.startsWith("CONFLICT:")) {
+      return NextResponse.json({ error: message.slice("CONFLICT:".length).trim() }, { status: 409 });
+    }
     return NextResponse.json({ error: "Unable to submit the practical project." }, { status: 500 });
   }
 }
