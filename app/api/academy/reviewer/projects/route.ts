@@ -101,15 +101,34 @@ export async function POST(request: Request) {
     }
 
     const result = await prisma.$transaction(async (tx) => {
-      // Compare-and-set the reviewable status so concurrent reviewers cannot
-      // record conflicting final decisions for the same submission.
-      const claimed = await tx.academyProjectSubmission.updateMany({
-        where: { id: submissionId, status: { in: ["SUBMITTED", "UNDER_REVIEW", "REVISION_REQUIRED"] } },
+      // Lock the submission row for the full decision transaction. A second
+      // reviewer waits, then reads the committed status before proceeding.
+      const locked = await tx.$queryRaw<Array<{ id: string }>>`SELECT "id" FROM "AcademyProjectSubmission" WHERE "id" = ${submissionId} FOR UPDATE`;
+      if (locked.length !== 1) throw new Error("CONFLICT: Project submission was not found.");
+
+      const currentSubmission = await tx.academyProjectSubmission.findUnique({
+        where: { id: submissionId },
+        include: {
+          enrollment: {
+            include: {
+              attempts: { orderBy: { createdAt: "desc" }, take: 1 },
+              completion: true,
+            },
+          },
+        },
+      });
+      if (!currentSubmission) throw new Error("CONFLICT: Project submission was not found.");
+      if (!["SUBMITTED", "UNDER_REVIEW", "REVISION_REQUIRED"].includes(currentSubmission.status)) {
+        throw new Error("CONFLICT: This project submission has already been reviewed. Refresh the review queue.");
+      }
+      if (decision === "APPROVED" && !currentSubmission.enrollment.attempts[0]?.passed) {
+        throw new Error("CONFLICT: The learner's latest knowledge assessment is not passed. Ask the learner to pass it again and resubmit before project approval.");
+      }
+
+      await tx.academyProjectSubmission.update({
+        where: { id: submissionId },
         data: { status: decision },
       });
-      if (claimed.count !== 1) {
-        throw new Error("This project submission has already been reviewed. Refresh the review queue.");
-      }
       const review = await tx.academyProjectReview.create({
         data: {
           submissionId,
@@ -122,20 +141,19 @@ export async function POST(request: Request) {
         },
       });
 
-      let completion = submission.enrollment.completion;
-      if (decision === "APPROVED" && submission.enrollment.attempts[0]?.passed) {
+      let completion = currentSubmission.enrollment.completion;
+      if (decision === "APPROVED") {
         if (!completion) {
           completion = await tx.academyCompletion.create({
             data: {
-              enrollmentId: submission.enrollmentId,
+              enrollmentId: currentSubmission.enrollmentId,
               certificateCode: `CVA-${new Date().getFullYear()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`,
             },
           });
         }
-        // Keep legacy completion records and enrollment status consistent.
-        if (submission.enrollment.status !== "COMPLETED") {
+        if (currentSubmission.enrollment.status !== "COMPLETED") {
           await tx.academyEnrollment.update({
-            where: { id: submission.enrollmentId },
+            where: { id: currentSubmission.enrollmentId },
             data: { status: "COMPLETED", completedAt: completion.issuedAt },
           });
         }
@@ -151,6 +169,10 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Academy project review error:", error);
+    const message = error instanceof Error ? error.message : "";
+    if (message.startsWith("CONFLICT:")) {
+      return NextResponse.json({ error: message.slice("CONFLICT:".length).trim() }, { status: 409 });
+    }
     return NextResponse.json({ error: "Unable to record the project review." }, { status: 500 });
   }
 }
