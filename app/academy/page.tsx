@@ -104,6 +104,7 @@ export default function AcademyPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [showAllCourses, setShowAllCourses] = useState(false);
+  const [selectedStage, setSelectedStage] = useState("1");
   const [memberName, setMemberName] = useState("Corevia member");
   const [loading, setLoading] = useState(true);
   const [authRequired, setAuthRequired] = useState(false);
@@ -348,11 +349,12 @@ export default function AcademyPage() {
   const visibleCourses = courses.filter((course) => {
     const matchesType = catalogFilter === "all" ||
       (catalogFilter === "programmes" ? course.isProgrammeStage : !course.isProgrammeStage);
+    const matchesStage = catalogFilter !== "short" && (!course.isProgrammeStage || selectedStage === "all" || String(course.programmeOrder ?? 1) === selectedStage);
     const matchesCategory = selectedCategory === "all" || course.category === selectedCategory;
     const matchesSearch = !normalizedSearch || [course.title, course.description, course.category, course.level, course.programmeLevel]
       .filter(Boolean)
       .some((value) => value!.toLowerCase().includes(normalizedSearch));
-    return matchesType && matchesCategory && matchesSearch;
+    return matchesType && matchesStage && matchesCategory && matchesSearch;
   });
   const displayedCourses = showAllCourses ? visibleCourses : visibleCourses.slice(0, 12);
 
@@ -552,10 +554,46 @@ export default function AcademyPage() {
                   ))}
                 </div>
                 {catalogFilter !== "short" && (
+                  <>
+                  <div className="mt-5 rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-300">Your learning journey</p>
+                        <p className="mt-1 text-sm text-slate-300">Start at Certificate. The next stage becomes available only after you complete the current subject stage and its required review.</p>
+                      </div>
+                      <span className="text-xs text-slate-400">Stage {selectedStage === "all" ? "overview" : selectedStage} of 5</span>
+                    </div>
+                    <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5">
+                      {[
+                        ["1", "Certificate"],
+                        ["2", "Diploma"],
+                        ["3", "Degree"],
+                        ["4", "Masters"],
+                        ["5", "Doctoral research"],
+                      ].map(([value, label]) => {
+                        const stageCourses = courses.filter((course) => course.isProgrammeStage && String(course.programmeOrder ?? 1) === value);
+                        const completed = stageCourses.filter((course) => course.completion).length;
+                        const active = stageCourses.some((course) => course.enrolled && !course.completion);
+                        const locked = stageCourses.length > 0 && stageCourses.every((course) => course.locked);
+                        return (
+                          <button key={value} type="button" onClick={() => { setSelectedStage(value); setCatalogFilter("programmes"); setShowAllCourses(false); }} aria-pressed={selectedStage === value} className={`rounded-xl border p-3 text-left transition ${selectedStage === value ? "border-cyan-300 bg-cyan-300/10" : "border-white/10 bg-slate-950 hover:border-white/30"}`}>
+                            <span className="block text-[11px] font-bold uppercase tracking-wide text-slate-400">Level {value}</span>
+                            <span className="mt-1 block text-sm font-bold text-white">{label}</span>
+                            <span className="mt-2 block text-[11px] text-slate-400">{completed}/{stageCourses.length} completed{locked ? " · Locked" : active ? " · In progress" : ""}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-400">
+                      <button type="button" onClick={() => { setSelectedStage("all"); setShowAllCourses(false); }} className="font-semibold text-cyan-300 hover:text-cyan-100">View all five levels</button>
+                      <span>Completed stages remain available in your learning history.</span>
+                    </div>
+                  </div>
                   <p className="mt-4 max-w-4xl rounded-xl border border-cyan-300/20 bg-cyan-300/5 p-4 text-sm leading-6 text-slate-200">
                     Progression: Certificate (KES 1,500) → Diploma (KES 3,500) → Degree (KES 7,500) → Masters (KES 12,500) → Doctoral Research Preparation (KES 20,000).
                     Each stage unlocks only after the previous stage is completed and its assessment is passed.
                   </p>
+                  </>
                 )}
               </div>
 
@@ -586,7 +624,7 @@ export default function AcademyPage() {
 
             <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-sm text-slate-400">
               <span>{visibleCourses.length} {visibleCourses.length === 1 ? "book" : "books"} in this shelf</span>
-              <button type="button" onClick={() => { setSearchTerm(""); setSelectedCategory("all"); setCatalogFilter("programmes"); setShowAllCourses(false); }} className="font-semibold text-cyan-300 hover:text-cyan-100">Reset library filters</button>
+              <button type="button" onClick={() => { setSearchTerm(""); setSelectedCategory("all"); setCatalogFilter("programmes"); setSelectedStage("1"); setShowAllCourses(false); }} className="font-semibold text-cyan-300 hover:text-cyan-100">Reset library filters</button>
             </div>
             {visibleCourses.length === 0 ? (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
@@ -703,7 +741,7 @@ export default function AcademyPage() {
                     {working === course.id
                       ? "Please wait..."
                       : course.locked
-                        ? "Open prerequisite stage"
+                        ? "Go to required earlier stage"
                         : course.enrolled
                           ? course.completion
                             ? "View completion record"
