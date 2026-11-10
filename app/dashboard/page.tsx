@@ -2,6 +2,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type User = {
   id: string;
@@ -26,6 +28,13 @@ type ReferralData = {
   active: number;
   pending: number;
   clients: Referral[];
+};
+
+type DashboardResult = {
+  user: User | null;
+  referrals: ReferralData | null;
+  error: string;
+  referralError: string;
 };
 
 const COREVIA_NETWORK_URL = "https://network.coreviaholdingltd.com";
@@ -78,7 +87,107 @@ async function copyText(text: string) {
   }
 }
 
+async function fetchDashboardData(
+  signal?: AbortSignal,
+): Promise<DashboardResult> {
+  try {
+    const response = await fetch("/api/auth/me", {
+      cache: "no-store",
+      signal,
+    });
+
+    if (!response.ok) {
+      return {
+        user: null,
+        referrals: null,
+        error: "Please sign in to access your dashboard.",
+        referralError: "",
+      };
+    }
+
+    const result = (await response.json()) as {
+      user?: User;
+    };
+
+    const account = result.user;
+
+    if (!account?.id || !account?.referralCode) {
+      return {
+        user: null,
+        referrals: null,
+        error:
+          "Your account information could not be loaded. Please sign in again.",
+        referralError: "",
+      };
+    }
+
+    try {
+      const referralResponse = await fetch("/api/my-referrals", {
+        cache: "no-store",
+        signal,
+      });
+
+      const referralResult = (await referralResponse.json()) as {
+        status?: boolean;
+        total?: number;
+        active?: number;
+        pending?: number;
+        clients?: Referral[];
+        error?: string;
+      };
+
+      if (
+        !referralResponse.ok ||
+        referralResult.status !== true ||
+        !Array.isArray(referralResult.clients)
+      ) {
+        return {
+          user: account,
+          referrals: null,
+          error: "",
+          referralError:
+            referralResult.error ||
+            "Unable to load your referrals. Please try again.",
+        };
+      }
+
+      return {
+        user: account,
+        referrals: {
+          status: true,
+          total: Number(referralResult.total) || 0,
+          active: Number(referralResult.active) || 0,
+          pending: Number(referralResult.pending) || 0,
+          clients: referralResult.clients.map((client) => ({
+            ...client,
+            rewardEarned: Number(client.rewardEarned) || 0,
+          })),
+        },
+        error: "",
+        referralError: "",
+      };
+    } catch {
+      return {
+        user: account,
+        referrals: null,
+        error: "",
+        referralError:
+          "Unable to load referral information. Please try again.",
+      };
+    }
+  } catch {
+    return {
+      user: null,
+      referrals: null,
+      error: "Unable to connect to Corevia Rise. Please try again.",
+      referralError: "",
+    };
+  }
+}
+
 export default function Dashboard() {
+  const router = useRouter();
+
   const [user, setUser] = useState<User | null>(null);
   const [referrals, setReferrals] = useState<ReferralData | null>(null);
   const [error, setError] = useState("");
@@ -87,77 +196,43 @@ export default function Dashboard() {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const controller = new AbortController();
+    let cancelled = false;
+
+    async function initialLoad() {
+      const result = await fetchDashboardData(controller.signal);
+
+      if (cancelled) return;
+
+      setUser(result.user);
+      setReferrals(result.referrals);
+      setError(result.error);
+      setReferralError(result.referralError);
+      setLoading(false);
+    }
+
+    void initialLoad();
+
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
+  }, []);
+
   const loadDashboard = useCallback(async () => {
     setLoading(true);
     setError("");
     setReferralError("");
 
-    try {
-      const response = await fetch("/api/auth/me", {
-        cache: "no-store",
-      });
+    const result = await fetchDashboardData();
 
-      if (!response.ok) {
-        setError("Please sign in to access your dashboard.");
-        return;
-      }
-
-      const result = await response.json();
-      const account = result.user as User | undefined;
-
-      if (!account?.id || !account?.referralCode) {
-        setError(
-          "Your account information could not be loaded. Please sign in again.",
-        );
-        return;
-      }
-
-      setUser(account);
-
-      try {
-        const referralResponse = await fetch("/api/my-referrals", {
-          cache: "no-store",
-        });
-
-        const referralResult = await referralResponse.json();
-
-        if (
-          !referralResponse.ok ||
-          referralResult.status !== true ||
-          !Array.isArray(referralResult.clients)
-        ) {
-          setReferralError(
-            referralResult.error ||
-              "Unable to load your referrals. Please try again.",
-          );
-          return;
-        }
-
-        setReferrals({
-          status: true,
-          total: Number(referralResult.total) || 0,
-          active: Number(referralResult.active) || 0,
-          pending: Number(referralResult.pending) || 0,
-          clients: referralResult.clients.map((client: Referral) => ({
-            ...client,
-            rewardEarned: Number(client.rewardEarned) || 0,
-          })),
-        });
-      } catch {
-        setReferralError(
-          "Unable to load referral information. Please try again.",
-        );
-      }
-    } catch {
-      setError("Unable to connect to Corevia Rise. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    setUser(result.user);
+    setReferrals(result.referrals);
+    setError(result.error);
+    setReferralError(result.referralError);
+    setLoading(false);
   }, []);
-
-  useEffect(() => {
-    void loadDashboard();
-  }, [loadDashboard]);
 
   const referralLink = user
     ? `${COREVIA_NETWORK_URL}/register?ref=${encodeURIComponent(
@@ -198,7 +273,7 @@ export default function Dashboard() {
         throw new Error("Sign out failed.");
       }
 
-      window.location.assign("/login");
+      router.replace("/login");
     } catch {
       window.alert("Unable to sign out. Please try again.");
     }
@@ -229,12 +304,12 @@ export default function Dashboard() {
             {error}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a
+            <Link
               href="/login"
               className="rounded-xl bg-[#12352c] px-5 py-3 font-semibold text-white"
             >
               Sign In
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => void loadDashboard()}
@@ -280,48 +355,60 @@ export default function Dashboard() {
           aria-label="Member navigation"
           className="mt-6 flex flex-wrap gap-3"
         >
-          <a
+          <Link
             href="/dashboard"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold"
           >
             Dashboard
-          </a>
-          <a
+          </Link>
+          <Link
             href="/wallet"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold"
           >
             Wallet
-          </a>
-          <a
+          </Link>
+          <Link
             href="/withdraw"
             className="rounded-xl bg-[#b99a58] px-4 py-3 text-sm font-semibold text-[#12352c]"
           >
             Withdraw Funds
-          </a>
-          <a
+          </Link>
+          <Link
             href="/academy"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
-          >Rise Academy</a>
-          <a
+          >
+            Rise Academy
+          </Link>
+          <Link
             href="/opportunities"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
-          >Opportunities</a>
-          <a
+          >
+            Opportunities
+          </Link>
+          <Link
             href="/missions"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
-          >Skill Missions</a>
-          <a
+          >
+            Skill Missions
+          </Link>
+          <Link
             href="/gigs"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
-          >Rise Gigs</a>
-          <a
+          >
+            Rise Gigs
+          </Link>
+          <Link
             href="/gigs/manage"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
-          >My Gigs & Applications</a>
-          <a
+          >
+            My Gigs & Applications
+          </Link>
+          <Link
             href="/portfolio"
             className="rounded-xl border border-[#12352c]/15 bg-white px-4 py-3 text-sm font-semibold hover:bg-[#f7f5ef]"
-          >My Portfolio</a>
+          >
+            My Portfolio
+          </Link>
           <button
             type="button"
             onClick={handleSignOut}
@@ -386,25 +473,42 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <a
+          <Link
             href="/wallet"
             className="mt-5 block w-full rounded-xl bg-[#b99a58] px-5 py-3.5 text-center font-semibold text-[#12352c] hover:bg-[#c7ad75]"
           >
             {user.membershipStatus === "ACTIVE"
               ? "Open Wallet"
               : "View Wallet & Activate Membership"}
-          </a>
+          </Link>
         </section>
 
-        <section data-corevia-academy-card className="mt-6 rounded-3xl bg-[#12352c] p-5 text-white shadow-sm sm:flex sm:items-center sm:justify-between sm:gap-6">
-  <div>
-    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d6bd83]">Corevia learning</p>
-    <h2 className="mt-2 text-xl font-bold">Corevia Rise Academy</h2>
-    <p className="mt-2 max-w-2xl text-sm leading-6 text-white/80">Explore digital skills, AI, programming, business, and professional learning pathways from your existing Corevia Rise account.</p>
-  </div>
-  <a href="/academy" className="mt-4 inline-flex shrink-0 rounded-xl bg-[#b99a58] px-5 py-3 font-semibold text-[#12352c] hover:bg-[#c7ad75] sm:mt-0">Explore Rise Academy</a>
-</section>
-<section className="mt-8">
+        <section
+          data-corevia-academy-card
+          className="mt-6 rounded-3xl bg-[#12352c] p-5 text-white shadow-sm sm:flex sm:items-center sm:justify-between sm:gap-6"
+        >
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d6bd83]">
+              Corevia learning
+            </p>
+            <h2 className="mt-2 text-xl font-bold">
+              Corevia Rise Academy
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-white/80">
+              Explore digital skills, AI, programming, business, and
+              professional learning pathways from your existing Corevia Rise
+              account.
+            </p>
+          </div>
+          <Link
+            href="/academy"
+            className="mt-4 inline-flex shrink-0 rounded-xl bg-[#b99a58] px-5 py-3 font-semibold text-[#12352c] hover:bg-[#c7ad75] sm:mt-0"
+          >
+            Explore Rise Academy
+          </Link>
+        </section>
+
+        <section className="mt-8">
           <h2 className="text-2xl font-bold">My Referred Clients</h2>
           <p className="mt-2 text-sm leading-6 text-[#12352c]/65">
             Track registrations made through your referral link and view

@@ -1,3 +1,4 @@
+
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
@@ -36,9 +37,7 @@ export async function POST(request: Request) {
     const body = await request.json();
 
     const name = String(body.name ?? "").trim();
-    const email = String(body.email ?? "")
-      .trim()
-      .toLowerCase();
+    const email = String(body.email ?? "").trim().toLowerCase();
 
     const rawPhone = String(body.phone ?? "").trim();
     const phone = normalizeKenyanPhone(rawPhone);
@@ -109,7 +108,6 @@ export async function POST(request: Request) {
       );
     }
 
-    let referrerId: string | undefined;
     const effectiveReferralCode = referralCode || DEFAULT_REFERRAL_CODE;
 
     const referrer = await prisma.user.findUnique({
@@ -128,8 +126,7 @@ export async function POST(request: Request) {
       );
     }
 
-    referrerId = referrer.id;
-
+    const referrerId = referrer.id;
     const passwordHash = hashPassword(password);
 
     for (let attempt = 0; attempt < 5; attempt++) {

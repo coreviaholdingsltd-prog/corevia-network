@@ -1,7 +1,13 @@
 
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+} from "react";
 
 type User = {
   id: string;
@@ -33,6 +39,11 @@ type PendingTransferDraft = {
   requestKey: string;
 };
 
+type PendingTransferState = {
+  draft: PendingTransferDraft | null;
+  error: string;
+};
+
 type WalletSummaryResponse = {
   status?: boolean;
   error?: string;
@@ -52,6 +63,8 @@ type TransferResponse = {
   remainingBalance?: number | null;
   alreadyProcessed?: boolean;
 };
+
+const PENDING_TRANSFER_EVENT = "corevia-wallet-transfer-storage";
 
 function formatKES(amount: number) {
   return new Intl.NumberFormat("en-KE", {
@@ -88,6 +101,51 @@ function errorMessage(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback;
 }
 
+function parsePendingTransfer(raw: string | null): PendingTransferState {
+  if (!raw) {
+    return { draft: null, error: "" };
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as Partial<PendingTransferDraft>;
+
+    if (
+      typeof parsed.recipientCode === "string" &&
+      typeof parsed.amount === "string" &&
+      typeof parsed.requestKey === "string" &&
+      parsed.recipientCode.trim() !== "" &&
+      parsed.amount.trim() !== "" &&
+      parsed.requestKey.length >= 8 &&
+      parsed.requestKey.length <= 128
+    ) {
+      return {
+        draft: {
+          recipientCode: parsed.recipientCode,
+          amount: parsed.amount,
+          requestKey: parsed.requestKey,
+        },
+        error: "",
+      };
+    }
+
+    return {
+      draft: null,
+      error:
+        "A saved transfer attempt could not be read safely. Do not start another transfer from this tab until the previous attempt is resolved.",
+    };
+  } catch {
+    return {
+      draft: null,
+      error:
+        "The saved transfer attempt could not be loaded safely. Do not start another transfer from this tab until the previous attempt is resolved.",
+    };
+  }
+}
+
+function notifyPendingTransferChange() {
+  window.dispatchEvent(new Event(PENDING_TRANSFER_EVENT));
+}
+
 export default function Wallet() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -97,19 +155,82 @@ export default function Wallet() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const [walletSummary, setWalletSummary] = useState<WalletSummary | null>(
-    null,
-  );
+  const [walletSummary, setWalletSummary] =
+    useState<WalletSummary | null>(null);
   const [walletSummaryLoading, setWalletSummaryLoading] = useState(false);
   const [walletSummaryError, setWalletSummaryError] = useState("");
 
   const [recipientCode, setRecipientCode] = useState("");
   const [transferAmount, setTransferAmount] = useState("");
-  const [pendingTransfer, setPendingTransfer] =
-    useState<PendingTransferDraft | null>(null);
   const [sendingTransfer, setSendingTransfer] = useState(false);
   const [transferMessage, setTransferMessage] = useState("");
   const [transferError, setTransferError] = useState("");
+
+  const userId = user?.id;
+  const membershipStatus = user?.membershipStatus;
+
+  const pendingTransferStorageKey = userId
+    ? `corevia.wallet.transfer.pending.${userId}`
+    : null;
+
+  const subscribeToPendingTransfer = useCallback(
+    (onStoreChange: () => void) => {
+      if (!pendingTransferStorageKey) {
+        return () => {};
+      }
+
+      function handleStorage(event: StorageEvent) {
+        if (
+          event.key === pendingTransferStorageKey ||
+          event.key === null
+        ) {
+          onStoreChange();
+        }
+      }
+
+      window.addEventListener("storage", handleStorage);
+      window.addEventListener(
+        PENDING_TRANSFER_EVENT,
+        onStoreChange,
+      );
+
+      return () => {
+        window.removeEventListener("storage", handleStorage);
+        window.removeEventListener(
+          PENDING_TRANSFER_EVENT,
+          onStoreChange,
+        );
+      };
+    },
+    [pendingTransferStorageKey],
+  );
+
+  const getPendingTransferSnapshot = useCallback(() => {
+    if (!pendingTransferStorageKey) {
+      return null;
+    }
+
+    try {
+      return window.sessionStorage.getItem(
+        pendingTransferStorageKey,
+      );
+    } catch {
+      return null;
+    }
+  }, [pendingTransferStorageKey]);
+
+  const pendingTransferRaw = useSyncExternalStore(
+    subscribeToPendingTransfer,
+    getPendingTransferSnapshot,
+    () => null,
+  );
+
+  const pendingTransferState = useMemo(
+    () => parsePendingTransfer(pendingTransferRaw),
+    [pendingTransferRaw],
+  );
+
+  const pendingTransfer = pendingTransferState.draft;
 
   const refreshUser = useCallback(async () => {
     const response = await fetch("/api/auth/me", {
@@ -205,13 +326,10 @@ export default function Wallet() {
       }
     }
 
-    const timer = window.setTimeout(() => {
-      void loadUser();
-    }, 0);
+    void loadUser();
 
     return () => {
       cancelled = true;
-      window.clearTimeout(timer);
     };
   }, []);
 
@@ -225,9 +343,6 @@ export default function Wallet() {
     let cancelled = false;
 
     async function verifyReturnedPayment() {
-      setMessage("Confirming your payment...");
-      setError("");
-
       try {
         const response = await fetch("/api/payments/verify", {
           method: "POST",
@@ -252,6 +367,7 @@ export default function Wallet() {
             : "Payment confirmed. Your membership status has been updated.",
         );
 
+        setError("");
         window.history.replaceState({}, "", "/wallet");
 
         const userResponse = await fetch("/api/auth/me", {
@@ -270,81 +386,62 @@ export default function Wallet() {
       }
     }
 
-    const timer = window.setTimeout(() => {
-      void verifyReturnedPayment();
-    }, 0);
+    void verifyReturnedPayment();
 
     return () => {
       cancelled = true;
-      window.clearTimeout(timer);
     };
   }, []);
 
+  // Load wallet data asynchronously without calling a state-updating
+  // helper directly from the effect body.
   useEffect(() => {
-    if (!user?.id) return;
-
-    const storageKey =
-      `corevia.wallet.transfer.pending.${user.id}`;
-
-    try {
-      const saved = window.sessionStorage.getItem(storageKey);
-
-      if (!saved) return;
-
-      const parsed = JSON.parse(saved) as Partial<PendingTransferDraft>;
-
-      if (
-        typeof parsed.recipientCode === "string" &&
-        typeof parsed.amount === "string" &&
-        typeof parsed.requestKey === "string" &&
-        parsed.recipientCode.trim() !== "" &&
-        parsed.amount.trim() !== "" &&
-        parsed.requestKey.length >= 8 &&
-        parsed.requestKey.length <= 128
-      ) {
-        const draft: PendingTransferDraft = {
-          recipientCode: parsed.recipientCode,
-          amount: parsed.amount,
-          requestKey: parsed.requestKey,
-        };
-
-        setPendingTransfer(draft);
-        setRecipientCode(draft.recipientCode);
-        setTransferAmount(draft.amount);
-        setTransferMessage(
-          "A saved transfer attempt was found. Retry the same details to check its result.",
-        );
-      } else {
-        setTransferError(
-          "A saved transfer attempt could not be read safely. Do not start another transfer from this tab until the previous attempt is resolved.",
-        );
-      }
-    } catch {
-      setTransferError(
-        "The saved transfer attempt could not be loaded safely. Do not start another transfer from this tab until the previous attempt is resolved.",
-      );
-    }
-  }, [user?.id]);
-
-  useEffect(() => {
-    if (!user || user.membershipStatus !== "ACTIVE") {
-      setWalletSummary(null);
-      setWalletSummaryLoading(false);
+    if (!userId || membershipStatus !== "ACTIVE") {
       return;
     }
 
-    setWalletSummaryLoading(true);
+    let cancelled = false;
 
-    void refreshWalletSummary()
-      .catch((err: unknown) => {
-        setWalletSummaryError(
-          errorMessage(err, "Unable to load wallet information."),
-        );
-      })
-      .finally(() => {
-        setWalletSummaryLoading(false);
-      });
-  }, [user?.id, user?.membershipStatus, refreshWalletSummary]);
+    async function loadWalletSummary() {
+      try {
+        const response = await fetch("/api/wallet/summary", {
+          cache: "no-store",
+        });
+
+        const result =
+          (await response.json()) as WalletSummaryResponse;
+
+        if (!response.ok || result.status !== true) {
+          throw new Error(
+            result.error || "Unable to load your wallet information.",
+          );
+        }
+
+        if (cancelled) return;
+
+        setWalletSummary({
+          balance: Number(result.balance ?? 0),
+          transactions: Array.isArray(result.transactions)
+            ? result.transactions
+            : [],
+        });
+
+        setWalletSummaryError("");
+      } catch (err) {
+        if (!cancelled) {
+          setWalletSummaryError(
+            errorMessage(err, "Unable to load wallet information."),
+          );
+        }
+      }
+    }
+
+    void loadWalletSummary();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [userId, membershipStatus]);
 
   async function activateMembership() {
     setPaying(true);
@@ -411,12 +508,19 @@ export default function Wallet() {
 
   async function submitTransfer() {
     if (!user || user.membershipStatus !== "ACTIVE") {
-      setTransferError("An active membership is required to transfer funds.");
+      setTransferError(
+        "An active membership is required to transfer funds.",
+      );
       return;
     }
 
     setTransferError("");
     setTransferMessage("");
+
+    if (pendingTransferState.error) {
+      setTransferError(pendingTransferState.error);
+      return;
+    }
 
     const normalizedCode = recipientCode.trim().toUpperCase();
     const amountText = transferAmount.trim();
@@ -439,8 +543,7 @@ export default function Wallet() {
     }
 
     const amountCents = Math.round(amountNumber * 100);
-    const storageKey =
-      `corevia.wallet.transfer.pending.${user.id}`;
+    const storageKey = `corevia.wallet.transfer.pending.${user.id}`;
 
     let draft = pendingTransfer;
 
@@ -492,14 +595,13 @@ export default function Wallet() {
           storageKey,
           JSON.stringify(draft),
         );
+        notifyPendingTransferChange();
       } catch {
         setTransferError(
           "Your transfer retry key could not be saved. The transfer was not submitted.",
         );
         return;
       }
-
-      setPendingTransfer(draft);
     }
 
     setSendingTransfer(true);
@@ -523,16 +625,13 @@ export default function Wallet() {
           result.error || "The transfer could not be confirmed.",
         );
 
-        // These responses indicate validation or eligibility failures.
-        // Preserve the key for authentication failures, conflicts,
-        // server errors, and any uncertain outcome.
         if ([400, 403, 404, 422].includes(response.status)) {
           try {
             window.sessionStorage.removeItem(storageKey);
+            notifyPendingTransferChange();
           } catch {
-            // If storage cannot be cleared, future attempts stay blocked.
+            // Keep future attempts blocked if storage cannot be cleared.
           }
-          setPendingTransfer(null);
         }
 
         return;
@@ -541,11 +640,11 @@ export default function Wallet() {
       // Clear the retry key only after the API confirms completion.
       try {
         window.sessionStorage.removeItem(storageKey);
+        notifyPendingTransferChange();
       } catch {
         // The completed transfer remains confirmed by the server.
       }
 
-      setPendingTransfer(null);
       setRecipientCode("");
       setTransferAmount("");
       setTransferError("");
@@ -636,6 +735,13 @@ export default function Wallet() {
 
   const previewFeeCents = Math.round(previewAmountCents * 0.005);
   const previewTotalCents = previewAmountCents + previewFeeCents;
+
+  const isWalletSummaryLoading =
+    walletSummaryLoading ||
+    (active && walletSummary === null && !walletSummaryError);
+
+  const displayedTransferError =
+    transferError || pendingTransferState.error;
 
   return (
     <main className="min-h-screen bg-[#f7f5ef] p-4 text-[#12352c] sm:p-6">
@@ -733,7 +839,7 @@ export default function Wallet() {
                     Available wallet balance
                   </p>
 
-                  {walletSummaryLoading ? (
+                  {isWalletSummaryLoading ? (
                     <p className="mt-2 text-3xl font-bold">
                       Loading...
                     </p>
@@ -788,7 +894,7 @@ export default function Wallet() {
                 Send Money to a Member
               </h2>
               <p className="mt-2 text-sm leading-6 text-[#12352c]/70">
-                Enter the recipient's referral code and the amount
+                Enter the recipient&apos;s referral code and the amount
                 they should receive. The 0.50% transfer fee is charged
                 on top of the amount you send.
               </p>
@@ -909,12 +1015,12 @@ export default function Wallet() {
                 </div>
               )}
 
-              {transferError && (
+              {displayedTransferError && (
                 <div
                   role="alert"
                   className="mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700"
                 >
-                  {transferError}
+                  {displayedTransferError}
                 </div>
               )}
             </section>
@@ -929,13 +1035,13 @@ export default function Wallet() {
                 </span>
               </div>
 
-              {walletSummaryLoading && (
+              {isWalletSummaryLoading && (
                 <p className="mt-4 text-sm text-[#12352c]/70">
                   Loading transactions...
                 </p>
               )}
 
-              {!walletSummaryLoading &&
+              {!isWalletSummaryLoading &&
                 walletSummary &&
                 walletSummary.transactions.length === 0 && (
                   <p className="mt-4 text-sm text-[#12352c]/70">
@@ -943,7 +1049,7 @@ export default function Wallet() {
                   </p>
                 )}
 
-              {!walletSummaryLoading &&
+              {!isWalletSummaryLoading &&
                 walletSummary &&
                 walletSummary.transactions.length > 0 && (
                   <div className="mt-4 divide-y divide-[#12352c]/10">
@@ -990,7 +1096,7 @@ export default function Wallet() {
                   </div>
                 )}
 
-              {!walletSummary && !walletSummaryLoading && (
+              {!walletSummary && !isWalletSummaryLoading && (
                 <p className="mt-4 text-sm text-[#12352c]/70">
                   Wallet information is not available. Use Refresh to try again.
                 </p>

@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -25,7 +26,10 @@ export default function Home() {
             </div>
           </Link>
 
-          <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-3">
+          <nav
+            aria-label="Main navigation"
+            className="flex flex-wrap items-center gap-3"
+          >
             <Link
               href="/network"
               className="rounded-full border border-[#12352c]/15 px-4 py-2.5 text-sm font-semibold"
@@ -152,7 +156,7 @@ export default function Home() {
             </p>
             <h2 className="mt-3 text-2xl font-bold">Opportunities</h2>
             <p className="mt-3 leading-7 text-[#12352c]/70">
-              Discover the platform's opportunity features and learn more
+              Discover the platform&apos;s opportunity features and learn more
               about participating in relevant commercial activities.
             </p>
             <Link
@@ -169,7 +173,8 @@ export default function Home() {
             </p>
             <h2 className="mt-3 text-2xl font-bold">Skill Missions</h2>
             <p className="mt-3 leading-7 text-[#12352c]/70">
-              Try practical starter projects, keep real work samples and download a simple portfolio summary.
+              Try practical starter projects, keep real work samples and
+              download a simple portfolio summary.
             </p>
             <Link
               href="/missions"
