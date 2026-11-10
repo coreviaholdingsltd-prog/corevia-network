@@ -72,7 +72,11 @@ export async function POST(request: Request) {
 
     const enrollment = await prisma.academyEnrollment.findUnique({
       where: { userId_courseId: { userId: user.id, courseId } },
-      include: { lessonProgress: true, attempts: { orderBy: { createdAt: "desc" }, take: 1 } },
+      include: {
+        lessonProgress: true,
+        attempts: { orderBy: { createdAt: "desc" }, take: 1 },
+        completion: true,
+      },
     });
     if (!enrollment || enrollment.status !== "ACTIVE" || enrollment.completion) {
       return NextResponse.json({ error: "An active, unfinished course enrolment is required before project submission." }, { status: 403 });
