@@ -83,7 +83,7 @@ export async function POST(request: Request) {
       include: {
         enrollment: {
           include: {
-            attempts: { where: { passed: true }, orderBy: { createdAt: "desc" }, take: 1 },
+            attempts: { orderBy: { createdAt: "desc" }, take: 1 },
             completion: true,
           },
         },
