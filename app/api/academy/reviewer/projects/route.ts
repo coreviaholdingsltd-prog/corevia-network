@@ -69,6 +69,9 @@ export async function POST(request: Request) {
     }
     const totalScore = Object.values(rubricScores).reduce((sum, score) => sum + score, 0);
     const requestedDecision = body?.decision;
+    if (!["APPROVED", "REVISION_REQUIRED", "REJECTED"].includes(requestedDecision)) {
+      return NextResponse.json({ error: "Choose APPROVED, REVISION_REQUIRED or REJECTED." }, { status: 400 });
+    }
     const decision = requestedDecision === "REJECTED"
       ? "REJECTED"
       : totalScore >= 75 && requestedDecision === "APPROVED"
@@ -115,17 +118,22 @@ export async function POST(request: Request) {
       });
 
       let completion = submission.enrollment.completion;
-      if (decision === "APPROVED" && submission.enrollment.attempts[0]?.passed && !completion) {
-        completion = await tx.academyCompletion.create({
-          data: {
-            enrollmentId: submission.enrollmentId,
-            certificateCode: `CVA-${new Date().getFullYear()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`,
-          },
-        });
-        await tx.academyEnrollment.update({
-          where: { id: submission.enrollmentId },
-          data: { status: "COMPLETED", completedAt: completion.issuedAt },
-        });
+      if (decision === "APPROVED" && submission.enrollment.attempts[0]?.passed) {
+        if (!completion) {
+          completion = await tx.academyCompletion.create({
+            data: {
+              enrollmentId: submission.enrollmentId,
+              certificateCode: `CVA-${new Date().getFullYear()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`,
+            },
+          });
+        }
+        // Keep legacy completion records and enrollment status consistent.
+        if (submission.enrollment.status !== "COMPLETED") {
+          await tx.academyEnrollment.update({
+            where: { id: submission.enrollmentId },
+            data: { status: "COMPLETED", completedAt: completion.issuedAt },
+          });
+        }
       }
       return { review, completion };
     });
