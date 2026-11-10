@@ -6,6 +6,8 @@ import { sessionCookieName, verifySession } from "@/lib/session";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const COREVIA_TILL_NUMBER = "6959300";
+// Fail closed: no payout rail is currently approved end-to-end for live withdrawals.
+const WITHDRAWAL_PAYOUTS_IMPLEMENTED = false;
 
 async function getSessionUser() {
   const cookieStore = await cookies();
@@ -74,6 +76,18 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  // Never debit a member wallet until a payout provider, fee settlement,
+  // idempotency, callbacks, and reconciliation have passed end-to-end tests.
+  if (!WITHDRAWAL_PAYOUTS_IMPLEMENTED) {
+    return NextResponse.json(
+      {
+        error:
+          "Withdrawals are temporarily unavailable while secure M-PESA payout processing is being completed. Your wallet balance has not been changed.",
+      },
+      { status: 503 },
+    );
+  }
+
   try {
     const user = await getSessionUser();
 
@@ -249,4 +263,3 @@ export async function POST(request: Request) {
     );
   }
 }
-
