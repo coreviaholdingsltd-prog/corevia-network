@@ -69,6 +69,9 @@ export async function POST(request: Request) {
     }
     const totalScore = Object.values(rubricScores).reduce((sum, score) => sum + score, 0);
     const requestedDecision = body?.decision;
+    if (!["APPROVED", "REVISION_REQUIRED", "REJECTED"].includes(requestedDecision)) {
+      return NextResponse.json({ error: "Choose APPROVED, REVISION_REQUIRED or REJECTED." }, { status: 400 });
+    }
     const decision = requestedDecision === "REJECTED"
       ? "REJECTED"
       : totalScore >= 75 && requestedDecision === "APPROVED"
@@ -98,6 +101,34 @@ export async function POST(request: Request) {
     }
 
     const result = await prisma.$transaction(async (tx) => {
+      // Lock the submission row for the full decision transaction. A second
+      // reviewer waits, then reads the committed status before proceeding.
+      const locked = await tx.$queryRaw<Array<{ id: string }>>`SELECT "id" FROM "AcademyProjectSubmission" WHERE "id" = ${submissionId} FOR UPDATE`;
+      if (locked.length !== 1) throw new Error("CONFLICT: Project submission was not found.");
+
+      const currentSubmission = await tx.academyProjectSubmission.findUnique({
+        where: { id: submissionId },
+        include: {
+          enrollment: {
+            include: {
+              attempts: { orderBy: { createdAt: "desc" }, take: 1 },
+              completion: true,
+            },
+          },
+        },
+      });
+      if (!currentSubmission) throw new Error("CONFLICT: Project submission was not found.");
+      if (!["SUBMITTED", "UNDER_REVIEW", "REVISION_REQUIRED"].includes(currentSubmission.status)) {
+        throw new Error("CONFLICT: This project submission has already been reviewed. Refresh the review queue.");
+      }
+      if (decision === "APPROVED" && !currentSubmission.enrollment.attempts[0]?.passed) {
+        throw new Error("CONFLICT: The learner's latest knowledge assessment is not passed. Ask the learner to pass it again and resubmit before project approval.");
+      }
+
+      await tx.academyProjectSubmission.update({
+        where: { id: submissionId },
+        data: { status: decision },
+      });
       const review = await tx.academyProjectReview.create({
         data: {
           submissionId,
@@ -109,23 +140,23 @@ export async function POST(request: Request) {
           decision,
         },
       });
-      await tx.academyProjectSubmission.update({
-        where: { id: submissionId },
-        data: { status: decision },
-      });
 
-      let completion = submission.enrollment.completion;
-      if (decision === "APPROVED" && submission.enrollment.attempts[0]?.passed && !completion) {
-        completion = await tx.academyCompletion.create({
-          data: {
-            enrollmentId: submission.enrollmentId,
-            certificateCode: `CVA-${new Date().getFullYear()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`,
-          },
-        });
-        await tx.academyEnrollment.update({
-          where: { id: submission.enrollmentId },
-          data: { status: "COMPLETED", completedAt: completion.issuedAt },
-        });
+      let completion = currentSubmission.enrollment.completion;
+      if (decision === "APPROVED") {
+        if (!completion) {
+          completion = await tx.academyCompletion.create({
+            data: {
+              enrollmentId: currentSubmission.enrollmentId,
+              certificateCode: `CVA-${new Date().getFullYear()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`,
+            },
+          });
+        }
+        if (currentSubmission.enrollment.status !== "COMPLETED") {
+          await tx.academyEnrollment.update({
+            where: { id: currentSubmission.enrollmentId },
+            data: { status: "COMPLETED", completedAt: completion.issuedAt },
+          });
+        }
       }
       return { review, completion };
     });
@@ -138,6 +169,10 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Academy project review error:", error);
+    const message = error instanceof Error ? error.message : "";
+    if (message.startsWith("CONFLICT:")) {
+      return NextResponse.json({ error: message.slice("CONFLICT:".length).trim() }, { status: 409 });
+    }
     return NextResponse.json({ error: "Unable to record the project review." }, { status: 500 });
   }
 }

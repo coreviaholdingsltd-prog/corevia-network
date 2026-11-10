@@ -29,12 +29,36 @@ export async function GET() {
       orderBy: [{ publicationYear: "desc" }, { title: "asc" }],
     });
 
+    const academicSignoffs = await prisma.academyAcademicSignoff.findMany({
+      where: { courseId: { in: publishedCourses.filter((course) => course.isProgrammeStage).map((course) => course.id) } },
+      select: { courseId: true, stageKey: true, decision: true, signedAt: true },
+      orderBy: [{ signedAt: "desc" }, { createdAt: "desc" }],
+    });
+
     const courses = publishedCourses.map((course) => {
       const enrollment = enrollments.find((item) => item.courseId === course.id);
       const unlocked = !!enrollment && (enrollment.status === "ACTIVE" || enrollment.status === "COMPLETED");
       const completedIds = new Set(enrollment?.lessonProgress.map((item) => item.lessonId) ?? []);
       const completedLessons = course.lessons.filter((lesson) => completedIds.has(lesson.id)).length;
       const latest = enrollment?.attempts[0];
+      const stageKey = course.isProgrammeStage
+        ? String(course.programmeLevel ?? "FOUNDATION").toUpperCase().replace(/[^A-Z0-9]+/g, "_")
+        : "SHORT_COURSE";
+      const latestSignoff = course.isProgrammeStage
+        ? academicSignoffs.find((item) => item.courseId === course.id && item.stageKey === stageKey)
+        : undefined;
+      const verifiedReferenceCount = course.isProgrammeStage
+        ? verifiedReferences.filter((item) => item.courseId === course.id && item.stageKey === stageKey).length
+        : 0;
+      const academicReviewLocked = Boolean(
+        course.isProgrammeStage &&
+        !unlocked &&
+        (latestSignoff?.decision !== "APPROVED" || verifiedReferenceCount < 3),
+      );
+      const prerequisiteLocked = Boolean(
+        course.prerequisiteCourseId &&
+        !enrollments.some((item) => item.courseId === course.prerequisiteCourseId && item.status === "COMPLETED"),
+      );
       return {
         id: course.id,
         title: course.title,
@@ -50,9 +74,10 @@ export async function GET() {
         programmeOrder: course.programmeOrder ?? null,
         prerequisiteCourseId: course.prerequisiteCourseId ?? null,
         prerequisiteTitle: course.prerequisiteCourseId ? publishedCourses.find((item) => item.id === course.prerequisiteCourseId)?.title ?? null : null,
-        locked: course.prerequisiteCourseId
-          ? !enrollments.some((item) => item.courseId === course.prerequisiteCourseId && item.status === "COMPLETED")
-          : false,
+        locked: prerequisiteLocked || academicReviewLocked,
+        academicApprovalStatus: course.isProgrammeStage ? latestSignoff?.decision ?? "PENDING" : null,
+        academicReviewLocked,
+        verifiedReferenceCount,
         lessonsCount: course.lessons.length,
         questionsCount: course.questions.length,
         completedLessons,
@@ -61,12 +86,9 @@ export async function GET() {
         questions: unlocked ? course.questions.map(({ id, prompt, options }) => ({ id, prompt, options })) : [],
         latestAttempt: latest ? { score: latest.score, totalQuestions: latest.totalQuestions, passed: latest.passed, createdAt: latest.createdAt } : null,
         completion: enrollment?.completion ? { certificateCode: enrollment.completion.certificateCode, issuedAt: enrollment.completion.issuedAt } : null,
-        references: verifiedReferences.filter((reference) => {
-          const stageKey = course.isProgrammeStage
-            ? String(course.programmeLevel ?? "FOUNDATION").toUpperCase().replace(/[^A-Z0-9]+/g, "_")
-            : "SHORT_COURSE";
-          return reference.courseId === course.id && reference.stageKey === stageKey;
-        }),
+        references: verifiedReferences.filter((reference) =>
+          reference.courseId === course.id && reference.stageKey === stageKey
+        ),
       };
     });
 
