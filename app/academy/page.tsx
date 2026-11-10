@@ -101,6 +101,9 @@ export default function AcademyPage() {
 
   const [courses, setCourses] = useState<Course[]>([]);
   const [catalogFilter, setCatalogFilter] = useState<"programmes" | "short" | "all">("programmes");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [showAllCourses, setShowAllCourses] = useState(false);
   const [memberName, setMemberName] = useState("Corevia member");
   const [loading, setLoading] = useState(true);
   const [authRequired, setAuthRequired] = useState(false);
@@ -340,10 +343,18 @@ export default function AcademyPage() {
     }
   }
 
-  const visibleCourses = courses.filter((course) =>
-    catalogFilter === "all" ||
-    (catalogFilter === "programmes" ? course.isProgrammeStage : !course.isProgrammeStage),
-  );
+  const categories = Array.from(new Set(courses.map((course) => course.category).filter(Boolean))).sort((a, b) => a.localeCompare(b));
+  const normalizedSearch = searchTerm.trim().toLowerCase();
+  const visibleCourses = courses.filter((course) => {
+    const matchesType = catalogFilter === "all" ||
+      (catalogFilter === "programmes" ? course.isProgrammeStage : !course.isProgrammeStage);
+    const matchesCategory = selectedCategory === "all" || course.category === selectedCategory;
+    const matchesSearch = !normalizedSearch || [course.title, course.description, course.category, course.level, course.programmeLevel]
+      .filter(Boolean)
+      .some((value) => value!.toLowerCase().includes(normalizedSearch));
+    return matchesType && matchesCategory && matchesSearch;
+  });
+  const displayedCourses = showAllCourses ? visibleCourses : visibleCourses.slice(0, 12);
 
   const activeCourseId = routeCourseId ?? expandedCourse;
   const selected = courses.find((course) => course.id === activeCourseId);
@@ -497,7 +508,31 @@ export default function AcademyPage() {
                   separately from the one-time KES 1,000 Corevia Network membership activation.
                   Each programme stage has its own enrolment, knowledge check and certificate of completion. These are Corevia learning programmes, not accredited university awards or professional licences. The doctoral research-preparation pathway does not award a PhD.
                 </p>
-                <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Course catalogue filter">
+                <div className="mt-5 grid gap-3 sm:grid-cols-[minmax(0,1fr)_220px]">
+                  <label className="block">
+                    <span className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-400">Search the library</span>
+                    <input
+                      type="search"
+                      value={searchTerm}
+                      onChange={(event) => { setSearchTerm(event.target.value); setShowAllCourses(false); }}
+                      placeholder="Search by subject, skill or course title..."
+                      aria-label="Search Academy courses"
+                      className="w-full rounded-xl border border-white/15 bg-slate-900 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/20"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-400">Subject shelf</span>
+                    <select
+                      value={selectedCategory}
+                      onChange={(event) => { setSelectedCategory(event.target.value); setShowAllCourses(false); }}
+                      className="w-full rounded-xl border border-white/15 bg-slate-900 px-4 py-3 text-sm text-white outline-none focus:border-cyan-300"
+                    >
+                      <option value="all">All subject shelves</option>
+                      {categories.map((category) => <option key={category} value={category}>{category}</option>)}
+                    </select>
+                  </label>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Course catalogue filter">
                   {([
                     ["programmes", "Five-level programmes"],
                     ["short", "Short courses"],
@@ -507,7 +542,7 @@ export default function AcademyPage() {
                       key={value}
                       type="button"
                       aria-pressed={catalogFilter === value}
-                      onClick={() => setCatalogFilter(value)}
+                      onClick={() => { setCatalogFilter(value); setShowAllCourses(false); }}
                       className={catalogFilter === value
                         ? "rounded-xl bg-cyan-400 px-4 py-2 text-sm font-bold text-slate-950"
                         : "rounded-xl border border-white/20 px-4 py-2 text-sm font-semibold text-slate-200 hover:bg-white/10"}
@@ -549,8 +584,18 @@ export default function AcademyPage() {
               </div>
             )}
 
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {visibleCourses.map((course) => (
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-sm text-slate-400">
+              <span>{visibleCourses.length} {visibleCourses.length === 1 ? "book" : "books"} in this shelf</span>
+              <button type="button" onClick={() => { setSearchTerm(""); setSelectedCategory("all"); setCatalogFilter("programmes"); setShowAllCourses(false); }} className="font-semibold text-cyan-300 hover:text-cyan-100">Reset library filters</button>
+            </div>
+            {visibleCourses.length === 0 ? (
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
+                <p className="text-lg font-bold">No matching books found</p>
+                <p className="mt-2 text-sm text-slate-400">Try another subject shelf or search term.</p>
+              </div>
+            ) : (
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {displayedCourses.map((course) => (
                 <article
                   key={course.id}
                   className={`rounded-2xl border p-6 ${
@@ -569,7 +614,7 @@ export default function AcademyPage() {
                     </span>
                   </div>
 
-                  <h3 className="mt-5 text-2xl font-bold">
+                  <h3 className="mt-3 text-lg font-bold leading-snug">
                     {course.title}
                   </h3>
                   {course.isProgrammeStage && (
@@ -583,15 +628,16 @@ export default function AcademyPage() {
                     </p>
                   )}
 
-                  <p className="mt-3 min-h-20 leading-7 text-slate-300">
+                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-300">
                     {course.description}
                   </p>
                   <Image
                     src={`/academy/course-illustrations/${course.id}.svg`}
-                    alt={`${course.title} course illustration`}
+                    alt=""
+                    aria-hidden="true"
                     width={960}
                     height={420}
-                    className="mt-4 h-auto w-full rounded-xl border border-white/10"
+                    className="mt-3 h-28 w-full rounded-lg border border-white/10 object-cover"
                   />
 
                   <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
@@ -669,6 +715,14 @@ export default function AcademyPage() {
                 </article>
               ))}
             </div>
+            )}
+            {!showAllCourses && visibleCourses.length > displayedCourses.length && (
+              <div className="mt-6 flex justify-center">
+                <button type="button" onClick={() => setShowAllCourses(true)} className="rounded-xl border border-cyan-300/40 px-6 py-3 text-sm font-bold text-cyan-200 transition hover:bg-cyan-300/10">
+                  Show {visibleCourses.length - displayedCourses.length} more courses
+                </button>
+              </div>
+            )}
           </>
         )}
 
