@@ -47,7 +47,7 @@ export async function GET(request: Request) {
     });
 
     if (!enrollment || enrollment.status !== "COMPLETED" || !enrollment.completion) {
-      return NextResponse.json({ error: "Complete all lessons and pass the assessment before downloading your certificate." }, { status: 403 });
+      return NextResponse.json({ error: "Complete all lessons, pass the knowledge assessment and receive practical project approval before downloading your certificate." }, { status: 403 });
     }
 
     const completion = enrollment.completion;
