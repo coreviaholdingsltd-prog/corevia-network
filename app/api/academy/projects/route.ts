@@ -74,14 +74,22 @@ export async function POST(request: Request) {
       where: { userId_courseId: { userId: user.id, courseId } },
       include: { lessonProgress: true, attempts: { orderBy: { createdAt: "desc" }, take: 1 } },
     });
-    if (!enrollment || !["ACTIVE", "COMPLETED"].includes(enrollment.status)) {
-      return NextResponse.json({ error: "An active course enrolment is required before project submission." }, { status: 403 });
+    if (!enrollment || enrollment.status !== "ACTIVE" || enrollment.completion) {
+      return NextResponse.json({ error: "An active, unfinished course enrolment is required before project submission." }, { status: 403 });
     }
     if (!course.lessons.every((lesson) => enrollment.lessonProgress.some((item) => item.lessonId === lesson.id))) {
       return NextResponse.json({ error: "Complete all course lessons before submitting the practical project." }, { status: 400 });
     }
     if (!enrollment.attempts[0]?.passed) {
       return NextResponse.json({ error: "Pass the course knowledge assessment before submitting the practical project." }, { status: 400 });
+    }
+
+    const pending = await prisma.academyProjectSubmission.findFirst({
+      where: { enrollmentId: enrollment.id, status: { in: ["SUBMITTED", "UNDER_REVIEW"] } },
+      select: { id: true },
+    });
+    if (pending) {
+      return NextResponse.json({ error: "Your project is already awaiting academic review. Wait for feedback before submitting again." }, { status: 409 });
     }
 
     const revision = await prisma.academyProjectSubmission.findFirst({
