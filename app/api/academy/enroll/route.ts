@@ -258,6 +258,37 @@ export async function POST(request: Request) {
       }
     }
 
+    // Paid programme stages stay closed until the latest academic decision is
+    // APPROVED and at least three subject- and stage-specific references are verified.
+    // This is a server-side payment gate; hiding a checkout button is not sufficient.
+    if (course.isProgrammeStage) {
+      const stageKey = String(course.programmeLevel ?? "FOUNDATION")
+        .toUpperCase()
+        .replace(/[^A-Z0-9]+/g, "_");
+      const [latestSignoff, verifiedReferenceCount] = await Promise.all([
+        prisma.academyAcademicSignoff.findFirst({
+          where: { courseId: course.id, stageKey },
+          orderBy: [{ signedAt: "desc" }, { createdAt: "desc" }],
+          select: { decision: true },
+        }),
+        prisma.academyAcademicReference.count({
+          where: { courseId: course.id, stageKey, verified: true },
+        }),
+      ]);
+
+      if (latestSignoff?.decision !== "APPROVED" || verifiedReferenceCount < 3) {
+        return NextResponse.json(
+          {
+            error: "This programme stage is still under academic review and is not yet open for paid enrolment. No new payment has been initiated.",
+            academicApprovalStatus: "IN_DEVELOPMENT",
+            verifiedReferences: verifiedReferenceCount,
+            requiredVerifiedReferences: 3,
+          },
+          { status: 409 },
+        );
+      }
+    }
+
     const candidateReference = `CV-ACADEMY-${Date.now()}-${crypto
       .randomBytes(4)
       .toString("hex")
