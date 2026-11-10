@@ -23,7 +23,6 @@ jobs:
     env:
       # Isolated ephemeral CI database. Never points at Neon or Production.
       DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/corevia_ci?schema=public
-      NODE_ENV: test
     services:
       postgres:
         image: postgres:16
