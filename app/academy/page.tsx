@@ -859,9 +859,6 @@ export default function AcademyPage() {
               {!visibleCourses.length && !loading && (
                 <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-slate-300">No courses are listed in this collection yet.</div>
               )}
-            </div>     </article>
-                </div>
-              ))}
             </div>
           </>
         )}
