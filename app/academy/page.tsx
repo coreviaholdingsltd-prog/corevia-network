@@ -375,6 +375,16 @@ export default function AcademyPage() {
       ? assessmentResult
       : null;
 
+  const selectedPathway = selected?.pathwayId
+    ? courses
+        .filter((course) => course.pathwayId === selected.pathwayId)
+        .sort((a, b) => (a.programmeOrder ?? 99) - (b.programmeOrder ?? 99))
+    : [];
+  const selectedActiveStage =
+    selectedPathway.find((stage) => !stage.completion) ??
+    selectedPathway[selectedPathway.length - 1] ??
+    null;
+
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <header className="border-b border-white/10 bg-slate-950">
@@ -592,7 +602,10 @@ export default function AcademyPage() {
             )}
 
             <div className="space-y-10">
-              {(catalogFilter !== "short" ? programmeShelves : []).map((shelf) => (
+              {(catalogFilter !== "short" ? programmeShelves : []).map((shelf) => {
+                const activeStage = shelf.courses.find((stage) => !stage.completion) ?? shelf.courses[shelf.courses.length - 1];
+                const course = activeStage;
+                return (
                 <section key={shelf.id} aria-labelledby={`shelf-${shelf.id}`} className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-gradient-to-b from-slate-900/90 to-slate-950 shadow-xl shadow-black/20 transition duration-300 hover:border-cyan-200/25">
                   <div className="border-b border-white/10 bg-[linear-gradient(115deg,rgba(8,47,73,0.9),rgba(15,23,42,0.98)_55%,rgba(120,83,30,0.18))] px-5 py-6 sm:px-7">
                     <div className="flex flex-wrap items-start justify-between gap-3">
@@ -613,18 +626,18 @@ export default function AcademyPage() {
                       ].map(([number, label, fee]) => {
                         const stage = shelf.courses.find((item) => item.programmeOrder === Number(number));
                         return (
-                          <li key={number} className={stage?.completion ? "rounded-xl border border-emerald-300/30 bg-emerald-300/10 p-3" : stage?.enrolled ? "rounded-xl border border-cyan-300/40 bg-cyan-300/10 p-3" : "rounded-xl border border-white/10 bg-slate-950/60 p-3"}>
+                          <li key={number} className={stage?.completion ? "rounded-xl border border-emerald-300/30 bg-emerald-300/10 p-3" : stage?.id === activeStage?.id ? "rounded-xl border border-cyan-300/40 bg-cyan-300/10 p-3 ring-1 ring-cyan-300/20" : "rounded-xl border border-white/10 bg-slate-950/60 p-3"}>
                             <span className="block text-[10px] font-black tracking-widest text-cyan-300">STAGE {number}</span>
                             <span className="mt-1 block text-xs font-bold text-white">{label}</span>
                             <span className="mt-1 block text-xs text-slate-400">{money(Number(fee))}</span>
-                            <span className="mt-2 block text-[10px] text-slate-400">{stage?.completion ? "Completed" : stage?.enrolled ? `${stage.progressPercent}% in progress` : stage?.locked ? "Locked" : stage ? "Available" : "Coming soon"}</span>
+                            <span className="mt-2 block text-[10px] text-slate-400">{stage?.completion ? "Completed" : stage?.id === activeStage?.id ? (stage.enrolled ? `${stage.progressPercent}% · Current stage` : "Ready to begin") : stage?.locked ? "Locked · complete previous stage" : stage ? "Upcoming" : "Coming soon"}</span>
                           </li>
                         );
                       })}
                     </ol>
                   </div>
-                  <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-6 xl:grid-cols-3">
-                    {shelf.courses.map((course) => (
+                  <div className="mx-auto max-w-3xl p-4 sm:p-6">
+                    {course && (
                   <article
                     key={course.id}
                     className={`rounded-2xl border p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20 sm:p-6 ${
@@ -741,7 +754,7 @@ export default function AcademyPage() {
                               : "Enroll"}
                     </button>
                   </article>
-                    ))}
+                    )}
                   </div>
                 </section>
               ))}
@@ -926,6 +939,37 @@ export default function AcademyPage() {
 
         {routeCourseId && selected && selected.enrolled && (
           <section className="mt-10 rounded-3xl border border-cyan-400/30 bg-slate-900/70 p-5 sm:p-8">
+            {selectedPathway.length > 0 && (
+              <div className="mb-7 rounded-2xl border border-white/10 bg-slate-950/70 p-4 sm:p-5">
+                <div className="flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Your complete subject journey</p>
+                    <h3 className="mt-1 text-lg font-extrabold text-white">One subject. Five stages. One step at a time.</h3>
+                  </div>
+                  <p className="text-xs text-slate-400">The next stage opens after you pass the current stage and meet its completion requirements.</p>
+                </div>
+                <ol className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5">
+                  {[
+                    ["01", "Certificate", 1500],
+                    ["02", "Diploma", 3500],
+                    ["03", "Degree", 7500],
+                    ["04", "Masters", 12500],
+                    ["05", "Doctoral prep", 20000],
+                  ].map(([number, label, fee]) => {
+                    const stage = selectedPathway.find((item) => item.programmeOrder === Number(number));
+                    const isCurrent = stage?.id === selectedActiveStage?.id;
+                    return (
+                      <li key={number} className={stage?.completion ? "rounded-xl border border-emerald-300/30 bg-emerald-300/10 p-3" : isCurrent ? "rounded-xl border border-cyan-300/40 bg-cyan-300/10 p-3 ring-1 ring-cyan-300/20" : "rounded-xl border border-white/10 bg-slate-900/70 p-3"}>
+                        <span className="block text-[10px] font-black tracking-widest text-cyan-300">STAGE {number}</span>
+                        <span className="mt-1 block text-xs font-bold text-white">{label}</span>
+                        <span className="mt-1 block text-xs text-slate-400">{money(Number(fee))}</span>
+                        <span className="mt-2 block text-[10px] text-slate-400">{stage?.completion ? "Completed" : isCurrent ? (stage.enrolled ? `${stage.progressPercent}% · Current` : "Next to begin") : stage?.locked ? "Locked" : stage ? "Upcoming" : "Coming soon"}</span>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
+            )}
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">
