@@ -551,7 +551,7 @@ export default function AcademyPage() {
 
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {visibleCourses.map((course) => (
-                <>
+                <div key={course.id} className="contents">
                   {course.isProgrammeStage && course.programmeOrder === 1 && (
                     <div key={`subject-${course.pathwayId ?? course.id}`} className="col-span-full mt-5 rounded-2xl border border-cyan-300/25 bg-gradient-to-r from-cyan-950/70 to-slate-900 px-5 py-4">
                       <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Subject learning pathway</p>
@@ -689,7 +689,7 @@ export default function AcademyPage() {
                             : "Enroll"}
                   </button>
                 </article>
-                </>
+                </div>
               ))}
             </div>
           </>
