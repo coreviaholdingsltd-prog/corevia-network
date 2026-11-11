@@ -630,7 +630,7 @@ export default function AcademyPage() {
                             <span className="block text-[10px] font-black tracking-widest text-cyan-300">STAGE {number}</span>
                             <span className="mt-1 block text-xs font-bold text-white">{label}</span>
                             <span className="mt-1 block text-xs text-slate-400">{money(Number(fee))}</span>
-                            <span className="mt-2 block text-[10px] text-slate-400">{stage?.completion ? "Completed" : Boolean(stage && stage.id === activeStage?.id) ? (stage.enrolled ? `${stage.progressPercent}% · Current stage` : "Ready to begin") : stage?.locked ? "Locked · complete previous stage" : stage ? "Upcoming" : "Coming soon"}</span>
+                            <span className="mt-2 block text-[10px] text-slate-400">{stage?.completion ? "Completed" : Boolean(stage && stage.id === activeStage?.id) ? (stage?.enrolled ? `${stage.progressPercent}% · Current stage` : "Ready to begin") : stage?.locked ? "Locked · complete previous stage" : stage ? "Upcoming" : "Coming soon"}</span>
                           </li>
                         );
                       })}
@@ -963,7 +963,7 @@ export default function AcademyPage() {
                         <span className="block text-[10px] font-black tracking-widest text-cyan-300">STAGE {number}</span>
                         <span className="mt-1 block text-xs font-bold text-white">{label}</span>
                         <span className="mt-1 block text-xs text-slate-400">{money(Number(fee))}</span>
-                        <span className="mt-2 block text-[10px] text-slate-400">{stage?.completion ? "Completed" : isCurrent ? (stage.enrolled ? `${stage.progressPercent}% · Current` : "Next to begin") : stage?.locked ? "Locked" : stage ? "Upcoming" : "Coming soon"}</span>
+                        <span className="mt-2 block text-[10px] text-slate-400">{stage?.completion ? "Completed" : isCurrent ? (stage?.enrolled ? `${stage.progressPercent}% · Current` : "Next to begin") : stage?.locked ? "Locked" : stage ? "Upcoming" : "Coming soon"}</span>
                       </li>
                     );
                   })}
