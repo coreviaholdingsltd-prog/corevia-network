@@ -43,6 +43,7 @@ export async function POST(request: Request) {
     const phone = normalizeKenyanPhone(rawPhone);
 
     const password = String(body.password ?? "");
+    const acceptTerms = body.acceptTerms === true;
 
     const referralCode = String(body.referralCode ?? "")
       .trim()
@@ -62,17 +63,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!rawPhone) {
-      return NextResponse.json(
-        {
-          error:
-            "Please enter the phone number that will be used for withdrawals.",
-        },
-        { status: 400 },
-      );
-    }
-
-    if (!/^\+254\d{9}$/.test(phone)) {
+    if (rawPhone && !/^\+254\d{9}$/.test(phone)) {
       return NextResponse.json(
         {
           error:
@@ -80,6 +71,10 @@ export async function POST(request: Request) {
         },
         { status: 400 },
       );
+    }
+
+    if (!acceptTerms) {
+      return NextResponse.json({ error: "Please review and accept the Terms and Privacy Notice to create an account." }, { status: 400 });
     }
 
     if (password.length < 8) {
@@ -91,7 +86,7 @@ export async function POST(request: Request) {
 
     const existing = await prisma.user.findFirst({
       where: {
-        OR: [{ email }, { phone }],
+        OR: [{ email }, ...(phone ? [{ phone }] : [])],
       },
       select: {
         id: true,
@@ -137,7 +132,9 @@ export async function POST(request: Request) {
           data: {
             name,
             email,
-            phone,
+            phone: phone || null,
+            termsAcceptedAt: new Date(),
+            privacyNoticeVersion: "2026-11-10",
             passwordHash,
             referralCode: generatedReferralCode,
             referredById: referrerId,
@@ -152,7 +149,6 @@ export async function POST(request: Request) {
             id: true,
             name: true,
             email: true,
-            phone: true,
             referralCode: true,
             membershipStatus: true,
             createdAt: true,
