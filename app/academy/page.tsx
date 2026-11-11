@@ -626,11 +626,11 @@ export default function AcademyPage() {
                       ].map(([number, label, fee]) => {
                         const stage = shelf.courses.find((item) => item.programmeOrder === Number(number));
                         return (
-                          <li key={number} className={stage?.completion ? "rounded-xl border border-emerald-300/30 bg-emerald-300/10 p-3" : stage?.id === activeStage?.id ? "rounded-xl border border-cyan-300/40 bg-cyan-300/10 p-3 ring-1 ring-cyan-300/20" : "rounded-xl border border-white/10 bg-slate-950/60 p-3"}>
+                          <li key={number} className={stage?.completion ? "rounded-xl border border-emerald-300/30 bg-emerald-300/10 p-3" : Boolean(stage && stage.id === activeStage?.id) ? "rounded-xl border border-cyan-300/40 bg-cyan-300/10 p-3 ring-1 ring-cyan-300/20" : "rounded-xl border border-white/10 bg-slate-950/60 p-3"}>
                             <span className="block text-[10px] font-black tracking-widest text-cyan-300">STAGE {number}</span>
                             <span className="mt-1 block text-xs font-bold text-white">{label}</span>
                             <span className="mt-1 block text-xs text-slate-400">{money(Number(fee))}</span>
-                            <span className="mt-2 block text-[10px] text-slate-400">{stage?.completion ? "Completed" : stage?.id === activeStage?.id ? (stage.enrolled ? `${stage.progressPercent}% · Current stage` : "Ready to begin") : stage?.locked ? "Locked · complete previous stage" : stage ? "Upcoming" : "Coming soon"}</span>
+                            <span className="mt-2 block text-[10px] text-slate-400">{stage?.completion ? "Completed" : Boolean(stage && stage.id === activeStage?.id) ? (stage.enrolled ? `${stage.progressPercent}% · Current stage` : "Ready to begin") : stage?.locked ? "Locked · complete previous stage" : stage ? "Upcoming" : "Coming soon"}</span>
                           </li>
                         );
                       })}
@@ -957,7 +957,7 @@ export default function AcademyPage() {
                     ["05", "Doctoral prep", 20000],
                   ].map(([number, label, fee]) => {
                     const stage = selectedPathway.find((item) => item.programmeOrder === Number(number));
-                    const isCurrent = stage?.id === selectedActiveStage?.id;
+                    const isCurrent = Boolean(stage && stage.id === selectedActiveStage?.id);
                     return (
                       <li key={number} className={stage?.completion ? "rounded-xl border border-emerald-300/30 bg-emerald-300/10 p-3" : isCurrent ? "rounded-xl border border-cyan-300/40 bg-cyan-300/10 p-3 ring-1 ring-cyan-300/20" : "rounded-xl border border-white/10 bg-slate-900/70 p-3"}>
                         <span className="block text-[10px] font-black tracking-widest text-cyan-300">STAGE {number}</span>
