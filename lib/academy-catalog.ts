@@ -787,9 +787,9 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
   },
     {
     id: "computer-office-skills",
-    title: "Computer Applications & Office Skills",
-    category: "Digital Marketing & Office Tools",
-    description: "Build practical skills for documents, spreadsheets, presentations, and organised digital files.",
+    title: "Computer Basics & Microsoft 365",
+    category: "Digital & Office Skills",
+    description: "A complete beginner-to-practical computer course covering computer essentials and Microsoft 365: Word, Excel, PowerPoint, Outlook, Access, Teams, Project, Visio, Forms and OneDrive.",
     level: "Foundation",
     priceKsh: 300,
     published: true,
@@ -891,7 +891,663 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
               "TRANSFER THE SKILL — Change one condition in the example and predict what should change. Check your prediction and note one limitation or new question."
             ]
         }
-      ],
+      ,
+{
+  "id": "computer-office-skills-word-document-design",
+  "title": "Microsoft Word & Document Design",
+  "minutes": 45,
+  "content": [
+    "SECTION 1 — Word workspace and text editing",
+    "LEARNING GOAL — Recognise the ribbon, document canvas, insertion point, selection, undo and save controls; editing changes text while formatting changes its appearance.",
+    "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+    "KEY TERMS — paragraph and line spacing — controls text layout; style — a reusable set of formatting rules; header and footer — repeated page information; track changes — records edits for review; accessible structure — headings and labels that assist navigation. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Decide the reader, purpose and required format. 2) Draft content and organise it with headings and lists. 3) Apply built-in styles instead of formatting each heading manually. 4) Review spelling, links, page breaks and sensitive details. 5) Save an editable copy and export the requested format.",
+    "WORKED EXAMPLE — Type a short letter, select one sentence, replace it, undo once and redo it. Save a copy with a meaningful filename so the original remains available.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Create a five-sentence introduction, correct one deliberate typo, move a sentence and save the document in a named folder.",
+    "COMMON MISTAKES TO AVOID — using repeated spaces to align content; formatting headings manually without styles; forgetting page numbers or document title; sharing comments or tracked edits unintentionally. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What is the safest way to correct text without retyping the whole document? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 2 — Professional formatting and styles",
+    "LEARNING GOAL — Use heading levels, paragraph spacing, lists, margins and page breaks to create a hierarchy that stays consistent when the document changes.",
+    "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+    "KEY TERMS — style — a reusable set of formatting rules; header and footer — repeated page information; track changes — records edits for review; accessible structure — headings and labels that assist navigation; paragraph and line spacing — controls text layout. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Draft content and organise it with headings and lists. 2) Apply built-in styles instead of formatting each heading manually. 3) Review spelling, links, page breaks and sensitive details. 4) Save an editable copy and export the requested format. 5) Decide the reader, purpose and required format.",
+    "WORKED EXAMPLE — Apply Heading 1 to a report title section and Heading 2 to its subsections; update the style once to change all matching headings together.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Format a two-page report with a title, three headings, a numbered procedure and a bulleted list.",
+    "COMMON MISTAKES TO AVOID — formatting headings manually without styles; forgetting page numbers or document title; sharing comments or tracked edits unintentionally; using repeated spaces to align content. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — Why use built-in heading styles? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 3 — Tables, images and page layout",
+    "LEARNING GOAL — Use tables for genuinely tabular information, crop images thoughtfully, add useful alternative text and control page orientation, margins and breaks.",
+    "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+    "KEY TERMS — header and footer — repeated page information; track changes — records edits for review; accessible structure — headings and labels that assist navigation; paragraph and line spacing — controls text layout; style — a reusable set of formatting rules. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Apply built-in styles instead of formatting each heading manually. 2) Review spelling, links, page breaks and sensitive details. 3) Save an editable copy and export the requested format. 4) Decide the reader, purpose and required format. 5) Draft content and organise it with headings and lists.",
+    "WORKED EXAMPLE — A meeting report uses a three-column action table for task, owner and deadline rather than aligning entries with spaces.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Create an action table and insert a relevant image with a short descriptive alternative text.",
+    "COMMON MISTAKES TO AVOID — forgetting page numbers or document title; sharing comments or tracked edits unintentionally; using repeated spaces to align content; formatting headings manually without styles. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — When is a Word table preferable to aligning text with spaces? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 4 — References, review and collaboration",
+    "LEARNING GOAL — Use comments, track changes, citations and review tools to make feedback traceable; accept or reject edits only after evaluating them.",
+    "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+    "KEY TERMS — track changes — records edits for review; accessible structure — headings and labels that assist navigation; paragraph and line spacing — controls text layout; style — a reusable set of formatting rules; header and footer — repeated page information. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Review spelling, links, page breaks and sensitive details. 2) Save an editable copy and export the requested format. 3) Decide the reader, purpose and required format. 4) Draft content and organise it with headings and lists. 5) Apply built-in styles instead of formatting each heading manually.",
+    "WORKED EXAMPLE — A reviewer proposes a changed date. Confirm it against the approved schedule before accepting the tracked change.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Review a sample document with two comments and two tracked changes, then write what should be accepted and why.",
+    "COMMON MISTAKES TO AVOID — sharing comments or tracked edits unintentionally; using repeated spaces to align content; formatting headings manually without styles; forgetting page numbers or document title. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What should you do before accepting a tracked change to a key fact? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 5 — CVs, letters and formal reports",
+    "LEARNING GOAL — Match document structure and tone to the purpose, present information honestly and use concise sections that help the reader scan key details.",
+    "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+    "KEY TERMS — accessible structure — headings and labels that assist navigation; paragraph and line spacing — controls text layout; style — a reusable set of formatting rules; header and footer — repeated page information; track changes — records edits for review. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Save an editable copy and export the requested format. 2) Decide the reader, purpose and required format. 3) Draft content and organise it with headings and lists. 4) Apply built-in styles instead of formatting each heading manually. 5) Review spelling, links, page breaks and sensitive details.",
+    "WORKED EXAMPLE — A CV uses clear role headings, dates and measurable achievements without inventing qualifications or personal information.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Prepare a one-page CV or formal letter with a clear title, contact details appropriate to the audience and consistent section styles.",
+    "COMMON MISTAKES TO AVOID — using repeated spaces to align content; formatting headings manually without styles; forgetting page numbers or document title; sharing comments or tracked edits unintentionally. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What makes a formal document more useful to its reader? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 6 — Accessibility, proofing and PDF export",
+    "LEARNING GOAL — Run spelling and accessibility checks, inspect page breaks, confirm links and understand that a PDF is often useful for sharing a stable layout.",
+    "WHY THIS MATTERS — Word is a word processor for drafting, formatting, revising and sharing text documents. A professional document is not only attractive: its structure must make information easy to find, its details must be accurate, and the saved format must suit the reader.",
+    "KEY TERMS — paragraph and line spacing — controls text layout; style — a reusable set of formatting rules; header and footer — repeated page information; track changes — records edits for review; accessible structure — headings and labels that assist navigation. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Decide the reader, purpose and required format. 2) Draft content and organise it with headings and lists. 3) Apply built-in styles instead of formatting each heading manually. 4) Review spelling, links, page breaks and sensitive details. 5) Save an editable copy and export the requested format.",
+    "WORKED EXAMPLE — Before sending a report as PDF, reopen the export to check that tables, special characters and page numbers survived conversion.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Plan content → 2. Structure page → 3. Format styles → 4. Review document → 5. Export or share. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Export a formatted report as PDF, inspect every page and record one improvement found during review.",
+    "COMMON MISTAKES TO AVOID — formatting headings manually without styles; forgetting page numbers or document title; sharing comments or tracked edits unintentionally; using repeated spaces to align content. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — Why inspect a PDF after exporting it? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+  ]
+},
+{
+  "id": "computer-office-skills-excel-spreadsheet-analysis",
+  "title": "Microsoft Excel & Spreadsheet Analysis",
+  "minutes": 45,
+  "content": [
+    "SECTION 1 — Workbook, cells, rows and data types",
+    "LEARNING GOAL — Understand workbooks, worksheets, cells, ranges and common data types; organise one record per row and one variable per column.",
+    "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+    "KEY TERMS — cell reference — address of a cell such as B2; formula — expression beginning with =; relative reference — moves when a formula is copied; filter — shows rows matching conditions; chart — visual summary of selected data. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Define what each row represents and label every column. 2) Enter consistent values, dates, currencies and units. 3) Use formulas and check their cell ranges. 4) Summarise the data and choose a chart that fits the question. 5) Check a sample manually and explain the limits of the result.",
+    "WORKED EXAMPLE — A sales table has Date, Item, Quantity and Unit Price columns, with a single sale on each row.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Enter six fictional sales records and format dates and KES values consistently.",
+    "COMMON MISTAKES TO AVOID — mixing KES and other currencies in one total; including the header row in a formula range; overwriting a formula with a typed number; treating a chart or correlation as proof of cause. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What should one row in a simple sales table usually represent? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 2 — Formulas, references and core functions",
+    "LEARNING GOAL — Use addition, multiplication, SUM, AVERAGE, MIN, MAX and COUNT; inspect cell references whenever copying a formula.",
+    "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+    "KEY TERMS — formula — expression beginning with =; relative reference — moves when a formula is copied; filter — shows rows matching conditions; chart — visual summary of selected data; cell reference — address of a cell such as B2. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Enter consistent values, dates, currencies and units. 2) Use formulas and check their cell ranges. 3) Summarise the data and choose a chart that fits the question. 4) Check a sample manually and explain the limits of the result. 5) Define what each row represents and label every column.",
+    "WORKED EXAMPLE — If quantity is in C2 and unit price in D2, the row total is =C2*D2; a column total can use =SUM(E2:E7).",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Calculate each line total and grand total for six fictional orders, then verify one row by hand.",
+    "COMMON MISTAKES TO AVOID — including the header row in a formula range; overwriting a formula with a typed number; treating a chart or correlation as proof of cause; mixing KES and other currencies in one total. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — Why use a formula for a repeated calculation? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 3 — Sort, filter, validate and clean data",
+    "LEARNING GOAL — Detect blanks, duplicates, inconsistent categories and impossible values before interpreting records; use filters and validation carefully.",
+    "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+    "KEY TERMS — relative reference — moves when a formula is copied; filter — shows rows matching conditions; chart — visual summary of selected data; cell reference — address of a cell such as B2; formula — expression beginning with =. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Use formulas and check their cell ranges. 2) Summarise the data and choose a chart that fits the question. 3) Check a sample manually and explain the limits of the result. 4) Define what each row represents and label every column. 5) Enter consistent values, dates, currencies and units.",
+    "WORKED EXAMPLE — A list records Nairobi, nairobi and NAIROBI as three spellings of one location; standardise values before counting locations.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Clean a small fictional list containing a duplicate, a blank and inconsistent category names; document each change.",
+    "COMMON MISTAKES TO AVOID — overwriting a formula with a typed number; treating a chart or correlation as proof of cause; mixing KES and other currencies in one total; including the header row in a formula range. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What should you do before deleting an apparent duplicate? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 4 — Business calculations and financial models",
+    "LEARNING GOAL — Separate revenue, direct costs, gross margin and overheads; label assumptions and keep price, quantity and percentage units clear.",
+    "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+    "KEY TERMS — filter — shows rows matching conditions; chart — visual summary of selected data; cell reference — address of a cell such as B2; formula — expression beginning with =; relative reference — moves when a formula is copied. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Summarise the data and choose a chart that fits the question. 2) Check a sample manually and explain the limits of the result. 3) Define what each row represents and label every column. 4) Enter consistent values, dates, currencies and units. 5) Use formulas and check their cell ranges.",
+    "WORKED EXAMPLE — A product sells for KES 900 and costs KES 600 directly, leaving KES 300 before transport, fees, rent and other overheads.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Create a product-cost table and calculate sales, direct cost and gross margin using formulas.",
+    "COMMON MISTAKES TO AVOID — treating a chart or correlation as proof of cause; mixing KES and other currencies in one total; including the header row in a formula range; overwriting a formula with a typed number. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — Does selling price minus direct cost automatically equal net profit? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 5 — Charts, dashboards and interpretation",
+    "LEARNING GOAL — Select chart types that match the data, label axes and units, and write what the chart supports without overstating causation.",
+    "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+    "KEY TERMS — chart — visual summary of selected data; cell reference — address of a cell such as B2; formula — expression beginning with =; relative reference — moves when a formula is copied; filter — shows rows matching conditions. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Check a sample manually and explain the limits of the result. 2) Define what each row represents and label every column. 3) Enter consistent values, dates, currencies and units. 4) Use formulas and check their cell ranges. 5) Summarise the data and choose a chart that fits the question.",
+    "WORKED EXAMPLE — A monthly line chart can show how recorded sales change over time, while a bar chart can compare sales across product categories.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Build a labelled monthly sales chart and write two observations and one limitation.",
+    "COMMON MISTAKES TO AVOID — mixing KES and other currencies in one total; including the header row in a formula range; overwriting a formula with a typed number; treating a chart or correlation as proof of cause. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What should be included on a useful chart axis? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 6 — Auditing formulas and sharing safely",
+    "LEARNING GOAL — Trace formulas, check ranges, protect sensitive records, control sharing and preserve an original copy before major changes.",
+    "WHY THIS MATTERS — Excel organises data in cells arranged into rows and columns. Formulas calculate results from cell references, tables help keep records consistent, and charts make patterns easier to see. A spreadsheet is only reliable when its inputs, formulas, units and interpretation have been checked.",
+    "KEY TERMS — cell reference — address of a cell such as B2; formula — expression beginning with =; relative reference — moves when a formula is copied; filter — shows rows matching conditions; chart — visual summary of selected data. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Define what each row represents and label every column. 2) Enter consistent values, dates, currencies and units. 3) Use formulas and check their cell ranges. 4) Summarise the data and choose a chart that fits the question. 5) Check a sample manually and explain the limits of the result.",
+    "WORKED EXAMPLE — A total that suddenly doubles may include a new row twice; trace the formula range and compare it with the source transaction list.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Enter clean data → 2. Use formulas → 3. Check totals → 4. Chart patterns → 5. Explain result. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Audit a prepared workbook containing one deliberately incorrect formula and explain how you found it.",
+    "COMMON MISTAKES TO AVOID — including the header row in a formula range; overwriting a formula with a typed number; treating a chart or correlation as proof of cause; mixing KES and other currencies in one total. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What is a strong check for a spreadsheet total? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+  ]
+},
+{
+  "id": "computer-office-skills-powerpoint-presentation-design",
+  "title": "Microsoft PowerPoint & Presentation Design",
+  "minutes": 45,
+  "content": [
+    "SECTION 1 — Plan a presentation and structure a story",
+    "LEARNING GOAL — Choose one objective, learn what the audience already knows and arrange content so each slide advances a clear message.",
+    "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+    "KEY TERMS — slide master — reusable layout and theme settings; visual hierarchy — cues showing what matters first; speaker notes — private reminders for the presenter; contrast — difference helping content stand out; transition — effect between slides. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Define the audience, purpose and outcome. 2) Outline the message in a logical beginning, middle and end. 3) Use consistent layouts, readable text and meaningful visuals. 4) Rehearse with timing and check data, notes and sources. 5) Test the file on the presentation device and keep a backup.",
+    "WORKED EXAMPLE — A business pitch moves from customer problem to proposed solution, evidence, costs and requested decision.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Write a six-slide outline using one sentence per slide before opening PowerPoint.",
+    "COMMON MISTAKES TO AVOID — placing complete paragraphs on every slide; using tiny text and decorative effects everywhere; showing charts without units or source notes; relying on a network connection without a backup. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What is the best starting point for a new presentation? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 2 — Layouts, themes and slide masters",
+    "LEARNING GOAL — Use layouts and slide masters to maintain alignment, fonts, colours and repeated information across slides.",
+    "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+    "KEY TERMS — visual hierarchy — cues showing what matters first; speaker notes — private reminders for the presenter; contrast — difference helping content stand out; transition — effect between slides; slide master — reusable layout and theme settings. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Outline the message in a logical beginning, middle and end. 2) Use consistent layouts, readable text and meaningful visuals. 3) Rehearse with timing and check data, notes and sources. 4) Test the file on the presentation device and keep a backup. 5) Define the audience, purpose and outcome.",
+    "WORKED EXAMPLE — Changing the title style once in the master helps the whole deck remain visually consistent.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Create a title slide, a section slide and a content slide from the same theme.",
+    "COMMON MISTAKES TO AVOID — using tiny text and decorative effects everywhere; showing charts without units or source notes; relying on a network connection without a backup; placing complete paragraphs on every slide. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What does a slide master help you control? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 3 — Images, diagrams, charts and data",
+    "LEARNING GOAL — Choose visuals that explain relationships, cite the origin of external material and ensure charts use honest scales and labels.",
+    "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+    "KEY TERMS — speaker notes — private reminders for the presenter; contrast — difference helping content stand out; transition — effect between slides; slide master — reusable layout and theme settings; visual hierarchy — cues showing what matters first. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Use consistent layouts, readable text and meaningful visuals. 2) Rehearse with timing and check data, notes and sources. 3) Test the file on the presentation device and keep a backup. 4) Define the audience, purpose and outcome. 5) Outline the message in a logical beginning, middle and end.",
+    "WORKED EXAMPLE — A process diagram can show a five-step workflow more clearly than five dense text paragraphs.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Replace one text-heavy slide with a simple diagram or labelled chart and write its main message.",
+    "COMMON MISTAKES TO AVOID — showing charts without units or source notes; relying on a network connection without a backup; placing complete paragraphs on every slide; using tiny text and decorative effects everywhere. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What makes a chart trustworthy to an audience? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 4 — Animation, transitions and accessibility",
+    "LEARNING GOAL — Use motion only when it improves explanation; ensure contrast, reading order, alternative text and legibility are adequate.",
+    "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+    "KEY TERMS — contrast — difference helping content stand out; transition — effect between slides; slide master — reusable layout and theme settings; visual hierarchy — cues showing what matters first; speaker notes — private reminders for the presenter. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Rehearse with timing and check data, notes and sources. 2) Test the file on the presentation device and keep a backup. 3) Define the audience, purpose and outcome. 4) Outline the message in a logical beginning, middle and end. 5) Use consistent layouts, readable text and meaningful visuals.",
+    "WORKED EXAMPLE — Reveal a process one stage at a time only when the order helps the audience understand it.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Review a sample deck and remove effects that distract from the main idea.",
+    "COMMON MISTAKES TO AVOID — relying on a network connection without a backup; placing complete paragraphs on every slide; using tiny text and decorative effects everywhere; showing charts without units or source notes. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — When should an animation be removed? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 5 — Speaker notes, rehearsal and delivery",
+    "LEARNING GOAL — Use notes to support delivery, practise aloud, manage time and plan answers to likely questions.",
+    "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+    "KEY TERMS — transition — effect between slides; slide master — reusable layout and theme settings; visual hierarchy — cues showing what matters first; speaker notes — private reminders for the presenter; contrast — difference helping content stand out. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Test the file on the presentation device and keep a backup. 2) Define the audience, purpose and outcome. 3) Outline the message in a logical beginning, middle and end. 4) Use consistent layouts, readable text and meaningful visuals. 5) Rehearse with timing and check data, notes and sources.",
+    "WORKED EXAMPLE — A five-minute talk needs a shorter set of slides and rehearsed transitions rather than rushing through twenty slides.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Rehearse a three-slide explanation and time each section; revise what is unclear.",
+    "COMMON MISTAKES TO AVOID — placing complete paragraphs on every slide; using tiny text and decorative effects everywhere; showing charts without units or source notes; relying on a network connection without a backup. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — Why rehearse aloud rather than only reading slides silently? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 6 — Export, present and troubleshoot",
+    "LEARNING GOAL — Test fonts, media, links, aspect ratio and presentation mode; export a PDF backup where appropriate.",
+    "WHY THIS MATTERS — PowerPoint is a presentation tool. Good slides support the speaker or tell a clear visual story; they should not force an audience to read long paragraphs while also listening. One main idea per slide, legible text, meaningful visuals and accurate sources make presentations easier to follow.",
+    "KEY TERMS — slide master — reusable layout and theme settings; visual hierarchy — cues showing what matters first; speaker notes — private reminders for the presenter; contrast — difference helping content stand out; transition — effect between slides. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Define the audience, purpose and outcome. 2) Outline the message in a logical beginning, middle and end. 3) Use consistent layouts, readable text and meaningful visuals. 4) Rehearse with timing and check data, notes and sources. 5) Test the file on the presentation device and keep a backup.",
+    "WORKED EXAMPLE — A video that works on the creator's laptop may fail offline, so include a still image or backup explanation.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Know audience → 2. Story outline → 3. Design slides → 4. Rehearse delivery → 5. Check and present. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Export the deck to PDF and check every slide plus the order of notes and sources.",
+    "COMMON MISTAKES TO AVOID — using tiny text and decorative effects everywhere; showing charts without units or source notes; relying on a network connection without a backup; placing complete paragraphs on every slide. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What is a sensible backup for an important presentation? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+  ]
+},
+{
+  "id": "computer-office-skills-outlook-email-calendar",
+  "title": "Microsoft Outlook: Email, Calendar & Tasks",
+  "minutes": 45,
+  "content": [
+    "SECTION 1 — Email layout, folders and search",
+    "LEARNING GOAL — Recognise Inbox, Sent Items, Drafts, folders, search and conversation threads; file messages so important work can be retrieved.",
+    "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+    "KEY TERMS — To and Cc — primary recipients and those copied for awareness; Bcc — recipient addresses hidden from other recipients; calendar invitation — a scheduled event sent to attendees; recurrence — a repeated scheduled event; flag or task — a reminder to act or follow up. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Confirm the request, recipient and required action. 2) Write a meaningful subject and concise message. 3) Check recipients, attachments and sensitivity before sending. 4) Schedule meetings with correct time, duration and attendees. 5) Track follow-up and close completed tasks.",
+    "WORKED EXAMPLE — Search by sender plus a distinctive subject word rather than scrolling through hundreds of messages.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Create a small folder system and find a sample message using sender, date and keyword.",
+    "COMMON MISTAKES TO AVOID — replying to all without checking recipients; attaching the wrong version; forgetting the time zone or meeting link; sending confidential details to broad groups. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What is a useful way to find a specific older email? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 2 — Professional messages and attachments",
+    "LEARNING GOAL — Write a subject that names the topic, put the requested action near the top, check tone and verify attachments before sending.",
+    "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+    "KEY TERMS — Bcc — recipient addresses hidden from other recipients; calendar invitation — a scheduled event sent to attendees; recurrence — a repeated scheduled event; flag or task — a reminder to act or follow up; To and Cc — primary recipients and those copied for awareness. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Write a meaningful subject and concise message. 2) Check recipients, attachments and sensitivity before sending. 3) Schedule meetings with correct time, duration and attendees. 4) Track follow-up and close completed tasks. 5) Confirm the request, recipient and required action.",
+    "WORKED EXAMPLE — A message asking for approval names the attached document, gives the deadline and states the exact decision needed.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Draft a concise request email and perform a recipient, attachment, spelling and confidentiality check.",
+    "COMMON MISTAKES TO AVOID — attaching the wrong version; forgetting the time zone or meeting link; sending confidential details to broad groups; replying to all without checking recipients. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What should you check just before sending an attachment? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 3 — Calendar events and scheduling",
+    "LEARNING GOAL — Schedule events using the correct date, duration, time zone, location or meeting link and attendee list.",
+    "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+    "KEY TERMS — calendar invitation — a scheduled event sent to attendees; recurrence — a repeated scheduled event; flag or task — a reminder to act or follow up; To and Cc — primary recipients and those copied for awareness; Bcc — recipient addresses hidden from other recipients. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Check recipients, attachments and sensitivity before sending. 2) Schedule meetings with correct time, duration and attendees. 3) Track follow-up and close completed tasks. 4) Confirm the request, recipient and required action. 5) Write a meaningful subject and concise message.",
+    "WORKED EXAMPLE — For a Nairobi meeting with a remote colleague, verify both local times and send a calendar invitation rather than an ambiguous text time.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Create a mock 30-minute meeting, add the agenda and invite only the people who need to attend.",
+    "COMMON MISTAKES TO AVOID — forgetting the time zone or meeting link; sending confidential details to broad groups; replying to all without checking recipients; attaching the wrong version. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What prevents confusion when scheduling across regions? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 4 — Tasks, flags and follow-up",
+    "LEARNING GOAL — Convert promises and requests into clear actions with an owner, deadline and reminder; review overdue work regularly.",
+    "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+    "KEY TERMS — recurrence — a repeated scheduled event; flag or task — a reminder to act or follow up; To and Cc — primary recipients and those copied for awareness; Bcc — recipient addresses hidden from other recipients; calendar invitation — a scheduled event sent to attendees. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Schedule meetings with correct time, duration and attendees. 2) Track follow-up and close completed tasks. 3) Confirm the request, recipient and required action. 4) Write a meaningful subject and concise message. 5) Check recipients, attachments and sensitivity before sending.",
+    "WORKED EXAMPLE — After a meeting, make a task that says who will send the signed report and by what date.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Turn three sample emails into tasks and assign realistic reminders.",
+    "COMMON MISTAKES TO AVOID — sending confidential details to broad groups; replying to all without checking recipients; attaching the wrong version; forgetting the time zone or meeting link. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What makes a task actionable? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 5 — Contacts, rules and productivity",
+    "LEARNING GOAL — Organise contacts, use rules carefully and avoid automation that may hide urgent or suspicious messages.",
+    "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+    "KEY TERMS — flag or task — a reminder to act or follow up; To and Cc — primary recipients and those copied for awareness; Bcc — recipient addresses hidden from other recipients; calendar invitation — a scheduled event sent to attendees; recurrence — a repeated scheduled event. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Track follow-up and close completed tasks. 2) Confirm the request, recipient and required action. 3) Write a meaningful subject and concise message. 4) Check recipients, attachments and sensitivity before sending. 5) Schedule meetings with correct time, duration and attendees.",
+    "WORKED EXAMPLE — A rule can move newsletters to a folder, but payment requests should still be checked rather than automatically trusted.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Design two safe rules for non-urgent mail and describe how you would test them.",
+    "COMMON MISTAKES TO AVOID — replying to all without checking recipients; attaching the wrong version; forgetting the time zone or meeting link; sending confidential details to broad groups. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — Why test a mail rule before relying on it? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 6 — Email security and etiquette",
+    "LEARNING GOAL — Recognise phishing, inspect links, verify unusual payment or password requests and use Bcc when recipient privacy requires it.",
+    "WHY THIS MATTERS — Outlook combines email, calendars, contacts and task management. Good digital communication uses a clear subject, concise message, correct recipients and a specific next step. Calendar invitations must reflect the correct time zone, attendees and purpose, while private details should only be shared with authorised people.",
+    "KEY TERMS — To and Cc — primary recipients and those copied for awareness; Bcc — recipient addresses hidden from other recipients; calendar invitation — a scheduled event sent to attendees; recurrence — a repeated scheduled event; flag or task — a reminder to act or follow up. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Confirm the request, recipient and required action. 2) Write a meaningful subject and concise message. 3) Check recipients, attachments and sensitivity before sending. 4) Schedule meetings with correct time, duration and attendees. 5) Track follow-up and close completed tasks.",
+    "WORKED EXAMPLE — A message requesting a one-time code is verified through the official service rather than answered directly.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Read request → 2. Write clearly → 3. Schedule task → 4. Track follow-up → 5. Close the loop. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Review a fictional suspicious message and list the warning signs and safe reporting steps.",
+    "COMMON MISTAKES TO AVOID — attaching the wrong version; forgetting the time zone or meeting link; sending confidential details to broad groups; replying to all without checking recipients. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — How should you respond to an unexpected request for a one-time code? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+  ]
+},
+{
+  "id": "computer-office-skills-access-database-fundamentals",
+  "title": "Microsoft Access & Database Fundamentals",
+  "minutes": 45,
+  "content": [
+    "SECTION 1 — Database concepts and table design",
+    "LEARNING GOAL — Identify entities, records, fields, data types and unique identifiers; one field should store one clearly defined value.",
+    "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+    "KEY TERMS — table — records arranged in fields; primary key — field uniquely identifying a record; foreign key — field referring to a related table; query — request to select or change data; relationship — defined link between tables. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Define what each record represents. 2) Create tables with clear fields and appropriate data types. 3) Choose a primary key and define valid relationships. 4) Use queries to filter or calculate information. 5) Test forms and reports with fictional data before use.",
+    "WORKED EXAMPLE — A customers table stores one customer per row, with a unique CustomerID and separate name, phone and email fields.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Design two fictional tables for customers and orders and label each field's purpose and type.",
+    "COMMON MISTAKES TO AVOID — putting several values in one field; using names as if they are unique keys; creating duplicate copies of the same fact; exposing personal data through reports or exports. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — Why is a unique ID often better than using a person's name as the primary key? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 2 — Primary keys and relationships",
+    "LEARNING GOAL — Use primary and foreign keys to link tables and understand one-to-many relationships without copying customer details into every order.",
+    "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+    "KEY TERMS — primary key — field uniquely identifying a record; foreign key — field referring to a related table; query — request to select or change data; relationship — defined link between tables; table — records arranged in fields. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Create tables with clear fields and appropriate data types. 2) Choose a primary key and define valid relationships. 3) Use queries to filter or calculate information. 4) Test forms and reports with fictional data before use. 5) Define what each record represents.",
+    "WORKED EXAMPLE — One customer can have many orders; each order stores CustomerID to point back to the customer record.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Draw a relationship between Customers and Orders and explain which field links them.",
+    "COMMON MISTAKES TO AVOID — using names as if they are unique keys; creating duplicate copies of the same fact; exposing personal data through reports or exports; putting several values in one field. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — In a one-to-many relationship, where is the foreign key normally placed? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 3 — Queries, filters and calculations",
+    "LEARNING GOAL — Retrieve only the records and fields needed; use criteria and calculated fields, and confirm results on known sample records.",
+    "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+    "KEY TERMS — foreign key — field referring to a related table; query — request to select or change data; relationship — defined link between tables; table — records arranged in fields; primary key — field uniquely identifying a record. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Choose a primary key and define valid relationships. 2) Use queries to filter or calculate information. 3) Test forms and reports with fictional data before use. 4) Define what each record represents. 5) Create tables with clear fields and appropriate data types.",
+    "WORKED EXAMPLE — A query filters orders to the current month and sums amounts, while preserving the underlying transaction records.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Write a plain-language query plan for unpaid orders above a chosen threshold.",
+    "COMMON MISTAKES TO AVOID — creating duplicate copies of the same fact; exposing personal data through reports or exports; putting several values in one field; using names as if they are unique keys. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What is the purpose of a query? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 4 — Forms and reliable data entry",
+    "LEARNING GOAL — Use forms to guide input, add validation rules and provide clear labels to reduce incomplete or inconsistent records.",
+    "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+    "KEY TERMS — query — request to select or change data; relationship — defined link between tables; table — records arranged in fields; primary key — field uniquely identifying a record; foreign key — field referring to a related table. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Use queries to filter or calculate information. 2) Test forms and reports with fictional data before use. 3) Define what each record represents. 4) Create tables with clear fields and appropriate data types. 5) Choose a primary key and define valid relationships.",
+    "WORKED EXAMPLE — A date field requires a valid date and an order amount cannot be negative unless a documented adjustment type permits it.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Sketch a data-entry form with required fields, validation and a clear error message.",
+    "COMMON MISTAKES TO AVOID — exposing personal data through reports or exports; putting several values in one field; using names as if they are unique keys; creating duplicate copies of the same fact. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — How can a form reduce data-entry errors? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 5 — Reports, totals and business questions",
+    "LEARNING GOAL — Choose a report layout that answers a question, group and total data carefully and show the reporting period and filters.",
+    "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+    "KEY TERMS — relationship — defined link between tables; table — records arranged in fields; primary key — field uniquely identifying a record; foreign key — field referring to a related table; query — request to select or change data. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Test forms and reports with fictional data before use. 2) Define what each record represents. 3) Create tables with clear fields and appropriate data types. 4) Choose a primary key and define valid relationships. 5) Use queries to filter or calculate information.",
+    "WORKED EXAMPLE — A monthly order report states its date range and total value so it is not mistaken for a year-to-date report.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Plan a one-page report showing order date, status, amount and a checked monthly total.",
+    "COMMON MISTAKES TO AVOID — putting several values in one field; using names as if they are unique keys; creating duplicate copies of the same fact; exposing personal data through reports or exports. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — Why should a report show its period or filter criteria? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 6 — Database testing, backups and privacy",
+    "LEARNING GOAL — Test expected and invalid inputs, preserve backups, restrict access and avoid using real personal data in practice exercises.",
+    "WHY THIS MATTERS — A relational database stores related information in tables and links records using keys. Good database design reduces duplicate data, while queries retrieve specific answers. Forms can make data entry easier and reports present selected information. Accuracy, permissions and privacy are essential when records describe people or business transactions.",
+    "KEY TERMS — table — records arranged in fields; primary key — field uniquely identifying a record; foreign key — field referring to a related table; query — request to select or change data; relationship — defined link between tables. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Define what each record represents. 2) Create tables with clear fields and appropriate data types. 3) Choose a primary key and define valid relationships. 4) Use queries to filter or calculate information. 5) Test forms and reports with fictional data before use.",
+    "WORKED EXAMPLE — Before distributing a customer export, confirm that every included field is needed and that the recipient is authorised.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Design tables → 2. Set keys → 3. Link records → 4. Query data → 5. Report results. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Create a database test checklist covering duplicate records, missing IDs, incorrect values, access and backup restoration.",
+    "COMMON MISTAKES TO AVOID — using names as if they are unique keys; creating duplicate copies of the same fact; exposing personal data through reports or exports; putting several values in one field. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What is a responsible dataset for beginner practice? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+  ]
+},
+{
+  "id": "computer-office-skills-teams-collaboration",
+  "title": "Microsoft Teams & Online Collaboration",
+  "minutes": 45,
+  "content": [
+    "SECTION 1 — Teams, channels and chat etiquette",
+    "LEARNING GOAL — Choose a shared channel for team-wide context and direct chat for appropriate private coordination; write clear, respectful messages.",
+    "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+    "KEY TERMS — channel — shared topic space in a team; chat — direct or small-group conversation; meeting invite — scheduled event information; mention — notification directed to a person or group; permission — controls who can view or edit a resource. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Select the right team, channel or private chat. 2) Write enough context for recipients to understand the request. 3) Use meetings for discussion and record decisions afterwards. 4) Share links with the smallest appropriate audience. 5) Assign actions with owners and deadlines, then follow up.",
+    "WORKED EXAMPLE — A project update goes in the project channel so future teammates can find it instead of remaining hidden in one person's chat.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Draft one channel update and one direct request and explain why each belongs in that location.",
+    "COMMON MISTAKES TO AVOID — putting sensitive matters in a public channel; sharing links with broader access than needed; scheduling without an agenda; leaving meeting decisions without owners. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — Where should a decision relevant to the whole project normally be recorded? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 2 — Meetings, scheduling and participation",
+    "LEARNING GOAL — Send a purpose, agenda, time and expected preparation; keep discussion focused and make space for participants to contribute.",
+    "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+    "KEY TERMS — chat — direct or small-group conversation; meeting invite — scheduled event information; mention — notification directed to a person or group; permission — controls who can view or edit a resource; channel — shared topic space in a team. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Write enough context for recipients to understand the request. 2) Use meetings for discussion and record decisions afterwards. 3) Share links with the smallest appropriate audience. 4) Assign actions with owners and deadlines, then follow up. 5) Select the right team, channel or private chat.",
+    "WORKED EXAMPLE — A 30-minute meeting lists two decisions to make and sends the relevant document before the meeting.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Write a short meeting invitation with an agenda, link, duration and preparation request.",
+    "COMMON MISTAKES TO AVOID — sharing links with broader access than needed; scheduling without an agenda; leaving meeting decisions without owners; putting sensitive matters in a public channel. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What should a useful meeting invitation include besides the time? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 3 — File sharing and co-authoring",
+    "LEARNING GOAL — Understand edit versus view access, maintain version context and use shared files rather than sending unclear duplicate versions.",
+    "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+    "KEY TERMS — meeting invite — scheduled event information; mention — notification directed to a person or group; permission — controls who can view or edit a resource; channel — shared topic space in a team; chat — direct or small-group conversation. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Use meetings for discussion and record decisions afterwards. 2) Share links with the smallest appropriate audience. 3) Assign actions with owners and deadlines, then follow up. 4) Select the right team, channel or private chat. 5) Write enough context for recipients to understand the request.",
+    "WORKED EXAMPLE — Give a reviewer edit access to one draft rather than making a folder containing several files named final.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Design a safe share workflow for a draft document and a final report.",
+    "COMMON MISTAKES TO AVOID — scheduling without an agenda; leaving meeting decisions without owners; putting sensitive matters in a public channel; sharing links with broader access than needed. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What should you check before sharing a file link? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 4 — Tasks, approvals and project follow-up",
+    "LEARNING GOAL — Convert decisions into actions with a clear deliverable, owner, due date and status; escalate blockers early.",
+    "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+    "KEY TERMS — mention — notification directed to a person or group; permission — controls who can view or edit a resource; channel — shared topic space in a team; chat — direct or small-group conversation; meeting invite — scheduled event information. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Share links with the smallest appropriate audience. 2) Assign actions with owners and deadlines, then follow up. 3) Select the right team, channel or private chat. 4) Write enough context for recipients to understand the request. 5) Use meetings for discussion and record decisions afterwards.",
+    "WORKED EXAMPLE — After a meeting, one person owns the budget revision and another owns the venue confirmation with separate due dates.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Turn three meeting decisions into a task list with owner and evidence of completion.",
+    "COMMON MISTAKES TO AVOID — leaving meeting decisions without owners; putting sensitive matters in a public channel; sharing links with broader access than needed; scheduling without an agenda. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — How do you prevent meeting decisions from being forgotten? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 5 — Notifications and work organisation",
+    "LEARNING GOAL — Use notification settings and status appropriately to protect focus while staying reachable for genuinely urgent work.",
+    "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+    "KEY TERMS — permission — controls who can view or edit a resource; channel — shared topic space in a team; chat — direct or small-group conversation; meeting invite — scheduled event information; mention — notification directed to a person or group. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Assign actions with owners and deadlines, then follow up. 2) Select the right team, channel or private chat. 3) Write enough context for recipients to understand the request. 4) Use meetings for discussion and record decisions afterwards. 5) Share links with the smallest appropriate audience.",
+    "WORKED EXAMPLE — Mute a busy channel during study time and schedule a review rather than ignoring all notifications indefinitely.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Plan a simple routine for checking messages, recording actions and updating status.",
+    "COMMON MISTAKES TO AVOID — putting sensitive matters in a public channel; sharing links with broader access than needed; scheduling without an agenda; leaving meeting decisions without owners. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What is the purpose of notification settings? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 6 — Privacy, recording and collaboration safety",
+    "LEARNING GOAL — Check meeting recording consent and policy, avoid posting private information to broad groups and report suspicious file requests.",
+    "WHY THIS MATTERS — Teams combines conversations, meetings, files and collaboration spaces. Good teamwork keeps decisions in the right shared location, limits notifications to relevant people and records who will do what next. Before sharing a file or meeting recording, verify permissions, audience and organisational policy.",
+    "KEY TERMS — channel — shared topic space in a team; chat — direct or small-group conversation; meeting invite — scheduled event information; mention — notification directed to a person or group; permission — controls who can view or edit a resource. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Select the right team, channel or private chat. 2) Write enough context for recipients to understand the request. 3) Use meetings for discussion and record decisions afterwards. 4) Share links with the smallest appropriate audience. 5) Assign actions with owners and deadlines, then follow up.",
+    "WORKED EXAMPLE — Before recording a meeting, state the purpose, confirm applicable policy and tell participants how the recording will be used.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Choose channel → 2. Share context → 3. Meet and decide → 4. Assign actions → 5. Record outcome. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Review a fictional sharing scenario and decide who should have view, edit or no access.",
+    "COMMON MISTAKES TO AVOID — sharing links with broader access than needed; scheduling without an agenda; leaving meeting decisions without owners; putting sensitive matters in a public channel. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What should be verified before recording or sharing meeting content? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+  ]
+},
+{
+  "id": "computer-office-skills-project-visio-technical-planning",
+  "title": "Microsoft Project & Visio: Planning and Diagrams",
+  "minutes": 45,
+  "content": [
+    "SECTION 1 — Project schedule basics and task structure",
+    "LEARNING GOAL — Break a deliverable into manageable activities, name owners and estimate realistic durations.",
+    "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+    "KEY TERMS — milestone — important progress checkpoint; dependency — relationship between tasks; critical path — sequence controlling the earliest project finish; swimlane — diagram area showing responsibility; connector — line showing a relationship or flow. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Define the outcome and its deliverables. 2) Break work into tasks and estimate durations. 3) Map dependencies and assign owners. 4) Display milestones or the process in a clear visual. 5) Update actual progress, risks and approved changes.",
+    "WORKED EXAMPLE — A training event plan separates venue booking, agenda preparation, invitations, materials and event delivery.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Create a task list with owners, durations and a final deliverable for a small project.",
+    "COMMON MISTAKES TO AVOID — assigning dates before understanding dependencies; treating estimates as guarantees; using crossing connectors that obscure the flow; showing a status chart without an as-of date. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — Why break a large deliverable into smaller tasks? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 2 — Dependencies, milestones and critical path",
+    "LEARNING GOAL — Show which activities must precede others and identify the sequence that can affect the earliest finish date.",
+    "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+    "KEY TERMS — dependency — relationship between tasks; critical path — sequence controlling the earliest project finish; swimlane — diagram area showing responsibility; connector — line showing a relationship or flow; milestone — important progress checkpoint. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Break work into tasks and estimate durations. 2) Map dependencies and assign owners. 3) Display milestones or the process in a clear visual. 4) Update actual progress, risks and approved changes. 5) Define the outcome and its deliverables.",
+    "WORKED EXAMPLE — Invitations cannot include a confirmed venue until the venue is booked, so booking is a dependency.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Draw a small dependency network and identify which delay moves the end date.",
+    "COMMON MISTAKES TO AVOID — treating estimates as guarantees; using crossing connectors that obscure the flow; showing a status chart without an as-of date; assigning dates before understanding dependencies. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What is a dependency? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 3 — Gantt charts, resources and progress",
+    "LEARNING GOAL — Display task timing, overlaps, milestones and current status; update estimates when actual work changes the plan.",
+    "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+    "KEY TERMS — critical path — sequence controlling the earliest project finish; swimlane — diagram area showing responsibility; connector — line showing a relationship or flow; milestone — important progress checkpoint; dependency — relationship between tasks. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Map dependencies and assign owners. 2) Display milestones or the process in a clear visual. 3) Update actual progress, risks and approved changes. 4) Define the outcome and its deliverables. 5) Break work into tasks and estimate durations.",
+    "WORKED EXAMPLE — A Gantt chart shows procurement and design happening in parallel while final testing waits for both.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Create a simple schedule with six tasks, two dependencies and three milestones.",
+    "COMMON MISTAKES TO AVOID — using crossing connectors that obscure the flow; showing a status chart without an as-of date; assigning dates before understanding dependencies; treating estimates as guarantees. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What does a Gantt chart mainly communicate? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 4 — Visio flowcharts and swimlanes",
+    "LEARNING GOAL — Use standard shapes and directional connectors for steps and decisions; use swimlanes when responsibility changes between roles.",
+    "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+    "KEY TERMS — swimlane — diagram area showing responsibility; connector — line showing a relationship or flow; milestone — important progress checkpoint; dependency — relationship between tasks; critical path — sequence controlling the earliest project finish. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Display milestones or the process in a clear visual. 2) Update actual progress, risks and approved changes. 3) Define the outcome and its deliverables. 4) Break work into tasks and estimate durations. 5) Map dependencies and assign owners.",
+    "WORKED EXAMPLE — An approval flow routes approved expenses to payment and incomplete requests back to the requester.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Draw a five-step approval flow with one decision and two responsible roles.",
+    "COMMON MISTAKES TO AVOID — showing a status chart without an as-of date; assigning dates before understanding dependencies; treating estimates as guarantees; using crossing connectors that obscure the flow. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What does a decision shape indicate in a flowchart? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 5 — Network and system diagrams",
+    "LEARNING GOAL — Represent components, boundaries and links accurately, using consistent symbols and a legend when a diagram could be misread.",
+    "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+    "KEY TERMS — connector — line showing a relationship or flow; milestone — important progress checkpoint; dependency — relationship between tasks; critical path — sequence controlling the earliest project finish; swimlane — diagram area showing responsibility. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Update actual progress, risks and approved changes. 2) Define the outcome and its deliverables. 3) Break work into tasks and estimate durations. 4) Map dependencies and assign owners. 5) Display milestones or the process in a clear visual.",
+    "WORKED EXAMPLE — A network diagram distinguishes client devices, switch, router and external internet connection.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Create a small-office network diagram and label interfaces, external boundary and security zones.",
+    "COMMON MISTAKES TO AVOID — assigning dates before understanding dependencies; treating estimates as guarantees; using crossing connectors that obscure the flow; showing a status chart without an as-of date. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What makes a technical diagram easier to interpret? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 6 — Status reporting and change control",
+    "LEARNING GOAL — Report current progress, remaining work, risks, decisions and date of the report; document approved schedule or design changes.",
+    "WHY THIS MATTERS — Project planning tools help show work, dependencies, dates and responsibilities; diagramming tools help communicate systems and processes. A schedule is only credible when task estimates and dependencies are realistic. A diagram is only useful when labels and connectors express an accurate relationship rather than simply looking neat.",
+    "KEY TERMS — milestone — important progress checkpoint; dependency — relationship between tasks; critical path — sequence controlling the earliest project finish; swimlane — diagram area showing responsibility; connector — line showing a relationship or flow. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Define the outcome and its deliverables. 2) Break work into tasks and estimate durations. 3) Map dependencies and assign owners. 4) Display milestones or the process in a clear visual. 5) Update actual progress, risks and approved changes.",
+    "WORKED EXAMPLE — A one-week delay is shown with its cause, affected milestone and a proposed recovery option rather than being hidden.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define deliverables → 2. List activities → 3. Map dependencies → 4. Schedule milestones → 5. Review status. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Draft a weekly status update for a fictional project with one risk and one decision needed.",
+    "COMMON MISTAKES TO AVOID — treating estimates as guarantees; using crossing connectors that obscure the flow; showing a status chart without an as-of date; assigning dates before understanding dependencies. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What should a project status update include besides percent complete? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+  ]
+},
+{
+  "id": "computer-office-skills-forms-survey-design",
+  "title": "Microsoft Forms & Survey Design",
+  "minutes": 45,
+  "content": [
+    "SECTION 1 — Plan a form and its audience",
+    "LEARNING GOAL — Define the audience, purpose, completion time and decision that collected answers will support.",
+    "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+    "KEY TERMS — question wording — exact phrasing presented to the respondent; response option — permitted answer choice; required field — information that must be supplied; pilot test — small test before wider release; data minimisation — collect only necessary information. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Write the decision or learning goal the form supports. 2) Use one clear concept per question and balanced answer choices. 3) Set required fields and validation only when necessary. 4) Pilot the form on a small test group and correct confusion. 5) Review results carefully and restrict access to sensitive data.",
+    "WORKED EXAMPLE — A course feedback form asks about clarity, lesson pace and topics to revisit because each response informs a teaching improvement.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Write the goal for a five-question survey and link each question to a decision it informs.",
+    "COMMON MISTAKES TO AVOID — asking leading or double-barrelled questions; collecting information without a clear need; making every field required; sharing respondent data too widely. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — Why define a form's purpose before writing questions? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 2 — Question wording and response types",
+    "LEARNING GOAL — Choose single choice, multiple choice, rating, text or date fields appropriately; avoid leading and double-barrelled wording.",
+    "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+    "KEY TERMS — response option — permitted answer choice; required field — information that must be supplied; pilot test — small test before wider release; data minimisation — collect only necessary information; question wording — exact phrasing presented to the respondent. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Use one clear concept per question and balanced answer choices. 2) Set required fields and validation only when necessary. 3) Pilot the form on a small test group and correct confusion. 4) Review results carefully and restrict access to sensitive data. 5) Write the decision or learning goal the form supports.",
+    "WORKED EXAMPLE — Ask 'How clear was the explanation?' separately from 'Was the pace comfortable?' rather than combining two issues in one question.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Rewrite three biased or unclear fictional questions into neutral, single-topic questions.",
+    "COMMON MISTAKES TO AVOID — collecting information without a clear need; making every field required; sharing respondent data too widely; asking leading or double-barrelled questions. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What is wrong with a double-barrelled question? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 3 — Settings, branching and validation",
+    "LEARNING GOAL — Use appropriate required fields, branching and response limits; ensure the form remains understandable on mobile and with assistive technology.",
+    "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+    "KEY TERMS — required field — information that must be supplied; pilot test — small test before wider release; data minimisation — collect only necessary information; question wording — exact phrasing presented to the respondent; response option — permitted answer choice. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Set required fields and validation only when necessary. 2) Pilot the form on a small test group and correct confusion. 3) Review results carefully and restrict access to sensitive data. 4) Write the decision or learning goal the form supports. 5) Use one clear concept per question and balanced answer choices.",
+    "WORKED EXAMPLE — A follow-up question appears only when a learner reports a problem, so other respondents are not forced through irrelevant fields.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Sketch a short branching flow for a course issue report with a clear exit path.",
+    "COMMON MISTAKES TO AVOID — making every field required; sharing respondent data too widely; asking leading or double-barrelled questions; collecting information without a clear need. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What is a benefit of branching? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 4 — Quiz questions and feedback",
+    "LEARNING GOAL — Write one unambiguous correct answer, plausible distractors and feedback that explains the underlying concept.",
+    "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+    "KEY TERMS — pilot test — small test before wider release; data minimisation — collect only necessary information; question wording — exact phrasing presented to the respondent; response option — permitted answer choice; required field — information that must be supplied. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Pilot the form on a small test group and correct confusion. 2) Review results carefully and restrict access to sensitive data. 3) Write the decision or learning goal the form supports. 4) Use one clear concept per question and balanced answer choices. 5) Set required fields and validation only when necessary.",
+    "WORKED EXAMPLE — A quiz about file backups explains why a verified separate copy matters instead of merely marking the response wrong.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Create three quiz questions with answer keys and explanatory feedback for a lesson you know.",
+    "COMMON MISTAKES TO AVOID — sharing respondent data too widely; asking leading or double-barrelled questions; collecting information without a clear need; making every field required. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What improves quiz feedback? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 5 — Pilot testing, accessibility and privacy",
+    "LEARNING GOAL — Test instructions, completion time, readability, access permissions and the minimal amount of personal information required.",
+    "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+    "KEY TERMS — data minimisation — collect only necessary information; question wording — exact phrasing presented to the respondent; response option — permitted answer choice; required field — information that must be supplied; pilot test — small test before wider release. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Review results carefully and restrict access to sensitive data. 2) Write the decision or learning goal the form supports. 3) Use one clear concept per question and balanced answer choices. 4) Set required fields and validation only when necessary. 5) Pilot the form on a small test group and correct confusion.",
+    "WORKED EXAMPLE — A pilot reveals that a required phone number is unnecessary for an anonymous learning survey, so it is removed.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Use a checklist to review a fictional survey for bias, accessibility, privacy and usability.",
+    "COMMON MISTAKES TO AVOID — asking leading or double-barrelled questions; collecting information without a clear need; making every field required; sharing respondent data too widely. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What does data minimisation mean? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result.",
+    "SECTION 6 — Analyse responses and communicate findings",
+    "LEARNING GOAL — Summarise response counts, percentages and common themes, noting response rate, missing answers and limitations.",
+    "WHY THIS MATTERS — Forms can collect structured feedback, registration details and quiz responses. A useful form asks only what is needed, uses understandable and unbiased questions, gives respondents the right context and explains how their information will be used. Test the form from a respondent's perspective before sharing it widely.",
+    "KEY TERMS — question wording — exact phrasing presented to the respondent; response option — permitted answer choice; required field — information that must be supplied; pilot test — small test before wider release; data minimisation — collect only necessary information. Pause after each term. Explain it in your own words, then connect it to the example in this lesson.",
+    "FOLLOW THE STEPS — 1) Write the decision or learning goal the form supports. 2) Use one clear concept per question and balanced answer choices. 3) Set required fields and validation only when necessary. 4) Pilot the form on a small test group and correct confusion. 5) Review results carefully and restrict access to sensitive data.",
+    "WORKED EXAMPLE — If only a small group completed a survey, report the count and avoid treating its views as a definite result for everyone.",
+    "VISUAL WALKTHROUGH — Follow the labelled sequence in this course illustration: 1. Define purpose → 2. Write questions → 3. Set response options → 4. Pilot form → 5. Review responses. Point to each stage and say what information enters, what happens and what result should appear.",
+    "YOUR TURN — Analyse a small fictional response table and write two findings plus one limitation.",
+    "COMMON MISTAKES TO AVOID — collecting information without a clear need; making every field required; sharing respondent data too widely; asking leading or double-barrelled questions. If you make an error, keep the example, identify the first step where it went wrong, correct that step and try again.",
+    "CHECK YOUR UNDERSTANDING — What limitation should be noted when few people respond? Before using the assessment, answer aloud or in writing and explain why your answer fits the example.",
+    "STUDY AT YOUR PACE — Read one paragraph, stop and summarise it in one sentence. Try the task using a small or fictional example. Check one step before moving to the next. If stuck, return to the worked example and change only one thing at a time.",
+    "TRANSFER THE SKILL — Repeat the task with a different but similar example. State what changed, what stayed the same and how you verified the result."
+  ]
+},
+{
+  "id": "computer-office-skills-onedrive",
+  "title": "Microsoft OneDrive: Cloud Storage, Syncing and File Sharing",
+  "minutes": 50,
+  "content": [
+    "LEARNING OUTCOMES — By the end of this lesson, you should be able to explain cloud storage, upload and organise files in OneDrive, synchronise files across devices, share files safely, restore earlier versions and troubleshoot common sync problems.",
+    "WHAT ONEDRIVE DOES — Microsoft OneDrive is a cloud storage service for saving files online and accessing them from supported devices. It can work with Windows and Microsoft 365 apps so you can open, save and collaborate on documents. Access and features depend on the account, subscription, organisation settings and internet connection.",
+    "CLOUD STORAGE AND LOCAL STORAGE — A file stored in OneDrive is held in your cloud account. Depending on sync settings, a copy or placeholder may also appear in File Explorer. A cloud icon, green check or sync status indicator can help show whether an item is online-only, available locally or synchronised. Do not assume a file is safely uploaded until OneDrive reports that syncing is complete.",
+    "SIGN IN AND SET UP — Open OneDrive from Windows or the Microsoft 365 app launcher, then sign in using the correct personal or work/school Microsoft account. Check the account name before saving confidential work. Choose the appropriate OneDrive folder and review which folders are synchronised to the device.",
+    "UPLOAD AND ORGANISE — Upload files using the web interface or save/move them into the OneDrive folder on a synced computer. Create folders with clear names, use consistent file names and keep related documents together. Avoid duplicate copies named final-final or confusing multiple versions.",
+    "FILES ON DEMAND AND OFFLINE ACCESS — Files On-Demand can show cloud files in File Explorer without downloading every file. Mark important files or folders as available offline when you need them without internet. An online-only file may not open when the device is disconnected until it has been downloaded.",
+    "SYNCING ACROSS DEVICES — When signed in to the same account, OneDrive can synchronise supported files across devices. Allow the sync process to finish before shutting down or disconnecting. If syncing pauses, check internet connectivity, account sign-in, storage space, file names and OneDrive sync status. Resolve conflicts carefully rather than overwriting the only good copy.",
+    "SHARING SAFELY — Use Share to invite specific people or create a link where the account permits it. Choose the least-permissive access that meets the task: view rather than edit when editing is unnecessary, and restrict access to named people for sensitive material. Check whether a link allows editing, whether it can be forwarded and whether an expiry or password option is available. Never publish private customer, staff or financial files through an unrestricted link.",
+    "COLLABORATION WITH OFFICE APPS — Word, Excel and PowerPoint files saved in OneDrive can support co-authoring when the file type, app, account and permissions allow it. Use comments and version history to coordinate changes. Agree who is responsible for final review before sending a document externally.",
+    "VERSION HISTORY AND RECOVERY — OneDrive version history may let you inspect or restore an earlier version of a supported file. Deleted files may be recoverable from the OneDrive recycle bin for a limited period, depending on account type and organisation retention policies. Recovery features are not a substitute for a separate backup strategy.",
+    "SYNC IS NOT A COMPLETE BACKUP — Synchronisation copies changes between locations. If a file is deleted or damaged and that change syncs, it may affect other synced locations too. Keep separate backups for important business records and follow your organisation's retention and recovery policy.",
+    "STORAGE AND SECURITY — Monitor available OneDrive storage and understand that quotas vary by account and subscription. Protect the Microsoft account with a strong unique password and multi-factor authentication where available. Do not share sign-in codes, leave a signed-in device unattended or store sensitive information in an account that is not approved for it.",
+    "PRACTICAL EXERCISE — Create a folder called Training Project in OneDrive. Add a Word document, an Excel workbook and a PowerPoint presentation. Confirm that each file has finished syncing. Share one practice document with a trusted test recipient using view-only access, then review and remove that sharing permission. If using a public or shared computer, sign out when finished.",
+    "TROUBLESHOOTING — If a file does not appear on another device, confirm that both devices use the same account, OneDrive is running, syncing is not paused, internet is available and the file has completed upload. Check storage limits and sync error messages. Do not delete local files to fix a sync issue until you understand whether the cloud copy is complete.",
+    "KNOWLEDGE CHECK — Explain the difference between a cloud file and a local file, describe how you confirm a successful sync, identify the safest sharing permission for a confidential report and explain why synchronisation alone is not a full backup.",
+    "FINAL TASK — Demonstrate a complete OneDrive workflow: create and organise a folder, upload or save three files, verify sync, make one file available offline, share another with restricted view access, inspect version history and explain how you would recover a deleted item. Submit screenshots or a written step log without exposing personal or confidential information."
+  ]
+}
+],
     questions: [
       { id: "computer-office-skills-q1", prompt: "What makes a file name useful?", options: ["It clearly describes the file", "It is always blank", "It uses random symbols only", "It hides the document's purpose"], answerIndex: 0, explanation: "Descriptive names make files easier to find and distinguish." },
       { id: "computer-office-skills-q2", prompt: "What should a presentation slide usually do?", options: ["Communicate one main idea clearly", "Contain every sentence in a report", "Use the smallest possible text", "Avoid titles"], answerIndex: 0, explanation: "Focused slides are easier to read and explain." },
@@ -970,7 +1626,656 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
           "answerIndex": 2,
           "explanation": "A clear goal or checklist makes progress easier to review and areas for improvement easier to identify."
         }
-      ]
+      ,
+{
+  "id": "microsoft-word-document-design-q1",
+  "prompt": "What is the safest way to correct text without retyping the whole document?",
+  "options": [
+    "Select the relevant text, edit it, and review the result.",
+    "Skip proofing and assume the exported file matches the source.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "Share the file without checking rights, recipients or private details."
+  ],
+  "answerIndex": 0,
+  "explanation": "Select the relevant text, edit it, and review the result. Recognise the ribbon, document canvas, insertion point, selection, undo and save controls; editing changes text while formatting changes its appearance."
+},
+{
+  "id": "microsoft-word-document-design-q2",
+  "prompt": "Why use built-in heading styles?",
+  "options": [
+    "Skip proofing and assume the exported file matches the source.",
+    "They create consistent formatting and a navigable document structure.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "Share the file without checking rights, recipients or private details."
+  ],
+  "answerIndex": 1,
+  "explanation": "They create consistent formatting and a navigable document structure. Use heading levels, paragraph spacing, lists, margins and page breaks to create a hierarchy that stays consistent when the document changes."
+},
+{
+  "id": "microsoft-word-document-design-q3",
+  "prompt": "When is a Word table preferable to aligning text with spaces?",
+  "options": [
+    "Skip proofing and assume the exported file matches the source.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "When information belongs in rows and columns and needs to remain aligned during edits.",
+    "Share the file without checking rights, recipients or private details."
+  ],
+  "answerIndex": 2,
+  "explanation": "When information belongs in rows and columns and needs to remain aligned during edits. Use tables for genuinely tabular information, crop images thoughtfully, add useful alternative text and control page orientation, margins and breaks."
+},
+{
+  "id": "microsoft-word-document-design-q4",
+  "prompt": "What should you do before accepting a tracked change to a key fact?",
+  "options": [
+    "Skip proofing and assume the exported file matches the source.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "Share the file without checking rights, recipients or private details.",
+    "Verify the change against a reliable source or approved record."
+  ],
+  "answerIndex": 3,
+  "explanation": "Verify the change against a reliable source or approved record. Use comments, track changes, citations and review tools to make feedback traceable; accept or reject edits only after evaluating them."
+},
+{
+  "id": "microsoft-word-document-design-q5",
+  "prompt": "What makes a formal document more useful to its reader?",
+  "options": [
+    "Clear structure, accurate details and content matched to the document purpose.",
+    "Skip proofing and assume the exported file matches the source.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "Share the file without checking rights, recipients or private details."
+  ],
+  "answerIndex": 0,
+  "explanation": "Clear structure, accurate details and content matched to the document purpose. Match document structure and tone to the purpose, present information honestly and use concise sections that help the reader scan key details."
+},
+{
+  "id": "microsoft-word-document-design-q6",
+  "prompt": "Why inspect a PDF after exporting it?",
+  "options": [
+    "Skip proofing and assume the exported file matches the source.",
+    "To confirm the shared version preserved layout and content correctly.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "Share the file without checking rights, recipients or private details."
+  ],
+  "answerIndex": 1,
+  "explanation": "To confirm the shared version preserved layout and content correctly. Run spelling and accessibility checks, inspect page breaks, confirm links and understand that a PDF is often useful for sharing a stable layout."
+},
+{
+  "id": "microsoft-excel-spreadsheet-analysis-q1",
+  "prompt": "What should one row in a simple sales table usually represent?",
+  "options": [
+    "Replace the formula with a guessed total and ignore the source records.",
+    "One complete sale or observation.",
+    "Mix reporting periods or currencies without checking the units.",
+    "Publish the result before checking filters, permissions or accuracy."
+  ],
+  "answerIndex": 1,
+  "explanation": "One complete sale or observation. Understand workbooks, worksheets, cells, ranges and common data types; organise one record per row and one variable per column."
+},
+{
+  "id": "microsoft-excel-spreadsheet-analysis-q2",
+  "prompt": "Why use a formula for a repeated calculation?",
+  "options": [
+    "Replace the formula with a guessed total and ignore the source records.",
+    "Mix reporting periods or currencies without checking the units.",
+    "It applies the same rule consistently and updates when referenced values change.",
+    "Publish the result before checking filters, permissions or accuracy."
+  ],
+  "answerIndex": 2,
+  "explanation": "It applies the same rule consistently and updates when referenced values change. Use addition, multiplication, SUM, AVERAGE, MIN, MAX and COUNT; inspect cell references whenever copying a formula."
+},
+{
+  "id": "microsoft-excel-spreadsheet-analysis-q3",
+  "prompt": "What should you do before deleting an apparent duplicate?",
+  "options": [
+    "Replace the formula with a guessed total and ignore the source records.",
+    "Mix reporting periods or currencies without checking the units.",
+    "Publish the result before checking filters, permissions or accuracy.",
+    "Check whether it is truly an accidental duplicate rather than a legitimate repeated transaction."
+  ],
+  "answerIndex": 3,
+  "explanation": "Check whether it is truly an accidental duplicate rather than a legitimate repeated transaction. Detect blanks, duplicates, inconsistent categories and impossible values before interpreting records; use filters and validation carefully."
+},
+{
+  "id": "microsoft-excel-spreadsheet-analysis-q4",
+  "prompt": "Does selling price minus direct cost automatically equal net profit?",
+  "options": [
+    "No; overheads and other expenses still need to be deducted.",
+    "Replace the formula with a guessed total and ignore the source records.",
+    "Mix reporting periods or currencies without checking the units.",
+    "Publish the result before checking filters, permissions or accuracy."
+  ],
+  "answerIndex": 0,
+  "explanation": "No; overheads and other expenses still need to be deducted. Separate revenue, direct costs, gross margin and overheads; label assumptions and keep price, quantity and percentage units clear."
+},
+{
+  "id": "microsoft-excel-spreadsheet-analysis-q5",
+  "prompt": "What should be included on a useful chart axis?",
+  "options": [
+    "Replace the formula with a guessed total and ignore the source records.",
+    "A clear label and the relevant unit or measurement.",
+    "Mix reporting periods or currencies without checking the units.",
+    "Publish the result before checking filters, permissions or accuracy."
+  ],
+  "answerIndex": 1,
+  "explanation": "A clear label and the relevant unit or measurement. Select chart types that match the data, label axes and units, and write what the chart supports without overstating causation."
+},
+{
+  "id": "microsoft-excel-spreadsheet-analysis-q6",
+  "prompt": "What is a strong check for a spreadsheet total?",
+  "options": [
+    "Replace the formula with a guessed total and ignore the source records.",
+    "Mix reporting periods or currencies without checking the units.",
+    "Independently recalculate a sample and compare the formula range with the source records.",
+    "Publish the result before checking filters, permissions or accuracy."
+  ],
+  "answerIndex": 2,
+  "explanation": "Independently recalculate a sample and compare the formula range with the source records. Trace formulas, check ranges, protect sensitive records, control sharing and preserve an original copy before major changes."
+},
+{
+  "id": "microsoft-powerpoint-presentation-design-q1",
+  "prompt": "What is the best starting point for a new presentation?",
+  "options": [
+    "Skip proofing and assume the exported file matches the source.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "Define the audience, purpose and main takeaway.",
+    "Share the file without checking rights, recipients or private details."
+  ],
+  "answerIndex": 2,
+  "explanation": "Define the audience, purpose and main takeaway. Choose one objective, learn what the audience already knows and arrange content so each slide advances a clear message."
+},
+{
+  "id": "microsoft-powerpoint-presentation-design-q2",
+  "prompt": "What does a slide master help you control?",
+  "options": [
+    "Skip proofing and assume the exported file matches the source.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "Share the file without checking rights, recipients or private details.",
+    "Consistent repeated design and layout across the deck."
+  ],
+  "answerIndex": 3,
+  "explanation": "Consistent repeated design and layout across the deck. Use layouts and slide masters to maintain alignment, fonts, colours and repeated information across slides."
+},
+{
+  "id": "microsoft-powerpoint-presentation-design-q3",
+  "prompt": "What makes a chart trustworthy to an audience?",
+  "options": [
+    "Clear labels, correct data, suitable scales and relevant source notes.",
+    "Skip proofing and assume the exported file matches the source.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "Share the file without checking rights, recipients or private details."
+  ],
+  "answerIndex": 0,
+  "explanation": "Clear labels, correct data, suitable scales and relevant source notes. Choose visuals that explain relationships, cite the origin of external material and ensure charts use honest scales and labels."
+},
+{
+  "id": "microsoft-powerpoint-presentation-design-q4",
+  "prompt": "When should an animation be removed?",
+  "options": [
+    "Skip proofing and assume the exported file matches the source.",
+    "When it distracts or adds no explanatory value.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "Share the file without checking rights, recipients or private details."
+  ],
+  "answerIndex": 1,
+  "explanation": "When it distracts or adds no explanatory value. Use motion only when it improves explanation; ensure contrast, reading order, alternative text and legibility are adequate."
+},
+{
+  "id": "microsoft-powerpoint-presentation-design-q5",
+  "prompt": "Why rehearse aloud rather than only reading slides silently?",
+  "options": [
+    "Skip proofing and assume the exported file matches the source.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "It reveals timing, unclear transitions and explanations that need improvement.",
+    "Share the file without checking rights, recipients or private details."
+  ],
+  "answerIndex": 2,
+  "explanation": "It reveals timing, unclear transitions and explanations that need improvement. Use notes to support delivery, practise aloud, manage time and plan answers to likely questions."
+},
+{
+  "id": "microsoft-powerpoint-presentation-design-q6",
+  "prompt": "What is a sensible backup for an important presentation?",
+  "options": [
+    "Skip proofing and assume the exported file matches the source.",
+    "Use the most decorative layout even if the message becomes hard to read.",
+    "Share the file without checking rights, recipients or private details.",
+    "A tested PDF or other approved copy stored where it is accessible offline."
+  ],
+  "answerIndex": 3,
+  "explanation": "A tested PDF or other approved copy stored where it is accessible offline. Test fonts, media, links, aspect ratio and presentation mode; export a PDF backup where appropriate."
+},
+{
+  "id": "microsoft-outlook-email-calendar-q1",
+  "prompt": "What is a useful way to find a specific older email?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions.",
+    "Search by relevant sender, subject keyword or date."
+  ],
+  "answerIndex": 3,
+  "explanation": "Search by relevant sender, subject keyword or date. Recognise Inbox, Sent Items, Drafts, folders, search and conversation threads; file messages so important work can be retrieved."
+},
+{
+  "id": "microsoft-outlook-email-calendar-q2",
+  "prompt": "What should you check just before sending an attachment?",
+  "options": [
+    "Confirm the correct file and version are attached and addressed to the intended recipients.",
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 0,
+  "explanation": "Confirm the correct file and version are attached and addressed to the intended recipients. Write a subject that names the topic, put the requested action near the top, check tone and verify attachments before sending."
+},
+{
+  "id": "microsoft-outlook-email-calendar-q3",
+  "prompt": "What prevents confusion when scheduling across regions?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Confirming the date, time zone and duration explicitly.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 1,
+  "explanation": "Confirming the date, time zone and duration explicitly. Schedule events using the correct date, duration, time zone, location or meeting link and attendee list."
+},
+{
+  "id": "microsoft-outlook-email-calendar-q4",
+  "prompt": "What makes a task actionable?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "A clear outcome, responsible person and due date.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 2,
+  "explanation": "A clear outcome, responsible person and due date. Convert promises and requests into clear actions with an owner, deadline and reminder; review overdue work regularly."
+},
+{
+  "id": "microsoft-outlook-email-calendar-q5",
+  "prompt": "Why test a mail rule before relying on it?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions.",
+    "To ensure important messages are not hidden or moved incorrectly."
+  ],
+  "answerIndex": 3,
+  "explanation": "To ensure important messages are not hidden or moved incorrectly. Organise contacts, use rules carefully and avoid automation that may hide urgent or suspicious messages."
+},
+{
+  "id": "microsoft-outlook-email-calendar-q6",
+  "prompt": "How should you respond to an unexpected request for a one-time code?",
+  "options": [
+    "Do not share it; verify through an official channel.",
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 0,
+  "explanation": "Do not share it; verify through an official channel. Recognise phishing, inspect links, verify unusual payment or password requests and use Bcc when recipient privacy requires it."
+},
+{
+  "id": "microsoft-access-database-fundamentals-q1",
+  "prompt": "Why is a unique ID often better than using a person's name as the primary key?",
+  "options": [
+    "Names can repeat or change, while a stable ID uniquely identifies the record.",
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 0,
+  "explanation": "Names can repeat or change, while a stable ID uniquely identifies the record. Identify entities, records, fields, data types and unique identifiers; one field should store one clearly defined value."
+},
+{
+  "id": "microsoft-access-database-fundamentals-q2",
+  "prompt": "In a one-to-many relationship, where is the foreign key normally placed?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "In the many-side table, pointing to the one-side primary key.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 1,
+  "explanation": "In the many-side table, pointing to the one-side primary key. Use primary and foreign keys to link tables and understand one-to-many relationships without copying customer details into every order."
+},
+{
+  "id": "microsoft-access-database-fundamentals-q3",
+  "prompt": "What is the purpose of a query?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "To retrieve or calculate information that meets defined conditions.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 2,
+  "explanation": "To retrieve or calculate information that meets defined conditions. Retrieve only the records and fields needed; use criteria and calculated fields, and confirm results on known sample records."
+},
+{
+  "id": "microsoft-access-database-fundamentals-q4",
+  "prompt": "How can a form reduce data-entry errors?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions.",
+    "By using clear labels, sensible defaults and validation rules."
+  ],
+  "answerIndex": 3,
+  "explanation": "By using clear labels, sensible defaults and validation rules. Use forms to guide input, add validation rules and provide clear labels to reduce incomplete or inconsistent records."
+},
+{
+  "id": "microsoft-access-database-fundamentals-q5",
+  "prompt": "Why should a report show its period or filter criteria?",
+  "options": [
+    "Readers need to understand which records the totals represent.",
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 0,
+  "explanation": "Readers need to understand which records the totals represent. Choose a report layout that answers a question, group and total data carefully and show the reporting period and filters."
+},
+{
+  "id": "microsoft-access-database-fundamentals-q6",
+  "prompt": "What is a responsible dataset for beginner practice?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Fictional or properly anonymised sample data.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 1,
+  "explanation": "Fictional or properly anonymised sample data. Test expected and invalid inputs, preserve backups, restrict access and avoid using real personal data in practice exercises."
+},
+{
+  "id": "microsoft-teams-collaboration-q1",
+  "prompt": "Where should a decision relevant to the whole project normally be recorded?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "In the agreed shared project channel or record.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 2,
+  "explanation": "In the agreed shared project channel or record. Choose a shared channel for team-wide context and direct chat for appropriate private coordination; write clear, respectful messages."
+},
+{
+  "id": "microsoft-teams-collaboration-q2",
+  "prompt": "What should a useful meeting invitation include besides the time?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions.",
+    "Purpose, agenda, expected attendees and required preparation or link."
+  ],
+  "answerIndex": 3,
+  "explanation": "Purpose, agenda, expected attendees and required preparation or link. Send a purpose, agenda, time and expected preparation; keep discussion focused and make space for participants to contribute."
+},
+{
+  "id": "microsoft-teams-collaboration-q3",
+  "prompt": "What should you check before sharing a file link?",
+  "options": [
+    "That the recipient is authorised and the permission is appropriate.",
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 0,
+  "explanation": "That the recipient is authorised and the permission is appropriate. Understand edit versus view access, maintain version context and use shared files rather than sending unclear duplicate versions."
+},
+{
+  "id": "microsoft-teams-collaboration-q4",
+  "prompt": "How do you prevent meeting decisions from being forgotten?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Record actions, assign owners and deadlines, and review status.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 1,
+  "explanation": "Record actions, assign owners and deadlines, and review status. Convert decisions into actions with a clear deliverable, owner, due date and status; escalate blockers early."
+},
+{
+  "id": "microsoft-teams-collaboration-q5",
+  "prompt": "What is the purpose of notification settings?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "To make important updates visible without unnecessary interruptions.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 2,
+  "explanation": "To make important updates visible without unnecessary interruptions. Use notification settings and status appropriately to protect focus while staying reachable for genuinely urgent work."
+},
+{
+  "id": "microsoft-teams-collaboration-q6",
+  "prompt": "What should be verified before recording or sharing meeting content?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions.",
+    "Permission, policy, audience and the purpose for retaining it."
+  ],
+  "answerIndex": 3,
+  "explanation": "Permission, policy, audience and the purpose for retaining it. Check meeting recording consent and policy, avoid posting private information to broad groups and report suspicious file requests."
+},
+{
+  "id": "microsoft-project-visio-technical-planning-q1",
+  "prompt": "Why break a large deliverable into smaller tasks?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions.",
+    "It makes effort, ownership and progress easier to estimate and track."
+  ],
+  "answerIndex": 3,
+  "explanation": "It makes effort, ownership and progress easier to estimate and track. Break a deliverable into manageable activities, name owners and estimate realistic durations."
+},
+{
+  "id": "microsoft-project-visio-technical-planning-q2",
+  "prompt": "What is a dependency?",
+  "options": [
+    "A relationship in which one task or condition relies on another.",
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 0,
+  "explanation": "A relationship in which one task or condition relies on another. Show which activities must precede others and identify the sequence that can affect the earliest finish date."
+},
+{
+  "id": "microsoft-project-visio-technical-planning-q3",
+  "prompt": "What does a Gantt chart mainly communicate?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Task timing, duration, overlap and milestones.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 1,
+  "explanation": "Task timing, duration, overlap and milestones. Display task timing, overlaps, milestones and current status; update estimates when actual work changes the plan."
+},
+{
+  "id": "microsoft-project-visio-technical-planning-q4",
+  "prompt": "What does a decision shape indicate in a flowchart?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "A point where the next step depends on a condition or answer.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 2,
+  "explanation": "A point where the next step depends on a condition or answer. Use standard shapes and directional connectors for steps and decisions; use swimlanes when responsibility changes between roles."
+},
+{
+  "id": "microsoft-project-visio-technical-planning-q5",
+  "prompt": "What makes a technical diagram easier to interpret?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions.",
+    "Clear labels, consistent symbols, meaningful connections and a legend when needed."
+  ],
+  "answerIndex": 3,
+  "explanation": "Clear labels, consistent symbols, meaningful connections and a legend when needed. Represent components, boundaries and links accurately, using consistent symbols and a legend when a diagram could be misread."
+},
+{
+  "id": "microsoft-project-visio-technical-planning-q6",
+  "prompt": "What should a project status update include besides percent complete?",
+  "options": [
+    "Milestones, risks, blockers, decisions and the reporting date.",
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 0,
+  "explanation": "Milestones, risks, blockers, decisions and the reporting date. Report current progress, remaining work, risks, decisions and date of the report; document approved schedule or design changes."
+},
+{
+  "id": "microsoft-forms-survey-design-q1",
+  "prompt": "Why define a form's purpose before writing questions?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "It helps avoid irrelevant questions and unnecessary data collection.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 1,
+  "explanation": "It helps avoid irrelevant questions and unnecessary data collection. Define the audience, purpose, completion time and decision that collected answers will support."
+},
+{
+  "id": "microsoft-forms-survey-design-q2",
+  "prompt": "What is wrong with a double-barrelled question?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "It asks about two different things but makes the respondent give one answer.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 2,
+  "explanation": "It asks about two different things but makes the respondent give one answer. Choose single choice, multiple choice, rating, text or date fields appropriately; avoid leading and double-barrelled wording."
+},
+{
+  "id": "microsoft-forms-survey-design-q3",
+  "prompt": "What is a benefit of branching?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions.",
+    "It can show relevant follow-up questions while skipping unrelated ones."
+  ],
+  "answerIndex": 3,
+  "explanation": "It can show relevant follow-up questions while skipping unrelated ones. Use appropriate required fields, branching and response limits; ensure the form remains understandable on mobile and with assistive technology."
+},
+{
+  "id": "microsoft-forms-survey-design-q4",
+  "prompt": "What improves quiz feedback?",
+  "options": [
+    "Explaining the reasoning and how to correct a misunderstanding.",
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 0,
+  "explanation": "Explaining the reasoning and how to correct a misunderstanding. Write one unambiguous correct answer, plausible distractors and feedback that explains the underlying concept."
+},
+{
+  "id": "microsoft-forms-survey-design-q5",
+  "prompt": "What does data minimisation mean?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Collect only the personal information necessary for the stated purpose.",
+    "Change several settings at once and do not record what changed.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 1,
+  "explanation": "Collect only the personal information necessary for the stated purpose. Test instructions, completion time, readability, access permissions and the minimal amount of personal information required."
+},
+{
+  "id": "microsoft-forms-survey-design-q6",
+  "prompt": "What limitation should be noted when few people respond?",
+  "options": [
+    "Skip the instructions and use the first result without checking it.",
+    "Change several settings at once and do not record what changed.",
+    "The answers may not represent the wider group and uncertainty is greater.",
+    "Share the result before checking accuracy, privacy and permissions."
+  ],
+  "answerIndex": 2,
+  "explanation": "The answers may not represent the wider group and uncertainty is greater. Summarise response counts, percentages and common themes, noting response rate, missing answers and limitations."
+},
+{
+  "id": "computer-office-skills-onedrive-q1",
+  "prompt": "What is Microsoft OneDrive primarily used for?",
+  "options": [
+    "Cloud storage, file access and sharing",
+    "Repairing computer hardware",
+    "Replacing an operating system",
+    "Creating computer processors"
+  ],
+  "answerIndex": 0,
+  "explanation": "OneDrive stores files in a cloud account and supports access, syncing and sharing across supported devices."
+},
+{
+  "id": "computer-office-skills-onedrive-q2",
+  "prompt": "How can you check that a file has uploaded successfully?",
+  "options": [
+    "Assume it uploaded when you drag it",
+    "Check OneDrive sync status and confirm syncing is complete",
+    "Turn off the computer immediately",
+    "Rename it several times"
+  ],
+  "answerIndex": 1,
+  "explanation": "Checking the sync status helps confirm that the latest file has reached OneDrive."
+},
+{
+  "id": "computer-office-skills-onedrive-q3",
+  "prompt": "What is the safest default when sharing a confidential document?",
+  "options": [
+    "Anyone with the link can edit",
+    "Post the link publicly",
+    "Share with named people and grant only the access they need",
+    "Send your Microsoft password"
+  ],
+  "answerIndex": 2,
+  "explanation": "Named-person access and least-privilege permissions reduce unnecessary exposure."
+},
+{
+  "id": "computer-office-skills-onedrive-q4",
+  "prompt": "What does Files On-Demand allow you to do?",
+  "options": [
+    "See cloud files in File Explorer without downloading every file",
+    "Use every cloud file offline automatically",
+    "Increase internet speed",
+    "Recover any file forever"
+  ],
+  "answerIndex": 0,
+  "explanation": "Files On-Demand can show online-only files locally; download or mark files for offline use when needed."
+},
+{
+  "id": "computer-office-skills-onedrive-q5",
+  "prompt": "Why is OneDrive syncing not the same as a complete backup?",
+  "options": [
+    "Sync never copies files",
+    "A deletion or unwanted change can also synchronise to other locations",
+    "OneDrive cannot store documents",
+    "Backups are only for photos"
+  ],
+  "answerIndex": 1,
+  "explanation": "Synchronisation propagates changes, including some deletions or damage. Maintain separate backups for important records."
+},
+{
+  "id": "computer-office-skills-onedrive-q6",
+  "prompt": "What should you do before removing a file to fix a sync problem?",
+  "options": [
+    "Delete all copies immediately",
+    "Share it publicly",
+    "Check sync status and confirm which copy is safely stored",
+    "Disable account security"
+  ],
+  "answerIndex": 2,
+  "explanation": "Confirming the cloud and local copies prevents accidental loss while troubleshooting."
+}
+]
   },
     {
     id: "cybersecurity-online-safety",
@@ -6439,7 +7744,7 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
       "description": "Create polished letters, reports, CVs, forms and accessible documents using Word features.",
       "level": "Foundation",
       "priceKsh": 300,
-      "published": true,
+      "published": false,
       "lessons": [
         {
           "id": "microsoft-word-document-design-lesson-1",
@@ -6632,7 +7937,7 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
       "description": "Build spreadsheets with formulas, tables, charts, data checks and clear business analysis.",
       "level": "Foundation",
       "priceKsh": 300,
-      "published": true,
+      "published": false,
       "lessons": [
         {
           "id": "microsoft-excel-spreadsheet-analysis-lesson-1",
@@ -6825,7 +8130,7 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
       "description": "Create clear slide decks with visual hierarchy, diagrams, charts, speaker notes and accessible design.",
       "level": "Foundation",
       "priceKsh": 300,
-      "published": true,
+      "published": false,
       "lessons": [
         {
           "id": "microsoft-powerpoint-presentation-design-lesson-1",
@@ -7018,7 +8323,7 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
       "description": "Manage professional email, contacts, meetings, calendars, tasks and follow-up safely.",
       "level": "Foundation",
       "priceKsh": 300,
-      "published": true,
+      "published": false,
       "lessons": [
         {
           "id": "microsoft-outlook-email-calendar-lesson-1",
@@ -7211,7 +8516,7 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
       "description": "Learn tables, fields, relationships, queries, forms and reports using responsible sample data.",
       "level": "Intermediate",
       "priceKsh": 300,
-      "published": true,
+      "published": false,
       "lessons": [
         {
           "id": "microsoft-access-database-fundamentals-lesson-1",
@@ -7597,7 +8902,7 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
       "description": "Use chats, channels, meetings, shared files and tasks to collaborate professionally and safely.",
       "level": "Foundation",
       "priceKsh": 300,
-      "published": true,
+      "published": false,
       "lessons": [
         {
           "id": "microsoft-teams-collaboration-lesson-1",
@@ -10878,7 +12183,7 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
       "description": "Build schedules, dependencies, milestones, process maps, network diagrams and technical documentation.",
       "level": "Intermediate",
       "priceKsh": 300,
-      "published": true,
+      "published": false,
       "lessons": [
         {
           "id": "microsoft-project-visio-technical-planning-lesson-1",
@@ -11264,7 +12569,7 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
       "description": "Build accessible forms, quizzes and surveys with clear questions, validation, privacy and response analysis.",
       "level": "Foundation",
       "priceKsh": 300,
-      "published": true,
+      "published": false,
       "lessons": [
         {
           "id": "microsoft-forms-survey-design-lesson-1",
