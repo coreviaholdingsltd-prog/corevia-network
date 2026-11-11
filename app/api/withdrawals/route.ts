@@ -28,23 +28,6 @@ async function getSessionUser() {
 
 export async function GET() {
   try {
-    // This endpoint currently records withdrawal requests but does not execute
-    // a Paystack transfer. Fail closed until the idempotent payout processor,
-    // live balance reconciliation and all settlement checks are deployed.
-    if (
-      process.env.COREVIA_WITHDRAWALS_ENABLED !== "true" ||
-      process.env.COREVIA_PAYSTACK_WITHDRAWALS_ENABLED !== "true" ||
-      process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true" ||
-      process.env.COREVIA_PAYSTACK_PAYOUT_PROCESSOR_ENABLED !== "true"
-    ) {
-      return NextResponse.json(
-        {
-          error: "Withdrawals are temporarily unavailable while automated Paystack payout processing and live settlement checks are completed. Your wallet has not been debited.",
-        },
-        { status: 503 },
-      );
-    }
-
     const user = await getSessionUser();
 
     if (!user) {
@@ -92,6 +75,23 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    // This endpoint currently records withdrawal requests but does not execute
+    // a Paystack transfer. Fail closed until the idempotent payout processor,
+    // live balance reconciliation and all settlement checks are deployed.
+    if (
+      process.env.COREVIA_WITHDRAWALS_ENABLED !== "true" ||
+      process.env.COREVIA_PAYSTACK_WITHDRAWALS_ENABLED !== "true" ||
+      process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true" ||
+      process.env.COREVIA_PAYSTACK_PAYOUT_PROCESSOR_ENABLED !== "true"
+    ) {
+      return NextResponse.json(
+        {
+          error: "Withdrawals are temporarily unavailable while automated Paystack payout processing and live settlement checks are completed. Your wallet has not been debited.",
+        },
+        { status: 503 },
+      );
+    }
+
     const user = await getSessionUser();
 
     if (!user) {
