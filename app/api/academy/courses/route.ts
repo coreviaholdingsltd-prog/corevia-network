@@ -27,6 +27,14 @@ export async function GET() {
       where: { courseId: { in: publishedCourses.map((course) => course.id) }, verified: true },
       select: { id: true, courseId: true, stageKey: true, title: true, authors: true, publication: true, publicationYear: true, url: true, doi: true, sourceType: true },
       orderBy: [{ publicationYear: "desc" }, { title: "asc" }],
+    }).catch((error: unknown) => {
+      // Keep the learner catalogue available during staged production migration.
+      // References and reviewer workflows remain unavailable until the migration lands.
+      if (error && typeof error === "object" && "code" in error && error.code === "P2021") {
+        console.error("Academy reference table is not migrated yet; serving courses without reference records.");
+        return [];
+      }
+      throw error;
     });
 
     const courses = publishedCourses.map((course) => {
