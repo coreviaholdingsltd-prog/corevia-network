@@ -627,7 +627,7 @@ export default function AcademyPage() {
                     {shelf.courses.map((course) => (
                   <article
                     key={course.id}
-                    className={`rounded-2xl border p-6 ${
+                    className={`rounded-2xl border p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20 sm:p-6 ${
                       course.completion
                         ? "border-emerald-400/40 bg-emerald-400/5"
                         : "border-white/10 bg-white/[0.04]"
@@ -758,7 +758,7 @@ export default function AcademyPage() {
                     {shelf.courses.map((course) => (
                   <article
                     key={course.id}
-                    className={`rounded-2xl border p-6 ${
+                    className={`rounded-2xl border p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20 sm:p-6 ${
                       course.completion
                         ? "border-emerald-400/40 bg-emerald-400/5"
                         : "border-white/10 bg-white/[0.04]"
