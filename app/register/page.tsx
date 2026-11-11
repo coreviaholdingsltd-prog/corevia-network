@@ -170,6 +170,9 @@ function RegisterForm() {
                   autoComplete="tel"
                   className="w-full rounded-xl border border-[#12352c]/15 bg-[#f7f5ef]/50 px-4 py-3 outline-none focus:border-[#b99a58]"
                 />
+                <p className="mt-1.5 text-xs text-[#12352c]/55">
+                  Required for M-PESA withdrawal requests. Your phone number is private and is not shown on your public portfolio.
+                </p>
               </div>
 
               <div>
