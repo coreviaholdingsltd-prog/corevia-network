@@ -41,6 +41,15 @@ export async function GET() {
       where: { courseId: { in: publishedCourses.map((course) => course.id) } },
       orderBy: [{ signedAt: "desc" }, { createdAt: "desc" }],
       select: { courseId: true, stageKey: true, decision: true, signedAt: true, createdAt: true },
+    }).catch((error: unknown) => {
+      // A partially applied Academy governance migration must not take down
+      // the learner catalogue. Missing sign-off data always leaves paid stages
+      // closed; it is never interpreted as approval.
+      if (error && typeof error === "object" && "code" in error && error.code === "P2021") {
+        console.error("Academy sign-off table is not migrated yet; paid programme stages remain closed.");
+        return [];
+      }
+      throw error;
     });
     const courses = publishedCourses.map((course) => {
       const enrollment = enrollments.find((item) => item.courseId === course.id);
