@@ -345,6 +345,28 @@ export default function AcademyPage() {
     (catalogFilter === "programmes" ? course.isProgrammeStage : !course.isProgrammeStage),
   );
 
+  const programmeShelves = Array.from(
+    visibleCourses.filter((course) => course.isProgrammeStage).reduce((groups, course) => {
+      const key = course.pathwayId || course.title.split(" — ")[0] || course.id;
+      const group = groups.get(key) || { id: key, title: course.title.split(" — ")[0], courses: [] as Course[] };
+      group.courses.push(course);
+      groups.set(key, group);
+      return groups;
+    }, new Map<string, { id: string; title: string; courses: Course[] }>() ).values(),
+  ).map((shelf) => ({ ...shelf, courses: shelf.courses.sort((a, b) => (a.programmeOrder ?? 99) - (b.programmeOrder ?? 99)) }))
+    .sort((a, b) => a.title.localeCompare(b.title));
+
+  const shortCourseShelves = Array.from(
+    visibleCourses.filter((course) => !course.isProgrammeStage).reduce((groups, course) => {
+      const key = course.category || "General";
+      const group = groups.get(key) || { id: key, title: key, courses: [] as Course[] };
+      group.courses.push(course);
+      groups.set(key, group);
+      return groups;
+    }, new Map<string, { id: string; title: string; courses: Course[] }>() ).values(),
+  ).map((shelf) => ({ ...shelf, courses: shelf.courses.sort((a, b) => a.title.localeCompare(b.title)) }))
+    .sort((a, b) => a.title.localeCompare(b.title));
+
   const activeCourseId = routeCourseId ?? expandedCourse;
   const selected = courses.find((course) => course.id === activeCourseId);
 
@@ -549,148 +571,294 @@ export default function AcademyPage() {
               </div>
             )}
 
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {visibleCourses.map((course) => (
-                <div key={course.id} className="contents">
-                  {course.isProgrammeStage && course.programmeOrder === 1 && (
-                    <div key={`subject-${course.pathwayId ?? course.id}`} className="col-span-full mt-5 rounded-2xl border border-cyan-300/25 bg-gradient-to-r from-cyan-950/70 to-slate-900 px-5 py-4">
-                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Subject learning pathway</p>
-                      <h3 className="mt-1 text-xl font-bold text-white">{course.title.split(" — ")[0]}</h3>
-                      <div className="mt-3 grid grid-cols-5 gap-2 text-center text-[11px] font-semibold sm:text-xs">
-                        {[
-                          ["01", "Certificate", "KES 1,500"],
-                          ["02", "Diploma", "KES 3,500"],
-                          ["03", "Degree", "KES 7,500"],
-                          ["04", "Masters", "KES 12,500"],
-                          ["05", "Doctoral prep", "KES 20,000"],
-                        ].map(([number, label, fee]) => (
-                          <div key={number} className={course.programmeOrder === Number(number) ? "rounded-lg border border-cyan-300/50 bg-cyan-300/10 p-2 text-cyan-100" : "rounded-lg border border-white/10 bg-white/[0.03] p-2 text-slate-300"}>
-                            <span className="block text-cyan-300">{number}</span>
-                            <span className="mt-1 block">{label}</span>
-                            <span className="mt-1 block text-[10px] text-slate-400">{fee}</span>
-                          </div>
-                        ))}
+            <div className="space-y-10">
+              {(catalogFilter !== "short" ? programmeShelves : []).map((shelf) => (
+                <section key={shelf.id} aria-labelledby={`shelf-${shelf.id}`} className="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/50 shadow-xl">
+                  <div className="border-b border-white/10 bg-gradient-to-r from-cyan-950/80 via-slate-900 to-slate-900 px-5 py-5 sm:px-7">
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-300">Programme collection · Subject shelf</p>
+                        <h3 id={`shelf-${shelf.id}`} className="mt-1 text-2xl font-black text-white">{shelf.title}</h3>
+                        <p className="mt-1 text-sm text-slate-400">{shelf.courses.length} sequential stages · arranged from foundation to advanced study</p>
                       </div>
+                      <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-bold text-cyan-100">Learning pathway</span>
                     </div>
-                  )}
-                <article
-                  key={course.id}
-                  className={`rounded-2xl border p-6 ${
-                    course.completion
-                      ? "border-emerald-400/40 bg-emerald-400/5"
-                      : "border-white/10 bg-white/[0.04]"
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <span className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-bold text-cyan-200">
-                      {course.category}
-                    </span>
-
-                    <span className="text-sm font-bold text-amber-200">
-                      {money(course.priceKsh)}
-                    </span>
+                    <ol className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-5">
+                      {[
+                        ["01", "Certificate", 1500],
+                        ["02", "Diploma", 3500],
+                        ["03", "Degree", 7500],
+                        ["04", "Masters", 12500],
+                        ["05", "Doctoral prep", 20000],
+                      ].map(([number, label, fee]) => {
+                        const stage = shelf.courses.find((item) => item.programmeOrder === Number(number));
+                        return (
+                          <li key={number} className={stage?.completion ? "rounded-xl border border-emerald-300/30 bg-emerald-300/10 p-3" : stage?.enrolled ? "rounded-xl border border-cyan-300/40 bg-cyan-300/10 p-3" : "rounded-xl border border-white/10 bg-slate-950/60 p-3"}>
+                            <span className="block text-[10px] font-black tracking-widest text-cyan-300">STAGE {number}</span>
+                            <span className="mt-1 block text-xs font-bold text-white">{label}</span>
+                            <span className="mt-1 block text-xs text-slate-400">{money(Number(fee))}</span>
+                            <span className="mt-2 block text-[10px] text-slate-400">{stage?.completion ? "Completed" : stage?.enrolled ? `${stage.progressPercent}% in progress` : stage?.locked ? "Locked" : stage ? "Available" : "Coming soon"}</span>
+                          </li>
+                        );
+                      })}
+                    </ol>
                   </div>
-
-                  <h3 className="mt-5 text-2xl font-bold">
-                    {course.title}
-                  </h3>
-                  {course.isProgrammeStage && (
-                    <p className="mt-2 text-xs font-bold uppercase tracking-[0.15em] text-cyan-200">
-                      {course.programmeLevel} pathway stage {course.programmeOrder} of 5
-                    </p>
-                  )}
-                  {course.locked && course.prerequisiteTitle && (
-                    <p className="mt-3 rounded-lg border border-amber-300/20 bg-amber-300/10 p-3 text-xs leading-5 text-amber-100">
-                      Locked until you complete: {course.prerequisiteTitle}
-                    </p>
-                  )}
-
-                  <p className="mt-3 min-h-20 leading-7 text-slate-300">
-                    {course.description}
-                  </p>
-                  <Image
-                    src={`/academy/course-illustrations/${course.id}.svg`}
-                    alt={`${course.title} course illustration`}
-                    width={960}
-                    height={420}
-                    className="mt-4 h-auto w-full rounded-xl border border-white/10"
-                  />
-
-                  <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
-                    <span className="rounded-full border border-white/10 px-3 py-1">
-                      {course.level}
-                    </span>
-
-                    <span className="rounded-full border border-white/10 px-3 py-1">
-                      {course.lessonsCount} lessons
-                    </span>
-
-                    <span className="rounded-full border border-white/10 px-3 py-1">
-                      {course.questionsCount} assessment questions
-                    </span>
-                  </div>
-
-                  {course.enrolled && (
-                    <div className="mt-5">
-                      <div className="flex justify-between text-sm">
-                        <span>
-                          {course.completion
-                            ? "Completed"
-                            : "Lesson progress"}
-                        </span>
-
-                        <span>{course.progressPercent}%</span>
-                      </div>
-
-                      <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
-                        <div
-                          className="h-full rounded-full bg-cyan-400"
-                          style={{
-                            width: `${course.progressPercent}%`,
-                          }}
-                        />
-                      </div>
-
-                      {course.latestAttempt && !course.completion && (
-                        <p className="mt-2 text-xs text-slate-400">
-                          Last assessment: {course.latestAttempt.score}% |{" "}
-                          {course.latestAttempt.passed
-                            ? "Passed"
-                            : "Try again"}
-                        </p>
-                      )}
-                    </div>
-                  )}
-
-                  <button
-                    type="button"
-                    disabled={working === course.id || authRequired}
-                    onClick={() => {
-                      if (course.locked && course.prerequisiteCourseId) {
-                        router.push(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
-                      } else if (course.enrolled) {
-                        router.push(`/academy/study/${encodeURIComponent(course.id)}`);
-                      } else {
-                        void enroll(course);
-                      }
-                    }}
-                    className="mt-6 w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 disabled:cursor-not-allowed disabled:opacity-60"
+                  <div className="grid gap-5 p-4 sm:grid-cols-2 sm:p-6 xl:grid-cols-3">
+                    {shelf.courses.map((course) => (
+                  <article
+                    key={course.id}
+                    className={`rounded-2xl border p-6 ${
+                      course.completion
+                        ? "border-emerald-400/40 bg-emerald-400/5"
+                        : "border-white/10 bg-white/[0.04]"
+                    }`}
                   >
-                    {working === course.id
-                      ? "Please wait..."
-                      : course.locked
-                        ? "Open prerequisite stage"
-                        : course.enrolled
-                          ? course.completion
-                            ? "View completion record"
-                            : "Open course"
-                          : course.priceKsh > 0
-                            ? `Enroll & Pay ${money(course.priceKsh)}`
-                            : "Enroll"}
-                  </button>
-                </article>
-                </div>
+                    <div className="flex items-start justify-between gap-3">
+                      <span className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-bold text-cyan-200">
+                        {course.category}
+                      </span>
+  
+                      <span className="text-sm font-bold text-amber-200">
+                        {money(course.priceKsh)}
+                      </span>
+                    </div>
+  
+                    <h3 className="mt-5 text-2xl font-bold">
+                      {course.title}
+                    </h3>
+                    {course.isProgrammeStage && (
+                      <p className="mt-2 text-xs font-bold uppercase tracking-[0.15em] text-cyan-200">
+                        {course.programmeLevel} pathway stage {course.programmeOrder} of 5
+                      </p>
+                    )}
+                    {course.locked && course.prerequisiteTitle && (
+                      <p className="mt-3 rounded-lg border border-amber-300/20 bg-amber-300/10 p-3 text-xs leading-5 text-amber-100">
+                        Locked until you complete: {course.prerequisiteTitle}
+                      </p>
+                    )}
+  
+                    <p className="mt-3 min-h-20 leading-7 text-slate-300">
+                      {course.description}
+                    </p>
+                    <Image
+                      src={`/academy/course-illustrations/${course.id}.svg`}
+                      alt={`${course.title} course illustration`}
+                      width={960}
+                      height={420}
+                      className="mt-4 h-auto w-full rounded-xl border border-white/10"
+                    />
+  
+                    <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
+                      <span className="rounded-full border border-white/10 px-3 py-1">
+                        {course.level}
+                      </span>
+  
+                      <span className="rounded-full border border-white/10 px-3 py-1">
+                        {course.lessonsCount} lessons
+                      </span>
+  
+                      <span className="rounded-full border border-white/10 px-3 py-1">
+                        {course.questionsCount} assessment questions
+                      </span>
+                    </div>
+  
+                    {course.enrolled && (
+                      <div className="mt-5">
+                        <div className="flex justify-between text-sm">
+                          <span>
+                            {course.completion
+                              ? "Completed"
+                              : "Lesson progress"}
+                          </span>
+  
+                          <span>{course.progressPercent}%</span>
+                        </div>
+  
+                        <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
+                          <div
+                            className="h-full rounded-full bg-cyan-400"
+                            style={{
+                              width: `${course.progressPercent}%`,
+                            }}
+                          />
+                        </div>
+  
+                        {course.latestAttempt && !course.completion && (
+                          <p className="mt-2 text-xs text-slate-400">
+                            Last assessment: {course.latestAttempt.score}% |{" "}
+                            {course.latestAttempt.passed
+                              ? "Passed"
+                              : "Try again"}
+                          </p>
+                        )}
+                      </div>
+                    )}
+  
+                    <button
+                      type="button"
+                      disabled={working === course.id || authRequired}
+                      onClick={() => {
+                        if (course.locked && course.prerequisiteCourseId) {
+                          router.push(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
+                        } else if (course.enrolled) {
+                          router.push(`/academy/study/${encodeURIComponent(course.id)}`);
+                        } else {
+                          void enroll(course);
+                        }
+                      }}
+                      className="mt-6 w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {working === course.id
+                        ? "Please wait..."
+                        : course.locked
+                          ? "Open prerequisite stage"
+                          : course.enrolled
+                            ? course.completion
+                              ? "View completion record"
+                              : "Open course"
+                            : course.priceKsh > 0
+                              ? `Enroll & Pay ${money(course.priceKsh)}`
+                              : "Enroll"}
+                    </button>
+                  </article>
+                    ))}
+                  </div>
+                </section>
               ))}
+              {catalogFilter !== "programmes" && shortCourseShelves.map((shelf) => (
+                <section key={shelf.id} aria-labelledby={`short-shelf-${shelf.id}`} className="rounded-3xl border border-white/10 bg-slate-900/50 p-5 sm:p-7">
+                  <div className="mb-5 flex flex-wrap items-end justify-between gap-3 border-b border-white/10 pb-4">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Library collection · Short courses</p>
+                      <h3 id={`short-shelf-${shelf.id}`} className="mt-1 text-2xl font-bold text-white">{shelf.title}</h3>
+                    </div>
+                    <span className="text-xs text-slate-400">{shelf.courses.length} {shelf.courses.length === 1 ? "course" : "courses"}</span>
+                  </div>
+                  <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                    {shelf.courses.map((course) => (
+                  <article
+                    key={course.id}
+                    className={`rounded-2xl border p-6 ${
+                      course.completion
+                        ? "border-emerald-400/40 bg-emerald-400/5"
+                        : "border-white/10 bg-white/[0.04]"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <span className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-bold text-cyan-200">
+                        {course.category}
+                      </span>
+  
+                      <span className="text-sm font-bold text-amber-200">
+                        {money(course.priceKsh)}
+                      </span>
+                    </div>
+  
+                    <h3 className="mt-5 text-2xl font-bold">
+                      {course.title}
+                    </h3>
+                    {course.isProgrammeStage && (
+                      <p className="mt-2 text-xs font-bold uppercase tracking-[0.15em] text-cyan-200">
+                        {course.programmeLevel} pathway stage {course.programmeOrder} of 5
+                      </p>
+                    )}
+                    {course.locked && course.prerequisiteTitle && (
+                      <p className="mt-3 rounded-lg border border-amber-300/20 bg-amber-300/10 p-3 text-xs leading-5 text-amber-100">
+                        Locked until you complete: {course.prerequisiteTitle}
+                      </p>
+                    )}
+  
+                    <p className="mt-3 min-h-20 leading-7 text-slate-300">
+                      {course.description}
+                    </p>
+                    <Image
+                      src={`/academy/course-illustrations/${course.id}.svg`}
+                      alt={`${course.title} course illustration`}
+                      width={960}
+                      height={420}
+                      className="mt-4 h-auto w-full rounded-xl border border-white/10"
+                    />
+  
+                    <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
+                      <span className="rounded-full border border-white/10 px-3 py-1">
+                        {course.level}
+                      </span>
+  
+                      <span className="rounded-full border border-white/10 px-3 py-1">
+                        {course.lessonsCount} lessons
+                      </span>
+  
+                      <span className="rounded-full border border-white/10 px-3 py-1">
+                        {course.questionsCount} assessment questions
+                      </span>
+                    </div>
+  
+                    {course.enrolled && (
+                      <div className="mt-5">
+                        <div className="flex justify-between text-sm">
+                          <span>
+                            {course.completion
+                              ? "Completed"
+                              : "Lesson progress"}
+                          </span>
+  
+                          <span>{course.progressPercent}%</span>
+                        </div>
+  
+                        <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
+                          <div
+                            className="h-full rounded-full bg-cyan-400"
+                            style={{
+                              width: `${course.progressPercent}%`,
+                            }}
+                          />
+                        </div>
+  
+                        {course.latestAttempt && !course.completion && (
+                          <p className="mt-2 text-xs text-slate-400">
+                            Last assessment: {course.latestAttempt.score}% |{" "}
+                            {course.latestAttempt.passed
+                              ? "Passed"
+                              : "Try again"}
+                          </p>
+                        )}
+                      </div>
+                    )}
+  
+                    <button
+                      type="button"
+                      disabled={working === course.id || authRequired}
+                      onClick={() => {
+                        if (course.locked && course.prerequisiteCourseId) {
+                          router.push(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
+                        } else if (course.enrolled) {
+                          router.push(`/academy/study/${encodeURIComponent(course.id)}`);
+                        } else {
+                          void enroll(course);
+                        }
+                      }}
+                      className="mt-6 w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {working === course.id
+                        ? "Please wait..."
+                        : course.locked
+                          ? "Open prerequisite stage"
+                          : course.enrolled
+                            ? course.completion
+                              ? "View completion record"
+                              : "Open course"
+                            : course.priceKsh > 0
+                              ? `Enroll & Pay ${money(course.priceKsh)}`
+                              : "Enroll"}
+                    </button>
+                  </article>
+                    ))}
+                  </div>
+                </section>
+              ))}
+              {!visibleCourses.length && !loading && (
+                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-slate-300">No courses are listed in this collection yet.</div>
+              )}
             </div>
           </>
         )}
