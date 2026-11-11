@@ -63,7 +63,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (rawPhone && !/^\+254\d{9}$/.test(phone)) {
+    if (!/^\+254\d{9}$/.test(phone)) {
       return NextResponse.json(
         {
           error:
@@ -132,7 +132,7 @@ export async function POST(request: Request) {
           data: {
             name,
             email,
-            phone: phone || null,
+            phone,
             termsAcceptedAt: new Date(),
             privacyNoticeVersion: "2026-11-10",
             passwordHash,
