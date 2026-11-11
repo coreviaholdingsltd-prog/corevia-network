@@ -564,7 +564,7 @@ export default function AcademyPage() {
                           onClick={() => {
                             if (course.locked && course.prerequisiteCourseId) router.push(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
                             else if (course.enrolled) router.push(`/academy/study/${encodeURIComponent(course.id)}`);
-                            else void enroll(course);
+                            else router.push(`/academy/study/${encodeURIComponent(course.id)}`);
                           }}
                           className="shrink-0 rounded-lg bg-cyan-300 px-3 py-2.5 text-[11px] font-extrabold text-slate-950 hover:bg-cyan-200 disabled:opacity-60">
                           {working === course.id ? "Wait…" : course.locked ? "Continue previous" : course.enrolled ? (course.completion ? "View record" : "Continue") : "View course"}
@@ -586,7 +586,7 @@ export default function AcademyPage() {
                           <p className="mt-0.5 line-clamp-1 text-[11px] text-slate-400">{course.description}</p>
                           <p className="mt-1 text-[10px] text-amber-200">{money(course.priceKsh)} <span className="text-slate-500">· {course.lessonsCount} lessons</span></p>
                         </div>
-                        <button type="button" disabled={working === course.id || authRequired} onClick={() => course.enrolled ? router.push(`/academy/study/${encodeURIComponent(course.id)}`) : void enroll(course)}
+                        <button type="button" disabled={working === course.id || authRequired} onClick={() => router.push(`/academy/study/${encodeURIComponent(course.id)}`)}
                           className="shrink-0 rounded-lg bg-cyan-300 px-3 py-2 text-[11px] font-bold text-slate-950 hover:bg-cyan-200 disabled:opacity-60">
                           {working === course.id ? "Wait…" : course.enrolled ? "Open" : "Choose"}
                         </button>
@@ -627,21 +627,24 @@ export default function AcademyPage() {
             </div>
           )}
 
-        {routeCourseId &&
-          !loading &&
-          selected &&
-          !selected.enrolled && (
-            <div className="rounded-xl border border-amber-300/30 p-6">
-              <p>Enroll in this course before opening its lessons.</p>
-
-              <Link
-                href="/academy"
-                className="mt-4 inline-block rounded-lg bg-cyan-400 px-4 py-2 font-bold text-slate-950"
-              >
-                Back to catalogue
-              </Link>
+        {routeCourseId && selected && !selected.enrolled && (
+          <section className="mt-8 max-w-3xl rounded-2xl border border-cyan-300/25 bg-slate-900/80 p-5 sm:p-7">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-300">Course overview</p>
+            <h2 className="mt-2 text-2xl font-black text-white">{selected.title}</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-300">{selected.description}</p>
+            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              <div className="rounded-xl bg-slate-950 p-3"><p className="text-[10px] text-slate-400">Programme stage</p><p className="mt-1 text-sm font-bold text-white">{selected.programmeLevel || selected.level}</p></div>
+              <div className="rounded-xl bg-slate-950 p-3"><p className="text-[10px] text-slate-400">Lessons</p><p className="mt-1 text-sm font-bold text-white">{selected.lessonsCount}</p></div>
+              <div className="rounded-xl bg-slate-950 p-3"><p className="text-[10px] text-slate-400">Enrolment fee</p><p className="mt-1 text-sm font-bold text-white">{money(selected.priceKsh)}</p></div>
             </div>
-          )}
+            {selected.locked && <p className="mt-4 rounded-xl border border-amber-300/20 bg-amber-300/10 p-3 text-sm text-amber-100">Complete the previous programme stage before enrolling in this stage.</p>}
+            <div className="mt-5 flex flex-wrap gap-3">
+              <button type="button" disabled={working === selected.id || selected.locked} onClick={() => void enroll(selected)} className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-extrabold text-slate-950 disabled:opacity-50">{working === selected.id ? "Please wait…" : "Enrol in this course"}</button>
+              <Link href="/academy" className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">Back to catalogue</Link>
+            </div>
+            <p className="mt-3 text-xs text-slate-500">Reviewing this course does not initiate payment. Payment is only requested after you choose to enrol and the programme stage is approved.</p>
+          </section>
+        )}
 
         {routeCourseId && selected && selected.enrolled && (
           <section className="mt-10 rounded-3xl border border-cyan-400/30 bg-slate-900/70 p-5 sm:p-8">
