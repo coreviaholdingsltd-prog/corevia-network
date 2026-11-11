@@ -720,7 +720,7 @@ export default function AcademyPage() {
                               ? `Enroll & Pay ${money(course.priceKsh)}`
                               : "Enroll"}
                     </button>
-            
+                  </article>
                     ))}
                   </div>
                 </section>
@@ -851,7 +851,7 @@ export default function AcademyPage() {
                               ? `Enroll & Pay ${money(course.priceKsh)}`
                               : "Enroll"}
                     </button>
-            
+                  </article>
                     ))}
                   </div>
                 </section>
