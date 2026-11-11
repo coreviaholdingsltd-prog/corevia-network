@@ -551,6 +551,28 @@ export default function AcademyPage() {
 
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {visibleCourses.map((course) => (
+                <>
+                  {course.isProgrammeStage && course.programmeOrder === 1 && (
+                    <div key={`subject-${course.pathwayId ?? course.id}`} className="col-span-full mt-5 rounded-2xl border border-cyan-300/25 bg-gradient-to-r from-cyan-950/70 to-slate-900 px-5 py-4">
+                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Subject learning pathway</p>
+                      <h3 className="mt-1 text-xl font-bold text-white">{course.title.split(" — ")[0]}</h3>
+                      <div className="mt-3 grid grid-cols-5 gap-2 text-center text-[11px] font-semibold sm:text-xs">
+                        {[
+                          ["01", "Certificate", "KES 1,500"],
+                          ["02", "Diploma", "KES 3,500"],
+                          ["03", "Degree", "KES 7,500"],
+                          ["04", "Masters", "KES 12,500"],
+                          ["05", "Doctoral prep", "KES 20,000"],
+                        ].map(([number, label, fee]) => (
+                          <div key={number} className={course.programmeOrder === Number(number) ? "rounded-lg border border-cyan-300/50 bg-cyan-300/10 p-2 text-cyan-100" : "rounded-lg border border-white/10 bg-white/[0.03] p-2 text-slate-300"}>
+                            <span className="block text-cyan-300">{number}</span>
+                            <span className="mt-1 block">{label}</span>
+                            <span className="mt-1 block text-[10px] text-slate-400">{fee}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 <article
                   key={course.id}
                   className={`rounded-2xl border p-6 ${
@@ -667,6 +689,7 @@ export default function AcademyPage() {
                             : "Enroll"}
                   </button>
                 </article>
+                </>
               ))}
             </div>
           </>
