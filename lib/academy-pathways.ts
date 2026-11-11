@@ -1,4 +1,5 @@
 import type { AcademyCourse } from "@/lib/academy-catalog";
+import { getSubjectCurriculum } from "@/lib/academy-subject-content";
 
 type ProgrammeStage = {
   label: "Certificate" | "Diploma" | "Degree" | "Masters" | "PhD";
@@ -59,6 +60,7 @@ function sourceMaterial(subject: AcademyCourse): string[] {
 function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex: number) {
   const originalLessons = subject.lessons;
   const sourceNotes = sourceMaterial(subject);
+  const subjectCurriculum = getSubjectCurriculum(subject.id);
   const topicTitles = compactUnique(
     originalLessons.map((lesson) => lesson.title),
     12,
@@ -69,7 +71,8 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
     : subject.description;
 
   return UNIT_TITLES.map((unit, index) => {
-    const topic = topics[index % topics.length];
+    const tailoredUnit = subjectCurriculum?.[index];
+    const topic = tailoredUnit?.title || topics[index % topics.length];
     const unitEvidence = [0, 1, 2, 3, 4].map((offset) =>
       sourceNote(index * 5 + offset),
     );
@@ -94,6 +97,13 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
     const content = [
       "LEARNING OUTCOME — At " + stage.learnerLabel + " level, " + stage.verb + " " + topic + " in " + subject.title + ". You must demonstrate " + stage.depth + ".",
       "SUBJECT FOUNDATION — " + subject.description + " This unit builds directly on the subject's existing lesson material: " + relatedSource,
+      ...(tailoredUnit ? [
+        "DETAILED SUBJECT STUDY — " + tailoredUnit.study,
+        "SUBJECT WORKED EXAMPLE — " + tailoredUnit.workedExample,
+        "SUBJECT PRACTICAL TASK — " + tailoredUnit.practical,
+        "SUBJECT EVIDENCE STANDARD — " + tailoredUnit.evidence,
+        "MEASURABLE SUBJECT OUTCOME — " + tailoredUnit.outcome,
+      ] : []),
       "CORE STUDY MATERIAL — Revisit and master this course topic: " + topic + ". Explain its central terms, principles, assumptions and relationship to the wider discipline. Use the original course material as the starting point, then extend it with authoritative books, standards, peer-reviewed research or professional guidance appropriate to this level.",
       "CONCEPTUAL DEVELOPMENT — Connect the topic to this related course material: " + supportingSource + ". Identify where the ideas reinforce one another, where they differ and what conditions affect their application. Do not treat a definition as sufficient evidence of understanding.",
       "SUBJECT KNOWLEDGE READING — Study these additional items from the original " + subject.title + " course: " + additionalSource.join(" | ") + ". For each item, write a clear explanation in your own words, define unfamiliar terms, give a relevant example and explain how it connects to this unit. If an item is unfamiliar, pause and research it before moving on.",
@@ -112,7 +122,7 @@ function buildLessons(subject: AcademyCourse, stage: ProgrammeStage, stageIndex:
     ];
     return {
       id: subject.id + "-" + stage.label.toLowerCase() + "-unit-" + (index + 1),
-      title: unit + ": " + topic,
+      title: (tailoredUnit?.title || unit + ": " + topic) + " — " + stage.learnerLabel,
       minutes: [30, 45, 60, 75, 90][stageIndex],
       content,
     };
