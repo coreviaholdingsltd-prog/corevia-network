@@ -402,46 +402,68 @@ export default function AcademyPage() {
       </header>
 
       {!routeCourseId && (
-        <section className="border-b border-white/10 bg-gradient-to-br from-cyan-950 via-slate-950 to-blue-950">
-          <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16">
-            <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">
-              Your learning space
-            </p>
-
-            <h1 className="mt-3 max-w-4xl text-4xl font-black leading-tight sm:text-5xl">
-              Learn new skills. Track your progress. Demonstrate what you
-              know.
-            </h1>
-
-            <p className="mt-5 max-w-3xl leading-7 text-slate-300">
-              Enrol in a course, study the lessons, pass the knowledge
-              assessment, and demonstrate practical competence through an
-              independently reviewed project before course completion.
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={() => void loadCourses()}
-                disabled={loading}
-                className="rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 disabled:opacity-60"
-              >
-                {loading ? "Refreshing..." : "Refresh courses"}
-              </button>
-
-              <Link
-                href="/dashboard"
-                className="rounded-xl border border-white/20 px-5 py-3 font-bold hover:bg-white/10"
-              >
-                Return to Network
-              </Link>
-
-              <Link
-                href="/academy/projects"
-                className="rounded-xl border border-cyan-300/50 px-5 py-3 font-bold text-cyan-200 hover:bg-cyan-300/10"
-              >
-                Practical project workspace
-              </Link>
+        <section className="relative isolate overflow-hidden border-b border-white/10 bg-[#071321]">
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_12%_15%,rgba(8,145,178,0.24),transparent_42%),radial-gradient(ellipse_at_88%_80%,rgba(180,135,55,0.14),transparent_38%)]" />
+          <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-12 sm:px-8 sm:py-16 lg:grid-cols-[1.35fr_0.65fr]">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-cyan-200">
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
+                Corevia Rise Academy
+              </div>
+              <h1 className="mt-5 max-w-3xl text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
+                Build knowledge.
+                <span className="block text-cyan-300">Prove what you can do.</span>
+              </h1>
+              <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
+                A structured learning library for practical skills, guided study and measurable progress. Choose a subject, follow its learning pathway and put your knowledge into practice.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={() => void loadCourses()}
+                  disabled={loading}
+                  className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-extrabold text-slate-950 shadow-lg shadow-cyan-950/30 transition hover:bg-cyan-200 disabled:opacity-60"
+                >
+                  {loading ? "Refreshing..." : "Refresh library"}
+                </button>
+                <Link
+                  href="/academy/projects"
+                  className="rounded-xl border border-cyan-200/30 bg-white/[0.04] px-5 py-3 text-sm font-bold text-cyan-100 transition hover:bg-white/10"
+                >
+                  Practical project workspace
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="rounded-xl border border-white/10 px-5 py-3 text-sm font-semibold text-slate-300 transition hover:bg-white/10"
+                >
+                  Return to Network
+                </Link>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="rounded-[2rem] border border-white/10 bg-white/[0.055] p-5 shadow-2xl shadow-black/20 backdrop-blur sm:p-6">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-200">Your learning journey</p>
+                <div className="mt-5 space-y-3">
+                  {[
+                    ["01", "Choose a subject", "Explore the learning library"],
+                    ["02", "Follow the pathway", "Progress one stage at a time"],
+                    ["03", "Demonstrate mastery", "Complete lessons and assessments"],
+                  ].map(([number, title, detail]) => (
+                    <div key={number} className="flex items-start gap-4 rounded-2xl border border-white/[0.07] bg-slate-950/55 p-4">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-cyan-300/10 text-xs font-black text-cyan-200">{number}</span>
+                      <div>
+                        <p className="font-bold text-white">{title}</p>
+                        <p className="mt-1 text-sm leading-6 text-slate-400">{detail}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4 text-xs text-slate-400">
+                  <span>Structured learning</span>
+                  <span className="font-semibold text-amber-200">Building Trust Through Excellence</span>
+                </div>
+              </div>
+              <div aria-hidden="true" className="absolute -right-4 -top-4 -z-10 h-24 w-24 rounded-full border border-amber-200/20" />
             </div>
           </div>
         </section>
@@ -504,20 +526,18 @@ export default function AcademyPage() {
 
         {!routeCourseId && (
           <>
-            <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <div className="mb-8 flex flex-wrap items-end justify-between gap-5 border-b border-white/10 pb-6">
               <div>
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">
                   Course catalogue
                 </p>
 
-                <h2 className="mt-2 text-3xl font-bold">
+                <h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
                   Available learning paths
                 </h2>
 
-                <p className="mt-2 text-slate-300">
-                  Course and programme fees are shown in Kenyan shillings and are paid
-                  separately from the one-time KES 1,000 Corevia Network membership activation.
-                  Each programme stage has its own enrolment, knowledge check and certificate of completion. These are Corevia learning programmes, not accredited university awards or professional licences. The doctoral research-preparation pathway does not award a PhD.
+                <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-400">
+                  Browse by subject and choose a learning path. Programme fees are in Kenyan shillings and are separate from the one-time KES 1,000 Network membership. Corevia issues learning-programme completion records; these are not university awards or professional licences.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Course catalogue filter">
                   {([
@@ -539,7 +559,7 @@ export default function AcademyPage() {
                   ))}
                 </div>
                 {catalogFilter !== "short" && (
-                  <p className="mt-4 max-w-4xl rounded-xl border border-cyan-300/20 bg-cyan-300/5 p-4 text-sm leading-6 text-slate-200">
+                  <p className="mt-4 max-w-4xl rounded-2xl border border-amber-200/15 bg-amber-100/[0.04] p-4 text-sm leading-7 text-slate-200">
                     Progression: Certificate (KES 1,500) → Diploma (KES 3,500) → Degree (KES 7,500) → Masters (KES 12,500) → Doctoral Research Preparation (KES 20,000).
                     Each stage unlocks only after the previous stage is completed and its assessment is passed.
                   </p>
@@ -573,8 +593,8 @@ export default function AcademyPage() {
 
             <div className="space-y-10">
               {(catalogFilter !== "short" ? programmeShelves : []).map((shelf) => (
-                <section key={shelf.id} aria-labelledby={`shelf-${shelf.id}`} className="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/50 shadow-xl">
-                  <div className="border-b border-white/10 bg-gradient-to-r from-cyan-950/80 via-slate-900 to-slate-900 px-5 py-5 sm:px-7">
+                <section key={shelf.id} aria-labelledby={`shelf-${shelf.id}`} className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-gradient-to-b from-slate-900/90 to-slate-950 shadow-xl shadow-black/20 transition duration-300 hover:border-cyan-200/25">
+                  <div className="border-b border-white/10 bg-[linear-gradient(115deg,rgba(8,47,73,0.9),rgba(15,23,42,0.98)_55%,rgba(120,83,30,0.18))] px-5 py-6 sm:px-7">
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
                         <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-300">Programme collection · Subject shelf</p>
@@ -603,7 +623,7 @@ export default function AcademyPage() {
                       })}
                     </ol>
                   </div>
-                  <div className="grid gap-5 p-4 sm:grid-cols-2 sm:p-6 xl:grid-cols-3">
+                  <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-6 xl:grid-cols-3">
                     {shelf.courses.map((course) => (
                   <article
                     key={course.id}
@@ -623,7 +643,7 @@ export default function AcademyPage() {
                       </span>
                     </div>
   
-                    <h3 className="mt-5 text-2xl font-bold">
+                    <h3 className="mt-4 min-h-[3.5rem] text-xl font-extrabold leading-snug tracking-tight text-white">
                       {course.title}
                     </h3>
                     {course.isProgrammeStage && (
@@ -637,7 +657,7 @@ export default function AcademyPage() {
                       </p>
                     )}
   
-                    <p className="mt-3 min-h-20 leading-7 text-slate-300">
+                    <p className="mt-3 line-clamp-4 min-h-[6rem] text-sm leading-6 text-slate-300">
                       {course.description}
                     </p>
                     <Image
@@ -645,7 +665,7 @@ export default function AcademyPage() {
                       alt={`${course.title} course illustration`}
                       width={960}
                       height={420}
-                      className="mt-4 h-auto w-full rounded-xl border border-white/10"
+                      className="mt-4 aspect-[16/9] h-auto w-full rounded-2xl border border-white/10 bg-slate-950 object-cover"
                     />
   
                     <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
@@ -706,7 +726,7 @@ export default function AcademyPage() {
                           void enroll(course);
                         }
                       }}
-                      className="mt-6 w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="mt-6 w-full rounded-xl bg-cyan-300 px-5 py-3.5 text-sm font-extrabold text-slate-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {working === course.id
                         ? "Please wait..."
@@ -727,7 +747,7 @@ export default function AcademyPage() {
               ))}
               {catalogFilter !== "programmes" && shortCourseShelves.map((shelf) => (
                 <section key={shelf.id} aria-labelledby={`short-shelf-${shelf.id}`} className="rounded-3xl border border-white/10 bg-slate-900/50 p-5 sm:p-7">
-                  <div className="mb-5 flex flex-wrap items-end justify-between gap-3 border-b border-white/10 pb-4">
+                  <div className="mb-5 flex flex-wrap items-end justify-between gap-3 border-b border-white/10 pb-5">
                     <div>
                       <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Library collection · Short courses</p>
                       <h3 id={`short-shelf-${shelf.id}`} className="mt-1 text-2xl font-bold text-white">{shelf.title}</h3>
