@@ -37,8 +37,17 @@ export async function GET() {
       throw error;
     });
 
+    const academicSignoffs = await prisma.academyAcademicSignoff.findMany({
+      where: { courseId: { in: publishedCourses.map((course) => course.id) } },
+      orderBy: [{ signedAt: "desc" }, { createdAt: "desc" }],
+      select: { courseId: true, stageKey: true, decision: true, signedAt: true, createdAt: true },
+    });
     const courses = publishedCourses.map((course) => {
       const enrollment = enrollments.find((item) => item.courseId === course.id);
+      const stageKey = String(course.programmeLevel ?? "FOUNDATION").toUpperCase().replace(/[^A-Z0-9]+/g, "_");
+      const latestSignoff = academicSignoffs.find((item) => item.courseId === course.id && item.stageKey === stageKey);
+      const verifiedReferenceCount = verifiedReferences.filter((item) => item.courseId === course.id && item.stageKey === stageKey).length;
+      const academicApproved = !course.isProgrammeStage || (latestSignoff?.decision === "APPROVED" && verifiedReferenceCount >= 3);
       const unlocked = !!enrollment && (enrollment.status === "ACTIVE" || enrollment.status === "COMPLETED");
       const completedIds = new Set(enrollment?.lessonProgress.map((item) => item.lessonId) ?? []);
       const completedLessons = course.lessons.filter((lesson) => completedIds.has(lesson.id)).length;
@@ -50,6 +59,10 @@ export async function GET() {
         description: course.description,
         level: course.level,
         priceKsh: course.priceKsh,
+        academicApproved,
+        academicApprovalStatus: course.isProgrammeStage ? (academicApproved ? "APPROVED" : "IN_DEVELOPMENT") : "APPROVED",
+        verifiedReferencesCount: verifiedReferenceCount,
+        requiredVerifiedReferences: 3,
         enrolled: unlocked,
         enrollmentStatus: enrollment?.status ?? null,
         isProgrammeStage: course.isProgrammeStage ?? false,
