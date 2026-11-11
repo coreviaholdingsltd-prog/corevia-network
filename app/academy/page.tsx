@@ -101,6 +101,7 @@ export default function AcademyPage() {
 
   const [courses, setCourses] = useState<Course[]>([]);
   const [catalogFilter, setCatalogFilter] = useState<"programmes" | "short" | "all">("programmes");
+  const [searchQuery, setSearchQuery] = useState("");
   const [memberName, setMemberName] = useState("Corevia member");
   const [loading, setLoading] = useState(true);
   const [authRequired, setAuthRequired] = useState(false);
@@ -340,10 +341,15 @@ export default function AcademyPage() {
     }
   }
 
-  const visibleCourses = courses.filter((course) =>
-    catalogFilter === "all" ||
-    (catalogFilter === "programmes" ? course.isProgrammeStage : !course.isProgrammeStage),
-  );
+  const normalizedSearch = searchQuery.trim().toLocaleLowerCase();
+  const visibleCourses = courses.filter((course) => {
+    const matchesType = catalogFilter === "all" ||
+      (catalogFilter === "programmes" ? course.isProgrammeStage : !course.isProgrammeStage);
+    const matchesSearch = !normalizedSearch ||
+      [course.title, course.category, course.description, course.programmeLevel ?? ""]
+        .some((value) => value.toLocaleLowerCase().includes(normalizedSearch));
+    return matchesType && matchesSearch;
+  });
 
   const programmeShelves = Array.from(
     visibleCourses.filter((course) => course.isProgrammeStage).reduce((groups, course) => {
@@ -412,69 +418,14 @@ export default function AcademyPage() {
       </header>
 
       {!routeCourseId && (
-        <section className="relative isolate overflow-hidden border-b border-white/10 bg-[#071321]">
-          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_12%_15%,rgba(8,145,178,0.24),transparent_42%),radial-gradient(ellipse_at_88%_80%,rgba(180,135,55,0.14),transparent_38%)]" />
-          <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-12 sm:px-8 sm:py-16 lg:grid-cols-[1.35fr_0.65fr]">
+        <section className="border-b border-white/10 bg-[#071321]">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-5 sm:px-8 sm:py-7">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-cyan-200">
-                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
-                Corevia Rise Academy
-              </div>
-              <h1 className="mt-5 max-w-3xl text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Build knowledge.
-                <span className="block text-cyan-300">Prove what you can do.</span>
-              </h1>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
-                A structured learning library for practical skills, guided study and measurable progress. Choose a subject, follow its learning pathway and put your knowledge into practice.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  onClick={() => void loadCourses()}
-                  disabled={loading}
-                  className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-extrabold text-slate-950 shadow-lg shadow-cyan-950/30 transition hover:bg-cyan-200 disabled:opacity-60"
-                >
-                  {loading ? "Refreshing..." : "Refresh library"}
-                </button>
-                <Link
-                  href="/academy/projects"
-                  className="rounded-xl border border-cyan-200/30 bg-white/[0.04] px-5 py-3 text-sm font-bold text-cyan-100 transition hover:bg-white/10"
-                >
-                  Practical project workspace
-                </Link>
-                <Link
-                  href="/dashboard"
-                  className="rounded-xl border border-white/10 px-5 py-3 text-sm font-semibold text-slate-300 transition hover:bg-white/10"
-                >
-                  Return to Network
-                </Link>
-              </div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-300">Corevia Rise Academy</p>
+              <h1 className="mt-1 text-2xl font-black tracking-tight text-white sm:text-3xl">Find your course. Start learning.</h1>
+              <p className="mt-1 text-sm text-slate-400">Choose a subject and follow its learning path.</p>
             </div>
-            <div className="relative">
-              <div className="rounded-[2rem] border border-white/10 bg-white/[0.055] p-5 shadow-2xl shadow-black/20 backdrop-blur sm:p-6">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-200">Your learning journey</p>
-                <div className="mt-5 space-y-3">
-                  {[
-                    ["01", "Choose a subject", "Explore the learning library"],
-                    ["02", "Follow the pathway", "Progress one stage at a time"],
-                    ["03", "Demonstrate mastery", "Complete lessons and assessments"],
-                  ].map(([number, title, detail]) => (
-                    <div key={number} className="flex items-start gap-4 rounded-2xl border border-white/[0.07] bg-slate-950/55 p-4">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-cyan-300/10 text-xs font-black text-cyan-200">{number}</span>
-                      <div>
-                        <p className="font-bold text-white">{title}</p>
-                        <p className="mt-1 text-sm leading-6 text-slate-400">{detail}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4 text-xs text-slate-400">
-                  <span>Structured learning</span>
-                  <span className="font-semibold text-amber-200">Building Trust Through Excellence</span>
-                </div>
-              </div>
-              <div aria-hidden="true" className="absolute -right-4 -top-4 -z-10 h-24 w-24 rounded-full border border-amber-200/20" />
-            </div>
+            <Link href="/dashboard" className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-slate-300 hover:bg-white/10">Dashboard</Link>
           </div>
         </section>
       )}
@@ -536,56 +487,32 @@ export default function AcademyPage() {
 
         {!routeCourseId && (
           <>
-            <div className="mb-8 flex flex-wrap items-end justify-between gap-5 border-b border-white/10 pb-6">
-              <div>
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">
-                  Course catalogue
-                </p>
-
-                <h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
-                  Available learning paths
-                </h2>
-
-                <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-400">
-                  Browse by subject and choose a learning path. Programme fees are in Kenyan shillings and are separate from the one-time KES 1,000 Network membership. Corevia issues learning-programme completion records; these are not university awards or professional licences.
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Course catalogue filter">
-                  {([
-                    ["programmes", "Five-level programmes"],
-                    ["short", "Short courses"],
-                    ["all", "All learning"],
-                  ] as const).map(([value, label]) => (
-                    <button
-                      key={value}
-                      type="button"
-                      aria-pressed={catalogFilter === value}
-                      onClick={() => setCatalogFilter(value)}
-                      className={catalogFilter === value
-                        ? "rounded-xl bg-cyan-400 px-4 py-2 text-sm font-bold text-slate-950"
-                        : "rounded-xl border border-white/20 px-4 py-2 text-sm font-semibold text-slate-200 hover:bg-white/10"}
-                    >
-                      {label}
-                    </button>
-                  ))}
+            <div className="mb-5 border-b border-white/10 pb-5">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-xl font-black tracking-tight sm:text-2xl">Choose a subject</h2>
+                  <p className="mt-1 text-xs text-slate-400">{visibleCourses.length} courses available</p>
                 </div>
-                {catalogFilter !== "short" && (
-                  <p className="mt-4 max-w-4xl rounded-2xl border border-amber-200/15 bg-amber-100/[0.04] p-4 text-sm leading-7 text-slate-200">
-                    Progression: Certificate (KES 1,500) → Diploma (KES 3,500) → Degree (KES 7,500) → Masters (KES 12,500) → Doctoral Research Preparation (KES 20,000).
-                    Each stage unlocks only after the previous stage is completed and its assessment is passed.
-                  </p>
-                )}
+                <Link href="/academy/projects" className="text-xs font-semibold text-cyan-300 hover:text-cyan-200">Project workspace →</Link>
               </div>
-
-              <p className="text-sm text-slate-400">
-                {courses.filter((course) => course.completion).length}{" "}
-                completed |{" "}
-                {
-                  courses.filter(
-                    (course) => course.enrolled && !course.completion,
-                  ).length
-                }{" "}
-                in progress
-              </p>
+              <label className="mt-4 flex items-center gap-2 rounded-xl border border-white/15 bg-slate-900 px-3 py-2.5 focus-within:border-cyan-300/60">
+                <span aria-hidden="true" className="text-slate-400">⌕</span>
+                <input type="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search subjects or courses" aria-label="Search subjects or courses" className="w-full bg-transparent text-sm text-white outline-none placeholder:text-slate-500" />
+                {searchQuery && <button type="button" onClick={() => setSearchQuery("")} className="text-xs text-cyan-300">Clear</button>}
+              </label>
+              <div className="mt-3 flex gap-2 overflow-x-auto pb-1" role="group" aria-label="Course catalogue filter">
+                {([
+                  ["programmes", "Programmes"],
+                  ["short", "Short courses"],
+                  ["all", "All courses"],
+                ] as const).map(([value, label]) => (
+                  <button key={value} type="button" aria-pressed={catalogFilter === value} onClick={() => setCatalogFilter(value)}
+                    className={catalogFilter === value ? "shrink-0 rounded-full bg-cyan-400 px-4 py-2 text-xs font-bold text-slate-950" : "shrink-0 rounded-full border border-white/20 px-4 py-2 text-xs font-semibold text-slate-200 hover:bg-white/10"}>
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {catalogFilter !== "short" && <p className="mt-3 text-[11px] text-slate-500">Certificate → Diploma → Degree → Masters → Doctoral Research Preparation. Each stage unlocks in sequence.</p>}
             </div>
 
             {loading && courses.length === 0 && (
@@ -606,285 +533,64 @@ export default function AcademyPage() {
                 const activeStage = shelf.courses.find((stage) => !stage.completion) ?? shelf.courses[shelf.courses.length - 1];
                 const course = activeStage;
                 return (
-                <section key={shelf.id} aria-labelledby={`shelf-${shelf.id}`} className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-gradient-to-b from-slate-900/90 to-slate-950 shadow-xl shadow-black/20 transition duration-300 hover:border-cyan-200/25">
-                  <div className="border-b border-white/10 bg-[linear-gradient(115deg,rgba(8,47,73,0.9),rgba(15,23,42,0.98)_55%,rgba(120,83,30,0.18))] px-5 py-6 sm:px-7">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-300">Programme collection · Subject shelf</p>
-                        <h3 id={`shelf-${shelf.id}`} className="mt-1 text-2xl font-black text-white">{shelf.title}</h3>
-                        <p className="mt-1 text-sm text-slate-400">{shelf.courses.length} sequential stages · arranged from foundation to advanced study</p>
-                      </div>
-                      <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-bold text-cyan-100">Learning pathway</span>
+                  <section key={shelf.id} className="rounded-2xl border border-white/10 bg-slate-900/65 p-3 sm:p-4">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="min-w-0 truncate text-sm font-bold text-white sm:text-base">{shelf.title}</h3>
+                      <span className="shrink-0 text-[10px] text-slate-500">5 stages</span>
                     </div>
-                    <ol className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-5">
+                    <ol className="mt-2 flex gap-1 overflow-x-auto pb-1">
                       {[
-                        ["01", "Certificate", 1500],
-                        ["02", "Diploma", 3500],
-                        ["03", "Degree", 7500],
-                        ["04", "Masters", 12500],
-                        ["05", "Doctoral prep", 20000],
-                      ].map(([number, label, fee]) => {
+                        ["01", "Certificate"], ["02", "Diploma"], ["03", "Degree"], ["04", "Masters"], ["05", "Doctoral prep"],
+                      ].map(([number, label]) => {
                         const stage = shelf.courses.find((item) => item.programmeOrder === Number(number));
+                        const current = Boolean(stage && stage.id === activeStage?.id);
                         return (
-                          <li key={number} className={stage?.completion ? "rounded-xl border border-emerald-300/30 bg-emerald-300/10 p-3" : Boolean(stage && stage.id === activeStage?.id) ? "rounded-xl border border-cyan-300/40 bg-cyan-300/10 p-3 ring-1 ring-cyan-300/20" : "rounded-xl border border-white/10 bg-slate-950/60 p-3"}>
-                            <span className="block text-[10px] font-black tracking-widest text-cyan-300">STAGE {number}</span>
-                            <span className="mt-1 block text-xs font-bold text-white">{label}</span>
-                            <span className="mt-1 block text-xs text-slate-400">{money(Number(fee))}</span>
-                            <span className="mt-2 block text-[10px] text-slate-400">{stage?.completion ? "Completed" : Boolean(stage && stage.id === activeStage?.id) ? (stage?.enrolled ? `${stage.progressPercent}% · Current stage` : "Ready to begin") : stage?.locked ? "Locked · complete previous stage" : stage ? "Upcoming" : "Coming soon"}</span>
+                          <li key={number} className={`min-w-0 flex-1 rounded-md px-1.5 py-1.5 text-center ${stage?.completion ? "bg-emerald-400/10 text-emerald-200" : current ? "bg-cyan-300/15 text-cyan-100 ring-1 ring-cyan-300/30" : "bg-slate-950/70 text-slate-500"}`}>
+                            <span className="block text-[9px] font-bold">{number}</span><span className="block truncate text-[9px] font-semibold">{label}</span>
                           </li>
                         );
                       })}
                     </ol>
-                  </div>
-                  <div className="mx-auto max-w-3xl p-4 sm:p-6">
                     {course && (
-                  <article
-                    key={course.id}
-                    className={`rounded-2xl border p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20 sm:p-6 ${
-                      course.completion
-                        ? "border-emerald-400/40 bg-emerald-400/5"
-                        : "border-white/10 bg-white/[0.04]"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <span className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-bold text-cyan-200">
-                        {course.category}
-                      </span>
-  
-                      <span className="text-sm font-bold text-amber-200">
-                        {money(course.priceKsh)}
-                      </span>
-                    </div>
-  
-                    <h3 className="mt-4 min-h-[3.5rem] text-xl font-extrabold leading-snug tracking-tight text-white">
-                      {course.title}
-                    </h3>
-                    {course.isProgrammeStage && (
-                      <p className="mt-2 text-xs font-bold uppercase tracking-[0.15em] text-cyan-200">
-                        {course.programmeLevel} pathway stage {course.programmeOrder} of 5
-                      </p>
-                    )}
-                    {course.locked && course.prerequisiteTitle && (
-                      <p className="mt-3 rounded-lg border border-amber-300/20 bg-amber-300/10 p-3 text-xs leading-5 text-amber-100">
-                        Locked until you complete: {course.prerequisiteTitle}
-                      </p>
-                    )}
-  
-                    <p className="mt-3 line-clamp-4 min-h-[6rem] text-sm leading-6 text-slate-300">
-                      {course.description}
-                    </p>
-                    <Image
-                      src={`/academy/course-illustrations/${course.id}.svg`}
-                      alt={`${course.title} course illustration`}
-                      width={960}
-                      height={420}
-                      className="mt-4 aspect-[16/9] h-auto w-full rounded-2xl border border-white/10 bg-slate-950 object-cover"
-                    />
-  
-                    <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
-                      <span className="rounded-full border border-white/10 px-3 py-1">
-                        {course.level}
-                      </span>
-  
-                      <span className="rounded-full border border-white/10 px-3 py-1">
-                        {course.lessonsCount} lessons
-                      </span>
-  
-                      <span className="rounded-full border border-white/10 px-3 py-1">
-                        {course.questionsCount} assessment questions
-                      </span>
-                    </div>
-  
-                    {course.enrolled && (
-                      <div className="mt-5">
-                        <div className="flex justify-between text-sm">
-                          <span>
-                            {course.completion
-                              ? "Completed"
-                              : "Lesson progress"}
-                          </span>
-  
-                          <span>{course.progressPercent}%</span>
+                      <article className="mt-3 flex items-center gap-3 rounded-xl border border-white/10 bg-slate-950/70 p-3">
+                        <Image src={`/academy/course-illustrations/${course.id}.svg`} alt="" aria-hidden="true" width={72} height={72} className="h-14 w-14 shrink-0 rounded-lg border border-white/10 bg-slate-900 object-cover sm:h-16 sm:w-16" />
+                        <div className="min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-2"><span className="text-[10px] font-semibold text-cyan-300">{course.programmeLevel || "Programme"}</span><span className="text-[10px] text-amber-200">{money(course.priceKsh)}</span></div>
+                          <h4 className="mt-0.5 line-clamp-1 text-sm font-bold text-white">{course.title}</h4>
+                          <p className="mt-0.5 line-clamp-1 text-[11px] text-slate-400">{course.description}</p>
+                          {course.enrolled && <p className="mt-1 text-[10px] text-slate-500">{course.completion ? "Completed" : `${course.progressPercent}% complete`}</p>}
                         </div>
-  
-                        <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
-                          <div
-                            className="h-full rounded-full bg-cyan-400"
-                            style={{
-                              width: `${course.progressPercent}%`,
-                            }}
-                          />
-                        </div>
-  
-                        {course.latestAttempt && !course.completion && (
-                          <p className="mt-2 text-xs text-slate-400">
-                            Last assessment: {course.latestAttempt.score}% |{" "}
-                            {course.latestAttempt.passed
-                              ? "Passed"
-                              : "Try again"}
-                          </p>
-                        )}
-                      </div>
+                        <button type="button" disabled={working === course.id || authRequired}
+                          onClick={() => {
+                            if (course.locked && course.prerequisiteCourseId) router.push(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
+                            else if (course.enrolled) router.push(`/academy/study/${encodeURIComponent(course.id)}`);
+                            else void enroll(course);
+                          }}
+                          className="shrink-0 rounded-lg bg-cyan-300 px-3 py-2.5 text-[11px] font-extrabold text-slate-950 hover:bg-cyan-200 disabled:opacity-60">
+                          {working === course.id ? "Wait…" : course.locked ? "Continue previous" : course.enrolled ? (course.completion ? "View record" : "Continue") : "View course"}
+                        </button>
+                      </article>
                     )}
-  
-                    <button
-                      type="button"
-                      disabled={working === course.id || authRequired}
-                      onClick={() => {
-                        if (course.locked && course.prerequisiteCourseId) {
-                          router.push(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
-                        } else if (course.enrolled) {
-                          router.push(`/academy/study/${encodeURIComponent(course.id)}`);
-                        } else {
-                          void enroll(course);
-                        }
-                      }}
-                      className="mt-6 w-full rounded-xl bg-cyan-300 px-5 py-3.5 text-sm font-extrabold text-slate-950 shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                      {working === course.id
-                        ? "Please wait..."
-                        : course.locked
-                          ? "Open prerequisite stage"
-                          : course.enrolled
-                            ? course.completion
-                              ? "View completion record"
-                              : "Open course"
-                            : course.priceKsh > 0
-                              ? `Enroll & Pay ${money(course.priceKsh)}`
-                              : "Enroll"}
-                    </button>
-                  </article>
-                    )}
-                  </div>
-                </section>
-                ); })}
+                  </section>
+                );
+              })}
               {catalogFilter !== "programmes" && shortCourseShelves.map((shelf) => (
-                <section key={shelf.id} aria-labelledby={`short-shelf-${shelf.id}`} className="rounded-3xl border border-white/10 bg-slate-900/50 p-5 sm:p-7">
-                  <div className="mb-5 flex flex-wrap items-end justify-between gap-3 border-b border-white/10 pb-5">
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Library collection · Short courses</p>
-                      <h3 id={`short-shelf-${shelf.id}`} className="mt-1 text-2xl font-bold text-white">{shelf.title}</h3>
-                    </div>
-                    <span className="text-xs text-slate-400">{shelf.courses.length} {shelf.courses.length === 1 ? "course" : "courses"}</span>
-                  </div>
-                  <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                <section key={shelf.id} className="rounded-2xl border border-white/10 bg-slate-900/55 p-3 sm:p-4">
+                  <div className="mb-2 flex items-center justify-between gap-2"><h3 className="text-sm font-bold text-white">{shelf.title}</h3><span className="text-[10px] text-slate-500">{shelf.courses.length} courses</span></div>
+                  <div className="divide-y divide-white/10">
                     {shelf.courses.map((course) => (
-                  <article
-                    key={course.id}
-                    className={`rounded-2xl border p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20 sm:p-6 ${
-                      course.completion
-                        ? "border-emerald-400/40 bg-emerald-400/5"
-                        : "border-white/10 bg-white/[0.04]"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <span className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-bold text-cyan-200">
-                        {course.category}
-                      </span>
-  
-                      <span className="text-sm font-bold text-amber-200">
-                        {money(course.priceKsh)}
-                      </span>
-                    </div>
-  
-                    <h3 className="mt-5 text-2xl font-bold">
-                      {course.title}
-                    </h3>
-                    {course.isProgrammeStage && (
-                      <p className="mt-2 text-xs font-bold uppercase tracking-[0.15em] text-cyan-200">
-                        {course.programmeLevel} pathway stage {course.programmeOrder} of 5
-                      </p>
-                    )}
-                    {course.locked && course.prerequisiteTitle && (
-                      <p className="mt-3 rounded-lg border border-amber-300/20 bg-amber-300/10 p-3 text-xs leading-5 text-amber-100">
-                        Locked until you complete: {course.prerequisiteTitle}
-                      </p>
-                    )}
-  
-                    <p className="mt-3 min-h-20 leading-7 text-slate-300">
-                      {course.description}
-                    </p>
-                    <Image
-                      src={`/academy/course-illustrations/${course.id}.svg`}
-                      alt={`${course.title} course illustration`}
-                      width={960}
-                      height={420}
-                      className="mt-4 h-auto w-full rounded-xl border border-white/10"
-                    />
-  
-                    <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
-                      <span className="rounded-full border border-white/10 px-3 py-1">
-                        {course.level}
-                      </span>
-  
-                      <span className="rounded-full border border-white/10 px-3 py-1">
-                        {course.lessonsCount} lessons
-                      </span>
-  
-                      <span className="rounded-full border border-white/10 px-3 py-1">
-                        {course.questionsCount} assessment questions
-                      </span>
-                    </div>
-  
-                    {course.enrolled && (
-                      <div className="mt-5">
-                        <div className="flex justify-between text-sm">
-                          <span>
-                            {course.completion
-                              ? "Completed"
-                              : "Lesson progress"}
-                          </span>
-  
-                          <span>{course.progressPercent}%</span>
+                      <article key={course.id} className="flex items-center gap-3 py-3">
+                        <Image src={`/academy/course-illustrations/${course.id}.svg`} alt="" aria-hidden="true" width={64} height={64} className="h-12 w-12 shrink-0 rounded-lg border border-white/10 bg-slate-950 object-cover" />
+                        <div className="min-w-0 flex-1">
+                          <h4 className="line-clamp-1 text-sm font-semibold text-white">{course.title}</h4>
+                          <p className="mt-0.5 line-clamp-1 text-[11px] text-slate-400">{course.description}</p>
+                          <p className="mt-1 text-[10px] text-amber-200">{money(course.priceKsh)} <span className="text-slate-500">· {course.lessonsCount} lessons</span></p>
                         </div>
-  
-                        <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
-                          <div
-                            className="h-full rounded-full bg-cyan-400"
-                            style={{
-                              width: `${course.progressPercent}%`,
-                            }}
-                          />
-                        </div>
-  
-                        {course.latestAttempt && !course.completion && (
-                          <p className="mt-2 text-xs text-slate-400">
-                            Last assessment: {course.latestAttempt.score}% |{" "}
-                            {course.latestAttempt.passed
-                              ? "Passed"
-                              : "Try again"}
-                          </p>
-                        )}
-                      </div>
-                    )}
-  
-                    <button
-                      type="button"
-                      disabled={working === course.id || authRequired}
-                      onClick={() => {
-                        if (course.locked && course.prerequisiteCourseId) {
-                          router.push(`/academy/study/${encodeURIComponent(course.prerequisiteCourseId)}`);
-                        } else if (course.enrolled) {
-                          router.push(`/academy/study/${encodeURIComponent(course.id)}`);
-                        } else {
-                          void enroll(course);
-                        }
-                      }}
-                      className="mt-6 w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                      {working === course.id
-                        ? "Please wait..."
-                        : course.locked
-                          ? "Open prerequisite stage"
-                          : course.enrolled
-                            ? course.completion
-                              ? "View completion record"
-                              : "Open course"
-                            : course.priceKsh > 0
-                              ? `Enroll & Pay ${money(course.priceKsh)}`
-                              : "Enroll"}
-                    </button>
-                  </article>
+                        <button type="button" disabled={working === course.id || authRequired} onClick={() => course.enrolled ? router.push(`/academy/study/${encodeURIComponent(course.id)}`) : void enroll(course)}
+                          className="shrink-0 rounded-lg bg-cyan-300 px-3 py-2 text-[11px] font-bold text-slate-950 hover:bg-cyan-200 disabled:opacity-60">
+                          {working === course.id ? "Wait…" : course.enrolled ? "Open" : "Choose"}
+                        </button>
+                      </article>
                     ))}
                   </div>
                 </section>
