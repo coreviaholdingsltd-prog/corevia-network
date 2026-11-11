@@ -757,7 +757,7 @@ export default function AcademyPage() {
                     )}
                   </div>
                 </section>
-              ))}
+                ); })}
               {catalogFilter !== "programmes" && shortCourseShelves.map((shelf) => (
                 <section key={shelf.id} aria-labelledby={`short-shelf-${shelf.id}`} className="rounded-3xl border border-white/10 bg-slate-900/50 p-5 sm:p-7">
                   <div className="mb-5 flex flex-wrap items-end justify-between gap-3 border-b border-white/10 pb-5">
