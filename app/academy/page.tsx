@@ -40,6 +40,10 @@ type Course = {
   description: string;
   level: string;
   priceKsh: number;
+  academicApproved: boolean;
+  academicApprovalStatus: string;
+  verifiedReferencesCount: number;
+  requiredVerifiedReferences: number;
   isProgrammeStage: boolean;
   pathwayId: string | null;
   programmeLevel: string | null;
@@ -638,11 +642,17 @@ export default function AcademyPage() {
               <div className="rounded-xl bg-slate-950 p-3"><p className="text-[10px] text-slate-400">Enrolment fee</p><p className="mt-1 text-sm font-bold text-white">{money(selected.priceKsh)}</p></div>
             </div>
             {selected.locked && <p className="mt-4 rounded-xl border border-amber-300/20 bg-amber-300/10 p-3 text-sm text-amber-100">Complete the previous programme stage before enrolling in this stage.</p>}
+            {selected.isProgrammeStage && !selected.academicApproved && (
+              <div className="mt-4 rounded-xl border border-amber-300/25 bg-amber-300/10 p-4">
+                <p className="text-sm font-bold text-amber-100">Payment opens after academic approval</p>
+                <p className="mt-1 text-xs leading-5 text-amber-100/80">This course is available to preview. Paid enrolment will open when its academic sign-off is approved and at least {selected.requiredVerifiedReferences} subject-specific references are verified. {selected.verifiedReferencesCount} of {selected.requiredVerifiedReferences} references are verified so far.</p>
+              </div>
+            )}
             <div className="mt-5 flex flex-wrap gap-3">
-              <button type="button" disabled={working === selected.id || selected.locked} onClick={() => void enroll(selected)} className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-extrabold text-slate-950 disabled:opacity-50">{working === selected.id ? "Please wait…" : "Enrol in this course"}</button>
+              <button type="button" disabled={working === selected.id || selected.locked || !selected.academicApproved} onClick={() => void enroll(selected)} className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-extrabold text-slate-950 disabled:cursor-not-allowed disabled:opacity-50">{working === selected.id ? "Please wait…" : selected.academicApproved ? `Enrol & Pay · ${money(selected.priceKsh)}` : `Enrol & Pay · ${money(selected.priceKsh)} (Not yet open)`}</button>
               <Link href="/academy" className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">Back to catalogue</Link>
             </div>
-            <p className="mt-3 text-xs text-slate-500">Reviewing this course does not initiate payment. Payment is only requested after you choose to enrol and the programme stage is approved.</p>
+            <p className="mt-3 text-xs text-slate-500">Preview is free. Choosing Enrol & Pay starts checkout only after approval; no payment is taken while this stage is under review.</p>
           </section>
         )}
 
