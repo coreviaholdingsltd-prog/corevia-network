@@ -165,7 +165,8 @@ function RegisterForm() {
                   id="register-phone"
                   type="tel"
                   name="phone"
-                  placeholder="Optional — needed when requesting an M-PESA withdrawal"
+                  placeholder="07XXXXXXXX"
+                  required
                   autoComplete="tel"
                   className="w-full rounded-xl border border-[#12352c]/15 bg-[#f7f5ef]/50 px-4 py-3 outline-none focus:border-[#b99a58]"
                 />
@@ -268,7 +269,7 @@ function RegisterForm() {
                   className="mt-1"
                 />
                 <span>
-                  I have read and agree to the <Link href="/terms" className="font-semibold underline">Terms</Link> and <Link href="/privacy" className="font-semibold underline">Privacy Notice</Link>. I understand that registration creates a member account. My phone number is optional at registration and may be requested when needed for a withdrawal.
+                  I agree to the Corevia Network terms and acknowledge the <Link href="/privacy" className="font-semibold underline">Privacy Notice</Link>. I understand that registration creates a member account. My phone number is required to support M-PESA withdrawal requests and is not displayed on my public portfolio.
                 </span>
               </label>
 
