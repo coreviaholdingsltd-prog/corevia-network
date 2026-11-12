@@ -6,6 +6,9 @@ import { sessionCookieName, verifySession } from "@/lib/session";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const COREVIA_TILL_NUMBER = "6959300";
+// This route only records a wallet debit; it does not initiate or reconcile a Paystack transfer.
+// Keep this hard stop until the complete transfer lifecycle is implemented and verified.
+const PAYOUT_TRANSFER_LIFECYCLE_IMPLEMENTED = false;
 
 async function getSessionUser() {
   const cookieStore = await cookies();
@@ -79,6 +82,7 @@ export async function POST(request: Request) {
     // a Paystack transfer. Fail closed until the idempotent payout processor,
     // live balance reconciliation and all settlement checks are deployed.
     if (
+      !PAYOUT_TRANSFER_LIFECYCLE_IMPLEMENTED ||
       process.env.COREVIA_WITHDRAWALS_ENABLED !== "true" ||
       process.env.COREVIA_PAYSTACK_WITHDRAWALS_ENABLED !== "true" ||
       process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true" ||
@@ -266,4 +270,3 @@ export async function POST(request: Request) {
     );
   }
 }
-
