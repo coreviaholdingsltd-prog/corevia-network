@@ -31,6 +31,7 @@ export function getAcademyCourseForLearning(courseId: string): AcademyCourse | n
 
   return {
     ...course,
+    description: `${course.description} Includes SharePoint team sites, shared libraries, permissions, synchronisation, version history and secure file recovery.`,
     lessons: [...course.lessons, ...consolidatedLessons],
   };
 }
