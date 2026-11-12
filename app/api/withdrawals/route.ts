@@ -6,10 +6,6 @@ import { sessionCookieName, verifySession } from "@/lib/session";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const COREVIA_TILL_NUMBER = "6959300";
-// This route only records a wallet debit; it does not initiate or reconcile a Paystack transfer.
-// Keep this hard stop until the complete transfer lifecycle is implemented and verified.
-const PAYOUT_TRANSFER_LIFECYCLE_IMPLEMENTED = false;
-
 async function getSessionUser() {
   const cookieStore = await cookies();
   const token = cookieStore.get(sessionCookieName)?.value;
@@ -232,7 +228,7 @@ export async function POST(request: Request) {
     // If the network response is ambiguous, leave funds reserved and reconcile
     // this same reference; never create a fresh transfer on a retry.
     let transferResponse: Response;
-    let transferPayload: any;
+    let transferPayload: { status?: boolean; message?: string; data?: { status?: string; transfer_code?: string } } | null;
     try {
       transferResponse = await fetch("https://api.paystack.co/transfer", {
         method: "POST",
