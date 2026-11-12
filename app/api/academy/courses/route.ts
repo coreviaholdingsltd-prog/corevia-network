@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
 import { ACADEMY_COURSES } from "@/lib/academy-catalog";
 import { buildAcademyPathwayCourses } from "@/lib/academy-pathways";
+import { getAcademyQuestions } from "@/lib/academy-assessment-bank";
 
 export async function GET() {
   try {
@@ -52,6 +53,7 @@ export async function GET() {
       throw error;
     });
     const courses = publishedCourses.map((course) => {
+      const questions = getAcademyQuestions(course);
       const enrollment = enrollments.find((item) => item.courseId === course.id);
       const stageKey = String(course.programmeLevel ?? "FOUNDATION").toUpperCase().replace(/[^A-Z0-9]+/g, "_");
       const latestSignoff = academicSignoffs.find((item) => item.courseId === course.id && item.stageKey === stageKey);
@@ -84,11 +86,11 @@ export async function GET() {
           ? !enrollments.some((item) => item.courseId === course.prerequisiteCourseId && item.status === "COMPLETED")
           : false,
         lessonsCount: course.lessons.length,
-        questionsCount: course.questions.length,
+        questionsCount: questions.length,
         completedLessons,
         progressPercent: enrollment?.completion ? 100 : Math.round((completedLessons / course.lessons.length) * 100),
         lessons: unlocked ? course.lessons.map((lesson) => ({ ...lesson, completed: completedIds.has(lesson.id) })) : [],
-        questions: unlocked ? course.questions.map(({ id, prompt, options }) => ({ id, prompt, options })) : [],
+        questions: unlocked ? questions.map(({ id, prompt, options }) => ({ id, prompt, options })) : [],
         latestAttempt: latest ? { score: latest.score, totalQuestions: latest.totalQuestions, passed: latest.passed, createdAt: latest.createdAt } : null,
         completion: enrollment?.completion ? { certificateCode: enrollment.completion.certificateCode, issuedAt: enrollment.completion.issuedAt } : null,
         references: verifiedReferences.filter((reference) => {
