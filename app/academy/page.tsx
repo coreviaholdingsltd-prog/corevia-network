@@ -660,7 +660,7 @@ export default function AcademyPage() {
               <button type="button" disabled={working === selected.id || selected.locked || (!selected.academicApproved && !selected.pilotEnrollmentOpen)} onClick={() => void enroll(selected)} className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-extrabold text-slate-950 disabled:cursor-not-allowed disabled:opacity-50">{working === selected.id ? "Please wait…" : (selected.academicApproved || selected.pilotEnrollmentOpen) ? `Enrol & Pay · ${money(selected.priceKsh)}` : `Enrol & Pay · ${money(selected.priceKsh)} (Not yet open)`}</button>
               <Link href="/academy" className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">Back to catalogue</Link>
             </div>
-            <p className="mt-3 text-xs text-slate-500">Preview is free. Choosing Enrol & Pay starts checkout only after approval; no payment is taken while this stage is under review.</p>
+            <p className="mt-3 text-xs text-slate-500">Preview is free. This Accounting Certificate pilot can start a KES 1,500 Paystack checkout now; course access is activated only after the payment is confirmed. Other programme stages remain subject to their academic approval gates.</p>
           </section>
         )}
 
