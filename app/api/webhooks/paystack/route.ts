@@ -132,7 +132,7 @@ async function processTransferWebhook(event: {
         await tx.ledgerEntry.create({
           data: {
             ownerType: "COREVIA",
-            amount: { decrement: withdrawal.fee },
+            amount: Number(withdrawal.fee) * -1,
             type: "ADJUSTMENT",
             reference: `${withdrawal.reference}-PAYOUT-REFUND-COREVIA-FEE`,
             description: `Reverse Corevia withdrawal fee for unsuccessful payout ${reference}`,
@@ -140,7 +140,10 @@ async function processTransferWebhook(event: {
         });
 
         await tx.walletTransaction.updateMany({
-          where: { reference: `${withdrawal.reference}-WALLET`, status: "PENDING" },
+          where: {
+            reference: `${withdrawal.reference}-WALLET`,
+            status: isReversal ? { in: ["PENDING", "COMPLETED"] } : "PENDING",
+          },
           data: { status: isReversal ? "REVERSED" : "FAILED", completedAt: new Date() },
         });
       }
