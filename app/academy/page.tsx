@@ -41,6 +41,8 @@ type Course = {
   level: string;
   priceKsh: number;
   academicApproved: boolean;
+  pilotEnrollmentOpen: boolean;
+  enrollmentOpen: boolean;
   academicApprovalStatus: string;
   verifiedReferencesCount: number;
   requiredVerifiedReferences: number;
@@ -642,17 +644,23 @@ export default function AcademyPage() {
               <div className="rounded-xl bg-slate-950 p-3"><p className="text-[10px] text-slate-400">Enrolment fee</p><p className="mt-1 text-sm font-bold text-white">{money(selected.priceKsh)}</p></div>
             </div>
             {selected.locked && <p className="mt-4 rounded-xl border border-amber-300/20 bg-amber-300/10 p-3 text-sm text-amber-100">Complete the previous programme stage before enrolling in this stage.</p>}
-            {selected.isProgrammeStage && !selected.academicApproved && (
+            {selected.isProgrammeStage && !selected.academicApproved && selected.pilotEnrollmentOpen && (
+              <div className="mt-4 rounded-xl border border-cyan-300/25 bg-cyan-300/10 p-4">
+                <p className="text-sm font-bold text-cyan-100">Paid pilot enrolment is open</p>
+                <p className="mt-1 text-xs leading-5 text-cyan-100/80">This is a company-authorised, non-accredited Certificate completion pilot. Academic review continues; {selected.verifiedReferencesCount} of {selected.requiredVerifiedReferences} references are recorded as verified. The completion certificate is not a university award, professional licence or accredited qualification.</p>
+              </div>
+            )}
+            {selected.isProgrammeStage && !selected.academicApproved && !selected.pilotEnrollmentOpen && (
               <div className="mt-4 rounded-xl border border-amber-300/25 bg-amber-300/10 p-4">
                 <p className="text-sm font-bold text-amber-100">Payment opens after academic approval</p>
                 <p className="mt-1 text-xs leading-5 text-amber-100/80">This course is available to preview. Paid enrolment will open when its academic sign-off is approved and at least {selected.requiredVerifiedReferences} subject-specific references are verified. {selected.verifiedReferencesCount} of {selected.requiredVerifiedReferences} references are verified so far.</p>
               </div>
             )}
             <div className="mt-5 flex flex-wrap gap-3">
-              <button type="button" disabled={working === selected.id || selected.locked || !selected.academicApproved} onClick={() => void enroll(selected)} className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-extrabold text-slate-950 disabled:cursor-not-allowed disabled:opacity-50">{working === selected.id ? "Please wait…" : selected.academicApproved ? `Enrol & Pay · ${money(selected.priceKsh)}` : `Enrol & Pay · ${money(selected.priceKsh)} (Not yet open)`}</button>
+              <button type="button" disabled={working === selected.id || selected.locked || (!selected.academicApproved && !selected.pilotEnrollmentOpen)} onClick={() => void enroll(selected)} className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-extrabold text-slate-950 disabled:cursor-not-allowed disabled:opacity-50">{working === selected.id ? "Please wait…" : (selected.academicApproved || selected.pilotEnrollmentOpen) ? `Enrol & Pay · ${money(selected.priceKsh)}` : `Enrol & Pay · ${money(selected.priceKsh)} (Not yet open)`}</button>
               <Link href="/academy" className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">Back to catalogue</Link>
             </div>
-            <p className="mt-3 text-xs text-slate-500">Preview is free. Choosing Enrol & Pay starts checkout only after approval; no payment is taken while this stage is under review.</p>
+            <p className="mt-3 text-xs text-slate-500">Preview is free. This Accounting Certificate pilot can start a KES 1,500 Paystack checkout now; course access is activated only after the payment is confirmed. Other programme stages remain subject to their academic approval gates.</p>
           </section>
         )}
 
