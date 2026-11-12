@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { isPaystackPayoutEnabled, isPayoutLifecycleVerified } from "../lib/paystack-payout-guard.mjs";
+import { isPaystackPayoutEnabled, isPayoutLifecycleVerified, evaluatePaystackFloat } from "../lib/paystack-payout-guard.mjs";
 
 const enabledEnvironment = {
   COREVIA_WITHDRAWALS_ENABLED: "true",
@@ -44,4 +44,31 @@ test("payout lifecycle approval requires the exact explicit production flag", ()
   assert.equal(isPayoutLifecycleVerified({ COREVIA_PAYOUT_LIFECYCLE_VERIFIED: "false" }), false);
   assert.equal(isPayoutLifecycleVerified({ COREVIA_PAYOUT_LIFECYCLE_VERIFIED: "TRUE" }), false);
   assert.equal(isPayoutLifecycleVerified({ COREVIA_PAYOUT_LIFECYCLE_VERIFIED: "true" }), true);
+});
+
+
+test("Paystack float must cover member wallets and in-flight payouts", () => {
+  assert.deepEqual(evaluatePaystackFloat({
+    balanceSubunits: 25000000,
+    walletLiabilitiesKsh: 200000,
+    pendingPayoutsKsh: 50000,
+  }), { ready: true, availableKsh: 250000, requiredKsh: 250000 });
+  assert.equal(evaluatePaystackFloat({
+    balanceSubunits: 24999999,
+    walletLiabilitiesKsh: 200000,
+    pendingPayoutsKsh: 50000,
+  }).ready, false);
+});
+
+test("missing or invalid Paystack float data fails closed", () => {
+  assert.equal(evaluatePaystackFloat({
+    balanceSubunits: null,
+    walletLiabilitiesKsh: 0,
+    pendingPayoutsKsh: 0,
+  }).ready, false);
+  assert.equal(evaluatePaystackFloat({
+    balanceSubunits: 100000,
+    walletLiabilitiesKsh: -1,
+    pendingPayoutsKsh: 0,
+  }).ready, false);
 });
