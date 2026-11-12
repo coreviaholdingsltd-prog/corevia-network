@@ -6,6 +6,8 @@ import { sessionCookieName, verifySession } from "@/lib/session";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const COREVIA_TILL_NUMBER = "6959300";
+// Keep live transfers hard-disabled until reconciliation and end-to-end payout tests are complete.
+const PAYOUT_TRANSFER_LIFECYCLE_VERIFIED = false;
 async function getSessionUser() {
   const cookieStore = await cookies();
   const token = cookieStore.get(sessionCookieName)?.value;
@@ -78,6 +80,7 @@ export async function POST(request: Request) {
     // Keep disabled until Paystack test-mode lifecycle tests and production
     // balance/float checks have been completed and signed off.
     if (
+      !PAYOUT_TRANSFER_LIFECYCLE_VERIFIED ||
       process.env.COREVIA_WITHDRAWALS_ENABLED !== "true" ||
       process.env.COREVIA_PAYSTACK_WITHDRAWALS_ENABLED !== "true" ||
       process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true" ||
