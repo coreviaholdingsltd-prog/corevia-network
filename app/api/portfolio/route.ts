@@ -59,7 +59,8 @@ export async function PUT(request: Request) {
     if (websiteUrl === undefined || linkedinUrl === undefined || githubUrl === undefined) {
       return NextResponse.json({ error: "Profile links must be valid HTTPS URLs." }, { status: 400 });
     }
-    const isPublic = typeof body.isPublic === "boolean" ? body.isPublic : true;
+    const existingProfile = await prisma.memberProfile.findUnique({ where: { userId: user.id }, select: { isPublic: true } });
+    const isPublic = typeof body.isPublic === "boolean" ? body.isPublic : (existingProfile?.isPublic ?? false);
     const profile = await prisma.memberProfile.upsert({
       where: { userId: user.id },
       create: { userId: user.id, headline, bio, location: location || null, skills, websiteUrl, linkedinUrl, githubUrl, isPublic },
