@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
 import { findAcademyCourse } from "@/lib/academy-catalog";
+import { getAcademyQuestions } from "@/lib/academy-assessment-bank";
 
 export async function POST(request: Request) {
   try {
@@ -11,6 +12,7 @@ export async function POST(request: Request) {
     const courseId = String(body.courseId ?? "");
     const course = findAcademyCourse(courseId);
     if (!course) return NextResponse.json({ error: "Course not found." }, { status: 404 });
+    const questions = getAcademyQuestions(course);
     const enrollment = await prisma.academyEnrollment.findUnique({
       where: { userId_courseId: { userId: user.id, courseId } },
       include: { lessonProgress: true, completion: true },
@@ -19,7 +21,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Enroll in this course before taking the assessment." }, { status: 403 });
     }
     if (enrollment.status === "COMPLETED" && enrollment.completion) {
-      return NextResponse.json({ status: true, passed: true, alreadyCompleted: true, score: 100, totalQuestions: course.questions.length, completion: { certificateCode: enrollment.completion.certificateCode, issuedAt: enrollment.completion.issuedAt } });
+      return NextResponse.json({ status: true, passed: true, alreadyCompleted: true, score: 100, totalQuestions: questions.length, completion: { certificateCode: enrollment.completion.certificateCode, issuedAt: enrollment.completion.issuedAt } });
     }
     const completedIds = new Set(enrollment.lessonProgress.map((item) => item.lessonId));
     if (!course.lessons.every((lesson) => completedIds.has(lesson.id))) {
@@ -28,17 +30,17 @@ export async function POST(request: Request) {
 
     const answers = body.answers as Record<string, unknown> | undefined;
     if (!answers || typeof answers !== "object") return NextResponse.json({ error: "Submit an answer for every assessment question." }, { status: 400 });
-    for (const question of course.questions) {
+    for (const question of questions) {
       const value = answers[question.id];
       if (!Number.isInteger(value) || Number(value) < 0 || Number(value) >= question.options.length) {
         return NextResponse.json({ error: "Answer every question before submitting." }, { status: 400 });
       }
     }
 
-    const correct = course.questions.filter((question) => Number(answers[question.id]) === question.answerIndex).length;
-    const score = Math.round((correct / course.questions.length) * 100);
+    const correct = questions.filter((question) => Number(answers[question.id]) === question.answerIndex).length;
+    const score = Math.round((correct / questions.length) * 100);
     const passed = score >= 75;
-    const review = course.questions.map((question) => ({
+    const review = questions.map((question) => ({
       id: question.id,
       prompt: question.prompt,
       chosenIndex: Number(answers[question.id]),
@@ -48,7 +50,7 @@ export async function POST(request: Request) {
     }));
 
     const result = await prisma.$transaction(async (tx) => {
-      await tx.academyAssessmentAttempt.create({ data: { enrollmentId: enrollment.id, score, totalQuestions: course.questions.length, passed } });
+      await tx.academyAssessmentAttempt.create({ data: { enrollmentId: enrollment.id, score, totalQuestions: questions.length, passed } });
       // A knowledge-test pass is necessary but no longer sufficient for a new
       // completion record. Practical work must also pass independent review.
       // Existing completion records remain untouched for historical learners.
@@ -59,7 +61,7 @@ export async function POST(request: Request) {
       status: true,
       passed,
       score,
-      totalQuestions: course.questions.length,
+      totalQuestions: questions.length,
       threshold: 75,
       message: passed ? (result ? "Assessment passed. Your existing completion record is preserved." : "Knowledge assessment passed. Submit your practical project for academic review to complete this course.") : "Not passed yet. Review the explanations and try again.",
       review,
