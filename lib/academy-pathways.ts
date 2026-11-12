@@ -134,6 +134,17 @@ function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage, stageInde
   // stage framing and feedback raise the expected reasoning level without
   // inventing unsupported facts or recycling a cross-subject question bank.
   const sourceQuestions = Array.isArray(subject.questions) ? subject.questions : [];
+  const accountingQuestions: AcademyCourse["questions"] = [
+    {id:"accounting-assessment-1",prompt:"A business owner contributes KES 50,000 to the business bank account. Which treatment best reflects the transaction?",options:["Record it as sales revenue because cash increased.","Record an increase in cash and a corresponding increase in owner's equity.","Record it as a supplier expense and reduce cash.","Record it as a customer receivable until an invoice is issued."],answerIndex:1,explanation:"An owner contribution increases the business asset (cash) and owner's equity; it is not revenue from customers."},
+    {id:"accounting-assessment-2",prompt:"A customer pays KES 7,000 against an invoice of KES 12,000. What should the accounting package show after the receipt is correctly allocated?",options:["The invoice is fully settled and the extra KES 5,000 becomes income.","The receipt is recorded as a new sale and the original invoice remains unchanged.","The customer receivable is reduced by KES 7,000 and KES 5,000 remains outstanding.","The invoice should be deleted and recreated for KES 5,000."],answerIndex:2,explanation:"Allocating a partial receipt against the correct invoice reduces the receivable by the amount received and leaves the unpaid balance visible."},
+    {id:"accounting-assessment-3",prompt:"Before recording a supplier bill, which evidence and control combination is most appropriate?",options:["A verbal request alone, entered immediately as paid.","A supplier document with date, identity, description and amount, checked for duplication and required approval.","A bank balance screenshot without the supplier or transaction details.","A prior month's bill copied forward without checking the current purchase."],answerIndex:1,explanation:"A supplier bill should be supported by traceable source evidence, checked for duplication and processed under the organisation's approval controls."},
+    {id:"accounting-assessment-4",prompt:"A bank reconciliation shows a difference that cannot yet be explained. What is the correct response?",options:["Post a miscellaneous adjustment for the exact difference so the report balances.","Delete the unmatched bank line and close the period.","Change the opening balance until it agrees with the statement.","Investigate dates, duplicates, missing entries and timing items, document the cause and post only supported corrections."],answerIndex:3,explanation:"A reconciliation difference must be investigated and documented; forcing a balance hides errors and weakens the audit trail."},
+    {id:"accounting-assessment-5",prompt:"A business records KES 80,000 in sales invoices but receives only KES 45,000 from customers during the month. Which statement is most accurate?",options:["Sales revenue and cash received are different measures; outstanding receivables may explain part of the gap.","The remaining KES 35,000 must automatically be treated as a bank overdraft.","The business has no revenue until every customer has paid, regardless of its accounting basis.","The bank balance must increase by KES 80,000 when invoices are issued."],answerIndex:0,explanation:"Invoices can create revenue and receivables before cash is collected; cash flow and reported revenue should not be treated as identical."},
+    {id:"accounting-assessment-6",prompt:"Which month-end control best protects the integrity of accounting records?",options:["Allow all staff to share one administrator password for convenience.","Delete source documents after entering transactions to reduce storage.","Reconcile accounts, review unusual entries, retain supporting documents and restrict adjustments to authorised users.","Close the period before unresolved supplier bills and bank differences are reviewed."],answerIndex:2,explanation:"A controlled close combines reconciliations, evidence retention, review and restricted authority so errors can be detected and traced."}
+  ];
+  const assessmentQuestions = subject.id === "accounting-software-practice"
+    ? accountingQuestions
+    : sourceQuestions;
   const levelFraming = [
     "CERTIFICATE FOUNDATION CHECK — Define and recognise the subject principle. ",
     "DIPLOMA APPLICATION CHECK — Apply the subject principle to a practical task. ",
@@ -142,7 +153,7 @@ function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage, stageInde
     "DOCTORAL RESEARCH PREPARATION — Critique the evidence and identify what further inquiry is required. ",
   ][stageIndex];
 
-  return sourceQuestions.map((question, index) => ({
+  return assessmentQuestions.map((question, index) => ({
     ...question,
     id: subject.id + "-" + stage.label.toLowerCase() + "-subject-assessment-" + (index + 1),
     prompt: levelFraming + question.prompt + " Select the best-supported answer.",
