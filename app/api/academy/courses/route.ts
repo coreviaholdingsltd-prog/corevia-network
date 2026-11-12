@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
 import { ACADEMY_COURSES } from "@/lib/academy-catalog";
 import { buildAcademyPathwayCourses } from "@/lib/academy-pathways";
-import { getAcademyCourseForLearning, isRetiredDuplicateAcademyCourse } from "@/lib/academy-catalog-policy";
+import { getAcademyCourseForLearning, isAcademyPilotCourse, isRetiredDuplicateAcademyCourse } from "@/lib/academy-catalog-policy";
 
 export async function GET() {
   try {
@@ -67,7 +67,9 @@ export async function GET() {
       const stageKey = String(course.programmeLevel ?? "FOUNDATION").toUpperCase().replace(/[^A-Z0-9]+/g, "_");
       const latestSignoff = academicSignoffs.find((item) => item.courseId === course.id && item.stageKey === stageKey);
       const verifiedReferenceCount = verifiedReferences.filter((item) => item.courseId === course.id && item.stageKey === stageKey).length;
+      const pilotEnrollmentOpen = isAcademyPilotCourse(course.id);
       const academicApproved = !course.isProgrammeStage || (latestSignoff?.decision === "APPROVED" && verifiedReferenceCount >= 3);
+      const enrollmentOpen = academicApproved || pilotEnrollmentOpen;
       const unlocked = !!enrollment && (enrollment.status === "ACTIVE" || enrollment.status === "COMPLETED");
       const completedIds = new Set(enrollment?.lessonProgress.map((item) => item.lessonId) ?? []);
       const completedLessons = course.lessons.filter((lesson) => completedIds.has(lesson.id)).length;
@@ -80,6 +82,8 @@ export async function GET() {
         level: course.level,
         priceKsh: course.priceKsh,
         academicApproved,
+        pilotEnrollmentOpen,
+        enrollmentOpen,
         academicApprovalStatus: course.isProgrammeStage ? (academicApproved ? "APPROVED" : "IN_DEVELOPMENT") : "APPROVED",
         verifiedReferencesCount: verifiedReferenceCount,
         requiredVerifiedReferences: 3,
