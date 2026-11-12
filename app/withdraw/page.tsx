@@ -62,6 +62,8 @@ export default function Withdraw() {
     setSubmitting(true);
     setError("");
     setMessage("");
+    const activeRequestKey = requestKey || window.crypto.randomUUID();
+    setRequestKey(activeRequestKey);
 
     try {
       const response = await fetch("/api/withdrawals", {
@@ -72,7 +74,7 @@ export default function Withdraw() {
         body: JSON.stringify({
           amount,
           confirmBeneficiary,
-          requestKey: requestKey || window.crypto.randomUUID(),
+          requestKey: activeRequestKey,
         }),
       });
 
