@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
+import { isPaystackPayoutEnabled } from "@/lib/paystack-payout-guard.mjs";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const COREVIA_TILL_NUMBER = "6959300";
@@ -79,14 +80,7 @@ export async function POST(request: Request) {
   try {
     // Keep disabled until Paystack test-mode lifecycle tests and production
     // balance/float checks have been completed and signed off.
-    if (
-      !PAYOUT_TRANSFER_LIFECYCLE_VERIFIED ||
-      process.env.COREVIA_WITHDRAWALS_ENABLED !== "true" ||
-      process.env.COREVIA_PAYSTACK_WITHDRAWALS_ENABLED !== "true" ||
-      process.env.COREVIA_PAYSTACK_FLOAT_READY !== "true" ||
-      process.env.COREVIA_PAYSTACK_PAYOUT_PROCESSOR_ENABLED !== "true" ||
-      process.env.COREVIA_PAYSTACK_OTP_DISABLED !== "true"
-    ) {
+    if (!isPaystackPayoutEnabled(process.env, PAYOUT_TRANSFER_LIFECYCLE_VERIFIED)) {
       return NextResponse.json(
         { error: "Automated M-PESA withdrawals are not enabled yet. Your wallet has not been debited." },
         { status: 503 },
