@@ -59,6 +59,9 @@ jobs:
       - name: Generate Prisma Client
         run: npx prisma generate
 
+      - name: Run Paystack payout safety regression tests
+        run: npm run test:payments
+
       - name: Lint complete application
         run: npm run lint
 
