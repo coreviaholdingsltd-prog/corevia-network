@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
 import { findAcademyCourse } from "@/lib/academy-catalog";
+import { getAcademyCourseForLearning, isRetiredDuplicateAcademyCourse } from "@/lib/academy-catalog-policy";
 
 export const runtime = "nodejs";
 
@@ -24,7 +25,7 @@ export async function GET() {
       submissions: submissions.map((item) => ({
         id: item.id,
         courseId: item.courseId,
-        courseTitle: findAcademyCourse(item.courseId)?.title ?? item.courseId,
+        courseTitle: getAcademyCourseForLearning(item.courseId)?.title ?? item.courseId,
         projectTitle: item.projectTitle,
         status: item.status,
         submittedAt: item.submittedAt,
@@ -55,8 +56,8 @@ export async function POST(request: Request) {
     if (!body || typeof body !== "object") return NextResponse.json({ error: "Invalid project submission." }, { status: 400 });
 
     const courseId = text(body.courseId, 120);
-    const course = findAcademyCourse(courseId);
-    if (!course || !course.published) return NextResponse.json({ error: "Published course not found." }, { status: 404 });
+    const course = getAcademyCourseForLearning(courseId);
+    if (!course || !course.published || isRetiredDuplicateAcademyCourse(courseId)) return NextResponse.json({ error: "Published course not found." }, { status: 404 });
 
     const projectTitle = text(body.projectTitle, 180);
     const objective = text(body.objective, 5000);
