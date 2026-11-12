@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
 import { findAcademyCourse } from "@/lib/academy-catalog";
 import { processAcademyCoursePayment } from "@/lib/academy-payments";
-import { isRetiredDuplicateAcademyCourse } from "@/lib/academy-catalog-policy";
+import { isAcademyPilotCourse, isRetiredDuplicateAcademyCourse } from "@/lib/academy-catalog-policy";
 
 export const runtime = "nodejs";
 
@@ -281,7 +281,7 @@ export async function POST(request: Request) {
     // Paid programme stages stay closed until the latest academic decision is
     // APPROVED and at least three subject- and stage-specific references are verified.
     // This is a server-side payment gate; hiding a checkout button is not sufficient.
-    if (course.isProgrammeStage) {
+    if (course.isProgrammeStage && !isAcademyPilotCourse(course.id)) {
       const stageKey = String(course.programmeLevel ?? "FOUNDATION")
         .toUpperCase()
         .replace(/[^A-Z0-9]+/g, "_");
