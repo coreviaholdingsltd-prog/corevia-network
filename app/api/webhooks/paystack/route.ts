@@ -76,23 +76,23 @@ async function processTransferWebhook(event: {
       if (!current) throw new Error("Withdrawal disappeared during settlement.");
 
       if (eventType === "transfer.success") {
-        if (current.status === "PENDING" || current.status === "PROCESSING") {
-          await tx.withdrawal.update({
-            where: { id: withdrawal.id },
-            data: {
-              status: "PAID",
-              processorStatus: "success",
-              transferCode: transfer?.transfer_code ?? undefined,
-              settledAt: new Date(),
-              processedAt: new Date(),
-            },
-          });
+        const changed = await tx.withdrawal.updateMany({
+          where: { id: withdrawal.id, status: { in: ["PENDING", "PROCESSING"] } },
+          data: {
+            status: "PAID",
+            processorStatus: "success",
+            transferCode: transfer?.transfer_code ?? undefined,
+            settledAt: new Date(),
+            processedAt: new Date(),
+          },
+        });
+        if (changed.count === 1) {
           await tx.walletTransaction.updateMany({
-            where: { reference: `${withdrawal.reference}-WALLET`, status: "PENDING" },
+            where: { reference: `${withdrawal.reference}-wallet`, status: "PENDING" },
             data: { status: "COMPLETED", completedAt: new Date() },
           });
         }
-        return { processed: true, outcome: "success" };
+        return { processed: changed.count === 1, outcome: changed.count === 1 ? "success" : "already_settled" };
       }
 
       const isReversal = eventType === "transfer.reversed";
@@ -102,8 +102,8 @@ async function processTransferWebhook(event: {
         (isReversal && current.status === "PAID");
 
       if (canRefund) {
-        await tx.withdrawal.update({
-          where: { id: withdrawal.id },
+        const changed = await tx.withdrawal.updateMany({
+          where: { id: withdrawal.id, status: current.status },
           data: {
             status: "FAILED",
             processorStatus: isReversal ? "reversed" : "failed",
@@ -112,6 +112,7 @@ async function processTransferWebhook(event: {
             processedAt: new Date(),
           },
         });
+        if (changed.count !== 1) return { processed: false, outcome: "already_settled" };
 
         await tx.wallet.update({
           where: { userId: withdrawal.userId },
@@ -141,7 +142,7 @@ async function processTransferWebhook(event: {
 
         await tx.walletTransaction.updateMany({
           where: {
-            reference: `${withdrawal.reference}-WALLET`,
+            reference: `${withdrawal.reference}-wallet`,
             status: isReversal ? { in: ["PENDING", "COMPLETED"] } : "PENDING",
           },
           data: { status: isReversal ? "REVERSED" : "FAILED", completedAt: new Date() },
