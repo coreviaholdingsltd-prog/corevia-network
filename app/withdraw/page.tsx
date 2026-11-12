@@ -21,6 +21,9 @@ export default function Withdraw() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [payoutPhone, setPayoutPhone] = useState<string | null>(null);
+  const [confirmBeneficiary, setConfirmBeneficiary] = useState(false);
+  const [requestKey, setRequestKey] = useState("");
 
   async function loadWithdrawals() {
     try {
@@ -36,6 +39,7 @@ export default function Withdraw() {
       }
 
       setBalance(Number(result.balance || 0));
+      setPayoutPhone(typeof result.payoutPhone === "string" ? result.payoutPhone : null);
       setWithdrawals(result.withdrawals || []);
     } catch {
       setError("Unable to connect to the withdrawal service.");
@@ -67,6 +71,8 @@ export default function Withdraw() {
         },
         body: JSON.stringify({
           amount,
+          confirmBeneficiary,
+          requestKey: requestKey || window.crypto.randomUUID(),
         }),
       });
 
@@ -74,6 +80,7 @@ export default function Withdraw() {
 
       if (!response.ok) {
         setError(result.error || "Unable to submit withdrawal.");
+        setRequestKey("");
         return;
       }
 
@@ -81,6 +88,8 @@ export default function Withdraw() {
         `Withdrawal request ${result.withdrawal.reference} submitted successfully.`,
       );
       setAmount("");
+      setRequestKey("");
+      setConfirmBeneficiary(false);
 
       await loadWithdrawals();
     } catch {
@@ -140,13 +149,29 @@ export default function Withdraw() {
               You may withdraw up to KES 150,753.77, subject to your available wallet balance. Corevia deducts a 0.50% withdrawal fee. The maximum M-PESA payout is KES 150,000.
             </p>
 
+            <div className="mt-5 rounded-xl border border-[#12352c]/10 bg-[#f7f5ef]/60 p-4">
+              <p className="text-sm font-semibold">M-PESA destination</p>
+              <p className="mt-1 text-sm">{payoutPhone || "No phone number is saved on your member profile."}</p>
+              <label className="mt-3 flex items-start gap-3 text-sm leading-5">
+                <input
+                  type="checkbox"
+                  checked={confirmBeneficiary}
+                  onChange={(event) => setConfirmBeneficiary(event.target.checked)}
+                  disabled={!payoutPhone}
+                  className="mt-1 h-4 w-4 accent-[#12352c]"
+                />
+                <span>I confirm this is my correct M-PESA number and I am authorised to receive the withdrawal at this number.</span>
+              </label>
+              <p className="mt-2 text-xs text-[#12352c]/55">If this number is incorrect, update your member profile before requesting payment. The app uses the number saved to your account.</p>
+            </div>
+
             <div role="note" className="mt-5 rounded-xl border border-[#b99a58]/30 bg-[#f7f5ef] px-4 py-3">
               <p className="text-sm font-semibold text-[#12352c]">Withdrawal Notice</p>
               <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Kindly note that withdrawals may take up to 24 hours for verification and processing. Most requests are processed sooner, but additional checks or payment-provider delays may occur. Thank you for your patience and understanding.</p>
             </div>
             <button
               type="submit"
-              disabled={submitting || balance <= 0}
+              disabled={submitting || balance <= 0 || !confirmBeneficiary || !payoutPhone}
               className="mt-5 w-full rounded-xl bg-[#12352c] px-5 py-3.5 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
             >
               {submitting ? "Submitting..." : "Request Withdrawal"}
