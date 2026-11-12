@@ -5,6 +5,16 @@ export const RETIRED_DUPLICATE_ACADEMY_COURSE_IDS = new Set([
   "cloud-storage-onedrive-sharepoint",
 ]);
 
+// CEO-authorised paid pilot for this non-accredited Certificate completion course.
+// This flag does not imply academic approval or verified references.
+export const ACADEMY_PILOT_COURSE_IDS = new Set([
+  "accounting-software-practice-certificate",
+]);
+
+export function isAcademyPilotCourse(courseId: string): boolean {
+  return ACADEMY_PILOT_COURSE_IDS.has(courseId);
+}
+
 export function isRetiredDuplicateAcademyCourse(courseId: string): boolean {
   return RETIRED_DUPLICATE_ACADEMY_COURSE_IDS.has(courseId);
 }
