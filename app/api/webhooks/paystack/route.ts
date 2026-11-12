@@ -88,7 +88,7 @@ async function processTransferWebhook(event: {
         });
         if (changed.count === 1) {
           await tx.walletTransaction.updateMany({
-            where: { reference: `${withdrawal.reference}-WALLET`, status: "PENDING" },
+            where: { reference: `${withdrawal.reference}-wallet`, status: "PENDING" },
             data: { status: "COMPLETED", completedAt: new Date() },
           });
         }
@@ -142,7 +142,7 @@ async function processTransferWebhook(event: {
 
         await tx.walletTransaction.updateMany({
           where: {
-            reference: `${withdrawal.reference}-WALLET`,
+            reference: `${withdrawal.reference}-wallet`,
             status: isReversal ? { in: ["PENDING", "COMPLETED"] } : "PENDING",
           },
           data: { status: isReversal ? "REVERSED" : "FAILED", completedAt: new Date() },
