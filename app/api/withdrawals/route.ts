@@ -271,8 +271,11 @@ export async function POST(request: Request) {
     if (!transferResponse.ok || transferPayload?.status !== true || !transferPayload?.data) {
       const providerMessage = String(transferPayload?.message ?? "Paystack rejected the transfer.");
       await prisma.$transaction(async (tx) => {
-        const current = await tx.withdrawal.findUnique({ where: { id: reserved.withdrawal.id }, select: { status: true } });
-        if (!current || current.status !== "PROCESSING") return;
+        const changed = await tx.withdrawal.updateMany({
+          where: { id: reserved.withdrawal.id, status: "PROCESSING" },
+          data: { status: "FAILED", processorStatus: "rejected", settledAt: new Date(), processedAt: new Date() },
+        });
+        if (changed.count !== 1) return;
         await tx.wallet.update({ where: { userId: user.id }, data: { balance: { increment: normalizedAmount } } });
         await tx.ledgerEntry.create({
           data: { ownerType: "MEMBER", userId: user.id, amount: normalizedAmount, type: "ADJUSTMENT", reference: reference + "-payout-refund-member", description: "Refund of rejected Paystack payout " + payoutReference },
@@ -280,7 +283,6 @@ export async function POST(request: Request) {
         await tx.ledgerEntry.create({
           data: { ownerType: "COREVIA", amount: -fee, type: "ADJUSTMENT", reference: reference + "-payout-refund-corevia", description: "Reverse Corevia fee for rejected payout " + payoutReference },
         });
-        await tx.withdrawal.update({ where: { id: reserved.withdrawal.id }, data: { status: "FAILED", processorStatus: "rejected", settledAt: new Date(), processedAt: new Date() } });
         await tx.walletTransaction.updateMany({ where: { reference: reference + "-wallet", status: "PENDING" }, data: { status: "FAILED", completedAt: new Date() } });
       });
       return NextResponse.json({ error: "Paystack rejected the payout: " + providerMessage + ". The wallet reservation has been restored." }, { status: 502 });
