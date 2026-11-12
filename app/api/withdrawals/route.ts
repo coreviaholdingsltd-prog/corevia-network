@@ -8,7 +8,11 @@ import { isPaystackPayoutEnabled } from "@/lib/paystack-payout-guard.mjs";
 const WITHDRAWAL_FEE_RATE = 0.005;
 const COREVIA_TILL_NUMBER = "6959300";
 // Live transfers remain hard-disabled until provider lifecycle and production float are independently verified.
-const PAYOUT_TRANSFER_LIFECYCLE_VERIFIED = false;
+// Set this explicit production flag to "true" only after Paystack test-mode
+// success/failure/reversal checks, webhook delivery, cron reconciliation, and
+// production balance/float readiness have all been independently confirmed.
+const PAYOUT_TRANSFER_LIFECYCLE_VERIFIED =
+  process.env.COREVIA_PAYOUT_LIFECYCLE_VERIFIED === "true";
 
 async function getSessionUser() {
   const cookieStore = await cookies();
