@@ -21,6 +21,10 @@ export async function GET(request: Request) {
     });
     return NextResponse.json({ status: true, courseId, stageKey, references });
   } catch (error) {
+    if (error && typeof error === "object" && "code" in error && error.code === "P2021") {
+      console.error("Academy reference table is not migrated yet; returning no verified references.");
+      return NextResponse.json({ status: true, courseId: new URL(request.url).searchParams.get("courseId"), stageKey: null, references: [] });
+    }
     console.error("Academy references error:", error);
     return NextResponse.json({ error: "Unable to load verified references." }, { status: 500 });
   }
