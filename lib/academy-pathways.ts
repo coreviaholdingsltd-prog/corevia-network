@@ -153,7 +153,7 @@ function buildQuestions(subject: AcademyCourse, stage: ProgrammeStage, stageInde
     "DOCTORAL RESEARCH PREPARATION — Critique the evidence and identify what further inquiry is required. ",
   ][stageIndex];
 
-  return sourceQuestions.map((question, index) => ({
+  return assessmentQuestions.map((question, index) => ({
     ...question,
     id: subject.id + "-" + stage.label.toLowerCase() + "-subject-assessment-" + (index + 1),
     prompt: levelFraming + question.prompt + " Select the best-supported answer.",
