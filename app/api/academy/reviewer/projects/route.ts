@@ -40,6 +40,10 @@ export async function GET() {
       })),
     });
   } catch (error) {
+    if (error && typeof error === "object" && "code" in error && error.code === "P2021") {
+      console.error("Academy practical assessment tables are not migrated yet; returning an empty reviewer queue.");
+      return NextResponse.json({ status: true, submissions: [] });
+    }
     console.error("Academy reviewer queue error:", error);
     return NextResponse.json({ error: "Unable to load the review queue." }, { status: 500 });
   }
@@ -137,6 +141,10 @@ export async function POST(request: Request) {
       message: decision === "APPROVED" ? "Practical project approved. Course completion is recorded." : decision === "REJECTED" ? "Project rejected with reviewer feedback." : "Revision requested. The learner may submit improved work.",
     });
   } catch (error) {
+    if (error && typeof error === "object" && "code" in error && error.code === "P2021") {
+      console.error("Academy practical assessment tables are not migrated; review submission is temporarily unavailable.");
+      return NextResponse.json({ error: "Practical assessment is being provisioned. No review or certificate status was changed." }, { status: 503 });
+    }
     console.error("Academy project review error:", error);
     return NextResponse.json({ error: "Unable to record the project review." }, { status: 500 });
   }

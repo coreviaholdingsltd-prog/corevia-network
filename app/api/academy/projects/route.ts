@@ -37,6 +37,10 @@ export async function GET() {
       })),
     });
   } catch (error) {
+    if (error && typeof error === "object" && "code" in error && error.code === "P2021") {
+      console.error("Academy project submissions table is not migrated yet; returning an empty list.");
+      return NextResponse.json({ status: true, submissions: [] });
+    }
     console.error("Academy project list error:", error);
     return NextResponse.json({ error: "Unable to load project submissions." }, { status: 500 });
   }
@@ -105,6 +109,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ status: true, submission: { id: submission.id, status: submission.status, submittedAt: submission.submittedAt }, message: "Your practical project has been submitted for academic review." }, { status: 201 });
   } catch (error) {
+    if (error && typeof error === "object" && "code" in error && error.code === "P2021") {
+      console.error("Academy practical assessment tables are not migrated; project submission is temporarily unavailable.");
+      return NextResponse.json({ error: "Practical project submission is being provisioned. Your course progress and payment records are unaffected." }, { status: 503 });
+    }
     console.error("Academy project submission error:", error);
     return NextResponse.json({ error: "Unable to submit the practical project." }, { status: 500 });
   }
