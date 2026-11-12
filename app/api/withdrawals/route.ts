@@ -64,6 +64,7 @@ export async function GET() {
     return NextResponse.json({
       status: true,
       balance: Number(wallet?.balance ?? 0),
+      payoutPhone: user.phone,
       withdrawals,
     });
   } catch (error) {
@@ -286,10 +287,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Paystack rejected the payout: " + providerMessage + ". The wallet reservation has been restored." }, { status: 502 });
     }
 
-    await prisma.withdrawal.update({
-      where: { id: reserved.withdrawal.id },
+    await prisma.withdrawal.updateMany({
+      where: { id: reserved.withdrawal.id, status: "PROCESSING" },
       data: {
-        status: "PROCESSING",
         processorStatus: String(transferPayload.data.status ?? "pending"),
         transferCode: typeof transferPayload.data.transfer_code === "string" ? transferPayload.data.transfer_code : undefined,
         initiatedAt: new Date(),
