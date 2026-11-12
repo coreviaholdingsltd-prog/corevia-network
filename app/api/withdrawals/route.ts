@@ -193,6 +193,12 @@ export async function POST(request: Request) {
     }
 
     const reserved = await prisma.$transaction(async (tx) => {
+      // Serialize payout reservations globally. A second concurrent request must
+      // see the first request's committed PROCESSING liability before it can reserve.
+      await tx.$queryRaw`SELECT pg_advisory_xact_lock(724190112)`;
+      if (!(await hasSufficientPaystackFloat(secretKey))) {
+        throw new Error("PAYOUT_FLOAT_NOT_READY");
+      }
       const wallet = await tx.wallet.findUnique({ where: { userId: user.id }, select: { balance: true } });
       if (!wallet) throw new Error("Wallet not found.");
       const available = Number(wallet.balance);
@@ -342,6 +348,11 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Withdrawal request error:", error);
     const message = error instanceof Error ? error.message : "Unable to submit withdrawal request.";
+    if (message === "PAYOUT_FLOAT_NOT_READY") {
+      return NextResponse.json({
+        error: "Paystack's available KES balance is not sufficient for member wallet liabilities and in-flight payouts. Your wallet has not been debited.",
+      }, { status: 503 });
+    }
     return NextResponse.json({ error: message }, { status: 400 });
   }
 }
