@@ -278,9 +278,10 @@ export async function POST(request: Request) {
       }
     }
 
-    // Paid programme stages stay closed until the latest academic decision is
-    // APPROVED and at least three subject- and stage-specific references are verified.
-    // This is a server-side payment gate; hiding a checkout button is not sufficient.
+    // Programme stages stay closed until their academic decision is APPROVED
+    // and at least three subject- and stage-specific references are verified,
+    // except for the single explicitly disclosed Accounting Certificate pilot.
+    // This is enforced server-side; hiding a checkout button is not sufficient.
     if (course.isProgrammeStage && !isAcademyPilotCourse(course.id)) {
       const stageKey = String(course.programmeLevel ?? "FOUNDATION")
         .toUpperCase()
