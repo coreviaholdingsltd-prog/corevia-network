@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
-import { isPaystackPayoutEnabled, isPayoutLifecycleVerified } from "@/lib/paystack-payout-guard.mjs";
+import { isPaystackPayoutEnabled, isPayoutLifecycleVerified, evaluatePaystackFloat } from "@/lib/paystack-payout-guard.mjs";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const COREVIA_TILL_NUMBER = "6959300";
@@ -12,6 +12,45 @@ const COREVIA_TILL_NUMBER = "6959300";
 // success/failure/reversal checks, webhook delivery, cron reconciliation, and
 // production balance/float readiness have all been independently confirmed.
 const PAYOUT_TRANSFER_LIFECYCLE_VERIFIED = isPayoutLifecycleVerified(process.env);
+
+
+async function hasSufficientPaystackFloat(secretKey: string) {
+  try {
+    const [balanceResponse, walletLiabilities, pendingPayouts] = await Promise.all([
+      fetch("https://api.paystack.co/balance", {
+        headers: { Authorization: "Bearer " + secretKey },
+        cache: "no-store",
+        signal: AbortSignal.timeout(10000),
+      }),
+      prisma.wallet.aggregate({ _sum: { balance: true } }),
+      prisma.withdrawal.aggregate({
+        where: { status: { in: ["PENDING", "PROCESSING"] } },
+        _sum: { netAmount: true },
+      }),
+    ]);
+
+    if (!balanceResponse.ok) return false;
+    const payload = await balanceResponse.json();
+    if (payload?.status !== true || !Array.isArray(payload.data)) return false;
+    const kesBalance = payload.data.find((item: { currency?: string }) =>
+      String(item.currency ?? "").toUpperCase() === "KES"
+    );
+    if (!kesBalance || !Number.isFinite(Number(kesBalance.balance))) return false;
+
+    const result = evaluatePaystackFloat({
+      balanceSubunits: Number(kesBalance.balance),
+      walletLiabilitiesKsh: Number(walletLiabilities._sum.balance ?? 0),
+      pendingPayoutsKsh: Number(pendingPayouts._sum.netAmount ?? 0),
+    });
+    if (!result.ready) {
+      console.warn("Paystack payout float check failed closed: available KES balance does not cover wallet liabilities and in-flight payouts.");
+    }
+    return result.ready;
+  } catch (error) {
+    console.error("Paystack payout float check could not be completed:", error);
+    return false;
+  }
+}
 
 async function getSessionUser() {
   const cookieStore = await cookies();
@@ -119,6 +158,15 @@ export async function POST(request: Request) {
     const secretKey = process.env.PAYSTACK_SECRET_KEY;
     if (!secretKey) {
       return NextResponse.json({ error: "Paystack is not configured. Your wallet has not been debited." }, { status: 503 });
+    }
+
+    // Live balance is checked before any wallet reservation. This is a second
+    // fail-closed control in addition to the explicit operational readiness flags.
+    if (!(await hasSufficientPaystackFloat(secretKey))) {
+      return NextResponse.json(
+        { error: "Paystack's available KES balance has not been verified as sufficient to cover member wallet liabilities and in-flight payouts. Your wallet has not been debited." },
+        { status: 503 },
+      );
     }
 
     const recipientResponse = await fetch("https://api.paystack.co/transferrecipient", {
