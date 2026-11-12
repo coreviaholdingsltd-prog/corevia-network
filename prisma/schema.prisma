@@ -153,11 +153,30 @@ model Withdrawal {
   status           WithdrawalStatus @default(PENDING)
   reference        String           @unique
   paymentReference String?
+  beneficiaryPhone String?
+  recipientCode    String?
+  payoutReference  String?          @unique
+  transferCode     String?          @unique
+  processorStatus  String?
+  initiatedAt      DateTime?
+  settledAt        DateTime?
   createdAt        DateTime         @default(now())
   processedAt      DateTime?
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
+  @@index([status, createdAt])
+}
+
+model PaystackTransferWebhook {
+  id                String   @id @default(cuid())
+  eventType         String
+  transferReference String
+  payloadHash       String   @unique
+  receivedAt        DateTime @default(now())
+
+  @@unique([transferReference, eventType])
+  @@index([receivedAt])
 }
 
 model SpinEvent {
