@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     }
 
     const correct = questions.filter((question) => Number(answers[question.id]) === question.answerIndex).length;
-    const score = Math.round((correct / course.questions.length) * 100);
+    const score = Math.round((correct / questions.length) * 100);
     const passed = score >= 75;
     const review = questions.map((question) => ({
       id: question.id,
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     }));
 
     const result = await prisma.$transaction(async (tx) => {
-      await tx.academyAssessmentAttempt.create({ data: { enrollmentId: enrollment.id, score, totalQuestions: course.questions.length, passed } });
+      await tx.academyAssessmentAttempt.create({ data: { enrollmentId: enrollment.id, score, totalQuestions: questions.length, passed } });
       // A knowledge-test pass is necessary but no longer sufficient for a new
       // completion record. Practical work must also pass independent review.
       // Existing completion records remain untouched for historical learners.
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
       status: true,
       passed,
       score,
-      totalQuestions: course.questions.length,
+      totalQuestions: questions.length,
       threshold: 75,
       message: passed ? (result ? "Assessment passed. Your existing completion record is preserved." : "Knowledge assessment passed. Submit your practical project for academic review to complete this course.") : "Not passed yet. Review the explanations and try again.",
       review,
