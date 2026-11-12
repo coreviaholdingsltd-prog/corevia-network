@@ -10,7 +10,7 @@
     "lint:academy": "eslint app/academy/page.tsx app/academy/verify/page.tsx app/api/academy/enroll/route.ts app/api/academy/courses/route.ts app/api/academy/certificate/route.ts lib/academy-catalog.ts lib/academy-pathways.ts",
     "academy:audit": "node scripts/academy-quality-audit.mjs",
     "academy:audit:strict": "node scripts/academy-quality-audit.mjs --release-gate",
-    "test:payments": "node --test tests/paystack-payout-guard.test.mjs"
+    "test:payments": "node --test tests/paystack-payout-guard.test.mjs tests/academy-payment-guard.test.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.0",
