@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/reconcile-paystack-payouts",
-      "schedule": "*/5 * * * *"
+      "schedule": "0 2 * * *"
     }
   ]
 }
