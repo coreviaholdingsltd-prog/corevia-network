@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { isPaystackPayoutEnabled } from "../lib/paystack-payout-guard.mjs";
+import { isPaystackPayoutEnabled, isPayoutLifecycleVerified } from "../lib/paystack-payout-guard.mjs";
 
 const enabledEnvironment = {
   COREVIA_WITHDRAWALS_ENABLED: "true",
@@ -36,4 +36,12 @@ test("payouts enable only when lifecycle approval and every flag are true", () =
 test("payout flags require the exact string true", () => {
   const env = { ...enabledEnvironment, COREVIA_PAYSTACK_OTP_DISABLED: "TRUE" };
   assert.equal(isPaystackPayoutEnabled(env, true), false);
+});
+
+
+test("payout lifecycle approval requires the exact explicit production flag", () => {
+  assert.equal(isPayoutLifecycleVerified({}), false);
+  assert.equal(isPayoutLifecycleVerified({ COREVIA_PAYOUT_LIFECYCLE_VERIFIED: "false" }), false);
+  assert.equal(isPayoutLifecycleVerified({ COREVIA_PAYOUT_LIFECYCLE_VERIFIED: "TRUE" }), false);
+  assert.equal(isPayoutLifecycleVerified({ COREVIA_PAYOUT_LIFECYCLE_VERIFIED: "true" }), true);
 });
