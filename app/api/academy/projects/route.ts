@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
-import { findAcademyCourse } from "@/lib/academy-catalog";
 import { getAcademyCourseForLearning, isRetiredDuplicateAcademyCourse } from "@/lib/academy-catalog-policy";
 
 export const runtime = "nodejs";
