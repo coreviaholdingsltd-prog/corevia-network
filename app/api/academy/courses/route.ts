@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
 import { ACADEMY_COURSES } from "@/lib/academy-catalog";
 import { buildAcademyPathwayCourses } from "@/lib/academy-pathways";
+import { getAcademyCourseForLearning, isRetiredDuplicateAcademyCourse } from "@/lib/academy-catalog-policy";
 
 export async function GET() {
   try {
@@ -18,9 +19,19 @@ export async function GET() {
       },
     });
 
-    const baseCourses = ACADEMY_COURSES.filter((course) => course.published && !course.isProgrammeStage);
+    const baseCourses = ACADEMY_COURSES
+      .filter((course) => course.published && !course.isProgrammeStage && !isRetiredDuplicateAcademyCourse(course.id))
+      .map((course) => getAcademyCourseForLearning(course.id) ?? course);
+    // Keep already-enrolled learners on the retired course record for historical progress;
+    // new catalogue discovery and enrolment use the consolidated canonical course.
+    const legacyCourses = [...new Set(enrollments
+      .filter((item) => isRetiredDuplicateAcademyCourse(item.courseId) && ["ACTIVE", "COMPLETED"].includes(item.status))
+      .map((item) => item.courseId))]
+      .map((courseId) => getAcademyCourseForLearning(courseId))
+      .filter((course): course is NonNullable<typeof course> => !!course);
     const publishedCourses = [
       ...baseCourses,
+      ...legacyCourses,
       ...buildAcademyPathwayCourses(baseCourses),
     ];
     const verifiedReferences = await prisma.academyAcademicReference.findMany({

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
-import { findAcademyCourse } from "@/lib/academy-catalog";
+import { getAcademyCourseForLearning } from "@/lib/academy-catalog-policy";
 
 export async function POST(request: Request) {
   try {
@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     if (!user) return NextResponse.json({ error: "Please sign in first." }, { status: 401 });
     const body = await request.json();
     const courseId = String(body.courseId ?? "");
-    const course = findAcademyCourse(courseId);
+    const course = getAcademyCourseForLearning(courseId);
     if (!course) return NextResponse.json({ error: "Course not found." }, { status: 404 });
     const enrollment = await prisma.academyEnrollment.findUnique({
       where: { userId_courseId: { userId: user.id, courseId } },

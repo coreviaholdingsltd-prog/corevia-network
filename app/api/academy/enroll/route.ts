@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
 import { findAcademyCourse } from "@/lib/academy-catalog";
 import { processAcademyCoursePayment } from "@/lib/academy-payments";
+import { isRetiredDuplicateAcademyCourse } from "@/lib/academy-catalog-policy";
 
 export const runtime = "nodejs";
 
@@ -46,6 +47,25 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: "Course not found or not available." },
         { status: 404 },
+      );
+    }
+
+    if (isRetiredDuplicateAcademyCourse(courseId)) {
+      const legacyEnrollment = await prisma.academyEnrollment.findUnique({
+        where: { userId_courseId: { userId: user.id, courseId } },
+      });
+      if (legacyEnrollment && ["ACTIVE", "COMPLETED"].includes(legacyEnrollment.status)) {
+        return NextResponse.json({
+          status: true,
+          alreadyEnrolled: true,
+          courseId,
+          enrollmentStatus: legacyEnrollment.status,
+          message: "Your existing access to this course is preserved. New enrolments are available through the consolidated Computer Basics & Microsoft 365 course.",
+        });
+      }
+      return NextResponse.json(
+        { error: "This course has been consolidated into Computer Basics & Microsoft 365. Please select the consolidated course instead." },
+        { status: 410 },
       );
     }
 

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAcademyUser } from "@/lib/academy-auth";
-import { findAcademyCourse } from "@/lib/academy-catalog";
+import { getAcademyCourseForLearning } from "@/lib/academy-catalog-policy";
 
 export async function POST(request: Request) {
   try {
@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const courseId = String(body.courseId ?? "");
     const lessonId = String(body.lessonId ?? "");
-    const course = findAcademyCourse(courseId);
+    const course = getAcademyCourseForLearning(courseId);
     if (!course || !course.lessons.some((lesson) => lesson.id === lessonId)) {
       return NextResponse.json({ error: "Course or lesson not found." }, { status: 404 });
     }
