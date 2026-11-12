@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
-import { isPaystackPayoutEnabled } from "@/lib/paystack-payout-guard.mjs";
+import { isPaystackPayoutEnabled, isPayoutLifecycleVerified } from "@/lib/paystack-payout-guard.mjs";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const COREVIA_TILL_NUMBER = "6959300";
@@ -11,8 +11,7 @@ const COREVIA_TILL_NUMBER = "6959300";
 // Set this explicit production flag to "true" only after Paystack test-mode
 // success/failure/reversal checks, webhook delivery, cron reconciliation, and
 // production balance/float readiness have all been independently confirmed.
-const PAYOUT_TRANSFER_LIFECYCLE_VERIFIED =
-  process.env.COREVIA_PAYOUT_LIFECYCLE_VERIFIED === "true";
+const PAYOUT_TRANSFER_LIFECYCLE_VERIFIED = isPayoutLifecycleVerified(process.env);
 
 async function getSessionUser() {
   const cookieStore = await cookies();
