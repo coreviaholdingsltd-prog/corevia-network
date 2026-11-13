@@ -50,9 +50,12 @@ export async function GET(request: Request) {
       // Never resubmit PROCESSING rows. A timed-out provider response is
       // reconciled by reference on a later run, preventing duplicate transfers.
       const unresolved = await tx.coreviaTillSettlement.findFirst({
-        where: { status: "PROCESSING" },
+        where: { status: { in: ["PROCESSING", "REVIEW"] } },
         orderBy: { initiatedAt: "asc" },
       });
+      if (unresolved?.status === "REVIEW") {
+        return { skipped: "manual_review_blocks_further_till_transfers", reference: unresolved.reference };
+      }
       if (unresolved) {
         const verification = await fetch(
           `https://api.paystack.co/transfer/verify/${encodeURIComponent(unresolved.reference)}`,
@@ -113,7 +116,7 @@ export async function GET(request: Request) {
           _sum: { netAmount: true },
         }),
         tx.coreviaTillSettlement.aggregate({
-          where: { status: { in: ["PENDING", "PROCESSING"] }, currency: "KES" },
+          where: { status: { in: ["PENDING", "PROCESSING", "REVIEW"] }, currency: "KES" },
           _sum: { amount: true },
         }),
       ]);
