@@ -160,12 +160,14 @@ model Withdrawal {
   processorStatus  String?
   initiatedAt      DateTime?
   settledAt        DateTime?
+  lastVerifiedAt   DateTime?
   createdAt        DateTime         @default(now())
   processedAt      DateTime?
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
   @@index([status, createdAt])
+  @@index([status, lastVerifiedAt])
 }
 
 model PaystackTransferWebhook {
