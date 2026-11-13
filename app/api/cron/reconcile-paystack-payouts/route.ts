@@ -106,12 +106,28 @@ export async function GET(request: Request) {
 
       const providerStatus = String(transfer.status ?? "").toLowerCase();
       if (["pending", "otp", "processing"].includes(providerStatus)) {
-        outcomes.push({ reference, outcome: providerStatus });
+        if (withdrawal.status === "PAID") {
+          await prisma.withdrawal.updateMany({
+            where: { id: withdrawal.id, status: "PAID" },
+            data: { lastVerifiedAt: new Date() },
+          });
+          outcomes.push({ reference, outcome: "manual_review_paid_transfer_pending" });
+        } else {
+          outcomes.push({ reference, outcome: providerStatus });
+        }
         continue;
       }
 
       if (!["success", "failed", "reversed"].includes(providerStatus)) {
-        outcomes.push({ reference, outcome: "unrecognized_status" });
+        if (withdrawal.status === "PAID") {
+          await prisma.withdrawal.updateMany({
+            where: { id: withdrawal.id, status: "PAID" },
+            data: { lastVerifiedAt: new Date() },
+          });
+          outcomes.push({ reference, outcome: "manual_review_unrecognized_paid_status" });
+        } else {
+          outcomes.push({ reference, outcome: "unrecognized_status" });
+        }
         continue;
       }
 
@@ -130,6 +146,10 @@ export async function GET(request: Request) {
         );
 
         if (withdrawal.status === "PAID" && providerStatus === "failed") {
+          await tx.withdrawal.updateMany({
+            where: { id: withdrawal.id, status: "PAID" },
+            data: { lastVerifiedAt: new Date() },
+          });
           return { processed: false, outcome: "manual_review_paid_failed_conflict" };
         }
         if (withdrawal.status === "PAID" && providerStatus === "success") {
