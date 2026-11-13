@@ -54,7 +54,36 @@ export async function GET(request: Request) {
         orderBy: { initiatedAt: "asc" },
       });
       if (unresolved) {
-        return { skipped: "existing_transfer_requires_reconciliation", reference: unresolved.reference };
+        const verification = await fetch(
+          `https://api.paystack.co/transfer/verify/${encodeURIComponent(unresolved.reference)}`,
+          {
+            headers: { Authorization: `Bearer ${secretKey}` },
+            cache: "no-store",
+            signal: AbortSignal.timeout(15000),
+          },
+        );
+        if (!verification.ok) {
+          return { skipped: "existing_transfer_verification_pending", reference: unresolved.reference };
+        }
+        const verified = await verification.json() as { status?: boolean; data?: { reference?: string; status?: string; amount?: number; currency?: string } };
+        const transfer = verified.data;
+        if (verified.status !== true || transfer?.reference !== unresolved.reference ||
+            Number(transfer.amount) !== Math.round(Number(unresolved.amount) * 100) ||
+            String(transfer.currency ?? "").toUpperCase() !== "KES") {
+          return { skipped: "existing_transfer_verification_unconfirmed", reference: unresolved.reference };
+        }
+        const providerStatus = String(transfer.status ?? "").toLowerCase();
+        const terminal = providerStatus === "success" ? "SETTLED"
+          : providerStatus === "failed" ? "FAILED"
+          : providerStatus === "reversed" ? "REVERSED" : null;
+        if (terminal) {
+          await tx.coreviaTillSettlement.updateMany({
+            where: { id: unresolved.id, status: "PROCESSING" },
+            data: { status: terminal, settledAt: new Date(), lastError: null },
+          });
+          return { outcome: terminal.toLowerCase(), reference: unresolved.reference };
+        }
+        return { skipped: "existing_transfer_still_pending", reference: unresolved.reference };
       }
 
       const candidate = await tx.coreviaTillSettlement.findFirst({
