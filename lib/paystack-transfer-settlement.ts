@@ -41,6 +41,24 @@ export async function applyPaystackTransferOutcome(
       where: { reference: `${withdrawal.reference}-wallet`, status: "PENDING" },
       data: { status: "COMPLETED", completedAt: new Date() },
     });
+
+    // Only remit the withdrawal fee after Paystack confirms the member payout.
+    // A reserved or failed payout must never create company Till revenue.
+    const feeLedgerEntry = await tx.ledgerEntry.findUnique({
+      where: { reference: `${withdrawal.reference}-fee-corevia` },
+      select: { id: true, amount: true },
+    });
+    if (feeLedgerEntry && Number(feeLedgerEntry.amount) > 0) {
+      await tx.coreviaTillSettlement.upsert({
+        where: { ledgerEntryId: feeLedgerEntry.id },
+        create: {
+          ledgerEntryId: feeLedgerEntry.id,
+          amount: feeLedgerEntry.amount,
+          reference: `cvt-withdrawal-fee-${withdrawal.reference}`,
+        },
+        update: {},
+      });
+    }
     return { processed: true, outcome: "success" };
   }
 
@@ -93,6 +111,43 @@ export async function applyPaystackTransferOutcome(
     },
     data: { status: isReversal ? "REVERSED" : "FAILED", completedAt: new Date() },
   });
+
+  if (isReversal) {
+    const feeLedgerEntry = await tx.ledgerEntry.findUnique({
+      where: { reference: `${withdrawal.reference}-fee-corevia` },
+      select: { id: true },
+    });
+    if (feeLedgerEntry) {
+      const tillSettlement = await tx.coreviaTillSettlement.findUnique({
+        where: { ledgerEntryId: feeLedgerEntry.id },
+        select: { id: true, status: true },
+      });
+      if (tillSettlement?.status === "PENDING") {
+        await tx.coreviaTillSettlement.updateMany({
+          where: { id: tillSettlement.id, status: "PENDING" },
+          data: {
+            status: "REVERSED",
+            settledAt: new Date(),
+            lastError: "Underlying member payout was reversed before company Till remittance.",
+          },
+        });
+      } else if (
+        tillSettlement &&
+        ["PROCESSING", "REVIEW", "SETTLED"].includes(tillSettlement.status)
+      ) {
+        // Do not send a second automatic transfer to undo this. Hold the
+        // company queue and require reconciliation of the already-submitted
+        // or completed Till remittance against the reversed member fee.
+        await tx.coreviaTillSettlement.updateMany({
+          where: { id: tillSettlement.id, status: tillSettlement.status },
+          data: {
+            status: "REVIEW",
+            lastError: "Underlying member payout was reversed after company Till remittance was queued or submitted; manual reconciliation required.",
+          },
+        });
+      }
+    }
+  }
 
   return { processed: true, outcome, refunded: true };
 }

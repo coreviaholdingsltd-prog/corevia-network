@@ -175,7 +175,7 @@ export async function processMembershipPayment(
       },
     });
 
-    await tx.ledgerEntry.create({
+    const coreviaLedgerEntry = await tx.ledgerEntry.create({
       data: {
         ownerType: "COREVIA",
         amount: coreviaAmount,
@@ -183,6 +183,18 @@ export async function processMembershipPayment(
         reference: `${allocationReference}-COREVIA`,
         description: `Corevia share from ${reference}. Destination: Till ${COREVIA_TILL_NUMBER}`,
       },
+    });
+
+    // Queue the verified company share for a separately guarded Till remittance.
+    // Creating this row does not initiate a transfer or debit the Paystack balance.
+    await tx.coreviaTillSettlement.upsert({
+      where: { ledgerEntryId: coreviaLedgerEntry.id },
+      create: {
+        ledgerEntryId: coreviaLedgerEntry.id,
+        amount: coreviaAmount,
+        reference: `cvt-membership-${reference}`,
+      },
+      update: {},
     });
 
     if (referrerId) {

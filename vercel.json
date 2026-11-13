@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/reconcile-paystack-payouts",
       "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/settle-corevia-till",
+      "schedule": "15 2 * * *"
     }
   ]
 }
