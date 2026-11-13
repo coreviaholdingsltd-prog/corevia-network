@@ -28,11 +28,22 @@ function createTransaction(initialStatus) {
       update: async ({ data }) => { state.walletBalance += data.balance.increment; },
     },
     ledgerEntry: {
-      findUnique: async () => null,
+      findUnique: async ({ where }) => where.reference === `${withdrawal.reference}-fee-corevia`
+        ? { id: "fee-ledger-1", amount: 5 }
+        : null,
       create: async ({ data }) => { state.ledger.push(data); },
     },
     coreviaTillSettlement: {
-      upsert: async ({ create }) => { state.tillSettlements.push(create); },
+      upsert: async ({ create }) => { state.tillSettlements.push({ ...create, status: "PENDING" }); },
+      findUnique: async ({ where }) => state.tillSettlements.find((item) =>
+        item.ledgerEntryId === where.ledgerEntryId
+      ) ?? null,
+      updateMany: async ({ where, data }) => {
+        const item = state.tillSettlements.find((entry) => entry.id === where.id);
+        if (!item || item.status !== where.status) return { count: 0 };
+        Object.assign(item, data);
+        return { count: 1 };
+      },
     },
   };
   return { tx, state };
@@ -69,6 +80,39 @@ test("late reversal of a paid transfer refunds member and reverses fee", async (
   assert.equal(state.walletBalance, 1000);
   assert.equal(state.walletTransactionStatus, "REVERSED");
   assert.deepEqual(state.ledger.map((entry) => entry.amount), [1000, -5]);
+});
+
+
+test("late member payout reversal cancels an unsubmitted company Till fee", async () => {
+  const { tx, state } = createTransaction("PAID");
+  state.walletTransactionStatus = "COMPLETED";
+  state.tillSettlements.push({
+    id: "till-1",
+    ledgerEntryId: "fee-ledger-1",
+    amount: 5,
+    reference: "cvt-withdrawal-fee-withdrawal-1",
+    status: "PENDING",
+  });
+  const result = await applyPaystackTransferOutcome(tx, withdrawal, "reversed");
+  assert.equal(result.outcome, "reversed");
+  assert.equal(state.tillSettlements[0].status, "REVERSED");
+  assert.match(state.tillSettlements[0].lastError, /reversed before company Till remittance/i);
+});
+
+test("late member payout reversal blocks an already submitted company Till fee for review", async () => {
+  const { tx, state } = createTransaction("PAID");
+  state.walletTransactionStatus = "COMPLETED";
+  state.tillSettlements.push({
+    id: "till-2",
+    ledgerEntryId: "fee-ledger-1",
+    amount: 5,
+    reference: "cvt-withdrawal-fee-withdrawal-1",
+    status: "PROCESSING",
+  });
+  const result = await applyPaystackTransferOutcome(tx, withdrawal, "reversed");
+  assert.equal(result.outcome, "reversed");
+  assert.equal(state.tillSettlements[0].status, "REVIEW");
+  assert.match(state.tillSettlements[0].lastError, /manual reconciliation required/i);
 });
 
 test("duplicate late reversal cannot issue a second refund", async () => {
