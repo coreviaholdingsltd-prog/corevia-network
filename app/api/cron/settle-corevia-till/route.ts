@@ -71,9 +71,9 @@ export async function GET(request: Request) {
         }
         const verified = await verification.json() as { status?: boolean; data?: { reference?: string; status?: string; amount?: number; currency?: string } };
         const transfer = verified.data;
-        if (verified.status !== true || !matchesTillTransfer(
+        if (!transfer || verified.status !== true || !matchesTillTransfer(
           { reference: unresolved.reference, amountKsh: Number(unresolved.amount), currency: unresolved.currency },
-          transfer ?? {},
+          transfer,
         )) {
           return { skipped: "existing_transfer_verification_unconfirmed", reference: unresolved.reference };
         }
