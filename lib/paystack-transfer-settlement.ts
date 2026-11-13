@@ -41,6 +41,24 @@ export async function applyPaystackTransferOutcome(
       where: { reference: `${withdrawal.reference}-wallet`, status: "PENDING" },
       data: { status: "COMPLETED", completedAt: new Date() },
     });
+
+    // Only remit the withdrawal fee after Paystack confirms the member payout.
+    // A reserved or failed payout must never create company Till revenue.
+    const feeLedgerEntry = await tx.ledgerEntry.findUnique({
+      where: { reference: `${withdrawal.reference}-fee-corevia` },
+      select: { id: true, amount: true },
+    });
+    if (feeLedgerEntry && Number(feeLedgerEntry.amount) > 0) {
+      await tx.coreviaTillSettlement.upsert({
+        where: { ledgerEntryId: feeLedgerEntry.id },
+        create: {
+          ledgerEntryId: feeLedgerEntry.id,
+          amount: feeLedgerEntry.amount,
+          reference: `cvt-withdrawal-fee-${withdrawal.reference}`,
+        },
+        update: {},
+      });
+    }
     return { processed: true, outcome: "success" };
   }
 
