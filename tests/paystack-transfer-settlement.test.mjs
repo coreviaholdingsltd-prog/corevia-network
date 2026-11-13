@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { applyPaystackTransferOutcome } from "../lib/paystack-transfer-settlement.ts";
 
 function createTransaction(initialStatus) {
-  const state = { status: initialStatus, walletBalance: 0, walletTransactionStatus: "PENDING", ledger: [] };
+  const state = { status: initialStatus, walletBalance: 0, walletTransactionStatus: "PENDING", ledger: [], tillSettlements: [] };
   const tx = {
     withdrawal: {
       findUnique: async () => ({ status: state.status }),
@@ -28,7 +28,11 @@ function createTransaction(initialStatus) {
       update: async ({ data }) => { state.walletBalance += data.balance.increment; },
     },
     ledgerEntry: {
+      findUnique: async () => null,
       create: async ({ data }) => { state.ledger.push(data); },
+    },
+    coreviaTillSettlement: {
+      upsert: async ({ create }) => { state.tillSettlements.push(create); },
     },
   };
   return { tx, state };
