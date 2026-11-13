@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { processMembershipPayment } from "@/lib/membership-payment";
 import { processAcademyCoursePayment } from "@/lib/academy-payments";
+import { applyPaystackTransferOutcome } from "@/lib/paystack-transfer-settlement";
 
 type PaystackTransferEvent = "transfer.success" | "transfer.failed" | "transfer.reversed";
 
@@ -68,88 +69,17 @@ async function processTransferWebhook(event: {
         },
       });
 
-      const current = await tx.withdrawal.findUnique({
-        where: { id: withdrawal.id },
-        select: { status: true, processorStatus: true },
-      });
+      const outcome = eventType === "transfer.success"
+        ? "success"
+        : eventType === "transfer.reversed" ? "reversed" : "failed";
 
-      if (!current) throw new Error("Withdrawal disappeared during settlement.");
-
-      if (eventType === "transfer.success") {
-        const changed = await tx.withdrawal.updateMany({
-          where: { id: withdrawal.id, status: { in: ["PENDING", "PROCESSING"] } },
-          data: {
-            status: "PAID",
-            processorStatus: "success",
-            transferCode: transfer?.transfer_code ?? undefined,
-            settledAt: new Date(),
-            processedAt: new Date(),
-          },
-        });
-        if (changed.count === 1) {
-          await tx.walletTransaction.updateMany({
-            where: { reference: `${withdrawal.reference}-wallet`, status: "PENDING" },
-            data: { status: "COMPLETED", completedAt: new Date() },
-          });
-        }
-        return { processed: changed.count === 1, outcome: changed.count === 1 ? "success" : "already_settled" };
-      }
-
-      const isReversal = eventType === "transfer.reversed";
-      const canRefund =
-        current.status === "PENDING" ||
-        current.status === "PROCESSING" ||
-        (isReversal && current.status === "PAID");
-
-      if (canRefund) {
-        const changed = await tx.withdrawal.updateMany({
-          where: { id: withdrawal.id, status: current.status },
-          data: {
-            status: "FAILED",
-            processorStatus: isReversal ? "reversed" : "failed",
-            transferCode: transfer?.transfer_code ?? undefined,
-            settledAt: new Date(),
-            processedAt: new Date(),
-          },
-        });
-        if (changed.count !== 1) return { processed: false, outcome: "already_settled" };
-
-        await tx.wallet.update({
-          where: { userId: withdrawal.userId },
-          data: { balance: { increment: withdrawal.amount } },
-        });
-
-        await tx.ledgerEntry.create({
-          data: {
-            ownerType: "MEMBER",
-            userId: withdrawal.userId,
-            amount: withdrawal.amount,
-            type: "ADJUSTMENT",
-            reference: `${withdrawal.reference}-PAYOUT-REFUND-MEMBER`,
-            description: `Wallet refund for unsuccessful Paystack payout ${reference}`,
-          },
-        });
-
-        await tx.ledgerEntry.create({
-          data: {
-            ownerType: "COREVIA",
-            amount: Number(withdrawal.fee) * -1,
-            type: "ADJUSTMENT",
-            reference: `${withdrawal.reference}-PAYOUT-REFUND-COREVIA-FEE`,
-            description: `Reverse Corevia withdrawal fee for unsuccessful payout ${reference}`,
-          },
-        });
-
-        await tx.walletTransaction.updateMany({
-          where: {
-            reference: `${withdrawal.reference}-wallet`,
-            status: isReversal ? { in: ["PENDING", "COMPLETED"] } : "PENDING",
-          },
-          data: { status: isReversal ? "REVERSED" : "FAILED", completedAt: new Date() },
-        });
-      }
-
-      return { processed: true, outcome: isReversal ? "reversed" : "failed", refunded: canRefund };
+      return applyPaystackTransferOutcome(tx, {
+        id: withdrawal.id,
+        userId: withdrawal.userId,
+        amount: Number(withdrawal.amount),
+        fee: Number(withdrawal.fee),
+        reference: withdrawal.reference,
+      }, outcome, transfer?.transfer_code ?? undefined);
     });
   } catch (error) {
     const code = typeof error === "object" && error !== null && "code" in error
