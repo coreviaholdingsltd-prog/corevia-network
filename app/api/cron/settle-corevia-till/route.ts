@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { evaluateCoreviaTillFloat, matchesTillTransfer } from "@/lib/corevia-till-settlement";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -70,9 +71,10 @@ export async function GET(request: Request) {
         }
         const verified = await verification.json() as { status?: boolean; data?: { reference?: string; status?: string; amount?: number; currency?: string } };
         const transfer = verified.data;
-        if (verified.status !== true || transfer?.reference !== unresolved.reference ||
-            Number(transfer.amount) !== Math.round(Number(unresolved.amount) * 100) ||
-            String(transfer.currency ?? "").toUpperCase() !== "KES") {
+        if (verified.status !== true || !matchesTillTransfer(
+          { reference: unresolved.reference, amountKsh: Number(unresolved.amount), currency: unresolved.currency },
+          transfer ?? {},
+        )) {
           return { skipped: "existing_transfer_verification_unconfirmed", reference: unresolved.reference };
         }
         const providerStatus = String(transfer.status ?? "").toLowerCase();
@@ -134,10 +136,19 @@ export async function GET(request: Request) {
         return { skipped: "invalid_float_data" };
       }
 
-      const availableKsh = Math.floor(balanceSubunits) / 100;
-      const requiredKsh = money(wallets + payouts + companyQueue + feeReserve);
-      if (balancePayload?.status !== true || availableKsh < requiredKsh) {
-        return { skipped: "insufficient_protected_float", availableKsh, requiredKsh };
+      const floatCheck = evaluateCoreviaTillFloat({
+        balanceSubunits,
+        walletLiabilitiesKsh: wallets,
+        pendingPayoutsKsh: payouts,
+        queuedTillSettlementsKsh: companyQueue,
+        feeReserveKsh: feeReserve,
+      });
+      if (balancePayload?.status !== true || !floatCheck.ok) {
+        return {
+          skipped: floatCheck.reason ?? "insufficient_protected_float",
+          availableKsh: floatCheck.availableKsh,
+          requiredKsh: floatCheck.requiredKsh,
+        };
       }
 
       const claimed = await tx.coreviaTillSettlement.updateMany({
@@ -186,9 +197,10 @@ export async function GET(request: Request) {
         return { outcome: "provider_response_ambiguous_reconcile_by_reference", reference: candidate.reference };
       }
 
-      if (payload.data.reference !== candidate.reference ||
-          Number(payload.data.amount) !== Math.round(amount * 100) ||
-          String(payload.data.currency ?? "KES").toUpperCase() !== "KES") {
+      if (!matchesTillTransfer(
+        { reference: candidate.reference, amountKsh: amount, currency: "KES" },
+        { reference: payload.data.reference, amount: payload.data.amount, currency: payload.data.currency ?? "KES" },
+      )) {
         await tx.coreviaTillSettlement.update({
           where: { id: candidate.id },
           data: { status: "REVIEW", transferCode: payload.data.transfer_code ?? null, lastError: "Provider response did not match settlement reference, amount, or currency." },
