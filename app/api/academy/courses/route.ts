@@ -69,7 +69,10 @@ export async function GET() {
       const verifiedReferenceCount = verifiedReferences.filter((item) => item.courseId === course.id && item.stageKey === stageKey).length;
       const pilotEnrollmentOpen = isAcademyPilotCourse(course.id);
       const academicApproved = !course.isProgrammeStage || (latestSignoff?.decision === "APPROVED" && verifiedReferenceCount >= 3);
-      const enrollmentOpen = academicApproved || pilotEnrollmentOpen;
+      const paidShortCourse = !course.isProgrammeStage && course.priceKsh > 0;
+      const enrollmentOpen =
+        (academicApproved || pilotEnrollmentOpen) &&
+        (!paidShortCourse || pilotEnrollmentOpen);
       const unlocked = !!enrollment && (enrollment.status === "ACTIVE" || enrollment.status === "COMPLETED");
       const completedIds = new Set(enrollment?.lessonProgress.map((item) => item.lessonId) ?? []);
       const completedLessons = course.lessons.filter((lesson) => completedIds.has(lesson.id)).length;
