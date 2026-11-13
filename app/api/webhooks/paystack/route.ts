@@ -62,8 +62,11 @@ async function processTransferWebhook(event: {
         await tx.paystackTransferWebhook.create({
           data: { eventType, transferReference: reference, payloadHash },
         });
+        const allowedStatuses = eventType === "transfer.failed"
+          ? ["PROCESSING", "REVIEW"]
+          : ["PROCESSING", "REVIEW", "SETTLED"];
         const changed = await tx.coreviaTillSettlement.updateMany({
-          where: { id: tillSettlement.id, status: { in: ["PROCESSING", "SETTLED"] } },
+          where: { id: tillSettlement.id, status: { in: allowedStatuses } },
           data: {
             status: terminalStatus,
             transferCode: transfer?.transfer_code ?? undefined,
