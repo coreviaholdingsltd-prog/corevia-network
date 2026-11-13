@@ -119,6 +119,23 @@ export async function POST(request: Request) {
       });
     }
 
+    // Paid short courses are not part of the current authorised pilot.
+    // Keep existing active/completed enrolments above intact, but block new
+    // paid enrolments unless the course is the explicitly authorised pilot.
+    if (
+      course.priceKsh > 0 &&
+      !course.isProgrammeStage &&
+      !isAcademyPilotCourse(course.id)
+    ) {
+      return NextResponse.json(
+        {
+          error: "This short course is not yet open for paid enrolment. The current paid pilot is limited to Accounting Software & Digital Bookkeeping Practice — Certificate.",
+          pilotCourseId: "accounting-software-practice-certificate",
+        },
+        { status: 409 },
+      );
+    }
+
     if (course.priceKsh <= 0) {
       const enrollment = await prisma.academyEnrollment.upsert({
         where: {
