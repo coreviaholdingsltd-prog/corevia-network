@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { applyPaystackTransferOutcome } from "@/lib/paystack-transfer-settlement";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -28,27 +29,40 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Paystack is not configured." }, { status: 503 });
   }
 
-  const staleBefore = new Date(Date.now() - 2 * 60 * 1000);
-  const candidates = await prisma.withdrawal.findMany({
-    where: {
-      status: "PROCESSING",
-      payoutReference: { not: null },
-      createdAt: { lte: staleBefore },
-    },
-    orderBy: { createdAt: "asc" },
-    take: 25,
-    select: {
-      id: true,
-      userId: true,
-      amount: true,
-      fee: true,
-      netAmount: true,
-      status: true,
-      reference: true,
-      payoutReference: true,
-    },
-  });
+  const now = new Date();
+  const staleBefore = new Date(now.getTime() - 2 * 60 * 1000);
+  const reverifyBefore = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const [processing, paidForReverification] = await Promise.all([
+    prisma.withdrawal.findMany({
+      where: {
+        status: "PROCESSING",
+        payoutReference: { not: null },
+        createdAt: { lte: staleBefore },
+      },
+      orderBy: { createdAt: "asc" },
+      take: 25,
+      select: {
+        id: true, userId: true, amount: true, fee: true, netAmount: true,
+        status: true, reference: true, payoutReference: true,
+      },
+    }),
+    prisma.withdrawal.findMany({
+      where: {
+        status: "PAID",
+        processorStatus: "success",
+        payoutReference: { not: null },
+        OR: [{ lastVerifiedAt: null }, { lastVerifiedAt: { lte: reverifyBefore } }],
+      },
+      orderBy: [{ lastVerifiedAt: "asc" }, { settledAt: "asc" }],
+      take: 25,
+      select: {
+        id: true, userId: true, amount: true, fee: true, netAmount: true,
+        status: true, reference: true, payoutReference: true,
+      },
+    }),
+  ]);
 
+  const candidates = [...processing, ...paidForReverification];
   const outcomes: Array<{ reference: string; outcome: string }> = [];
 
   for (const withdrawal of candidates) {
@@ -91,82 +105,63 @@ export async function GET(request: Request) {
       }
 
       const providerStatus = String(transfer.status ?? "").toLowerCase();
-      if (providerStatus === "pending" || providerStatus === "otp" || providerStatus === "processing") {
-        outcomes.push({ reference, outcome: providerStatus });
+      if (["pending", "otp", "processing"].includes(providerStatus)) {
+        if (withdrawal.status === "PAID") {
+          await prisma.withdrawal.updateMany({
+            where: { id: withdrawal.id, status: "PAID" },
+            data: { lastVerifiedAt: new Date() },
+          });
+          outcomes.push({ reference, outcome: "manual_review_paid_transfer_pending" });
+        } else {
+          outcomes.push({ reference, outcome: providerStatus });
+        }
         continue;
       }
 
-      if (providerStatus === "success") {
-        const result = await prisma.$transaction(async (tx) => {
-          const changed = await tx.withdrawal.updateMany({
-            where: { id: withdrawal.id, status: "PROCESSING" },
-            data: {
-              status: "PAID",
-              processorStatus: "success",
-              transferCode: transfer.transfer_code ?? undefined,
-              settledAt: new Date(),
-              processedAt: new Date(),
-            },
+      if (!["success", "failed", "reversed"].includes(providerStatus)) {
+        if (withdrawal.status === "PAID") {
+          await prisma.withdrawal.updateMany({
+            where: { id: withdrawal.id, status: "PAID" },
+            data: { lastVerifiedAt: new Date() },
           });
-          if (changed.count !== 1) return "already_settled";
-          await tx.walletTransaction.updateMany({
-            where: { reference: `${withdrawal.reference}-wallet`, status: "PENDING" },
-            data: { status: "COMPLETED", completedAt: new Date() },
-          });
-          return "success";
-        });
-        outcomes.push({ reference, outcome: result });
+          outcomes.push({ reference, outcome: "manual_review_unrecognized_paid_status" });
+        } else {
+          outcomes.push({ reference, outcome: "unrecognized_status" });
+        }
         continue;
       }
 
-      if (providerStatus === "failed" || providerStatus === "reversed") {
-        const result = await prisma.$transaction(async (tx) => {
-          const changed = await tx.withdrawal.updateMany({
-            where: { id: withdrawal.id, status: "PROCESSING" },
-            data: {
-              status: "FAILED",
-              processorStatus: providerStatus,
-              transferCode: transfer.transfer_code ?? undefined,
-              settledAt: new Date(),
-              processedAt: new Date(),
-            },
-          });
-          if (changed.count !== 1) return "already_settled";
+      const result = await prisma.$transaction(async (tx) => {
+        const settlement = await applyPaystackTransferOutcome(
+          tx,
+          {
+            id: withdrawal.id,
+            userId: withdrawal.userId,
+            amount: Number(withdrawal.amount),
+            fee: Number(withdrawal.fee),
+            reference: withdrawal.reference,
+          },
+          providerStatus as "success" | "failed" | "reversed",
+          transfer.transfer_code,
+        );
 
-          await tx.wallet.update({
-            where: { userId: withdrawal.userId },
-            data: { balance: { increment: withdrawal.amount } },
+        if (withdrawal.status === "PAID" && providerStatus === "failed") {
+          await tx.withdrawal.updateMany({
+            where: { id: withdrawal.id, status: "PAID" },
+            data: { lastVerifiedAt: new Date() },
           });
-          await tx.ledgerEntry.create({
-            data: {
-              ownerType: "MEMBER",
-              userId: withdrawal.userId,
-              amount: withdrawal.amount,
-              type: "ADJUSTMENT",
-              reference: `${withdrawal.reference}-PAYOUT-REFUND-MEMBER`,
-              description: `Wallet refund for unsuccessful Paystack payout ${reference}`,
-            },
+          return { processed: false, outcome: "manual_review_paid_failed_conflict" };
+        }
+        if (withdrawal.status === "PAID" && providerStatus === "success") {
+          await tx.withdrawal.updateMany({
+            where: { id: withdrawal.id, status: "PAID" },
+            data: { lastVerifiedAt: new Date() },
           });
-          await tx.ledgerEntry.create({
-            data: {
-              ownerType: "COREVIA",
-              amount: Number(withdrawal.fee) * -1,
-              type: "ADJUSTMENT",
-              reference: `${withdrawal.reference}-PAYOUT-REFUND-COREVIA-FEE`,
-              description: `Reverse Corevia withdrawal fee for unsuccessful payout ${reference}`,
-            },
-          });
-          await tx.walletTransaction.updateMany({
-            where: { reference: `${withdrawal.reference}-wallet`, status: "PENDING" },
-            data: { status: "FAILED", completedAt: new Date() },
-          });
-          return "refunded";
-        });
-        outcomes.push({ reference, outcome: result });
-        continue;
-      }
-
-      outcomes.push({ reference, outcome: "unrecognized_status" });
+          return { ...settlement, outcome: "verified_paid" };
+        }
+        return settlement;
+      });
+      outcomes.push({ reference, outcome: result.outcome });
     } catch (error) {
       console.error("Paystack payout reconciliation failed:", reference, error);
       outcomes.push({ reference, outcome: "retry_later" });
@@ -175,6 +170,8 @@ export async function GET(request: Request) {
 
   return NextResponse.json({
     checked: candidates.length,
+    processingChecked: processing.length,
+    paidRechecked: paidForReverification.length,
     outcomes,
   });
 }
