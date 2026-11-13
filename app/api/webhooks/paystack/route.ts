@@ -40,8 +40,51 @@ async function processTransferWebhook(event: {
   });
 
   if (!withdrawal) {
-    console.warn("Paystack transfer webhook has no matching withdrawal:", reference);
-    return { unmatched: true };
+    const tillSettlement = await prisma.coreviaTillSettlement.findUnique({
+      where: { reference },
+      select: { id: true, amount: true, currency: true, status: true },
+    });
+    if (!tillSettlement) {
+      console.warn("Paystack transfer webhook has no matching withdrawal or Till settlement:", reference);
+      return { unmatched: true };
+    }
+
+    if (String(transfer?.currency ?? "").toUpperCase() !== tillSettlement.currency ||
+        Number(transfer?.amount) !== Math.round(Number(tillSettlement.amount) * 100)) {
+      throw new Error("Till transfer webhook amount or currency did not match the queued settlement.");
+    }
+
+    const payloadHash = crypto.createHash("sha256").update(rawBody).digest("hex");
+    const terminalStatus = eventType === "transfer.success" ? "SETTLED"
+      : eventType === "transfer.failed" ? "FAILED" : "REVERSED";
+    try {
+      return await prisma.$transaction(async (tx) => {
+        await tx.paystackTransferWebhook.create({
+          data: { eventType, transferReference: reference, payloadHash },
+        });
+        const changed = await tx.coreviaTillSettlement.updateMany({
+          where: { id: tillSettlement.id, status: { in: ["PROCESSING", "SETTLED"] } },
+          data: {
+            status: terminalStatus,
+            transferCode: transfer?.transfer_code ?? undefined,
+            settledAt: new Date(),
+            lastError: null,
+          },
+        });
+        return { tillSettlement: true, processed: changed.count === 1, outcome: terminalStatus };
+      });
+    } catch (error) {
+      const code = typeof error === "object" && error !== null && "code" in error
+        ? String((error as { code?: unknown }).code) : "";
+      if (code === "P2002") {
+        const existing = await prisma.paystackTransferWebhook.findFirst({
+          where: { OR: [{ payloadHash }, { transferReference: reference, eventType }] },
+          select: { id: true },
+        });
+        if (existing) return { duplicate: true };
+      }
+      throw error;
+    }
   }
 
   const expectedAmount = Math.round(Number(withdrawal.netAmount) * 100);
