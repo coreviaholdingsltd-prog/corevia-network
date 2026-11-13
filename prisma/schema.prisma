@@ -29,25 +29,6 @@ model CoreviaTillSettlement {
   @@index([status, updatedAt])
 }
 
-model CoreviaTillSettlement {
-  id             String   @id @default(cuid())
-  ledgerEntryId  String   @unique
-  amount         Decimal  @db.Decimal(14, 2)
-  currency       String   @default("KES")
-  reference      String   @unique
-  recipientCode  String?
-  transferCode   String?  @unique
-  status         String   @default("PENDING")
-  attempts       Int      @default(0)
-  lastError      String?  @db.Text
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  initiatedAt    DateTime?
-  settledAt      DateTime?
-
-  @@index([status, createdAt])
-  @@index([status, updatedAt])
-}
 
 model User {
   id                      String              @id @default(cuid())
