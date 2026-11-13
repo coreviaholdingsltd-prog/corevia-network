@@ -56,7 +56,7 @@ export async function processAcademyCoursePayment(
       });
     }
 
-    await tx.ledgerEntry.upsert({
+    const coreviaLedgerEntry = await tx.ledgerEntry.upsert({
       where: { reference: `ACADEMY-COURSE-${reference}-COREVIA` },
       create: {
         ownerType: "COREVIA",
@@ -64,6 +64,18 @@ export async function processAcademyCoursePayment(
         type: "ACADEMY_COURSE_PAYMENT",
         reference: `ACADEMY-COURSE-${reference}-COREVIA`,
         description: `Verified Corevia Academy course revenue for ${current.courseId}; Paystack reference ${reference}`,
+      },
+      update: {},
+    });
+
+    // Queue only the verified company revenue. The queue is inert until its
+    // independently guarded settlement worker is deployed and enabled.
+    await tx.coreviaTillSettlement.upsert({
+      where: { ledgerEntryId: coreviaLedgerEntry.id },
+      create: {
+        ledgerEntryId: coreviaLedgerEntry.id,
+        amount: Number(current.amount),
+        reference: `cvt-academy-${reference}`,
       },
       update: {},
     });
