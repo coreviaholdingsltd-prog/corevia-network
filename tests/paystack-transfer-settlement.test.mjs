@@ -59,6 +59,10 @@ test("successful provider settlement marks payout paid without refund", async ()
   assert.equal(state.walletTransactionStatus, "COMPLETED");
   assert.equal(state.walletBalance, 0);
   assert.equal(state.ledger.length, 0);
+  assert.equal(state.tillSettlements.length, 1);
+  assert.equal(state.tillSettlements[0].amount, 5);
+  assert.equal(state.tillSettlements[0].reference, "cvt-withdrawal-fee-withdrawal-1");
+  assert.equal(state.tillSettlements[0].status, "PENDING");
 });
 
 test("failed transfer refunds member and reverses Corevia fee once", async () => {
@@ -69,6 +73,7 @@ test("failed transfer refunds member and reverses Corevia fee once", async () =>
   assert.equal(state.walletBalance, 1000);
   assert.equal(state.walletTransactionStatus, "FAILED");
   assert.deepEqual(state.ledger.map((entry) => entry.amount), [1000, -5]);
+  assert.equal(state.tillSettlements.length, 0);
 });
 
 test("late reversal of a paid transfer refunds member and reverses fee", async () => {
