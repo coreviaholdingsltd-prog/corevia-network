@@ -5,6 +5,7 @@ import { processMembershipPayment } from "@/lib/membership-payment";
 import { processAcademyCoursePayment } from "@/lib/academy-payments";
 import { applyPaystackTransferOutcome } from "@/lib/paystack-transfer-settlement";
 import { matchesTillTransfer, resolveTillWebhookStatus } from "@/lib/corevia-till-settlement";
+import { isValidPaystackSignature } from "@/lib/paystack-webhook-signature";
 
 type PaystackTransferEvent = "transfer.success" | "transfer.failed" | "transfer.reversed";
 
@@ -172,15 +173,7 @@ export async function POST(request: Request) {
     }
 
     const rawBody = await request.text();
-    const expectedSignature = crypto
-      .createHmac("sha512", secretKey)
-      .update(rawBody)
-      .digest("hex");
-
-    if (
-      signature.length !== expectedSignature.length ||
-      !crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))
-    ) {
+    if (!isValidPaystackSignature(rawBody, signature, secretKey)) {
       return NextResponse.json(
         { error: "Invalid Paystack signature." },
         { status: 401 },
