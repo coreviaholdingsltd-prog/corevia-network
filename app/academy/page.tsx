@@ -650,17 +650,23 @@ export default function AcademyPage() {
                 <p className="mt-1 text-xs leading-5 text-cyan-100/80">This is a company-authorised, non-accredited Certificate completion pilot. Academic review continues; {selected.verifiedReferencesCount} of {selected.requiredVerifiedReferences} references are recorded as verified. The completion certificate is not a university award, professional licence or accredited qualification.</p>
               </div>
             )}
-            {selected.isProgrammeStage && !selected.academicApproved && !selected.pilotEnrollmentOpen && (
+            {!selected.enrollmentOpen && selected.priceKsh > 0 && (
               <div className="mt-4 rounded-xl border border-amber-300/25 bg-amber-300/10 p-4">
-                <p className="text-sm font-bold text-amber-100">Payment opens after academic approval</p>
-                <p className="mt-1 text-xs leading-5 text-amber-100/80">This course is available to preview. Paid enrolment will open when its academic sign-off is approved and at least {selected.requiredVerifiedReferences} subject-specific references are verified. {selected.verifiedReferencesCount} of {selected.requiredVerifiedReferences} references are verified so far.</p>
+                <p className="text-sm font-bold text-amber-100">{selected.isProgrammeStage ? "Payment opens after academic approval" : "Paid enrolment is not yet open"}</p>
+                <p className="mt-1 text-xs leading-5 text-amber-100/80">{selected.isProgrammeStage
+                  ? `This course is available to preview. Paid enrolment will open when its academic sign-off is approved and at least ${selected.requiredVerifiedReferences} subject-specific references are verified. ${selected.verifiedReferencesCount} of ${selected.requiredVerifiedReferences} references are verified so far.`
+                  : "This course is available to preview. Its paid enrolment has not been authorised yet, so no payment can be started."}</p>
               </div>
             )}
             <div className="mt-5 flex flex-wrap gap-3">
-              <button type="button" disabled={working === selected.id || selected.locked || (!selected.academicApproved && !selected.pilotEnrollmentOpen)} onClick={() => void enroll(selected)} className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-extrabold text-slate-950 disabled:cursor-not-allowed disabled:opacity-50">{working === selected.id ? "Please wait…" : (selected.academicApproved || selected.pilotEnrollmentOpen) ? `Enrol & Pay · ${money(selected.priceKsh)}` : `Enrol & Pay · ${money(selected.priceKsh)} (Not yet open)`}</button>
+              <button type="button" disabled={working === selected.id || selected.locked || !selected.enrollmentOpen} onClick={() => void enroll(selected)} className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-extrabold text-slate-950 disabled:cursor-not-allowed disabled:opacity-50">{working === selected.id ? "Please wait…" : (selected.academicApproved || selected.pilotEnrollmentOpen) ? `Enrol & Pay · ${money(selected.priceKsh)}` : `Enrol & Pay · ${money(selected.priceKsh)} (Not yet open)`}</button>
               <Link href="/academy" className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">Back to catalogue</Link>
             </div>
-            <p className="mt-3 text-xs text-slate-500">Preview is free. This Accounting Certificate pilot can start a KES 1,500 Paystack checkout now; course access is activated only after the payment is confirmed. Other programme stages remain subject to their academic approval gates.</p>
+            <p className="mt-3 text-xs text-slate-500">{selected.pilotEnrollmentOpen
+              ? "Preview is free. This company-authorised Accounting Certificate pilot can start a KES 1,500 Paystack checkout; course access is activated only after Paystack confirms payment."
+              : selected.enrollmentOpen
+                ? "Preview is free. Paid enrolment is open for this course; access is activated only after payment is confirmed."
+                : "Preview is free. Paid enrolment is not open for this course, and no payment will be initiated until it is authorised."}</p>
           </section>
         )}
 
