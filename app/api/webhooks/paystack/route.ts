@@ -6,6 +6,7 @@ import { processAcademyCoursePayment } from "@/lib/academy-payments";
 import { applyPaystackTransferOutcome } from "@/lib/paystack-transfer-settlement";
 import { matchesTillTransfer, resolveTillWebhookStatus } from "@/lib/corevia-till-settlement";
 import { isValidPaystackSignature } from "@/lib/paystack-webhook-signature";
+import { isPaystackKeyCompatibleWithDeployment } from "@/lib/paystack-key-environment.mjs";
 
 type PaystackTransferEvent = "transfer.success" | "transfer.failed" | "transfer.reversed";
 
@@ -161,6 +162,13 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: "Paystack is not configured." },
         { status: 500 },
+      );
+    }
+    if (!isPaystackKeyCompatibleWithDeployment(process.env.VERCEL_ENV, secretKey)) {
+      console.error("Paystack webhook rejected: secret-key mode does not match the deployment environment.");
+      return NextResponse.json(
+        { error: "Paystack key mode does not match this deployment environment." },
+        { status: 503 },
       );
     }
 
