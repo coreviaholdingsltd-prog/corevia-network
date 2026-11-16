@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { applyPaystackTransferOutcome } from "@/lib/paystack-transfer-settlement";
+import { isPaystackKeyCompatibleWithDeployment } from "@/lib/paystack-key-environment.mjs";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -27,6 +28,10 @@ export async function GET(request: Request) {
   const secretKey = process.env.PAYSTACK_SECRET_KEY;
   if (!secretKey) {
     return NextResponse.json({ error: "Paystack is not configured." }, { status: 503 });
+  }
+  if (!isPaystackKeyCompatibleWithDeployment(process.env.VERCEL_ENV, secretKey)) {
+    console.error("Paystack reconciliation blocked: secret-key mode does not match this deployment environment.");
+    return NextResponse.json({ error: "Paystack key mode does not match this deployment environment." }, { status: 503 });
   }
 
   const now = new Date();
