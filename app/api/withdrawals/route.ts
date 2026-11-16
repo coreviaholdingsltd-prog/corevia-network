@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
 import { isPaystackPayoutEnabled, isPayoutLifecycleVerified, evaluatePaystackFloat } from "@/lib/paystack-payout-guard.mjs";
+import { isPaystackKeyCompatibleWithDeployment } from "@/lib/paystack-key-environment.mjs";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const COREVIA_TILL_NUMBER = "6959300";
@@ -158,6 +159,13 @@ export async function POST(request: Request) {
     const secretKey = process.env.PAYSTACK_SECRET_KEY;
     if (!secretKey) {
       return NextResponse.json({ error: "Paystack is not configured. Your wallet has not been debited." }, { status: 503 });
+    }
+    if (!isPaystackKeyCompatibleWithDeployment(process.env.VERCEL_ENV, secretKey)) {
+      console.error("Paystack payout blocked: secret-key mode does not match the deployment environment.");
+      return NextResponse.json(
+        { error: "Payout processing is blocked because the Paystack key mode does not match this deployment environment. Your wallet has not been debited." },
+        { status: 503 },
+      );
     }
 
     // Live balance is checked before any wallet reservation. This is a second
