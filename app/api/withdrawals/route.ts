@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
 import { isPaystackPayoutEnabled, isPayoutLifecycleVerified, evaluatePaystackFloat } from "@/lib/paystack-payout-guard.mjs";
 import { isPaystackKeyCompatibleWithDeployment } from "@/lib/paystack-key-environment.mjs";
+import { isPaystackPayoutEnabled, isPayoutLifecycleVerified } from "@/lib/paystack-payout-guard.mjs";
+import { evaluateCoreviaTillFloat } from "@/lib/corevia-till-settlement";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
 const COREVIA_TILL_NUMBER = "6959300";
@@ -15,18 +17,23 @@ const COREVIA_TILL_NUMBER = "6959300";
 const PAYOUT_TRANSFER_LIFECYCLE_VERIFIED = isPayoutLifecycleVerified(process.env);
 
 
-async function hasSufficientPaystackFloat(secretKey: string) {
+async function hasSufficientPaystackFloat(secretKey: string, db: Pick<typeof prisma, "wallet" | "withdrawal" | "coreviaTillSettlement"> = prisma) {
   try {
-    const [balanceResponse, walletLiabilities, pendingPayouts] = await Promise.all([
+    const feeReserveKsh = Number(process.env.COREVIA_TILL_TRANSFER_FEE_RESERVE_KSH);
+    const [balanceResponse, walletLiabilities, pendingPayouts, queuedTill] = await Promise.all([
       fetch("https://api.paystack.co/balance", {
         headers: { Authorization: "Bearer " + secretKey },
         cache: "no-store",
         signal: AbortSignal.timeout(10000),
       }),
-      prisma.wallet.aggregate({ _sum: { balance: true } }),
-      prisma.withdrawal.aggregate({
+      db.wallet.aggregate({ _sum: { balance: true } }),
+      db.withdrawal.aggregate({
         where: { status: { in: ["PENDING", "PROCESSING"] } },
         _sum: { netAmount: true },
+      }),
+      db.coreviaTillSettlement.aggregate({
+        where: { status: { in: ["PENDING", "PROCESSING", "REVIEW"] }, currency: "KES" },
+        _sum: { amount: true },
       }),
     ]);
 
@@ -38,15 +45,20 @@ async function hasSufficientPaystackFloat(secretKey: string) {
     );
     if (!kesBalance || !Number.isFinite(Number(kesBalance.balance))) return false;
 
-    const result = evaluatePaystackFloat({
+    const result = evaluateCoreviaTillFloat({
       balanceSubunits: Number(kesBalance.balance),
       walletLiabilitiesKsh: Number(walletLiabilities._sum.balance ?? 0),
       pendingPayoutsKsh: Number(pendingPayouts._sum.netAmount ?? 0),
+      queuedTillSettlementsKsh: Number(queuedTill._sum.amount ?? 0),
+      feeReserveKsh,
     });
-    if (!result.ready) {
-      console.warn("Paystack payout float check failed closed: available KES balance does not cover wallet liabilities and in-flight payouts.");
+    if (!result.ok) {
+      console.warn("Paystack payout float check failed closed:", result.reason, {
+        availableKsh: result.availableKsh,
+        requiredKsh: result.requiredKsh,
+      });
     }
-    return result.ready;
+    return result.ok;
   } catch (error) {
     console.error("Paystack payout float check could not be completed:", error);
     return false;
@@ -204,7 +216,7 @@ export async function POST(request: Request) {
       // Serialize payout reservations globally. A second concurrent request must
       // see the first request's committed PROCESSING liability before it can reserve.
       await tx.$queryRaw`SELECT pg_advisory_xact_lock(724190112)`;
-      if (!(await hasSufficientPaystackFloat(secretKey))) {
+      if (!(await hasSufficientPaystackFloat(secretKey, tx))) {
         throw new Error("PAYOUT_FLOAT_NOT_READY");
       }
       const wallet = await tx.wallet.findUnique({ where: { userId: user.id }, select: { balance: true } });
