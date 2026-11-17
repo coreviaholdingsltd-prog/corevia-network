@@ -3,9 +3,8 @@ import crypto from "crypto";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
-import { isPaystackPayoutEnabled, isPayoutLifecycleVerified, evaluatePaystackFloat } from "@/lib/paystack-payout-guard.mjs";
-import { isPaystackKeyCompatibleWithDeployment } from "@/lib/paystack-key-environment.mjs";
 import { isPaystackPayoutEnabled, isPayoutLifecycleVerified } from "@/lib/paystack-payout-guard.mjs";
+import { isPaystackKeyCompatibleWithDeployment } from "@/lib/paystack-key-environment.mjs";
 import { evaluateCoreviaTillFloat } from "@/lib/corevia-till-settlement";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
