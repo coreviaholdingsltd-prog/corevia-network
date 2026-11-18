@@ -5,7 +5,7 @@ import { processMembershipPayment } from "@/lib/membership-payment";
 import { processAcademyCoursePayment } from "@/lib/academy-payments";
 import { applyPaystackTransferOutcome } from "@/lib/paystack-transfer-settlement";
 import { matchesTillTransfer, resolveTillWebhookStatus } from "@/lib/corevia-till-settlement";
-import { isValidPaystackSignature } from "@/lib/paystack-webhook-signature";
+import { isValidPaystackSignature, isValidPaystackSigningSecretSignature } from "@/lib/paystack-webhook-signature";
 import { isPaystackKeyCompatibleWithDeployment } from "@/lib/paystack-key-environment.mjs";
 
 type PaystackTransferEvent = "transfer.success" | "transfer.failed" | "transfer.reversed";
@@ -172,20 +172,32 @@ export async function POST(request: Request) {
       );
     }
 
-    const signature = request.headers.get("x-paystack-signature");
-    if (!signature) {
-      return NextResponse.json(
-        { error: "Missing Paystack signature." },
-        { status: 401 },
-      );
-    }
-
     const rawBody = await request.text();
-    if (!isValidPaystackSignature(rawBody, signature, secretKey)) {
-      return NextResponse.json(
-        { error: "Invalid Paystack signature." },
-        { status: 401 },
-      );
+    const signingSecretHeader = request.headers.get("Paystack-Signature");
+
+    if (signingSecretHeader) {
+      const webhookSigningSecret = process.env.PAYSTACK_WEBHOOK_SECRET;
+      if (
+        !webhookSigningSecret ||
+        !isValidPaystackSigningSecretSignature(
+          rawBody,
+          signingSecretHeader,
+          webhookSigningSecret,
+        )
+      ) {
+        return NextResponse.json(
+          { error: "Invalid Paystack signing-secret signature." },
+          { status: 401 },
+        );
+      }
+    } else {
+      const legacySignature = request.headers.get("x-paystack-signature");
+      if (!isValidPaystackSignature(rawBody, legacySignature, secretKey)) {
+        return NextResponse.json(
+          { error: "Missing or invalid Paystack signature." },
+          { status: 401 },
+        );
+      }
     }
 
     const event = JSON.parse(rawBody);
