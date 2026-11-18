@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
     const cents = Math.round(amount * 100);
     const normalizedAmount = cents / 100;
-    const reference = \`CV-WALLET-\${Date.now()}-\${crypto.randomBytes(5).toString("hex").toUpperCase()}\`;
+    const reference = `CV-WALLET-${Date.now()}-${crypto.randomBytes(5).toString("hex").toUpperCase()}`;
     await prisma.walletTransaction.create({
       data: { userId: user.id, type: "WALLET_DEPOSIT", status: "PENDING", amount: normalizedAmount, reference, description: "Pending Paystack wallet deposit" },
     });
@@ -37,10 +37,10 @@ export async function POST(request: Request) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || new URL(request.url).origin;
     const response = await fetch(PAYSTACK_URL, {
       method: "POST",
-      headers: { Authorization: \`Bearer \${secretKey}\`, "Content-Type": "application/json" },
+      headers: { Authorization: `Bearer ${secretKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         email: user.email, amount: cents, reference, currency: "KES",
-        callback_url: \`\${siteUrl}/wallet?deposit=\${encodeURIComponent(reference)}\`,
+        callback_url: `${siteUrl}/wallet?deposit=${encodeURIComponent(reference)}`,
         metadata: { purpose: "COREVIA_WALLET_DEPOSIT", userId: user.id },
       }),
       cache: "no-store", signal: AbortSignal.timeout(15000),
