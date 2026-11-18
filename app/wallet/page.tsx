@@ -1,6 +1,8 @@
 
 "use client";
 
+import WalletDepositPanel from "@/components/wallet-deposit-panel";
+
 import {
   useCallback,
   useEffect,
@@ -832,6 +834,7 @@ export default function Wallet() {
 
         {active && (
           <>
+            <WalletDepositPanel onDeposited={refreshWalletSummary} />
             <section className="mt-6 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-[#12352c]/10 sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
