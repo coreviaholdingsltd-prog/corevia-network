@@ -25,3 +25,38 @@ test("rejects missing, malformed, non-hex and incorrect-length signatures safely
     assert.equal(isValidPaystackSignature(body, candidate, secret), false);
   }
 });
+
+
+test("accepts a valid timestamped Paystack signing-secret header", async () => {
+  const { isValidPaystackSigningSecretSignature } = await import("../lib/paystack-webhook-signature.ts");
+  const signingSecret = "whsec_test-secret";
+  const timestamp = 1760270400;
+  const digest = crypto.createHmac("sha512", signingSecret)
+    .update(`${timestamp}.${body}`).digest("hex");
+  const header = `t=${timestamp},v1=whk_test123:${digest}`;
+  assert.equal(isValidPaystackSigningSecretSignature(body, header, signingSecret, timestamp), true);
+});
+
+test("accepts any matching v1 signature during secret rotation", async () => {
+  const { isValidPaystackSigningSecretSignature } = await import("../lib/paystack-webhook-signature.ts");
+  const signingSecret = "whsec_test-secret";
+  const timestamp = 1760270400;
+  const digest = crypto.createHmac("sha512", signingSecret)
+    .update(`${timestamp}.${body}`).digest("hex");
+  const header = `t=${timestamp},v1=whk_old:${"a".repeat(128)},v1=whk_new:${digest}`;
+  assert.equal(isValidPaystackSigningSecretSignature(body, header, signingSecret, timestamp), true);
+});
+
+test("rejects expired, malformed, wrong-secret and modified-body timestamped signatures", async () => {
+  const { isValidPaystackSigningSecretSignature } = await import("../lib/paystack-webhook-signature.ts");
+  const signingSecret = "whsec_test-secret";
+  const timestamp = 1760270400;
+  const digest = crypto.createHmac("sha512", signingSecret)
+    .update(`${timestamp}.${body}`).digest("hex");
+  const validHeader = `t=${timestamp},v1=whk_test123:${digest}`;
+  assert.equal(isValidPaystackSigningSecretSignature(body, validHeader, signingSecret, timestamp + 301), false);
+  assert.equal(isValidPaystackSigningSecretSignature(body, validHeader, "wrong-secret", timestamp), false);
+  assert.equal(isValidPaystackSigningSecretSignature(body + " ", validHeader, signingSecret, timestamp), false);
+  assert.equal(isValidPaystackSigningSecretSignature(body, `t=x,v1=whk_test123:${digest}`, signingSecret, timestamp), false);
+  assert.equal(isValidPaystackSigningSecretSignature(body, null, signingSecret, timestamp), false);
+});
