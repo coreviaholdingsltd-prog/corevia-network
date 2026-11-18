@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
 type Props = { onDeposited: () => Promise<void> };
 
@@ -40,7 +40,7 @@ export default function WalletDepositPanel({ onDeposited }: Props) {
     return () => { cancelled = true; };
   }, [onDeposited]);
 
-  async function startDeposit(event: React.FormEvent<HTMLFormElement>) {
+  async function startDeposit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setBusy(true);
     setError("");
