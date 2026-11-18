@@ -80,6 +80,7 @@ function formatKES(amount: number) {
 function transactionLabel(type: string) {
   const labels: Record<string, string> = {
     MEMBERSHIP_PAYMENT: "Membership payment",
+    WALLET_DEPOSIT: "Wallet deposit",
     REFERRAL_REWARD: "Referral reward",
     SPIN_REWARD: "Spin reward",
     WITHDRAWAL: "Withdrawal",
