@@ -24,8 +24,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Wallet deposit not found for this member." }, { status: 404 });
     }
 
-    const response = await fetch(\`\${PAYSTACK_VERIFY_URL}/\${encodeURIComponent(reference)}\`, {
-      headers: { Authorization: \`Bearer \${secretKey}\` }, cache: "no-store", signal: AbortSignal.timeout(15000),
+    const response = await fetch(`${PAYSTACK_VERIFY_URL}/${encodeURIComponent(reference)}`, {
+      headers: { Authorization: `Bearer ${secretKey}` }, cache: "no-store", signal: AbortSignal.timeout(15000),
     });
     const data = await response.json();
     if (!response.ok || !data.status) return NextResponse.json({ error: data.message || "Unable to verify Paystack payment." }, { status: 502 });
