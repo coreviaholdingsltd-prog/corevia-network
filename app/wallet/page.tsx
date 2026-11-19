@@ -1,6 +1,8 @@
 
 "use client";
 
+import WalletDepositPanel from "@/components/wallet-deposit-panel";
+
 import {
   useCallback,
   useEffect,
@@ -78,6 +80,7 @@ function formatKES(amount: number) {
 function transactionLabel(type: string) {
   const labels: Record<string, string> = {
     MEMBERSHIP_PAYMENT: "Membership payment",
+    WALLET_DEPOSIT: "Wallet deposit",
     REFERRAL_REWARD: "Referral reward",
     SPIN_REWARD: "Spin reward",
     WITHDRAWAL: "Withdrawal",
@@ -832,6 +835,7 @@ export default function Wallet() {
 
         {active && (
           <>
+            <WalletDepositPanel onDeposited={refreshWalletSummary} />
             <section className="mt-6 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-[#12352c]/10 sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>

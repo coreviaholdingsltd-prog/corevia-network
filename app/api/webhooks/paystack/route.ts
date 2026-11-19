@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { processMembershipPayment } from "@/lib/membership-payment";
 import { processAcademyCoursePayment } from "@/lib/academy-payments";
+import { processWalletDeposit } from "@/lib/wallet-deposit";
 import { applyPaystackTransferOutcome } from "@/lib/paystack-transfer-settlement";
 import { matchesTillTransfer, resolveTillWebhookStatus } from "@/lib/corevia-till-settlement";
 import { isValidPaystackSignature, isValidPaystackSigningSecretSignature } from "@/lib/paystack-webhook-signature";
@@ -236,6 +237,16 @@ export async function POST(request: Request) {
           metadata: payment.metadata ?? null,
         });
         console.log("Corevia Academy payment processed:", result);
+      } else if (purpose === "COREVIA_WALLET_DEPOSIT") {
+        const result = await processWalletDeposit({
+          reference: String(payment.reference ?? ""),
+          amount: Number(payment.amount ?? 0),
+          currency: String(payment.currency ?? ""),
+          status: String(payment.status ?? ""),
+          paid_at: payment.paid_at ?? null,
+          metadata: payment.metadata ?? null,
+        });
+        console.log("Corevia wallet deposit processed:", result);
       } else {
         console.log("Paystack payment ignored:", {
           reference: payment?.reference,
