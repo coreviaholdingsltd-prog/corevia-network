@@ -11,7 +11,7 @@ export function evaluateCoreviaTillFloat(input: {
   feeReserveKsh: number;
   allowZeroFeeReserve?: boolean;
 }) {
-  const numericValues = [
+  const numericValues: number[] = [
     input.balanceSubunits,
     input.walletLiabilitiesKsh,
     input.pendingPayoutsKsh,
@@ -19,8 +19,7 @@ export function evaluateCoreviaTillFloat(input: {
     input.feeReserveKsh,
   ];
   if (
-    numericValues.some((value) => !Number.isFinite(value) || value < 0) ||
-    (input.allowZeroFeeReserve !== undefined && typeof input.allowZeroFeeReserve !== "boolean")
+    numericValues.some((value) => !Number.isFinite(value) || value < 0)
   ) {
     return { ok: false, reason: "invalid_float_data" as const, availableKsh: null, requiredKsh: null };
   }
