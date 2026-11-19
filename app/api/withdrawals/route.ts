@@ -19,6 +19,14 @@ const PAYOUT_TRANSFER_LIFECYCLE_VERIFIED = isPayoutLifecycleVerified(process.env
 async function hasSufficientPaystackFloat(secretKey: string, db: Pick<typeof prisma, "wallet" | "withdrawal" | "coreviaTillSettlement"> = prisma) {
   try {
     const feeReserveKsh = Number(process.env.COREVIA_TILL_TRANSFER_FEE_RESERVE_KSH);
+    // Test Mode has no live transfer-fee cost. Permit the explicitly configured
+    // zero reserve only on a Preview deployment using Paystack test credentials.
+    // Production and all non-sandbox paths retain the positive-reserve requirement.
+    const allowZeroFeeReserve =
+      process.env.VERCEL_ENV === "preview" &&
+      process.env.COREVIA_PAYOUT_TEST_MODE_ENABLED === "true" &&
+      secretKey.startsWith("sk_test_") &&
+      process.env.COREVIA_TILL_TRANSFER_FEE_RESERVE_KSH === "0";
     const [balanceResponse, walletLiabilities, pendingPayouts, queuedTill] = await Promise.all([
       fetch("https://api.paystack.co/balance", {
         headers: { Authorization: "Bearer " + secretKey },
@@ -50,6 +58,7 @@ async function hasSufficientPaystackFloat(secretKey: string, db: Pick<typeof pri
       pendingPayoutsKsh: Number(pendingPayouts._sum.netAmount ?? 0),
       queuedTillSettlementsKsh: Number(queuedTill._sum.amount ?? 0),
       feeReserveKsh,
+      allowZeroFeeReserve,
     });
     if (!result.ok) {
       console.warn("Paystack payout float check failed closed:", result.reason, {
