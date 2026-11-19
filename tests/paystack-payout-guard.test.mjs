@@ -14,6 +14,19 @@ test("payouts remain disabled when code-level lifecycle approval is false", () =
   assert.equal(isPaystackPayoutEnabled(enabledEnvironment, false), false);
 });
 
+test("explicit Preview test mode permits only test-key lifecycle exercise", () => {
+  const env = {
+    ...enabledEnvironment,
+    VERCEL_ENV: "preview",
+    COREVIA_PAYOUT_TEST_MODE_ENABLED: "true",
+    PAYSTACK_SECRET_KEY: "sk_test_example",
+  };
+  assert.equal(isPaystackPayoutEnabled(env, false), true);
+  assert.equal(isPaystackPayoutEnabled({ ...env, VERCEL_ENV: "production" }, false), false);
+  assert.equal(isPaystackPayoutEnabled({ ...env, PAYSTACK_SECRET_KEY: "sk_live_example" }, false), false);
+  assert.equal(isPaystackPayoutEnabled({ ...env, COREVIA_PAYOUT_TEST_MODE_ENABLED: "false" }, false), false);
+});
+
 test("payouts remain disabled when any required operational flag is absent", () => {
   for (const name of Object.keys(enabledEnvironment)) {
     const env = { ...enabledEnvironment };
