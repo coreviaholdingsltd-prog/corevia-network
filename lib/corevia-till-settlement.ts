@@ -9,12 +9,13 @@ export function evaluateCoreviaTillFloat(input: {
   pendingPayoutsKsh: number;
   queuedTillSettlementsKsh: number;
   feeReserveKsh: number;
+  allowZeroFeeReserve?: boolean;
 }) {
   const values = Object.values(input);
   if (values.some((value) => !Number.isFinite(value) || value < 0)) {
     return { ok: false, reason: "invalid_float_data" as const, availableKsh: null, requiredKsh: null };
   }
-  if (input.feeReserveKsh <= 0) {
+  if (input.feeReserveKsh < 0 || (input.feeReserveKsh === 0 && input.allowZeroFeeReserve !== true)) {
     return { ok: false, reason: "invalid_fee_reserve" as const, availableKsh: null, requiredKsh: null };
   }
   const availableKsh = Math.floor(input.balanceSubunits) / 100;
