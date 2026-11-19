@@ -42,6 +42,23 @@ test("fails closed on negative, non-finite float values and missing fee reserve"
   ]) assert.equal(evaluateCoreviaTillFloat(input).ok, false);
 });
 
+test("allows a zero fee reserve only when the caller explicitly authorizes sandbox evaluation", () => {
+  const input = {
+    balanceSubunits: 570000,
+    walletLiabilitiesKsh: 5700,
+    pendingPayoutsKsh: 0,
+    queuedTillSettlementsKsh: 0,
+    feeReserveKsh: 0,
+  };
+  assert.equal(evaluateCoreviaTillFloat(input).ok, false);
+  assert.deepEqual(evaluateCoreviaTillFloat({ ...input, allowZeroFeeReserve: true }), {
+    ok: true,
+    reason: null,
+    availableKsh: 5700,
+    requiredKsh: 5700,
+  });
+});
+
 test("matches Paystack transfer reference, amount in subunits and currency exactly", () => {
   const expected = { reference: "cvt-membership-1", amountKsh: 300, currency: "KES" };
   assert.equal(matchesTillTransfer(expected, { reference: expected.reference, amount: 30000, currency: "KES" }), true);
