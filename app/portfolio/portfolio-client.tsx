@@ -54,7 +54,7 @@ const emptyProfile: ProfileForm = {
   websiteUrl: "",
   linkedinUrl: "",
   githubUrl: "",
-  isPublic: true,
+  isPublic: false,
 };
 
 const emptyItem: ItemForm = {
@@ -518,11 +518,9 @@ export default function PortfolioClient() {
                 className="mt-1 h-4 w-4"
               />
               <span>
-                <strong>Make my portfolio public</strong>
+                <strong>Publish my portfolio publicly (optional)</strong>
                 <span className="mt-1 block text-[#12352c]/65">
-                  When enabled, anyone with your portfolio link can view your
-                  name, headline, bio, skills, links and published work
-                  samples. Your email, phone and referral data stay private.
+                  Off by default. When you turn this on and save, anyone with your portfolio link can view your name, headline, bio, location, skills, professional links and published work samples. Your email, phone, wallet and referral information are not part of the public portfolio. Turn it off at any time to hide the portfolio.
                 </span>
               </span>
             </label>
