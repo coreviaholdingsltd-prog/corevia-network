@@ -214,7 +214,7 @@ export async function POST(request: Request) {
     const reserved = await prisma.$transaction(async (tx) => {
       // Serialize payout reservations globally. A second concurrent request must
       // see the first request's committed PROCESSING liability before it can reserve.
-      await tx.$queryRaw`SELECT pg_advisory_xact_lock(724190112)`;
+      await tx.$queryRaw`SELECT 1 AS locked FROM (SELECT pg_advisory_xact_lock(724190112)) AS lock_result`;
       if (!(await hasSufficientPaystackFloat(secretKey, tx))) {
         throw new Error("PAYOUT_FLOAT_NOT_READY");
       }
