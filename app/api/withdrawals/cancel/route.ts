@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       if (!withdrawal) return { error: "Withdrawal request not found." };
       if (withdrawal.status === "REJECTED") return { cancelled: true, alreadyCancelled: true };
       if (withdrawal.status !== "PENDING" || withdrawal.payoutReference !== null ||
-          ![null, "queued"].includes(withdrawal.processorStatus)) {
+          ![null, "queued", "recipient_registration_review"].includes(withdrawal.processorStatus)) {
         return { error: "This request can no longer be cancelled because payout processing has started or it requires review." };
       }
 
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
           id: withdrawal.id,
           status: "PENDING",
           payoutReference: null,
-          OR: [{ processorStatus: null }, { processorStatus: "queued" }],
+          OR: [{ processorStatus: null }, { processorStatus: "queued" }, { processorStatus: "recipient_registration_review" }],
         },
         data: { status: "REJECTED", processorStatus: "cancelled_by_member", settledAt: new Date(), processedAt: new Date() },
       });
