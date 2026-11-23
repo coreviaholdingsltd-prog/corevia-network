@@ -87,7 +87,7 @@ export default function Withdraw() {
       }
 
       setMessage(
-        `Withdrawal request ${result.withdrawal.reference} submitted successfully.`,
+        `Withdrawal request ${result.withdrawal.reference} received. Status: Pending. The wallet amount is reserved; M-PESA payment is not yet sent.`,
       );
       setAmount("");
       setRequestKey("");
@@ -169,7 +169,7 @@ export default function Withdraw() {
 
             <div role="note" className="mt-5 rounded-xl border border-[#b99a58]/30 bg-[#f7f5ef] px-4 py-3">
               <p className="text-sm font-semibold text-[#12352c]">Withdrawal Notice</p>
-              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Kindly note that withdrawals may take up to 24 hours for verification and processing. Most requests are processed sooner, but additional checks or payment-provider delays may occur. Thank you for your patience and understanding.</p>
+              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Your request will be recorded as Pending and the requested wallet amount will be reserved. This confirms receipt only; it does not mean an M-PESA payment has been sent. Payment is processed separately after Corevia completes the required payout and balance checks.</p>
             </div>
             <button
               type="submit"
