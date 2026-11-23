@@ -53,7 +53,7 @@ export async function GET(request: Request) {
   try {
     const result = await prisma.$transaction(async (tx) => {
       const locks = await tx.$queryRaw<Array<{ locked: boolean }>>`
-        SELECT pg_try_advisory_xact_lock(hashtext('corevia-member-withdrawal-worker')) AS locked
+        SELECT pg_try_advisory_xact_lock(724190112) AS locked
       `;
       if (!locks[0]?.locked) return { skipped: "another_worker_running" };
 
