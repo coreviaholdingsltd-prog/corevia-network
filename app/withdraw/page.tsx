@@ -56,6 +56,27 @@ export default function Withdraw() {
     return () => window.clearTimeout(timer);
   }, []);
 
+  async function cancelWithdrawal(reference: string) {
+    setError("");
+    setMessage("");
+    try {
+      const response = await fetch("/api/withdrawals/cancel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reference }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        setError(result.error || "Unable to cancel withdrawal request.");
+        return;
+      }
+      setMessage("Pending withdrawal cancelled. KES " + Number(result.refundedAmount || 0).toFixed(2) + " has been returned to your wallet.");
+      await loadWithdrawals();
+    } catch {
+      setError("Unable to connect to the withdrawal service.");
+    }
+  }
+
   async function submitWithdrawal(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -232,6 +253,15 @@ export default function Withdraw() {
                   <p className="mt-2 text-xs text-[#12352c]/55">
                     {new Date(withdrawal.createdAt).toLocaleString()}
                   </p>
+                  {withdrawal.status === "PENDING" && (
+                    <button
+                      type="button"
+                      onClick={() => void cancelWithdrawal(withdrawal.reference)}
+                      className="mt-3 rounded-lg border border-red-200 px-3 py-2 text-xs font-semibold text-red-700 hover:bg-red-50"
+                    >
+                      Cancel pending request
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
