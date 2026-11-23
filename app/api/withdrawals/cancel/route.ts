@@ -75,7 +75,8 @@ export async function POST(request: Request) {
     });
 
     if ("error" in result) {
-      return NextResponse.json({ error: result.error }, { status: result.error.includes("not found") ? 404 : 409 });
+      const message = result.error ?? "Withdrawal cancellation could not be completed.";
+      return NextResponse.json({ error: message }, { status: message.includes("not found") ? 404 : 409 });
     }
     return NextResponse.json({ status: true, ...result });
   } catch (error) {
