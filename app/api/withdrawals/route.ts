@@ -25,7 +25,7 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
       select: {
         id: true, amount: true, fee: true, netAmount: true, status: true,
-        reference: true, paymentReference: true, createdAt: true, processedAt: true,
+        reference: true, paymentReference: true, processorStatus: true, createdAt: true, processedAt: true,
       },
     });
     const wallet = await prisma.wallet.findUnique({ where: { userId: user.id }, select: { balance: true } });
