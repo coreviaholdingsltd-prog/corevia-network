@@ -10,7 +10,7 @@ type Withdrawal = {
   status: string;
   reference: string;
   createdAt: string;
-  processedAt?: string | null;
+  processedAt?: string | null;\n  processorStatus?: string | null;
 };
 
 export default function Withdraw() {
@@ -253,7 +253,7 @@ export default function Withdraw() {
                   <p className="mt-2 text-xs text-[#12352c]/55">
                     {new Date(withdrawal.createdAt).toLocaleString()}
                   </p>
-                  {withdrawal.status === "PENDING" && (
+                  {withdrawal.status === "PENDING" && [null, "queued", "recipient_registration_review"].includes(withdrawal.processorStatus ?? null) && (
                     <button
                       type="button"
                       onClick={() => void cancelWithdrawal(withdrawal.reference)}
