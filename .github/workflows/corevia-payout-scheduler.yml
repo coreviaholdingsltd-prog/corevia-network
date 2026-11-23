@@ -1,0 +1,43 @@
+name: Corevia payout scheduler
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: corevia-production-payout-scheduler
+  cancel-in-progress: false
+
+jobs:
+  reconcile-and-process:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Verify scheduler secret is configured
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "::error::Add CRON_SECRET in GitHub Actions repository secrets before enabling this scheduler."
+            exit 1
+          fi
+
+      - name: Reconcile existing Paystack transfers
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          curl --fail-with-body --silent --show-error --max-time 45 \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "https://network.coreviaholdingltd.com/api/cron/reconcile-paystack-payouts"
+
+      - name: Process at most one queued member withdrawal
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          curl --fail-with-body --silent --show-error --max-time 45 \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "https://network.coreviaholdingltd.com/api/cron/process-paystack-withdrawals"
