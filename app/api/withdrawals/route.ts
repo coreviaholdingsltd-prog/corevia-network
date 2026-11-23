@@ -61,13 +61,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "A valid withdrawal request key is required. Please refresh and try again." }, { status: 400 });
     }
 
-    const phoneDigits = user.phone.replace(/[^\\d]/g, "");
+    const phoneDigits = user.phone.replace(/[^\d]/g, "");
     const beneficiaryPhone = phoneDigits.startsWith("0")
       ? "254" + phoneDigits.slice(1)
       : phoneDigits.startsWith("7") || phoneDigits.startsWith("1")
         ? "254" + phoneDigits
         : phoneDigits;
-    if (!/^254[17]\\d{8}$/.test(beneficiaryPhone)) {
+    if (!/^254[17]\d{8}$/.test(beneficiaryPhone)) {
       return NextResponse.json({ error: "Your member-profile phone number is not a valid Kenyan M-PESA mobile number. Update it before withdrawing." }, { status: 400 });
     }
 
