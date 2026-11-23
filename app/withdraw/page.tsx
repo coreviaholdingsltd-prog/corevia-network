@@ -10,7 +10,8 @@ type Withdrawal = {
   status: string;
   reference: string;
   createdAt: string;
-  processedAt?: string | null;\n  processorStatus?: string | null;
+  processedAt?: string | null;
+  processorStatus?: string | null;
 };
 
 export default function Withdraw() {
