@@ -7,6 +7,10 @@
     {
       "path": "/api/cron/settle-corevia-till",
       "schedule": "15 2 * * *"
+    },
+    {
+      "path": "/api/cron/process-paystack-withdrawals",
+      "schedule": "30 2 * * *"
     }
   ]
 }

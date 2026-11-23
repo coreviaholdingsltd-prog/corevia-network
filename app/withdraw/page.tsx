@@ -11,6 +11,7 @@ type Withdrawal = {
   reference: string;
   createdAt: string;
   processedAt?: string | null;
+  processorStatus?: string | null;
 };
 
 export default function Withdraw() {
@@ -56,6 +57,27 @@ export default function Withdraw() {
     return () => window.clearTimeout(timer);
   }, []);
 
+  async function cancelWithdrawal(reference: string) {
+    setError("");
+    setMessage("");
+    try {
+      const response = await fetch("/api/withdrawals/cancel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reference }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        setError(result.error || "Unable to cancel withdrawal request.");
+        return;
+      }
+      setMessage("Pending withdrawal cancelled. KES " + Number(result.refundedAmount || 0).toFixed(2) + " has been returned to your wallet.");
+      await loadWithdrawals();
+    } catch {
+      setError("Unable to connect to the withdrawal service.");
+    }
+  }
+
   async function submitWithdrawal(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -87,7 +109,7 @@ export default function Withdraw() {
       }
 
       setMessage(
-        `Withdrawal request ${result.withdrawal.reference} submitted successfully.`,
+        `Withdrawal request ${result.withdrawal.reference} received. Status: Pending. The wallet amount is reserved; M-PESA payment is not yet sent.`,
       );
       setAmount("");
       setRequestKey("");
@@ -169,7 +191,7 @@ export default function Withdraw() {
 
             <div role="note" className="mt-5 rounded-xl border border-[#b99a58]/30 bg-[#f7f5ef] px-4 py-3">
               <p className="text-sm font-semibold text-[#12352c]">Withdrawal Notice</p>
-              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Kindly note that withdrawals may take up to 24 hours for verification and processing. Most requests are processed sooner, but additional checks or payment-provider delays may occur. Thank you for your patience and understanding.</p>
+              <p className="mt-1 text-sm leading-6 text-[#12352c]/70">Your request will be recorded as Pending and the requested wallet amount will be reserved. This confirms receipt only; it does not mean an M-PESA payment has been sent. Payment is processed separately after Corevia completes the required payout and balance checks.</p>
             </div>
             <button
               type="submit"
@@ -232,6 +254,15 @@ export default function Withdraw() {
                   <p className="mt-2 text-xs text-[#12352c]/55">
                     {new Date(withdrawal.createdAt).toLocaleString()}
                   </p>
+                  {withdrawal.status === "PENDING" && [null, "queued", "recipient_registration_review"].includes(withdrawal.processorStatus ?? null) && (
+                    <button
+                      type="button"
+                      onClick={() => void cancelWithdrawal(withdrawal.reference)}
+                      className="mt-3 rounded-lg border border-red-200 px-3 py-2 text-xs font-semibold text-red-700 hover:bg-red-50"
+                    >
+                      Cancel pending request
+                    </button>
+                  )}
                 </div>
               ))}
             </div>

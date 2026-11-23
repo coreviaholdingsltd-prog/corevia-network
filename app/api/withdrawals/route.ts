@@ -3,67 +3,8 @@ import crypto from "crypto";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { sessionCookieName, verifySession } from "@/lib/session";
-import { isPaystackPayoutEnabled, isPayoutLifecycleVerified } from "@/lib/paystack-payout-guard.mjs";
-import { isPaystackKeyCompatibleWithDeployment } from "@/lib/paystack-key-environment.mjs";
-import { evaluateCoreviaTillFloat } from "@/lib/corevia-till-settlement";
 
 const WITHDRAWAL_FEE_RATE = 0.005;
-const COREVIA_TILL_NUMBER = "6959300";
-// Live transfers remain hard-disabled until provider lifecycle and production float are independently verified.
-// Set this explicit production flag to "true" only after Paystack test-mode
-// success/failure/reversal checks, webhook delivery, cron reconciliation, and
-// production balance/float readiness have all been independently confirmed.
-const PAYOUT_TRANSFER_LIFECYCLE_VERIFIED = isPayoutLifecycleVerified(process.env);
-
-
-async function hasSufficientPaystackFloat(secretKey: string, db: Pick<typeof prisma, "wallet" | "withdrawal" | "coreviaTillSettlement"> = prisma) {
-  try {
-    const feeReserveKsh = Number(process.env.COREVIA_TILL_TRANSFER_FEE_RESERVE_KSH);
-    const [balanceResponse, walletLiabilities, pendingPayouts, queuedTill] = await Promise.all([
-      fetch("https://api.paystack.co/balance", {
-        headers: { Authorization: "Bearer " + secretKey },
-        cache: "no-store",
-        signal: AbortSignal.timeout(10000),
-      }),
-      db.wallet.aggregate({ _sum: { balance: true } }),
-      db.withdrawal.aggregate({
-        where: { status: { in: ["PENDING", "PROCESSING"] } },
-        _sum: { netAmount: true },
-      }),
-      db.coreviaTillSettlement.aggregate({
-        where: { status: { in: ["PENDING", "PROCESSING", "REVIEW"] }, currency: "KES" },
-        _sum: { amount: true },
-      }),
-    ]);
-
-    if (!balanceResponse.ok) return false;
-    const payload = await balanceResponse.json();
-    if (payload?.status !== true || !Array.isArray(payload.data)) return false;
-    const kesBalance = payload.data.find((item: { currency?: string }) =>
-      String(item.currency ?? "").toUpperCase() === "KES"
-    );
-    if (!kesBalance || !Number.isFinite(Number(kesBalance.balance))) return false;
-
-    const result = evaluateCoreviaTillFloat({
-      balanceSubunits: Number(kesBalance.balance),
-      walletLiabilitiesKsh: Number(walletLiabilities._sum.balance ?? 0),
-      pendingPayoutsKsh: Number(pendingPayouts._sum.netAmount ?? 0),
-      queuedTillSettlementsKsh: Number(queuedTill._sum.amount ?? 0),
-      feeReserveKsh,
-    });
-    if (!result.ok) {
-      console.warn("Paystack payout float check failed closed:", result.reason, {
-        availableKsh: result.availableKsh,
-        requiredKsh: result.requiredKsh,
-      });
-    }
-    return result.ok;
-  } catch (error) {
-    console.error("Paystack payout float check could not be completed:", error);
-    return false;
-  }
-}
-
 async function getSessionUser() {
   const cookieStore = await cookies();
   const token = cookieStore.get(sessionCookieName)?.value;
@@ -84,7 +25,7 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
       select: {
         id: true, amount: true, fee: true, netAmount: true, status: true,
-        reference: true, paymentReference: true, createdAt: true, processedAt: true,
+        reference: true, paymentReference: true, processorStatus: true, createdAt: true, processedAt: true,
       },
     });
     const wallet = await prisma.wallet.findUnique({ where: { userId: user.id }, select: { balance: true } });
@@ -102,13 +43,6 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    if (!isPaystackPayoutEnabled(process.env, PAYOUT_TRANSFER_LIFECYCLE_VERIFIED)) {
-      return NextResponse.json(
-        { error: "Automated M-PESA withdrawals are not enabled yet. Your wallet has not been debited." },
-        { status: 503 },
-      );
-    }
-
     const user = await getSessionUser();
     if (!user) return NextResponse.json({ error: "Please sign in first." }, { status: 401 });
     if (user.membershipStatus !== "ACTIVE") {
@@ -154,70 +88,27 @@ export async function POST(request: Request) {
 
     const idempotencyHash = crypto.createHash("sha256").update(user.id + ":" + requestKey).digest("hex");
     const reference = "cvwd-" + idempotencyHash.slice(0, 32);
-    const payoutReference = "cvp-" + idempotencyHash.slice(0, 40);
     const existing = await prisma.withdrawal.findUnique({
       where: { reference },
-      select: { id: true, amount: true, fee: true, netAmount: true, status: true, reference: true, createdAt: true, payoutReference: true },
+      select: { id: true, amount: true, fee: true, netAmount: true, status: true, reference: true, createdAt: true },
     });
     if (existing) {
       return NextResponse.json({
         status: true,
-        message: "This withdrawal request has already been received. It will not be submitted a second time.",
+        message: "This withdrawal request has already been received. It will not be reserved a second time.",
         withdrawal: existing,
       }, { status: 202 });
     }
 
-    const secretKey = process.env.PAYSTACK_SECRET_KEY;
-    if (!secretKey) {
-      return NextResponse.json({ error: "Paystack is not configured. Your wallet has not been debited." }, { status: 503 });
-    }
-    if (!isPaystackKeyCompatibleWithDeployment(process.env.VERCEL_ENV, secretKey)) {
-      console.error("Paystack payout blocked: secret-key mode does not match the deployment environment.");
-      return NextResponse.json(
-        { error: "Payout processing is blocked because the Paystack key mode does not match this deployment environment. Your wallet has not been debited." },
-        { status: 503 },
-      );
-    }
-
-    // Live balance is checked before any wallet reservation. This is a second
-    // fail-closed control in addition to the explicit operational readiness flags.
-    if (!(await hasSufficientPaystackFloat(secretKey))) {
-      return NextResponse.json(
-        { error: "Paystack's available KES balance has not been verified as sufficient to cover member wallet liabilities and in-flight payouts. Your wallet has not been debited." },
-        { status: 503 },
-      );
-    }
-
-    const recipientResponse = await fetch("https://api.paystack.co/transferrecipient", {
-      method: "POST",
-      headers: { Authorization: "Bearer " + secretKey, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        type: "mobile_money",
-        name: user.name,
-        account_number: beneficiaryPhone,
-        bank_code: "MPESA",
-        currency: "KES",
-        email: user.email,
-      }),
-      cache: "no-store",
-    });
-    const recipientPayload = await recipientResponse.json().catch(() => null);
-    const recipientCode = recipientPayload?.data?.recipient_code;
-    if (!recipientResponse.ok || recipientPayload?.status !== true || typeof recipientCode !== "string") {
-      console.error("Paystack recipient creation failed:", {
-        status: recipientResponse.status,
-        message: recipientPayload?.message,
-      });
-      return NextResponse.json({ error: "Paystack could not register this M-PESA recipient. Your wallet has not been debited." }, { status: 502 });
-    }
-
-    const reserved = await prisma.$transaction(async (tx) => {
-      // Serialize payout reservations globally. A second concurrent request must
-      // see the first request's committed PROCESSING liability before it can reserve.
+    const queued = await prisma.$transaction(async (tx) => {
+      // Serialize reservations so concurrent requests cannot overspend the wallet.
       await tx.$queryRaw`SELECT 1 AS locked FROM (SELECT pg_advisory_xact_lock(724190112)) AS lock_result`;
-      if (!(await hasSufficientPaystackFloat(secretKey, tx))) {
-        throw new Error("PAYOUT_FLOAT_NOT_READY");
-      }
+      const duplicate = await tx.withdrawal.findUnique({
+        where: { reference },
+        select: { id: true, amount: true, fee: true, netAmount: true, status: true, reference: true, createdAt: true },
+      });
+      if (duplicate) return { withdrawal: duplicate, remainingBalance: null, duplicate: true };
+
       const wallet = await tx.wallet.findUnique({ where: { userId: user.id }, select: { balance: true } });
       if (!wallet) throw new Error("Wallet not found.");
       const available = Number(wallet.balance);
@@ -236,142 +127,54 @@ export async function POST(request: Request) {
           amount: normalizedAmount,
           fee,
           netAmount,
-          status: "PROCESSING",
+          status: "PENDING",
           reference,
           beneficiaryPhone,
-          recipientCode,
-          payoutReference,
-          processorStatus: "reserved",
-          initiatedAt: new Date(),
+          processorStatus: "queued",
         },
-        select: { id: true, amount: true, fee: true, netAmount: true, status: true, reference: true, createdAt: true, payoutReference: true },
+        select: { id: true, amount: true, fee: true, netAmount: true, status: true, reference: true, createdAt: true },
       });
 
-      await tx.ledgerEntry.create({
-        data: {
-          ownerType: "MEMBER", userId: user.id, amount: -fee, type: "WITHDRAWAL_FEE",
-          reference: reference + "-fee-member",
-          description: "0.50% Corevia withdrawal fee on " + reference,
-        },
-      });
-      await tx.ledgerEntry.create({
-        data: {
-          ownerType: "COREVIA", amount: fee, type: "WITHDRAWAL_FEE",
-          reference: reference + "-fee-corevia",
-          description: "0.50% withdrawal fee earned by Corevia. Till " + COREVIA_TILL_NUMBER,
-        },
-      });
-      // Record the actual member funds sent to Paystack separately from the fee.
-      // Together, principal and fee reconcile exactly to the gross wallet debit.
-      await tx.ledgerEntry.create({
-        data: {
-          ownerType: "MEMBER", userId: user.id, amount: -netAmount, type: "WITHDRAWAL",
-          reference: reference + "-payout-principal-member",
-          description: "Member wallet funds reserved for Paystack M-PESA payout " + payoutReference,
-        },
+      await tx.ledgerEntry.createMany({
+        data: [
+          {
+            ownerType: "MEMBER", userId: user.id, amount: -fee, type: "WITHDRAWAL_FEE",
+            reference: reference + "-fee-member",
+            description: "0.50% Corevia withdrawal fee on " + reference,
+          },
+          {
+            ownerType: "COREVIA", amount: fee, type: "WITHDRAWAL_FEE",
+            reference: reference + "-fee-corevia",
+            description: "0.50% withdrawal fee earned by Corevia. Till 6959300",
+          },
+          {
+            ownerType: "MEMBER", userId: user.id, amount: -netAmount, type: "WITHDRAWAL",
+            reference: reference + "-payout-principal-member",
+            description: "Member wallet funds reserved for queued M-PESA withdrawal " + reference,
+          },
+        ],
       });
       await tx.walletTransaction.create({
         data: {
           userId: user.id, type: "WITHDRAWAL", status: "PENDING", amount: normalizedAmount,
           reference: reference + "-wallet",
-          description: "Paystack M-PESA payout " + reference,
+          description: "Queued M-PESA withdrawal " + reference + "; awaiting payout processing",
         },
       });
-      return { withdrawal, remainingBalance: available - normalizedAmount };
-    });
-
-    let transferResponse: Response;
-    let transferPayload: { status?: boolean; message?: string; data?: { status?: string; transfer_code?: string } } | null;
-    try {
-      transferResponse = await fetch("https://api.paystack.co/transfer", {
-        method: "POST",
-        headers: { Authorization: "Bearer " + secretKey, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: "balance",
-          amount: Math.round(netAmount * 100),
-          recipient: recipientCode,
-          reference: payoutReference,
-          currency: "KES",
-          reason: "Corevia Network member wallet withdrawal",
-        }),
-        cache: "no-store",
-        signal: AbortSignal.timeout(20000),
-      });
-      transferPayload = await transferResponse.json().catch(() => null);
-    } catch (error) {
-      console.error("Paystack transfer response is ambiguous:", error);
-      return NextResponse.json({
-        status: true,
-        message: "Your payout request is reserved and awaiting Paystack confirmation. Do not submit it again.",
-        withdrawal: reserved.withdrawal,
-        remainingBalance: reserved.remainingBalance,
-      }, { status: 202 });
-    }
-
-    if (transferResponse.status >= 500) {
-      console.error("Paystack transfer server response is ambiguous:", transferResponse.status);
-      return NextResponse.json({
-        status: true,
-        message: "Your payout is awaiting provider reconciliation. Do not submit it again.",
-        withdrawal: reserved.withdrawal,
-        remainingBalance: reserved.remainingBalance,
-      }, { status: 202 });
-    }
-
-    if (!transferResponse.ok || transferPayload?.status !== true || !transferPayload?.data) {
-      const providerMessage = String(transferPayload?.message ?? "Paystack rejected the transfer.");
-      await prisma.$transaction(async (tx) => {
-        const changed = await tx.withdrawal.updateMany({
-          where: { id: reserved.withdrawal.id, status: "PROCESSING" },
-          data: { status: "FAILED", processorStatus: "rejected", settledAt: new Date(), processedAt: new Date() },
-        });
-        if (changed.count !== 1) return;
-        await tx.wallet.update({ where: { userId: user.id }, data: { balance: { increment: normalizedAmount } } });
-        await tx.ledgerEntry.create({
-          data: {
-            ownerType: "MEMBER", userId: user.id, amount: normalizedAmount, type: "ADJUSTMENT",
-            reference: reference + "-payout-refund-member",
-            description: "Refund of rejected Paystack payout " + payoutReference,
-          },
-        });
-        await tx.ledgerEntry.create({
-          data: {
-            ownerType: "COREVIA", amount: -fee, type: "ADJUSTMENT",
-            reference: reference + "-payout-refund-corevia",
-            description: "Reverse Corevia fee for rejected payout " + payoutReference,
-          },
-        });
-        await tx.walletTransaction.updateMany({
-          where: { reference: reference + "-wallet", status: "PENDING" },
-          data: { status: "FAILED", completedAt: new Date() },
-        });
-      });
-      return NextResponse.json({ error: "Paystack rejected the payout: " + providerMessage + ". The wallet reservation has been restored." }, { status: 502 });
-    }
-
-    await prisma.withdrawal.updateMany({
-      where: { id: reserved.withdrawal.id, status: "PROCESSING" },
-      data: {
-        processorStatus: String(transferPayload.data.status ?? "pending"),
-        transferCode: typeof transferPayload.data.transfer_code === "string" ? transferPayload.data.transfer_code : undefined,
-        initiatedAt: new Date(),
-      },
+      return { withdrawal, remainingBalance: available - normalizedAmount, duplicate: false };
     });
 
     return NextResponse.json({
       status: true,
-      message: "Paystack accepted the M-PESA payout. Final settlement will be confirmed by Paystack's signed webhook.",
-      withdrawal: reserved.withdrawal,
-      remainingBalance: reserved.remainingBalance,
+      message: queued.duplicate
+        ? "This withdrawal request has already been received and remains pending."
+        : "Your withdrawal request has been received and reserved. Its status is Pending; no M-PESA payment has been sent yet.",
+      withdrawal: queued.withdrawal,
+      remainingBalance: queued.remainingBalance,
     }, { status: 202 });
   } catch (error) {
     console.error("Withdrawal request error:", error);
     const message = error instanceof Error ? error.message : "Unable to submit withdrawal request.";
-    if (message === "PAYOUT_FLOAT_NOT_READY") {
-      return NextResponse.json({
-        error: "Paystack's available KES balance is not sufficient for member wallet liabilities and in-flight payouts. Your wallet has not been debited.",
-      }, { status: 503 });
-    }
     return NextResponse.json({ error: message }, { status: 400 });
   }
 }
