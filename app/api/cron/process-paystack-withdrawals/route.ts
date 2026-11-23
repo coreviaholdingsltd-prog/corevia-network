@@ -193,7 +193,10 @@ export async function GET(request: Request) {
       }
 
       if (!response.ok || payload?.status !== true || !payload.data?.reference) {
-        if (response.status >= 400 && response.status < 500 && payload?.status === false) {
+        const providerMessage = String(payload?.message ?? "").toLowerCase();
+        const duplicateReference = providerMessage.includes("reference") &&
+          (providerMessage.includes("already") || providerMessage.includes("exist") || providerMessage.includes("duplicate"));
+        if (response.status >= 400 && response.status < 500 && payload?.status === false && !duplicateReference) {
           const refunded = await applyPaystackTransferOutcome(tx, {
             id: candidate.id,
             userId: candidate.userId,
@@ -203,6 +206,9 @@ export async function GET(request: Request) {
           }, "failed");
           return { outcome: "provider_rejected", reference: payoutReference, refunded: refunded.refunded === true };
         }
+        // A duplicate reference can mean a prior request succeeded but its
+        // database commit was interrupted. Keep PROCESSING and verify by the
+        // deterministic reference instead of refunding or submitting again.
         return { outcome: "provider_response_ambiguous_reconcile_by_reference", reference: payoutReference };
       }
 
