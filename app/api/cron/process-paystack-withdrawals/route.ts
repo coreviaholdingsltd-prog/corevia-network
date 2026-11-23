@@ -66,7 +66,7 @@ export async function GET(request: Request) {
       if (unresolved) return { skipped: "existing_member_transfer_requires_reconciliation", reference: unresolved.reference };
 
       const candidate = await tx.withdrawal.findFirst({
-        where: { status: "PENDING", payoutReference: null },
+        where: { status: "PENDING", payoutReference: null, OR: [{ processorStatus: null }, { processorStatus: "queued" }] },
         orderBy: { createdAt: "asc" },
         select: {
           id: true, userId: true, amount: true, fee: true, netAmount: true,
@@ -79,32 +79,18 @@ export async function GET(request: Request) {
       const amount = money(candidate.amount);
       const netAmount = money(candidate.netAmount);
       const phone = String(candidate.beneficiaryPhone ?? "");
-      if (!Number.isFinite(amount) || amount < 500 || !Number.isFinite(netAmount) ||
-          netAmount <= 0 || !/^254[17]\\d{8}$/.test(phone)) {
+      const fee = money(candidate.fee);
+      if (!Number.isFinite(amount) || amount < 500 || !Number.isFinite(fee) ||
+          fee < 0 || !Number.isFinite(netAmount) || netAmount <= 0 ||
+          Math.abs(amount - fee - netAmount) > 0.01 ||
+          !/^254[17]\\d{8}$/.test(phone)) {
+        // Do not guess a refund amount from a malformed financial record.
+        // Quarantine it for reconciliation; never send it to the provider.
         await tx.withdrawal.updateMany({
           where: { id: candidate.id, status: "PENDING" },
-          data: { status: "REJECTED", processorStatus: "invalid_queue_record", settledAt: new Date(), processedAt: new Date() },
+          data: { processorStatus: "invalid_queue_record_manual_review" },
         });
-        await tx.wallet.update({ where: { userId: candidate.userId }, data: { balance: { increment: amount } } });
-        await tx.ledgerEntry.create({
-          data: {
-            ownerType: "MEMBER", userId: candidate.userId, amount,
-            type: "ADJUSTMENT", reference: candidate.reference + "-invalid-queue-refund",
-            description: "Refund for invalid queued withdrawal record.",
-          },
-        });
-        await tx.ledgerEntry.create({
-          data: {
-            ownerType: "COREVIA", amount: -money(candidate.fee),
-            type: "ADJUSTMENT", reference: candidate.reference + "-invalid-queue-fee-reversal",
-            description: "Reverse Corevia fee for invalid queued withdrawal record.",
-          },
-        });
-        await tx.walletTransaction.updateMany({
-          where: { reference: candidate.reference + "-wallet", status: "PENDING" },
-          data: { status: "FAILED", completedAt: new Date() },
-        });
-        return { outcome: "invalid_request_refunded", reference: candidate.reference };
+        return { skipped: "invalid_queue_record_manual_review", reference: candidate.reference };
       }
 
       const [balanceResponse, walletLiabilities, pendingPayouts, queuedTill] = await Promise.all([
