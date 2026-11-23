@@ -83,7 +83,7 @@ export async function GET(request: Request) {
       if (!Number.isFinite(amount) || amount < 500 || !Number.isFinite(fee) ||
           fee < 0 || !Number.isFinite(netAmount) || netAmount <= 0 ||
           Math.abs(amount - fee - netAmount) > 0.01 ||
-          !/^254[17]\\d{8}$/.test(phone)) {
+          !/^254[17]\d{8}$/.test(phone)) {
         // Do not guess a refund amount from a malformed financial record.
         // Quarantine it for reconciliation; never send it to the provider.
         await tx.withdrawal.updateMany({
