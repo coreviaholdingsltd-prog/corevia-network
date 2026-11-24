@@ -1,6 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { isPaystackPayoutEnabled, isPayoutLifecycleVerified, evaluatePaystackFloat } from "../lib/paystack-payout-guard.mjs";
+import {
+  isPaystackPayoutEnabled,
+  isPayoutLifecycleVerified,
+  isPaystackPreviewTestMode,
+  evaluatePaystackFloat,
+} from "../lib/paystack-payout-guard.mjs";
 
 const enabledEnvironment = {
   COREVIA_WITHDRAWALS_ENABLED: "true",
@@ -38,14 +43,28 @@ test("payout flags require the exact string true", () => {
   assert.equal(isPaystackPayoutEnabled(env, true), false);
 });
 
-
-test("payout lifecycle approval requires the exact explicit production flag", () => {
+test("payout lifecycle approval requires the exact explicit flag", () => {
   assert.equal(isPayoutLifecycleVerified({}), false);
   assert.equal(isPayoutLifecycleVerified({ COREVIA_PAYOUT_LIFECYCLE_VERIFIED: "false" }), false);
   assert.equal(isPayoutLifecycleVerified({ COREVIA_PAYOUT_LIFECYCLE_VERIFIED: "TRUE" }), false);
   assert.equal(isPayoutLifecycleVerified({ COREVIA_PAYOUT_LIFECYCLE_VERIFIED: "true" }), true);
 });
 
+test("Preview sandbox mode requires Preview, explicit test mode, and a test key", () => {
+  const env = { COREVIA_PAYOUT_TEST_MODE_ENABLED: "true" };
+  assert.equal(isPaystackPreviewTestMode(env, "preview", "sk_test_example"), true);
+  assert.equal(isPaystackPreviewTestMode(env, "production", "sk_test_example"), false);
+  assert.equal(isPaystackPreviewTestMode(env, "preview", "sk_live_example"), false);
+  assert.equal(isPaystackPreviewTestMode({ ...env, COREVIA_PAYOUT_TEST_MODE_ENABLED: "false" }, "preview", "sk_test_example"), false);
+  assert.equal(isPaystackPreviewTestMode(env, undefined, "sk_test_example"), false);
+});
+
+test("Preview sandbox exception does not override the operational payout flags", () => {
+  const sandboxEnv = { ...enabledEnvironment, COREVIA_PAYOUT_TEST_MODE_ENABLED: "true" };
+  const sandboxApproved = isPaystackPreviewTestMode(sandboxEnv, "preview", "sk_test_example");
+  assert.equal(isPaystackPayoutEnabled(sandboxEnv, sandboxApproved), true);
+  assert.equal(isPaystackPayoutEnabled({ ...sandboxEnv, COREVIA_PAYSTACK_FLOAT_READY: "false" }, sandboxApproved), false);
+});
 
 test("Paystack float must cover member wallets and in-flight payouts", () => {
   assert.deepEqual(evaluatePaystackFloat({
