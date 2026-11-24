@@ -2,6 +2,9 @@ name: Corevia Preview payout lifecycle test
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
