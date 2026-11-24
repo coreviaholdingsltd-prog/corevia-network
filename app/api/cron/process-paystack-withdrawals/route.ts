@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { applyPaystackTransferOutcome } from "@/lib/paystack-transfer-settlement";
 import { evaluateCoreviaTillFloat } from "@/lib/corevia-till-settlement";
-import { isPaystackPayoutEnabled, isPayoutLifecycleVerified } from "@/lib/paystack-payout-guard.mjs";
+import {
+  isPaystackPayoutEnabled,
+  isPayoutLifecycleVerified,
+  isPaystackPreviewTestMode,
+} from "@/lib/paystack-payout-guard.mjs";
 import { isPaystackKeyCompatibleWithDeployment } from "@/lib/paystack-key-environment.mjs";
 
 export const runtime = "nodejs";
@@ -25,11 +29,11 @@ const money = (value: unknown) => Math.round(Number(value) * 100) / 100;
 
 /**
  * Process at most one queued member withdrawal per invocation.
- * This worker is deliberately inert unless every payout lifecycle switch is
- * enabled, the deployment has a live Paystack key, and the protected float
- * check passes. A transfer with an ambiguous provider response stays
- * PROCESSING and is reconciled by its deterministic reference; it is never
- * blindly submitted a second time.
+ * Production requires explicit lifecycle approval. Preview may run only an
+ * isolated Paystack sandbox test when VERCEL_ENV=preview, the dedicated
+ * test-mode switch is true, and the configured key is a compatible sk_test
+ * key. Every operational flag and the protected-float check still apply.
+ * Ambiguous provider responses remain PROCESSING for reconciliation.
  */
 export async function GET(request: Request) {
   const cronSecret = process.env.CRON_SECRET;
@@ -37,14 +41,25 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
   }
 
-  if (!isPaystackPayoutEnabled(process.env, isPayoutLifecycleVerified(process.env))) {
-    return NextResponse.json({ enabled: false, message: "Member payout processor is disabled by operational safeguards." });
+  const secretKey = process.env.PAYSTACK_SECRET_KEY;
+  const deploymentEnv = process.env.VERCEL_ENV;
+  const keyCompatible = Boolean(secretKey) &&
+    isPaystackKeyCompatibleWithDeployment(deploymentEnv, secretKey!);
+  const previewTestMode = keyCompatible &&
+    isPaystackPreviewTestMode(process.env, deploymentEnv, secretKey);
+  const lifecycleApproved = isPayoutLifecycleVerified(process.env) || previewTestMode;
+
+  if (!isPaystackPayoutEnabled(process.env, lifecycleApproved)) {
+    return NextResponse.json({
+      enabled: false,
+      mode: previewTestMode ? "preview_test" : "production",
+      message: "Member payout processor is disabled by operational safeguards.",
+    });
   }
 
-  const secretKey = process.env.PAYSTACK_SECRET_KEY;
   const feeReserve = Number(process.env.COREVIA_TILL_TRANSFER_FEE_RESERVE_KSH);
-  if (!secretKey || !isPaystackKeyCompatibleWithDeployment(process.env.VERCEL_ENV, secretKey)) {
-    return NextResponse.json({ error: "A live Paystack key compatible with this deployment is required." }, { status: 503 });
+  if (!secretKey || !keyCompatible) {
+    return NextResponse.json({ error: "A Paystack key compatible with this deployment is required." }, { status: 503 });
   }
   if (!Number.isFinite(feeReserve) || feeReserve <= 0) {
     return NextResponse.json({ error: "A positive transfer-fee reserve is required." }, { status: 503 });
@@ -84,8 +99,6 @@ export async function GET(request: Request) {
           fee < 0 || !Number.isFinite(netAmount) || netAmount <= 0 ||
           Math.abs(amount - fee - netAmount) > 0.01 ||
           !/^254[17]\d{8}$/.test(phone)) {
-        // Do not guess a refund amount from a malformed financial record.
-        // Quarantine it for reconciliation; never send it to the provider.
         await tx.withdrawal.updateMany({
           where: { id: candidate.id, status: "PENDING" },
           data: { processorStatus: "invalid_queue_record_manual_review" },
@@ -206,9 +219,6 @@ export async function GET(request: Request) {
           }, "failed");
           return { outcome: "provider_rejected", reference: payoutReference, refunded: refunded.refunded === true };
         }
-        // A duplicate reference can mean a prior request succeeded but its
-        // database commit was interrupted. Keep PROCESSING and verify by the
-        // deterministic reference instead of refunding or submitting again.
         return { outcome: "provider_response_ambiguous_reconcile_by_reference", reference: payoutReference };
       }
 
