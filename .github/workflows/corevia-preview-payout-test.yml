@@ -20,27 +20,30 @@ jobs:
     environment: Preview
     timeout-minutes: 3
     steps:
-      - name: Verify Preview scheduler secret is configured
+      - name: Verify Preview credentials are configured
         env:
           PREVIEW_CRON_SECRET: ${{ secrets.PREVIEW_CRON_SECRET }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
-          if [ -z "$PREVIEW_CRON_SECRET" ]; then
-            echo "::error::Add PREVIEW_CRON_SECRET to the GitHub Preview environment. It must match the Vercel Preview CRON_SECRET."
-            exit 1
-          fi
+          test -n "$PREVIEW_CRON_SECRET" || { echo "::error::PREVIEW_CRON_SECRET is missing"; exit 1; }
+          test -n "$VERCEL_AUTOMATION_BYPASS_SECRET" || { echo "::error::VERCEL_AUTOMATION_BYPASS_SECRET is missing from GitHub Preview environment"; exit 1; }
 
       - name: Reconcile Preview Paystack sandbox transfers
         env:
           PREVIEW_CRON_SECRET: ${{ secrets.PREVIEW_CRON_SECRET }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
           curl --fail-with-body --silent --show-error --max-time 45 \
             -H "Authorization: Bearer $PREVIEW_CRON_SECRET" \
+            -H "x-vercel-protection-bypass: $VERCEL_AUTOMATION_BYPASS_SECRET" \
             "https://corevia-network-ns04z612a-okerimaxwell8-2828.vercel.app/api/cron/reconcile-paystack-payouts"
 
       - name: Process at most one Preview sandbox withdrawal
         env:
           PREVIEW_CRON_SECRET: ${{ secrets.PREVIEW_CRON_SECRET }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
           curl --fail-with-body --silent --show-error --max-time 45 \
             -H "Authorization: Bearer $PREVIEW_CRON_SECRET" \
+            -H "x-vercel-protection-bypass: $VERCEL_AUTOMATION_BYPASS_SECRET" \
             "https://corevia-network-ns04z612a-okerimaxwell8-2828.vercel.app/api/cron/process-paystack-withdrawals"
