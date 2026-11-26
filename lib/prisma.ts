@@ -6,7 +6,7 @@ if (process.platform === "win32") {
   setDefaultResultOrder("ipv4first");
 }
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL;
 
 if (!connectionString) {
   throw new Error("DATABASE_URL is not configured for Prisma.");
