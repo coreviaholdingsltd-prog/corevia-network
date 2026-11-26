@@ -23,15 +23,15 @@ jobs:
       - name: Verify Preview credentials are configured
         env:
           PREVIEW_CRON_SECRET: ${{ secrets.PREVIEW_CRON_SECRET }}
-          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ vars.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
           test -n "$PREVIEW_CRON_SECRET" || { echo "::error::PREVIEW_CRON_SECRET is missing"; exit 1; }
-          test -n "$VERCEL_AUTOMATION_BYPASS_SECRET" || { echo "::error::VERCEL_AUTOMATION_BYPASS_SECRET is missing from GitHub Preview environment"; exit 1; }
+          test -n "$VERCEL_AUTOMATION_BYPASS_SECRET" || { echo "::error::VERCEL_AUTOMATION_BYPASS_SECRET is missing from GitHub Preview environment variables"; exit 1; }
 
       - name: Reconcile Preview Paystack sandbox transfers
         env:
           PREVIEW_CRON_SECRET: ${{ secrets.PREVIEW_CRON_SECRET }}
-          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ vars.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
           curl --fail-with-body --silent --show-error --max-time 45 \
             -H "Authorization: Bearer $PREVIEW_CRON_SECRET" \
@@ -41,7 +41,7 @@ jobs:
       - name: Process at most one Preview sandbox withdrawal
         env:
           PREVIEW_CRON_SECRET: ${{ secrets.PREVIEW_CRON_SECRET }}
-          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ vars.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
           curl --fail-with-body --silent --show-error --max-time 45 \
             -H "Authorization: Bearer $PREVIEW_CRON_SECRET" \
