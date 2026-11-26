@@ -36,7 +36,7 @@ jobs:
           curl --fail-with-body --silent --show-error --max-time 45 \
             -H "Authorization: Bearer $PREVIEW_CRON_SECRET" \
             -H "x-vercel-protection-bypass: $VERCEL_AUTOMATION_BYPASS_SECRET" \
-            "https://corevia-network-ns04z612a-okerimaxwell8-2828.vercel.app/api/cron/reconcile-paystack-payouts"
+            "https://corevia-network-git-main-okerimaxwell8-2828.vercel.app/api/cron/reconcile-paystack-payouts"
 
       - name: Process at most one Preview sandbox withdrawal
         env:
@@ -46,4 +46,4 @@ jobs:
           curl --fail-with-body --silent --show-error --max-time 45 \
             -H "Authorization: Bearer $PREVIEW_CRON_SECRET" \
             -H "x-vercel-protection-bypass: $VERCEL_AUTOMATION_BYPASS_SECRET" \
-            "https://corevia-network-ns04z612a-okerimaxwell8-2828.vercel.app/api/cron/process-paystack-withdrawals"
+            "https://corevia-network-git-main-okerimaxwell8-2828.vercel.app/api/cron/process-paystack-withdrawals"
