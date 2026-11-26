@@ -33,10 +33,15 @@ jobs:
           PREVIEW_CRON_SECRET: ${{ secrets.PREVIEW_CRON_SECRET }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ vars.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
-          curl --fail-with-body --silent --show-error --max-time 45 \
+          status=$(curl --silent --show-error --max-time 45 -o response.json -w "%{http_code}" \
             -H "Authorization: Bearer $PREVIEW_CRON_SECRET" \
             -H "x-vercel-protection-bypass: $VERCEL_AUTOMATION_BYPASS_SECRET" \
-            "https://corevia-network-git-main-okerimaxwell8-2828.vercel.app/api/cron/reconcile-paystack-payouts"
+            "https://corevia-network-git-main-okerimaxwell8-2828.vercel.app/api/cron/reconcile-paystack-payouts")
+          cat response.json
+          if [ "$status" -lt 200 ] || [ "$status" -ge 300 ]; then
+            echo "::error::Preview reconciliation returned HTTP $status"
+            exit 1
+          fi
 
       - name: Process at most one Preview sandbox withdrawal
         env:
