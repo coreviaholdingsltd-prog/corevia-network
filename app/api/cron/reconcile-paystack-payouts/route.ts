@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import type { Prisma } from "@/app/generated/prisma/client";
 import { applyPaystackTransferOutcome } from "@/lib/paystack-transfer-settlement";
 import { isPaystackKeyCompatibleWithDeployment } from "@/lib/paystack-key-environment.mjs";
 
@@ -37,8 +38,15 @@ export async function GET(request: Request) {
   const now = new Date();
   const staleBefore = new Date(now.getTime() - 2 * 60 * 1000);
   const reverifyBefore = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-  let processing: Awaited<ReturnType<typeof prisma.withdrawal.findMany>>;
-  let paidForReverification: Awaited<ReturnType<typeof prisma.withdrawal.findMany>>;
+  const candidateSelect = {
+    id: true, userId: true, amount: true, fee: true, netAmount: true,
+    status: true, reference: true, payoutReference: true,
+  } satisfies Prisma.WithdrawalSelect;
+  type ReconciliationWithdrawal = Prisma.WithdrawalGetPayload<{
+    select: typeof candidateSelect;
+  }>;
+  let processing: ReconciliationWithdrawal[];
+  let paidForReverification: ReconciliationWithdrawal[];
   try {
     [processing, paidForReverification] = await Promise.all([
       prisma.withdrawal.findMany({
@@ -49,10 +57,7 @@ export async function GET(request: Request) {
         },
         orderBy: { createdAt: "asc" },
         take: 25,
-        select: {
-          id: true, userId: true, amount: true, fee: true, netAmount: true,
-          status: true, reference: true, payoutReference: true,
-        },
+        select: candidateSelect,
       }),
       prisma.withdrawal.findMany({
         where: {
