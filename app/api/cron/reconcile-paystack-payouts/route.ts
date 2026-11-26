@@ -37,35 +37,49 @@ export async function GET(request: Request) {
   const now = new Date();
   const staleBefore = new Date(now.getTime() - 2 * 60 * 1000);
   const reverifyBefore = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-  const [processing, paidForReverification] = await Promise.all([
-    prisma.withdrawal.findMany({
-      where: {
-        status: "PROCESSING",
-        payoutReference: { not: null },
-        createdAt: { lte: staleBefore },
-      },
-      orderBy: { createdAt: "asc" },
-      take: 25,
-      select: {
-        id: true, userId: true, amount: true, fee: true, netAmount: true,
-        status: true, reference: true, payoutReference: true,
-      },
-    }),
-    prisma.withdrawal.findMany({
-      where: {
-        status: "PAID",
-        processorStatus: "success",
-        payoutReference: { not: null },
-        OR: [{ lastVerifiedAt: null }, { lastVerifiedAt: { lte: reverifyBefore } }],
-      },
-      orderBy: [{ lastVerifiedAt: "asc" }, { settledAt: "asc" }],
-      take: 25,
-      select: {
-        id: true, userId: true, amount: true, fee: true, netAmount: true,
-        status: true, reference: true, payoutReference: true,
-      },
-    }),
-  ]);
+  let processing: Awaited<ReturnType<typeof prisma.withdrawal.findMany>>;
+  let paidForReverification: Awaited<ReturnType<typeof prisma.withdrawal.findMany>>;
+  try {
+    [processing, paidForReverification] = await Promise.all([
+      prisma.withdrawal.findMany({
+        where: {
+          status: "PROCESSING",
+          payoutReference: { not: null },
+          createdAt: { lte: staleBefore },
+        },
+        orderBy: { createdAt: "asc" },
+        take: 25,
+        select: {
+          id: true, userId: true, amount: true, fee: true, netAmount: true,
+          status: true, reference: true, payoutReference: true,
+        },
+      }),
+      prisma.withdrawal.findMany({
+        where: {
+          status: "PAID",
+          processorStatus: "success",
+          payoutReference: { not: null },
+          OR: [{ lastVerifiedAt: null }, { lastVerifiedAt: { lte: reverifyBefore } }],
+        },
+        orderBy: [{ lastVerifiedAt: "asc" }, { settledAt: "asc" }],
+        take: 25,
+        select: {
+          id: true, userId: true, amount: true, fee: true, netAmount: true,
+          status: true, reference: true, payoutReference: true,
+        },
+      }),
+    ]);
+  } catch (error) {
+    const diagnostic = error as { name?: string; code?: string };
+    console.error("Paystack reconciliation database lookup failed:", {
+      name: diagnostic?.name ?? "UnknownError",
+      code: diagnostic?.code ?? "unknown",
+    });
+    return NextResponse.json(
+      { error: "Reconciliation data lookup failed.", code: diagnostic?.code ?? null },
+      { status: 503 },
+    );
+  }
 
   const candidates = [...processing, ...paidForReverification];
   const outcomes: Array<{ reference: string; outcome: string }> = [];
