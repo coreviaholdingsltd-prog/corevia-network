@@ -25,6 +25,7 @@ jobs:
           PREVIEW_CRON_SECRET: ${{ secrets.PREVIEW_CRON_SECRET }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ vars.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
+          echo "::add-mask::$VERCEL_AUTOMATION_BYPASS_SECRET"
           test -n "$PREVIEW_CRON_SECRET" || { echo "::error::PREVIEW_CRON_SECRET is missing"; exit 1; }
           test -n "$VERCEL_AUTOMATION_BYPASS_SECRET" || { echo "::error::VERCEL_AUTOMATION_BYPASS_SECRET is missing from GitHub Preview environment variables"; exit 1; }
 
@@ -33,6 +34,7 @@ jobs:
           PREVIEW_CRON_SECRET: ${{ secrets.PREVIEW_CRON_SECRET }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ vars.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
+          echo "::add-mask::$VERCEL_AUTOMATION_BYPASS_SECRET"
           status=$(curl --silent --show-error --max-time 45 -o response.json -w "%{http_code}" \
             -H "Authorization: Bearer $PREVIEW_CRON_SECRET" \
             -H "x-vercel-protection-bypass: $VERCEL_AUTOMATION_BYPASS_SECRET" \
@@ -48,6 +50,7 @@ jobs:
           PREVIEW_CRON_SECRET: ${{ secrets.PREVIEW_CRON_SECRET }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ vars.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
+          echo "::add-mask::$VERCEL_AUTOMATION_BYPASS_SECRET"
           curl --fail-with-body --silent --show-error --max-time 45 \
             -H "Authorization: Bearer $PREVIEW_CRON_SECRET" \
             -H "x-vercel-protection-bypass: $VERCEL_AUTOMATION_BYPASS_SECRET" \
